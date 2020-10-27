@@ -1,0 +1,15 @@
+# specify the language of the project
+# https://devhints.io/travis
+# https://docs.travis-ci.com/user/languages/javascript-with-nodejs/
+language: node_js
+node_js:
+  - lts/*
+
+# https://docs.travis-ci.com/user/job-lifecycle#the-job-lifecycle
+install: ./travis_install.sh
+
+# this section performs the testing
+script: ./travis_script.sh
+
+after_success: ./travis_after_success.sh
+
