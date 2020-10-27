@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 app.use(cors())
 
-app.use(express.static('../frontend/build/static/'))
+app.use(express.static('../frontend/build/'))
 app.use('/api', routes)
 
 app.listen(PORT, function (){
