@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './commons/containers/App';
-import store from './store';
-import { Provider } from 'react-redux';
+import App from './App';
 import * as serviceWorker from './utils/serviceWorker';
 
 require('dotenv').config()
