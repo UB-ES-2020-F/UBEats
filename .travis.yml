@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - lts/*
+branches:
+  only:
+    - main
 env:
   global:
     - SH=bash CI=false
