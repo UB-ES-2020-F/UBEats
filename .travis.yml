@@ -1,12 +1,12 @@
 language: node_js
 node_js:
-  - lts/*
+- lts/*
 branches:
   only:
-    - main
+  - main
 env:
   global:
-    - SH=bash CI=false
+  - SH=bash CI=false
 install: "./travis_install.sh"
 script: "./travis_script.sh"
 after_success: "./travis_after_success.sh"
@@ -18,3 +18,6 @@ deploy:
   on:
     repo: UB-ES-2020/UBEats
     branch: main
+notifications:
+  slack:
+    secure: dQsFXw3gn75M4pP6KUpYxnk3wZPZUhsu55y8Sq1tA+l2lVe9VndomwgBo/X0Rrf6+Kgzxz67BGnctUc0U0uaCgvCx8vMjSaTA24ltVACBylM/ua8TJxFENI3+SyRyOW8DphW6gEzu/rkoudm7s9AuCRQm6k87dYAJToh4OBNaMMvbboHehJ0OTOCd1AxO2aoTBJYsiwXXjpGybTKdR84z3VR6VG0NYNaSNsAUxUyV6MIYw/wGIh+cqi1dVhqBGJTN6VeDDYeZtbo5lFDorJp8sG1PDHpoXwPUGdEbRUq+37AfxqqmrHKV+h2eswveDYGhI9DoSx1iUoitTmqHH3lxCNM1y9hb2M3n8jhSLoMH9MhsN5vsLBz/bvvCGWTfZPQpLlUy0kjejWktK6kTSF+73SveU85rgd4QnnOS7lfhex6Zy/mx8OBOAcM9Kg+voFGhL8LUAWgZoipWLSeHvLNrR49hQ/L+pCFaX7AXmzwhBFXU13TSTw5ySWiwAZgtjyDVkHzvdTT7zofwX6Zta9TtTAk/clIRJ2cSIQrQyc3LuEdgBHQpbaxA6yzXqtknfhprYKpnBBqEpDCxE4HyqQ/3z3hU3WifQYYSlO++5iHqySrlnyNJtkWHyZvOsVI34DPC+p62J4NYiqZmQiGiqekxNruHjCTKu+zpsPmCMbMBlc=
