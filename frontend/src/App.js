@@ -5,6 +5,7 @@ import RegisterClient from './pages/RegisterClient/RegisterClient.js';
 import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js';
 import Nav from './commons/components/Nav.js';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import ProfileClient from './pages/ProfileClient/ProfileClient';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path='/login' component={Login}/>
           <Route path='/registerclient' component={RegisterClient}/>
           <Route path='/registerrestaurant' component={RegisterRestaurant}/>
+          <Route path='/profileclient' component={ProfileClient}/>
         </Switch>
       </div>
     </Router>
