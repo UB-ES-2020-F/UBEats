@@ -9,6 +9,8 @@ const router = express.Router()
  * LOGIN  
  */
 //Customer
+router.post('/customer/login',Users.login)
+router.post('/restaurant/register',Users.register)
 
 //Restaurant
 router.post('/restaurant/login',Users.login)
