@@ -1,6 +1,18 @@
 const users = require('../services/users')
 const sch_users = require('../services/users')
 
+/**
+ * [JUST FOR DEBUG PURPOSES]
+ * Method called to get all the users in the database
+ * @param {} req
+ * @param {*} res
+ */
+async function _get_all_users(req, res){
+    const {body} = req
+    const all_users = await sch_users.getUsers()
+    if(!all_users) return res.status(404).send({"message":"no users found"})
+    return res.status(200).send({all_users})
+}
 
 /**
  * Method called to log in using a email
@@ -34,4 +46,4 @@ async function register(req, res){
     return res.status(200).send({user}) 
 }
 
-module.exports = { login, register }
+module.exports = { login, register, _get_all_users }
