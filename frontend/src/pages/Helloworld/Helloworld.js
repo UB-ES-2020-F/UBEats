@@ -1,8 +1,9 @@
 import React from 'react';
-import GreetDev from '../components/GreetDev';
+import GreetDev from '../../commons/components/GreetDev';
 
 
-function App() {
+
+function Helloworld() {
   var devs = ['Albert C.', 'Hector A.', 'Oriol A.', 'Ruben B.', 'Samu R.', 'Daniel R.'];
   return (
     <div>
@@ -12,4 +13,4 @@ function App() {
   );
 }
 
-export default App;
+export default Helloworld;
