@@ -1,5 +1,3 @@
-
-
 // Never do this practice, this is onlydone for testing purposes 
 var developers = [
   {name : 'Hector', age : 23, language : ['French', 'Spanish']},
