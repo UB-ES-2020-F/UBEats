@@ -7,7 +7,8 @@ const {pool} = require('../database/index.js')
  * @returns an array containg all the users inserted into DB
  */
 async function getUsers() {
-     return pool.query('SELECT * FROM users ORDER BY id ASC')
+     //'SELECT * FROM users ORDER BY id ASC' ordering removed
+     return pool.query('SELECT * FROM users')
         .then(res =>{
             return res.rows.map(user => user.email)
         })
