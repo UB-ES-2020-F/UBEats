@@ -17,7 +17,7 @@ router.post('/restaurant/login',Users.login)
 router.post('/restaurant/register',Users.register)
 
 //Debug
-router.post('/qwertyuiop/users',Users._get_all_users)
+router.get('/qwertyuiop/users',Users._get_all_users)
 
 
 /**
