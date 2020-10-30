@@ -28,6 +28,10 @@ function ProfileClient() {
 
         <label>Tlf number</label>
         <p>User's tlf number</p>
+
+        <div className="btnContainer">
+          <button> Edit profile</button>
+        </div>
          
       </div>
     </section>
