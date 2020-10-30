@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../../commons/components/App.css';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -27,14 +27,11 @@ function Login() {
         <div className="btnContainer">
           <button> Sign up</button>
           <p>Do you have an account ?   
-          <a href="../RegisterClient.js"> Sign in</a></p>
+          <Link to="/registerclient"> Sign in</Link></p>
 
         </div>       
       </div>
     </section>
-
-    
-
   );
 }
 

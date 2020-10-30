@@ -1,14 +1,14 @@
 import React from 'react';
-import './App.css';
+import '../../commons/components/App.css';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
-function RegisterRest() {
+function RegisterClient() {
   return (
     <section className="login">
       <div className="loginContainer">
-        <label>Username</label>
+        <label>Name</label>
         <input
         type="text"
         autoFocus
@@ -25,6 +25,14 @@ function RegisterRest() {
         <p className="errorMsg"></p>
 
         <label>Password</label>
+        <input
+        type="text"
+        autoFocus
+        required
+        ></input>
+        <p className="errorMsg"></p>
+
+        <label>DNI</label>
         <input
         type="text"
         autoFocus
@@ -51,9 +59,9 @@ function RegisterRest() {
         <div className="btnContainer">
           <button> Sign up</button>
           <p>Do you have an account ?   
-          <a href="../Login.js">Sign in</a></p>
-          <p>Do you want to register as a client ?  
-          <a href="../RegisterClient.js">Sign up</a></p>
+          <Link to="./login">Sign in</Link></p>
+          <p>Do you want to register as a restaurant ?   
+          <Link to="/registerrestaurant">Sign up</Link></p>
         </div>       
       </div>
     </section>
@@ -63,4 +71,4 @@ function RegisterRest() {
   );
 }
 
-export default RegisterRest;
+export default RegisterClient;

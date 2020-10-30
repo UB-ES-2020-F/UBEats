@@ -1,14 +1,14 @@
 import React from 'react';
-import './App.css';
+import '../../commons/components/App.css';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
-function RegisterClient() {
+function RegisterRestaurant() {
   return (
     <section className="login">
       <div className="loginContainer">
-        <label>Name</label>
+        <label>Username</label>
         <input
         type="text"
         autoFocus
@@ -25,14 +25,6 @@ function RegisterClient() {
         <p className="errorMsg"></p>
 
         <label>Password</label>
-        <input
-        type="text"
-        autoFocus
-        required
-        ></input>
-        <p className="errorMsg"></p>
-
-        <label>DNI</label>
         <input
         type="text"
         autoFocus
@@ -59,16 +51,13 @@ function RegisterClient() {
         <div className="btnContainer">
           <button> Sign up</button>
           <p>Do you have an account ?   
-          <a href="../Login.js">Sign in</a></p>
-          <p>Do you want to register as a restaurant ?   
-          <a href="../RegisterRest.js">Sign up</a></p>
+          <Link to='/login'>Sign in</Link></p>
+          <p>Do you want to register as a client ?  
+          <Link to="/registerclient">Sign up</Link></p>
         </div>       
       </div>
     </section>
-
-    
-
   );
 }
 
-export default RegisterClient;
+export default RegisterRestaurant;
