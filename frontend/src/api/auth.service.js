@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL_DEV = "http://localhost:3000/api/";
-const API_URL_BUILD = "http://ub-gei-es-ubeats-clone.herokuapp.com:3000/api/";
+const API_URL_BUILD = "http://ub-gei-es-ubeats-clone.herokuapp.com/api/";
 const API_URL = API_URL_BUILD;
 
 const register = (name, email, password, type) => {
