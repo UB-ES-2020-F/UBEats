@@ -61,6 +61,12 @@
     color: #fff;
     letter-spacing: 1px;
   }
+
+  .login .loginContainer p {
+    margin: 14px 0 0 0;
+    text-align: right;
+    color: #fff;
+  }
   
   .login .loginContainer .btnContainer {
     width: 100%;

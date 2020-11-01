@@ -51,7 +51,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
-  const user_type = 'restaurant' // customer, restaurant, deliveryman
+  const user_type = 'deliveryman' // customer, restaurant, deliveryman
   const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
 
@@ -133,11 +133,11 @@ const Register = () => {
             <p>Do you have an account?
               <Link to="./login"> Sign in</Link>
             </p>
+            <p>Do you want to register as a client?
+              <Link to="/registerclient"> Sign up</Link>
+            </p>
             <p>Do you want to register as a restaurant?
               <Link to="/registerrestaurant"> Sign up</Link>
-            </p>
-            <p>Do you want to register as a deliveryman?
-              <Link to="/registerdeliveryman"> Sign up</Link>
             </p>
           </div>   
           {message && (
@@ -151,6 +151,9 @@ const Register = () => {
         </Form>    
       </div>
     </section>
+
+    
+
   );
 }
 
