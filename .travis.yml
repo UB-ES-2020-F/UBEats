@@ -6,8 +6,12 @@ branches:
   - main
 env:
   global:
-  - SH=bash CI=false
+    # CI=true -> warnings handled as errors
+  - SH=bash CI=false PGPORT=5432 PORT=5432 DB_PORT=5432 DB_USER=postgres DB_HOST=localhost DB_DATABASE=ubereats DB_PWD=""
+services:
+  - postgresql
 install: "./travis_install.sh"
+before_script: "./travis_database.sh"
 script: "./travis_script.sh"
 after_success: "./travis_after_success.sh"
 deploy:
