@@ -4,7 +4,7 @@
   "description": "Backend Ubereats Replica Project. ",
   "main": "index.js",
   "scripts": {
-    "test": "mocha  ",
+    "test": "mocha  -c --exit",
     "start": "node index.js"
   },
   "repository": {
