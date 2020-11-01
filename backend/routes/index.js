@@ -8,9 +8,13 @@ const router = express.Router()
 /**
  * LOGIN  
  */
+
+router.post('/login',Users.login)
+router.post('/register',Users.register)
+
 //Customer
 router.post('/customer/login',Users.login)
-router.post('/restaurant/register',Users.register)
+router.post('/customer/register',Users.register)
 
 //Restaurant
 router.post('/restaurant/login',Users.login)
