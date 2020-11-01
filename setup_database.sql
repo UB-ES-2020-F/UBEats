@@ -1,7 +1,6 @@
 --DROP DATABASE IF EXISTS ubereats;
 CREATE DATABASE ubereats;
 \connect ubereats;
-​
 CREATE TYPE tipo_user AS ENUM ('restaurant','deliveryman','customer');
 CREATE TABLE "users" (
 "email" VARCHAR(50) NOT NULL,
@@ -10,7 +9,7 @@ CREATE TABLE "users" (
 "street" VARCHAR(200) NOT NULL,
 "pass" VARCHAR(50) NOT NULL,
 "phone" VARCHAR(20) NOT NULL,
-"tipo"  tipo_user NOT NULL,
+"tipo" tipo_user NOT NULL,
 Constraint "user_pkey" Primary Key ("email")
 );
 CREATE TYPE avaliability_rest AS ENUM ('verde','amarillo','naranja','rojo');
@@ -41,7 +40,7 @@ CREATE TABLE "customers" (
 Constraint "customer_pkey" Primary Key ("email"),
 Constraint "customer_fkey_user" Foreign Key ("email") References "users"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
-);​
+);
 INSERT INTO "users" VALUES
 ('rrr@gmail.com','Rrr','33333330E','calle perdida alejada de todo, numero 30, barcelona','12344','609773493','restaurant'),
 ('rub@gmail.com','Rub','33343330E','calle perdida alejada de todo, numero 35, barcelona','1234666','60985996','deliveryman'),
