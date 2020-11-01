@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider} from 'react-redux';
 import App from './App';
-import allReducer from './reducers/index';
 import * as serviceWorker from './utils/serviceWorker';
 import Store from './store'
 
@@ -12,9 +11,7 @@ const store = Store;
 
 ReactDOM.render(
   <Provider store = {store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </Provider>,
   document.getElementById('root')
 );
