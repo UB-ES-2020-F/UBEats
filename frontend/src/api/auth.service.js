@@ -18,7 +18,7 @@ const login = (email, password) => {
     .post(API_URL + "login", {
       email,
       password,
-    }, {"Access-Control-Allow-Origin" : "http://localhost:3000/api/"})
+    }, {"Access-Control-Allow-Origin" : API_URL})
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
