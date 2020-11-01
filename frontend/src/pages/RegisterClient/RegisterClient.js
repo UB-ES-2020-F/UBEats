@@ -128,33 +128,6 @@ const Register = () => {
           />
           <p className="errorMsg"></p>
 
-          <label>DNI</label>
-          <input
-          type="text"
-          autoFocus
-          required
-          name='CIF'
-          ></input>
-          <p className="errorMsg"></p>
-
-          <label>Address</label>
-          <input
-          type="text"
-          autoFocus
-          required
-          name='address'
-          ></input>
-          <p className="errorMsg"></p>
-
-          <label>Tlf number</label>
-          <input
-          type="text"
-          autoFocus
-          required
-          name='phone'
-          ></input>
-          <p className="errorMsg"></p>
-
           <div className="btnContainer">
             <button className="btn btn-primary btn-block"> Sign up </button>
             <p>Do you have an account?
@@ -162,6 +135,9 @@ const Register = () => {
             </p>
             <p>Do you want to register as a restaurant?
               <Link to="/registerrestaurant"> Sign up</Link>
+            </p>
+            <p>Do you want to register as a deliveryman?
+              <Link to="/registerdeliveryman"> Sign up</Link>
             </p>
           </div>   
           {message && (
