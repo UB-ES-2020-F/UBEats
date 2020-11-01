@@ -47,17 +47,17 @@ const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
 
-  const [username, setUsername] = useState("");
+  const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
-
+  const user_type = 'customer' // customer, restaurant, deliveryman
   const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
 
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
+  const onChangeName = (e) => {
+    const name = e.target.value;
+    setname(name);
   };
 
   const onChangeEmail = (e) => {
@@ -78,7 +78,7 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(register(username, email, password))
+      dispatch(register(name, email, password, user_type))
         .then(() => {
           setSuccessful(true);
         })
@@ -97,9 +97,9 @@ const Register = () => {
           type="text"
           autoFocus
           required
-          name='username'
-          value={username}
-          onChange={onChangeUsername}
+          name='name'
+          value={name}
+          onChange={onChangeName}
           validations={[required]}
           />
           <p className="errorMsg"></p>
@@ -117,7 +117,7 @@ const Register = () => {
           <p className="errorMsg"></p>
 
           <label>Password</label>
-          <input
+          <Input
           type="text"
           autoFocus
           required
@@ -125,7 +125,7 @@ const Register = () => {
           value={password}
           onChange={onChangePassword}
           validations={[required, vpassword]}
-          ></input>
+          />
           <p className="errorMsg"></p>
 
           <label>DNI</label>
@@ -133,7 +133,7 @@ const Register = () => {
           type="text"
           autoFocus
           required
-          name='dni'
+          name='CIF'
           ></input>
           <p className="errorMsg"></p>
 
@@ -151,7 +151,7 @@ const Register = () => {
           type="text"
           autoFocus
           required
-          name='tlf'
+          name='phone'
           ></input>
           <p className="errorMsg"></p>
 
