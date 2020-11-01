@@ -17,6 +17,7 @@ import Nav from './commons/components/Nav.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ProfileClient from './pages/ProfileClient/ProfileClient';
+import HomepageRestaurant from './pages/HomepageRestaurant/HomepageRestaurant';
 
 
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
           <Route path='/registerrestaurant' component={RegisterRestaurant}/>
           <Route path='/registerdeliveryman' component={RegisterDeliveryman}/>
           <Route path='/profileclient' component={ProfileClient}/>
+          <Route path='/homepagerestaurant' component={HomepageRestaurant}/>
         </Switch>
       </div>
     </Router>
