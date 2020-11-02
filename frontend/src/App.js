@@ -6,7 +6,7 @@ import { clearMessage } from "./actions/message";
 
 import { history } from './utils/history';
 
-import Helloworld from './pages/Helloworld/Helloworld';
+import Home from './pages/Home/Home';
 import Login from './pages/Login/Login.js';
 import RegisterClient from './pages/RegisterClient/RegisterClient.js';
 import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js';
@@ -41,7 +41,7 @@ const App = () => {
       <div>
         <Nav />
         <Switch>
-          <Route exact path="/" component={Helloworld}/>
+          <Route exact path="/" component={Home}/>
           <Route path='/login' component={Login}/>
           <Route path='/registerclient' component={RegisterClient}/>
           <Route path='/registerrestaurant' component={RegisterRestaurant}/>
