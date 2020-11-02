@@ -4,6 +4,7 @@ dotenv.config() // Configure dotenv at the beginning of the project
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const path = require('path')
 const express = require('express')
 const routes = require('./routes/index')
 
@@ -16,11 +17,20 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 app.use(cors())
 
-app.use(express.static('../frontend/build/'))
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+// Handles any requests that don't match the ones above
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
+
 app.use('/api', routes)
 
 app.listen(PORT, function (){
     console.log(`App running in port ${PORT}`);
 })
+
+
 
 module.exports = app; // for testing

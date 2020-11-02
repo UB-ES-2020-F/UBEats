@@ -92,7 +92,7 @@ const Register = () => {
     <section className="login">
       <div className="loginContainer">
         <Form onSubmit={handleRegister} ref={form}>
-          <label>Name</label>
+          <label>Deliveryman Name</label>
           <Input
           type="text"
           autoFocus

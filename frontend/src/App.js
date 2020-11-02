@@ -11,9 +11,10 @@ import Login from './pages/Login/Login.js';
 import RegisterClient from './pages/RegisterClient/RegisterClient.js';
 import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js';
 import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman.js';
+import ProfileClient from './pages/ProfileClient/ProfileClient.js'
+import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
 
-
-import Nav from './commons/components/Nav.js';
+import MainNav from './commons/components/MainNav.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
@@ -39,13 +40,15 @@ const App = () => {
   return (
     <Router history={history}>
       <div>
-        <Nav />
+        <MainNav />
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path='/login' component={Login}/>
           <Route path='/registerclient' component={RegisterClient}/>
           <Route path='/registerrestaurant' component={RegisterRestaurant}/>
           <Route path='/registerdeliveryman' component={RegisterDeliveryman}/>
+          <Route path='/profileclient' component={ProfileClient}/>
+          <Route path='/ProfileRestaurant' component={ProfileRestaurant}/>
         </Switch>
       </div>
     </Router>

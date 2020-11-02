@@ -10,7 +10,6 @@ import { isEmail } from "validator";
 
 import { login } from "../../actions/auth";
 
-import '../../commons/components/App.css';
 
 
 const validEmail = (value) => {
@@ -67,7 +66,7 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(email, password))
         .then(() => {
-          props.history.push("/profile");
+          props.history.push("/profileclient");
           window.location.reload();
         })
         .catch(() => {
@@ -79,7 +78,7 @@ const Login = (props) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/profile" />;
+    return <Redirect to="/profileclient" />;
   }
   
 return (
