@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../commons/components/App.css'
-import photo from '../../images/ubeats.png'
+import photo from '../../images/under_construction.png'
 
 function Helloworld() {
   return (
