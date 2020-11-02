@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import { history } from './utils/history';
 
-import Helloworld from './pages/Helloworld/Helloworld';
-import Login from './pages/Login/Login.js';
-import RegisterClient from './pages/RegisterClient/RegisterClient.js';
-import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js';
-import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman.js';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import RegisterClient from './pages/RegisterClient/RegisterClient';
+import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant';
+import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman';
 
 
-import Nav from './commons/components/Nav.js';
+import MainNav from './commons/components/MainNav.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ProfileClient from './pages/ProfileClient/ProfileClient';
@@ -41,9 +42,9 @@ const App = () => {
   return (
     <Router history={history}>
       <div>
-        <Nav />
+        <MainNav/>
         <Switch>
-          <Route exact path="/" component={Helloworld}/>
+          <Route exact path="/" component={Home}/>
           <Route path='/login' component={Login}/>
           <Route path='/registerclient' component={RegisterClient}/>
           <Route path='/registerrestaurant' component={RegisterRestaurant}/>

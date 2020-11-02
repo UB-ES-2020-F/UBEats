@@ -5,6 +5,8 @@ import App from './App';
 import * as serviceWorker from './utils/serviceWorker';
 import Store from './store'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 require('dotenv').config()
 
 const store = Store;
