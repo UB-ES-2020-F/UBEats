@@ -1,37 +1,108 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Button, Container, Row, Card } from 'react-bootstrap';
+import pollo from '../../images/pollo.jpg';
 
 function ProfileRestaurant() {
   return (
-    <section className="restauranthomepage">
-      <div className="restauranthomepageContainer">
+    <section className="restaurantProfile">
 
-        <img src="frontend/src/images/restaurantbanner.jpg" 
-        alt="Restaurant's banner (image not loading)"
-        height="180">
-        </img>
+      <Container>
+        <Row>
+          <Container fluid>
+            {/* Banner */}
+            <Row className="restaurantBanner"
+            style={{backgroundImage: 'url(' + require('../../images/banner.jpg') + ')'}}>
+              <Container >
+                <Row style={{height: '55%'}}>
+                </Row>
+                <Row className="restaurantTitle">
+                  <h1><strong>KFC</strong></h1>
+                </Row>
+                <Row className="restaurantTitle">
+                  <h7><strong>Precio de envio: 2$ • 15/20 min • Valoracion: 4.8/5</strong></h7>
+                </Row>
+              </Container>
+            </Row>
+            </Container>
+        </Row>
+          
+        {/* Info, direccion */}
 
-        <h1 className="text">El raconet de la tieta Quica</h1>
+        <Row style={{height: '4%'}}>
 
-        <p className="text">Rambla de Catalunya 57, Barcelona, 08001</p>
+        </Row>
+        
+        <Row className="restaurantContainer">
+          <Container>
+            <Row>
+              <p>$ • Chicken • American</p>
+            </Row>
+            <Row>
+              <p>Rambla de Catalunya 58, 08001, Barcelona</p>
+            </Row>
+          </Container>
+        </Row>
+        
+        {/* Elegido para ti, coleccion de items "plato" */}
 
-        <p className="text">Rated <strong>4.5/5</strong> (9 users)</p>
+        <Row className="restaurantContainer">
+          <Container>
+            <Row>
+              <h5>Elegido para ti</h5>
+            </Row>
+            <Row class="restauranteCardContainer">
+              {/*Cards de platos*/}
+              <Card style={{ width: '14rem' }}>
+                <Card.Img variant="top" src={pollo} />
+                <Card.Body>
+                  <Card.Title>Pollo frito</Card.Title>
+                  <Card.Text>
+                    Descripcion del plato
+                  </Card.Text>
+                  <Button variant="success">Añadir al carrito</Button>
+                </Card.Body>
+              </Card>
 
-        <p className="text">Hidden in plain sight in the touristic center of Barcelona,
-          "El raconet de la tieta Quica" specialises in tempting both
-          locals and tourists with their classic Mediterranean cuisine
-          at affordable prices.
-        </p>
+              <Card style={{ width: '14rem' }}>
+                <Card.Img variant="top" src={pollo} />
+                <Card.Body>
+                  <Card.Title>Pollo frito</Card.Title>
+                  <Card.Text>
+                    Descripcion del plato
+                  </Card.Text>
+                  <Button variant="success">Añadir al carrito</Button>
+                </Card.Body>
+              </Card>
 
-        <p className="text"><strong>Picked for you:</strong></p>
+              <Card style={{ width: '14rem' }}>
+                <Card.Img variant="top" src={pollo} />
+                <Card.Body>
+                  <Card.Title>Pollo frito</Card.Title>
+                  <Card.Text>
+                    Descripcion del plato
+                  </Card.Text>
+                  <Button variant="success">Añadir al carrito</Button>
+                </Card.Body>
+              </Card>
 
-        <p className="text">Rata al horno - 7$</p>
-        <p className="text">Rata al ajillo - 6$</p>
-        <p className="text">Rata a las finas hierbas - 4$</p>
-        <p className="text">Perro - 17$</p>
-         
-      </div>
+              <Card style={{ width: '14rem' }}>
+                <Card.Img variant="top" src={pollo} />
+                <Card.Body>
+                  <Card.Title>Pollo frito</Card.Title>
+                  <Card.Text>
+                    Descripcion del plato
+                  </Card.Text>
+                  <Button variant="success">Añadir al carrito</Button>
+                </Card.Body>
+              </Card>
+
+            </Row>
+          </Container>
+        </Row>
+        
+      </Container>
+      
+      
     </section>
 
   );

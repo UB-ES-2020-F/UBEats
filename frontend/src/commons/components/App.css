@@ -126,5 +126,36 @@
     padding: 8px 0;
     background: #3a2b58;
   }
+
+  .restaurantProfile {
+    width: 100%;
+    min-height: 100vh;
+    background: #fafafa;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .restaurantProfile .restaurantBanner {
+    height: 15rem;
+  }
+
+  .restaurantProfile .restaurantContainer {
+    padding-left: 5%;
+    font-size: small;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .restaurantProfile .restaurantCardContainer {
+    padding-top: 15%;
+  }
+
+  .card + .card{
+    margin: 0 0 0 10px;
+  }
+
+  .restaurantProfile .restaurantBanner .restaurantTitle {
+    text-align: bottom;
+    padding-left: 5%;   
+  }
   
   
