@@ -22,6 +22,7 @@ back_tests() {
 
 # [IMPORTANT] Don't uncomment front_tests if there are no tests for the frontend
 # 			  because npm test will fail and stop the continuous integration process
+FRONT_TESTS_RESULT=0
 #front_tests
 back_tests
 
