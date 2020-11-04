@@ -25,8 +25,8 @@ back_tests() {
 #front_tests
 back_tests
 
-if [ $FRONT_TESTS_RESULT -ne 0 ] || [ $BACK_TESTS_RESULT -ne 0 ]; then
-	exit 127
+if [ $FRONT_TESTS_RESULT -eq 0 ] && [ $BACK_TESTS_RESULT -eq 0 ]; then
+	exit 0
 fi
 
-exit 0
+exit 127
