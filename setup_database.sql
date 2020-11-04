@@ -1,4 +1,4 @@
---DROP DATABASE IF EXISTS ubereats;
+DROP DATABASE IF EXISTS ubereats;
 CREATE DATABASE ubereats;
 \connect ubereats;
 CREATE TYPE tipo_user AS ENUM ('restaurant','deliveryman','customer');
