@@ -192,11 +192,30 @@ describe('Users', () => {
         .send(user)
         .end((err, res) => {
             res.should.have.status(200);
-            res.error.text.should.be.eql('All field must be filled in order to create the user')
             done();
           });
   });
 
+
+  it('it should register a new delivery user', (done) => {
+        
+    let user = {
+      name : 'Raul',
+      password : '123456',
+      type : 'delivery',
+      CIF : '55455093R',
+      street : 'Calle de las ventas destruidas, 45, Madrid',
+      phone : '432521545',
+    }
+    chai.request(app)
+      .post('/api/register')
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(user)
+      .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+});
 
     describe('Test', () =>{
           // Before the test registration we delete the row
