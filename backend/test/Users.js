@@ -103,19 +103,30 @@ describe('Users', () => {
     beforeEach( async ()=>{
         var sqlUsers = "DELETE FROM users WHERE email = 'raulito84@gmail.com'"
         var sqlCustomers = "DELETE FROM customers WHERE email = 'raulito84@gmail.com'"
+        var sqlRestaurants = "DELETE FROM restaurants WHERE email = 'raulito84@gmail.com'"
+        var sqlDelivery = "DELETE FROM delivery WHERE email = 'raulito84@gmail.com'"
+        
         var deletedUsers = await pool.query(sqlUsers)
         var deletedCustomers = await pool.query(sqlCustomers)
+        var deletedRestaurants = await pool.query(sqlRestaurants)
+        var deletedDelivery = await pool.query(sqlDelivery)
+
     })
     
     // After the test registration we delete the row
     afterEach( async() => {
-        var sqlUsers = "DELETE FROM users WHERE email = 'raulito84@gmail.com'"
-        var sqlCustomers = "DELETE FROM customers WHERE email = 'raulito84@gmail.com'"
-        var deletedUsers = await pool.query(sqlUsers)
-        var deletedCustomers = await pool.query(sqlCustomers)
+      var sqlUsers = "DELETE FROM users WHERE email = 'raulito84@gmail.com'"
+      var sqlCustomers = "DELETE FROM customers WHERE email = 'raulito84@gmail.com'"
+      var sqlRestaurants = "DELETE FROM restaurants WHERE email = 'raulito84@gmail.com'"
+      var sqlDelivery = "DELETE FROM delivery WHERE email = 'raulito84@gmail.com'"
+      
+      var deletedUsers = await pool.query(sqlUsers)
+      var deletedCustomers = await pool.query(sqlCustomers)
+      var deletedRestaurants = await pool.query(sqlRestaurants)
+      var deletedDelivery = await pool.query(sqlDelivery)
     })
 
-    it('it should register a new user', (done) => {
+    it('it should register a new customer user', (done) => {
         
       let user = {
         name : 'Raul',
@@ -144,7 +155,7 @@ describe('Users', () => {
           });
     });
 
-    it('it should not register a new user as it does not contain email', (done) => {
+    it('it should not register a new customer user as it does not contain email', (done) => {
         
         let user = {
           name : 'Raul',
@@ -163,10 +174,30 @@ describe('Users', () => {
               res.error.text.should.be.eql('All field must be filled in order to create the user')
               done();
             });
-      });
+    });
+
+    it('it should register a new restaurant user', (done) => {
+        
+      let user = {
+        name : 'Raul',
+        password : '123456',
+        type : 'restaurant',
+        CIF : '55455093R',
+        street : 'Calle de las ventas destruidas, 45, Madrid',
+        phone : '432521545',
+      }
+      chai.request(app)
+        .post('/api/register')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(user)
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.error.text.should.be.eql('All field must be filled in order to create the user')
+            done();
+          });
+  });
 
 
-    
     describe('Test', () =>{
           // Before the test registration we delete the row
     before( async ()=>{
@@ -182,7 +213,7 @@ describe('Users', () => {
         var deletedUsers = await pool.query(sqlUsers)
         var deletedCustomers = await pool.query(sqlCustomers)
     })
-        it('it should register a new user', (done) => {
+        it('it should register a new customer user', (done) => {
         
             let user = {
               name : 'Raul',
@@ -211,10 +242,6 @@ describe('Users', () => {
                 });
           });
     })
-
-    
-
-      
 
 
 
