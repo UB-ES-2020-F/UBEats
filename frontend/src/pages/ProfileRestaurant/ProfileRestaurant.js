@@ -1,6 +1,51 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Button, Container, Row, Card } from 'react-bootstrap';
 import pollo from '../../images/pollo.jpg';
+
+const infoPlatos = [
+  {
+    Name: "Pollo frito",
+    Price: "3$",
+    Image: {pollo},
+    Description: "Delicioso pollo frito, 100% mortal."
+  },
+  {
+    Name: "Alitas picantes",
+    Price: "6$",
+    Image: {pollo},
+    Description: "Deliciosas alitas de rata criada en las mejores cloacas de la ciudad."
+  },
+  {
+    Name: "Pikachu al horno",
+    Price: "4$",
+    Image: {pollo},
+    Description: "Simplemente electrico."
+  }
+];
+
+function GenerarCardPlato(props) {
+  return (
+    <Card style={{ width: '14rem' }}>
+      <Card.Img variant="top" src={props.Image} />
+      <Card.Body>
+        <Card.Title>{props.Name}</Card.Title>
+        <Card.Text>
+          {props.Description}
+        </Card.Text>
+        <Button variant="success">Añadir al carrito</Button>
+      </Card.Body>
+    </Card>
+  );
+}
+
+function GenerarPlatos (props) {
+  /**return (
+    for (const plato in props) {
+      GenerarCardPlato(plato);
+    }
+  );*/
+}
 
 function ProfileRestaurant() {
   return (
@@ -52,49 +97,9 @@ function ProfileRestaurant() {
             </Row>
             <Row class="restauranteCardContainer">
               {/*Cards de platos*/}
-              <Card style={{ width: '14rem' }}>
-                <Card.Img variant="top" src={pollo} />
-                <Card.Body>
-                  <Card.Title>Pollo frito</Card.Title>
-                  <Card.Text>
-                    Descripcion del plato
-                  </Card.Text>
-                  <Button variant="success">Añadir al carrito</Button>
-                </Card.Body>
-              </Card>
 
-              <Card style={{ width: '14rem' }}>
-                <Card.Img variant="top" src={pollo} />
-                <Card.Body>
-                  <Card.Title>Pollo frito</Card.Title>
-                  <Card.Text>
-                    Descripcion del plato
-                  </Card.Text>
-                  <Button variant="success">Añadir al carrito</Button>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '14rem' }}>
-                <Card.Img variant="top" src={pollo} />
-                <Card.Body>
-                  <Card.Title>Pollo frito</Card.Title>
-                  <Card.Text>
-                    Descripcion del plato
-                  </Card.Text>
-                  <Button variant="success">Añadir al carrito</Button>
-                </Card.Body>
-              </Card>
-
-              <Card style={{ width: '14rem' }}>
-                <Card.Img variant="top" src={pollo} />
-                <Card.Body>
-                  <Card.Title>Pollo frito</Card.Title>
-                  <Card.Text>
-                    Descripcion del plato
-                  </Card.Text>
-                  <Button variant="success">Añadir al carrito</Button>
-                </Card.Body>
-              </Card>
+            
+              
 
             </Row>
           </Container>
@@ -107,5 +112,7 @@ function ProfileRestaurant() {
 
   );
 }
+
+
 
 export default ProfileRestaurant;
