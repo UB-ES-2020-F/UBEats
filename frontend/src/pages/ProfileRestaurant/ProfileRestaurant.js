@@ -7,7 +7,7 @@ const infoPlatos = [
   {
     Name: "Pollo frito",
     Price: "3$",
-    Image: {pollo},
+    Image: 'url(' + require('../../images/pollo.jpg') + ')',
     Description: "Delicioso pollo frito, 100% mortal."
   },
   {
@@ -21,8 +21,22 @@ const infoPlatos = [
     Price: "4$",
     Image: {pollo},
     Description: "Simplemente electrico."
-  }
+  },
+  {
+    Name: "Chicken bucket",
+    Price: "11$",
+    Image: {pollo},
+    Description: "Satisfacera todos tus deseos"
+  },
+  {
+    Name: "Pollo a l'ast",
+    Price: "5$",
+    Image: {pollo},
+    Description: "Clasico de los domingos"
+  },
 ];
+
+
 
 function GenerarCardPlato(props) {
   return (
@@ -40,11 +54,21 @@ function GenerarCardPlato(props) {
 }
 
 function GenerarPlatos (props) {
-  /**return (
-    for (const plato in props) {
-      GenerarCardPlato(plato);
-    }
-  );*/
+  var plato;
+  var listaPlatos = []
+  for (plato of props.infoPlatos) {
+    
+    var cardPlato = <GenerarCardPlato 
+      Name={plato.Name}
+      Description={plato.Description}
+      Price={plato.Price}
+      Image={plato.Image}
+    >
+    </GenerarCardPlato>
+
+    listaPlatos.push(cardPlato);
+  }
+  return (listaPlatos);
 }
 
 function ProfileRestaurant() {
@@ -97,9 +121,9 @@ function ProfileRestaurant() {
             </Row>
             <Row class="restauranteCardContainer">
               {/*Cards de platos*/}
-
-            
-              
+             
+              <GenerarPlatos infoPlatos={infoPlatos}>
+              </GenerarPlatos>
 
             </Row>
           </Container>
