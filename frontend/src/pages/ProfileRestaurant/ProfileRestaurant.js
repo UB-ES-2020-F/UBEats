@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Button, Container, Row, Card } from 'react-bootstrap';
 import pollo from '../../images/pollo.jpg';
 
-const infoPlatos = [
+const listaPlatos = [
   {
     Name: "Pollo frito",
     Price: "3$",
@@ -36,9 +36,28 @@ const infoPlatos = [
   },
 ];
 
+const listaSecciones = [
+  {
+    Header: "Elegido para ti",
+    ListaPlatos: listaPlatos
+  },
+  {
+    Header: "Clasicos indiscutibles",
+    ListaPlatos: listaPlatos
+  },
+  {
+    Header: "Pedidos recientemente",
+    ListaPlatos: listaPlatos
+  },
+  {
+    Header: "Ultimas novedades",
+    ListaPlatos: listaPlatos
+  },
+]
 
 
-function GenerarCardPlato(props) {
+
+function CardPlato(props) {
   return (
     <Card style={{ width: '14rem' }}>
       <Card.Img variant="top" src={props.Image} />
@@ -53,22 +72,54 @@ function GenerarCardPlato(props) {
   );
 }
 
-function GenerarPlatos (props) {
+function FilaPlatos (props) {
   var plato;
   var listaPlatos = []
-  for (plato of props.infoPlatos) {
+  for (plato of props.listaPlatos) {
     
-    var cardPlato = <GenerarCardPlato 
+    var cardPlato = <CardPlato 
       Name={plato.Name}
       Description={plato.Description}
       Price={plato.Price}
       Image={plato.Image}
     >
-    </GenerarCardPlato>
+    </CardPlato>
 
     listaPlatos.push(cardPlato);
   }
   return (listaPlatos);
+}
+
+function SeccionPlatos (props) {
+  var listaSecciones = [];
+  var seccion;
+  {/** Para cada seccion,
+  coger el header y ponerlo
+  coger la lista de platos y hacer la fila
+  
+  - FALTA QUE COJA LOS DATOS DE LISTASECCIONES,
+  DE MOMENTO ES UN DUMMY*/}
+  for (seccion in props.listaSecciones) {
+    var seccion = 
+      <Row className="restaurantContainer">
+        <Container>
+          <Row>
+            <h5>Header</h5>
+          </Row>
+          <Row class="restauranteCardContainer">
+            {/*Cards de platos*/}
+            
+            <FilaPlatos listaPlatos={listaPlatos}>
+            </FilaPlatos>
+
+          </Row>
+        </Container>
+      </Row>
+    
+    listaSecciones.push(seccion)
+  }
+
+  return (listaSecciones);
 }
 
 function ProfileRestaurant() {
@@ -114,23 +165,25 @@ function ProfileRestaurant() {
         
         {/* Elegido para ti, coleccion de items "plato" */}
 
-        <Row className="restaurantContainer">
+        {/** 
+         * CODIGO ANTIGUO
+          <Row className="restaurantContainer">
           <Container>
             <Row>
               <h5>Elegido para ti</h5>
             </Row>
             <Row class="restauranteCardContainer">
-              {/*Cards de platos*/}
              
-              <GenerarPlatos infoPlatos={infoPlatos}>
-              </GenerarPlatos>
+              <FilaPlatos listaPlatos={listaPlatos}>
+              </FilaPlatos>
 
             </Row>
           </Container>
-        </Row>
+        </Row> */}
+
+        <SeccionPlatos listaSecciones={listaSecciones}></SeccionPlatos>
         
       </Container>
-      
       
     </section>
 
