@@ -91,7 +91,7 @@ function FilaPlatos (props) {
 }
 
 function SeccionPlatos (props) {
-  var listaSecciones = [];
+  var seccionesReturn = [];
   {/** Para cada seccion,
   coger el header y ponerlo
   coger la lista de platos y hacer la fila
@@ -115,10 +115,10 @@ function SeccionPlatos (props) {
         </Container>
       </Row>
     
-    listaSecciones.push(seccionX)
+    seccionesReturn.push(seccionX)
   }
 
-  return (listaSecciones);
+  return (seccionesReturn);
 }
 
 function ProfileRestaurant() {
