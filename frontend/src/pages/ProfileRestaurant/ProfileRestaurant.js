@@ -92,31 +92,30 @@ function FilaPlatos (props) {
 
 function SeccionPlatos (props) {
   var listaSecciones = [];
-  var seccion;
   {/** Para cada seccion,
   coger el header y ponerlo
   coger la lista de platos y hacer la fila
   
   - FALTA QUE COJA LOS DATOS DE LISTASECCIONES,
   DE MOMENTO ES UN DUMMY*/}
-  for (seccion in props.listaSecciones) {
-    var seccion = 
+  for (var seccion in props.listaSecciones) {
+    var seccionX = 
       <Row className="restaurantContainer">
         <Container>
           <Row>
-            <h5>Header</h5>
+            <h5>{seccion.Header}</h5> {/** por que no accede? :( */}
           </Row>
           <Row class="restauranteCardContainer">
             {/*Cards de platos*/}
             
-            <FilaPlatos listaPlatos={listaPlatos}>
+            <FilaPlatos listaPlatos={listaPlatos}> {/** Aun es un dummy */}
             </FilaPlatos>
 
           </Row>
         </Container>
       </Row>
     
-    listaSecciones.push(seccion)
+    listaSecciones.push(seccionX)
   }
 
   return (listaSecciones);
@@ -181,7 +180,9 @@ function ProfileRestaurant() {
           </Container>
         </Row> */}
 
-        <SeccionPlatos listaSecciones={listaSecciones}></SeccionPlatos>
+        <SeccionPlatos listaSecciones={listaSecciones}>
+
+        </SeccionPlatos>
         
       </Container>
       
