@@ -84,4 +84,19 @@ function _createSpecficicUser(values){
     
 }
 
-module.exports = {getUsers, getUserByEmail, createUser}
+
+/**
+ * Method that deletes a user from the DB
+ * 
+ */
+async function deleteUser(email){
+    return pool.query('DELETE FROM users WHERE email = $1',[email])
+    .then(res =>{
+        return res.rows[0] || null
+    })
+    .catch(err => err) 
+    
+}
+
+
+module.exports = {getUsers, getUserByEmail, createUser, deleteUser}
