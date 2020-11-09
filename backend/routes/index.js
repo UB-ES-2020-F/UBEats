@@ -1,6 +1,7 @@
 const express = require('express')
 //const HelloWorld = require('../controllers/HelloWorld')
 const Users = require('../controllers/Users')
+const Restaurants = require('../controllers/Restaurants')
 
 const router = express.Router()
 
@@ -15,10 +16,18 @@ router.post('/register',Users.register)
 //Customer
 router.post('/customer/login',Users.login)
 router.post('/customer/register',Users.register)
+router.delete('customer/delete',Users.deleteUser)
 
 //Restaurant
 router.post('/restaurant/login',Users.login)
 router.post('/restaurant/register',Users.register)
+router.delete('/restaurant/delete',Users.deleteUser)
+router.get('/restaurant/feedback',Restaurants.feedback)
+router.get('/restaurant/type',Restaurants.getTypes)
+router.get('/restaurant/menu',Restaurants.menu)
+
+//Deliveryman
+router.delete('/deliveryman/delete',Users.deleteUser)
 
 //Debug
 router.get('/qwertyuiop/users',Users._get_all_users)
