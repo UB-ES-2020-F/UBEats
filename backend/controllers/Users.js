@@ -43,4 +43,16 @@ async function register(req, res){
     return res.status(200).send({user}) 
 }
 
-module.exports = { login, register, _get_all_users }
+/**
+ * Method called to delete a user (customer, restaurant, deliveryman) using the email
+ * @param {} req 
+ * @param {*} res 
+ */
+async function deleteUser(req, res){
+    const {body} = req 
+    const user = await sch_users.deleteUser(body.email) 
+    if (user.error) res.status(404).send({"message":`User with email:${body.email} not found to delete.`})
+    return res.status(200)
+}
+
+module.exports = { login, register, _get_all_users, deleteUser }
