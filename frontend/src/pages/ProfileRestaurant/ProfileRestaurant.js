@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Button, Container, Row, Card } from 'react-bootstrap';
 import pollo from '../../images/pollo.jpg';
 
@@ -27,13 +26,7 @@ const listaPlatos = [
     Price: "11$",
     Image: {pollo},
     Description: "Satisfacera todos tus deseos"
-  },
-  {
-    Name: "Pollo a l'ast",
-    Price: "5$",
-    Image: {pollo},
-    Description: "Clasico de los domingos"
-  },
+  }
 ];
 
 const listaSecciones = [
@@ -92,23 +85,18 @@ function FilaPlatos (props) {
 
 function SeccionPlatos (props) {
   var seccionesReturn = [];
-  {/** Para cada seccion,
-  coger el header y ponerlo
-  coger la lista de platos y hacer la fila
   
-  - FALTA QUE COJA LOS DATOS DE LISTASECCIONES,
-  DE MOMENTO ES UN DUMMY*/}
   for (var seccion in props.listaSecciones) {
+    console.log(seccion);
     var seccionX = 
       <Row className="restaurantContainer">
         <Container>
           <Row>
-            <h5>{seccion.Header}</h5> {/** por que no accede? :( */}
+            <h5>{props.listaSecciones[seccion].Header}</h5>
           </Row>
           <Row class="restauranteCardContainer">
-            {/*Cards de platos*/}
             
-            <FilaPlatos listaPlatos={listaPlatos}> {/** Aun es un dummy */}
+            <FilaPlatos listaPlatos={props.listaSecciones[seccion].ListaPlatos}>
             </FilaPlatos>
 
           </Row>
