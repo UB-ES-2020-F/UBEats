@@ -96,7 +96,7 @@ function SeccionPlatos (props) {
           <Row>
             <h5 className="sectionHeader">{props.listaSecciones[seccion].Header}</h5>
           </Row>
-          <Row class="restauranteCardContainer">
+          <Row className="productRow">
             
             <FilaPlatos listaPlatos={props.listaSecciones[seccion].ListaPlatos}>
             </FilaPlatos>
@@ -117,31 +117,35 @@ function ListaCategorias(props) {
 
   for (var categoria in props.listaSecciones) {
     var categoriaX =
-    <Col>
+    <div class="p-2">
       <p className="textFont">{props.listaSecciones[categoria].Header}</p>
-    </Col>
-
+    </div>
+    
     columnas++;
-    console.log(columnas)
   
     listaCategorias.push(categoriaX)
   }
 
   while (columnas < 6) {
-    var columnaVacia =
-    <Col>
-    </Col>
+    var columnaVacia = 
+    <div class="p-2">
+      <p></p>
+    </div>
+    
 
     columnas++;
     listaCategorias.push(columnaVacia)
   }
 
+  {/**  
   var desplegable = 
-  <Col>
+  <div class="p-2">
       <p className="textFont">More</p>
-  </Col>
+  </div>
 
-  listaCategorias.push(desplegable); {/** Aun no se despliega */}
+  listaCategorias.push(desplegable);
+
+  */}
 
   return(listaCategorias);
 }
@@ -186,10 +190,9 @@ function ProfileRestaurant() {
         </Row>
 
         <Container className="restaurantContainer">
-          <Row>
+          <div className="d-flex flex-row">
             <ListaCategorias listaSecciones={listaSecciones}></ListaCategorias>
-          </Row>
-
+          </div>
         </Container>
         
 

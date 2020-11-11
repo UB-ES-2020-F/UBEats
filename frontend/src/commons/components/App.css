@@ -146,10 +146,6 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 
-  .restaurantProfile .restaurantCardContainer {
-    padding-top: 15%;
-  }
-
   .card + .card{
     margin: 0 0 0 10px;
   }
@@ -200,6 +196,10 @@
   
   .restaurantProfile .a:link { 
     color: gray;
+  }
+
+  .restaurantProfile .productRow {
+    padding-top: 15px;
   }
 
   
