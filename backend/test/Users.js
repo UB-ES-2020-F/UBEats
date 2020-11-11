@@ -1,7 +1,9 @@
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
-let Users = require('../controllers/Users')
+const dotenv = require('dotenv')
+dotenv.config() // Configure dotenv at the beginning of the project
+
 const {pool} = require('../database/index.js')
 
 //Require the dev-dependencies
@@ -167,20 +169,16 @@ describe('Users', () => {
 
 
     
-    describe('Test', () =>{
+   
           // Before the test registration we delete the row
     before( async ()=>{
         var sqlUsers = "INSERT INTO users VALUES ('raulito84@gmail.com','Raul','55455093R','Calle de las ventas destruidas, 45, Madrid','797832','432521545','customer') RETURNING *"
-        var sqlCustomers = "DELETE FROM customers WHERE email = 'raulito84@gmail.com'"
         var deletedUsers = await pool.query(sqlUsers)
-        var deletedCustomers = await pool.query(sqlCustomers)
     })
     // After the test registration we delete the row
     after( async() => {
         var sqlUsers = "DELETE FROM users WHERE email = 'raulito84@gmail.com'"
-        var sqlCustomers = "DELETE FROM customers WHERE email = 'raulito84@gmail.com'"
         var deletedUsers = await pool.query(sqlUsers)
-        var deletedCustomers = await pool.query(sqlCustomers)
     })
         it('it should register a new user', (done) => {
         
@@ -206,23 +204,79 @@ describe('Users', () => {
                   res.body.user.should.have.property('street')
                   res.body.user.should.have.property('phone')
                   res.body.user.should.have.property('tipo')
+                  res.body.user.specifics.should.have.property('email')
+                  res.body.user.specifics.should.have.property('card')
                   res.body.user.should.not.have.property('pass')
                   done()
                 });
           });
           
+        it('it should register a new restaurant user', (done) => {
 
-
-    })
-
-    
-
+            let user = {
+              name : 'Raul',
+              email : 'raulito84@gmail.com',
+              password : '123456',
+              type : 'restaurant',
+              CIF : '55455093R',
+              street : 'Calle de las ventas destruidas, 45, Madrid',
+              phone : '432521545',
+            }
+            chai.request(app)
+              .post('/api/register')
+              .set('content-type', 'application/x-www-form-urlencoded')
+              .send(user)
+              .end((err, res) => {
+                  res.should.have.status(200);
+                  res.body.should.have.property('user')
+                  res.body.user.should.have.property(`email`)
+                  res.body.user.should.have.property('name')
+                  res.body.user.should.have.property('CIF')
+                  res.body.user.should.have.property('street')
+                  res.body.user.should.have.property('phone')
+                  res.body.user.should.have.property('tipo')
+                  res.body.user.should.have.property('specifics')
+                  res.body.user.specifics.should.have.property('email')
+                  res.body.user.specifics.should.have.property('avaliability')
+                  res.body.user.specifics.should.have.property('visible')
+                  res.body.user.specifics.should.have.property('iban')
+                  res.body.user.should.not.have.property('pass')
+                  done();
+                });
+        });
       
-
-
-
+        it('it should register a new delivery user', (done) => {
+      
+          let user = {
+            name : 'Raul',
+            email : 'raulito84@gmail.com',
+            password : '123456',
+            type : 'deliveryman',
+            CIF : '55455093R',
+            street : 'Calle de las ventas destruidas, 45, Madrid',
+            phone : '432521545',
+          }
+          chai.request(app)
+            .post('/api/register')
+            .set('content-type', 'application/x-www-form-urlencoded')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.have.property('user')
+                  res.body.user.should.have.property(`email`)
+                  res.body.user.should.have.property('name')
+                  res.body.user.should.have.property('CIF')
+                  res.body.user.should.have.property('street')
+                  res.body.user.should.have.property('phone')
+                  res.body.user.should.have.property('tipo')
+                  res.body.user.should.have.property('specifics')
+                  res.body.user.specifics.should.have.property('email')
+                  res.body.user.specifics.should.have.property('avaliability')
+                  res.body.user.specifics.should.have.property('visible')
+                  res.body.user.specifics.should.have.property('iban')
+                  res.body.user.should.not.have.property('pass')
+                done();
+              });
+        });
 });
-
-
-
 });

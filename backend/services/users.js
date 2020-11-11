@@ -3,8 +3,8 @@ const format = require('pg-format')
 const {pool} = require('../database/index.js')
 
 const user_type = { customer    : { table : 'customers',    cols : ['email','card'], defaultValues : {'email' : '', 'card': ''}},  
-                    deliveryman : { table : 'deliverymans', cols : ['email', 'visibility', 'availiability', 'iban'], defaultValues : {'email' : '', 'visibility': 'inactive', 'availiability' : 'rojo','iban': ''}}, 
-                    restaurant  : { table : 'restaurants',  cols : ['email', 'visibility', 'availiability', 'iban'], defaultValues : {'email' : '', 'visibility': 'inactive', 'availiability' : 'rojo','iban': ''}}
+                    deliveryman : { table : 'deliverymans', cols : ['email',  'availiability', 'visible', 'iban'], defaultValues : {'email' : '', 'visible': 'inactive', 'availiability' : 'rojo','iban': ''}}, 
+                    restaurant  : { table : 'restaurants',  cols : ['email',  'availiability', 'visible', 'iban'], defaultValues : {'email' : '', 'visible': 'inactive', 'availiability' : 'rojo','iban': ''}}
                 }
 /**
      * Customer      -- email || card var(23) 
@@ -57,13 +57,11 @@ async function createUser(values){
         //If an error has occurred during userspecific creating it deletes the user 
         //and returns the error
         if (resSpecificrows.error) {
-            var sqlUsers = format("DELETE FROM users WHERE email=%L",res.email)
-            console.log(sqlUsers);
+            var sqlUsers = format("DELETE FROM users WHERE email=%L",res.rows[0].email)
             var deletedUsers = await pool.query(sqlUsers)
-            console.log(deletedUsers);
             return {error: `${resSpecificrows.error}`, errCode : resSpecificrows.errCode}
         }       
-        res.rows[0].specfics = resSpecificrows
+        res.rows[0].specifics = resSpecificrows
 
         return res.rows[0] || null
     })
