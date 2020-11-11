@@ -20,6 +20,12 @@ router.post('/customer/register',Users.register)
 router.post('/restaurant/login',Users.login)
 router.post('/restaurant/register',Users.register)
 
+//Items
+router.get('/item', Items.get)
+router.post('/item', Items.create)
+router.delete('/item', Items.delete)
+router.put('/item', Items.update)
+
 //Debug
 router.get('/qwertyuiop/users',Users._get_all_users)
 
