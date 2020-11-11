@@ -1,6 +1,17 @@
 const postgre_format = require('pg-format')
 const {pool} = require('../database/index.js')
 
+function getAllItems()
+{
+        return pool.query('SELECT * FROM items')
+                .then(res => {
+                        return res.rows
+                })
+                .catch(err => {
+                        return {error: err}
+                })
+}
+
 function getItemByID(id)
 {
        return pool.query('SELECT * FROM items WHERE item_id = $1', [id])
@@ -8,7 +19,9 @@ function getItemByID(id)
                         // should ONLY be one match
                         return res.rows[0] || null
                 })
-                .catch(err => err)
+                .catch(err => {
+                        return {error: err}
+                })
 }
 
 function createItem(values)
@@ -105,4 +118,4 @@ function _checkItemUpdateParameters(params)
         return {all_good: true}
 }
 
-module.exports = {getItemByID, createItem, updateItem, deleteItem}
+module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems}

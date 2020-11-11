@@ -1,5 +1,19 @@
 const items_db = require('../services/items.js')
 
+async function getAll(req, res)
+{
+    const {body} = req
+
+    if(body.restaurant) // GET ALL ITEMS FOR A SPECIFIED RESTAURANT
+        {}
+
+    const status = await items_db.getAllItems()
+    if(status.error)
+        return res.status(404).send({"message": "could not retrieve items", "error": status.error})
+
+    return status
+}
+
 async function get(req, res)
 {
     const {body} = req
@@ -21,7 +35,7 @@ async function create(req, res)
 
     const status = await items_db.createItem(body)
     if(status.error)
-        return res.status(403).send({"message": "Could not create item", error: status.error})
+        return res.status(403).send({"message": "Could not create item", "error": status.error})
 
     return status
 }
@@ -56,4 +70,4 @@ async function update(req, res)
     return status
 }
 
-module.exports = {get, create, delete, update}
+module.exports = {get, create, delete, update, getAll}

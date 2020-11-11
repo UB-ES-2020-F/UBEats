@@ -17,6 +17,15 @@ Returns
 
 }
 ```
+#### Get info about all existing items
+GET /api/items
+#### Get info about all existing items for a specified restaurant
+GET /api/items
+```
+body: {
+    restaurant: restaurant email, max 50 chars
+}
+```
 #### Create a new item
 POST /api/item
 ```

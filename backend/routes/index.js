@@ -21,6 +21,7 @@ router.post('/restaurant/login',Users.login)
 router.post('/restaurant/register',Users.register)
 
 //Items
+router.get('/items', Items.getAll)
 router.get('/item', Items.get)
 router.post('/item', Items.create)
 router.delete('/item', Items.delete)
