@@ -21,7 +21,7 @@ describe('Items', () => {
   describe('/GET ITEM', () => {
     it('Get a known existing item. Should return 200', (done) => {
       let item = {
-        item_id:
+        item_id:        // existing id
       }
       chai.request(app)
         .get('/api/item')
@@ -39,6 +39,51 @@ describe('Items', () => {
             done();
           });
     });
+
+    it('Get a known non existing item. Should return 404', (done) => {
+      let item = {
+        item_id:       // Non existing id
+      }
+      chai.request(app)
+        .get('/api/item')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(item)
+        .end((err, res) => {
+            res.should.have.status(404);
+            res.body.should.have.property('message')
+            done();
+          });
+    });
+
+    it('Malformed body request', (done) => {
+      let item = {
+        something_else: 4
+      }
+      chai.request(app)
+        .get('/api/item')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(item)
+        .end((err, res) => {
+            res.should.have.status(403);
+            res.body.should.have.property('message')
+            done();
+          });
+
+    });
+
+    it('Empty body request', (done) => {
+      let item = {}
+        chai.request(app)
+        .get('/api/item')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(item)
+        .end((err, res) => {
+            res.should.have.status(403);
+            res.body.should.have.property('message')
+            done();
+          });
+    });
+
   })
 
   // TEST THE POST ENDPOINT

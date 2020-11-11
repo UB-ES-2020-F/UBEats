@@ -46,3 +46,9 @@ Returns
 #### Update an existing item
 
 #### Delete an existing item
+
+## Database
+to reset your local database for testing execute
+```
+psql -v ON_ERROR_STOP=ON -f setup_database.sql -U ${your postgre user}
+```
