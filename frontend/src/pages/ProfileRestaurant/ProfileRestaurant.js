@@ -1,49 +1,51 @@
 import React from 'react';
-import { Button, Container, Row, Card } from 'react-bootstrap';
-import pollo from '../../images/pollo.jpg';
+import { Button, Container, Row, Card, Col } from 'react-bootstrap';
+import pollo from "../../images/banner.jpg";
+import pikachu from "../../images/pikachu.jpg";
+import bucket from "../../images/bucket.jpg";
 
 const listaPlatos = [
   {
     Name: "Pollo frito",
     Price: "3$",
-    Image: 'url(' + require('../../images/pollo.jpg') + ')',
-    Description: "Delicioso pollo frito, 100% mortal."
+    Image: pollo,
+    Description: "Delicious fried chicken, 100% deadly."
   },
   {
-    Name: "Alitas picantes",
+    Name: "Hot wings",
     Price: "6$",
-    Image: {pollo},
-    Description: "Deliciosas alitas de rata criada en las mejores cloacas de la ciudad."
+    Image: pollo,
+    Description: "Chicken wings, of course! *wink wink*"
   },
   {
-    Name: "Pikachu al horno",
+    Name: "Fried Pikachu",
     Price: "4$",
-    Image: {pollo},
-    Description: "Simplemente electrico."
+    Image: pikachu,
+    Description: "Simply electric."
   },
   {
     Name: "Chicken bucket",
     Price: "11$",
-    Image: {pollo},
-    Description: "Satisfacera todos tus deseos"
+    Image: bucket,
+    Description: "Will satisfy all your needs."
   }
 ];
 
 const listaSecciones = [
   {
-    Header: "Elegido para ti",
+    Header: "Picked for you",
     ListaPlatos: listaPlatos
   },
   {
-    Header: "Clasicos indiscutibles",
+    Header: "Classics",
     ListaPlatos: listaPlatos
   },
   {
-    Header: "Pedidos recientemente",
+    Header: "Recently ordered",
     ListaPlatos: listaPlatos
   },
   {
-    Header: "Ultimas novedades",
+    Header: "New items",
     ListaPlatos: listaPlatos
   },
 ]
@@ -53,13 +55,13 @@ const listaSecciones = [
 function CardPlato(props) {
   return (
     <Card style={{ width: '14rem' }}>
-      <Card.Img variant="top" src={props.Image} />
+      <Card.Img className="card-img-top" variant="top" src={props.Image} fluid/>
       <Card.Body>
-        <Card.Title>{props.Name}</Card.Title>
-        <Card.Text>
+        <Card.Title className="textFont">{props.Name}</Card.Title>
+        <Card.Text className="textFont">
           {props.Description}
         </Card.Text>
-        <Button variant="success">Añadir al carrito</Button>
+        {/** <Button variant="success">Añadir al carrito</Button> */}
       </Card.Body>
     </Card>
   );
@@ -87,12 +89,12 @@ function SeccionPlatos (props) {
   var seccionesReturn = [];
   
   for (var seccion in props.listaSecciones) {
-    console.log(seccion);
+    
     var seccionX = 
       <Row className="restaurantContainer">
         <Container>
           <Row>
-            <h5>{props.listaSecciones[seccion].Header}</h5>
+            <h5 className="sectionHeader">{props.listaSecciones[seccion].Header}</h5>
           </Row>
           <Row class="restauranteCardContainer">
             
@@ -109,6 +111,41 @@ function SeccionPlatos (props) {
   return (seccionesReturn);
 }
 
+function ListaCategorias(props) {
+  var listaCategorias = []
+  var columnas = 0;
+
+  for (var categoria in props.listaSecciones) {
+    var categoriaX =
+    <Col>
+      <p className="textFont">{props.listaSecciones[categoria].Header}</p>
+    </Col>
+
+    columnas++;
+    console.log(columnas)
+  
+    listaCategorias.push(categoriaX)
+  }
+
+  while (columnas < 6) {
+    var columnaVacia =
+    <Col>
+    </Col>
+
+    columnas++;
+    listaCategorias.push(columnaVacia)
+  }
+
+  var desplegable = 
+  <Col>
+      <p className="textFont">More</p>
+  </Col>
+
+  listaCategorias.push(desplegable); {/** Aun no se despliega */}
+
+  return(listaCategorias);
+}
+
 function ProfileRestaurant() {
   return (
     <section className="restaurantProfile">
@@ -123,50 +160,38 @@ function ProfileRestaurant() {
                 <Row style={{height: '55%'}}>
                 </Row>
                 <Row className="restaurantTitle">
-                  <h1><strong>KFC</strong></h1>
+                  <h1 className="textFont"><strong>KFC</strong></h1>
                 </Row>
                 <Row className="restaurantTitle">
-                  <h7><strong>Precio de envio: 2$ • 15/20 min • Valoracion: 4.8/5</strong></h7>
+                  <h8><strong>Precio de envio: 2$ • 15/20 min • Valoracion: 4.8/5</strong></h8>
                 </Row>
               </Container>
             </Row>
             </Container>
         </Row>
           
-        {/* Info, direccion */}
-
-        <Row style={{height: '4%'}}>
+        <Row style={{height: '1%'}}>
 
         </Row>
         
         <Row className="restaurantContainer">
           <Container>
             <Row>
-              <p>$ • Chicken • American</p>
+              <p>$ • Chicken • American • <a href="https://weirdorconfusing.com/">More info</a></p> 
             </Row>
             <Row>
               <p>Rambla de Catalunya 58, 08001, Barcelona</p>
             </Row>
           </Container>
         </Row>
+
+        <Container className="restaurantContainer">
+          <Row>
+            <ListaCategorias listaSecciones={listaSecciones}></ListaCategorias>
+          </Row>
+
+        </Container>
         
-        {/* Elegido para ti, coleccion de items "plato" */}
-
-        {/** 
-         * CODIGO ANTIGUO
-          <Row className="restaurantContainer">
-          <Container>
-            <Row>
-              <h5>Elegido para ti</h5>
-            </Row>
-            <Row class="restauranteCardContainer">
-             
-              <FilaPlatos listaPlatos={listaPlatos}>
-              </FilaPlatos>
-
-            </Row>
-          </Container>
-        </Row> */}
 
         <SeccionPlatos listaSecciones={listaSecciones}>
 

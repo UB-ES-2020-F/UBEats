@@ -141,6 +141,7 @@
 
   .restaurantProfile .restaurantContainer {
     padding-left: 5%;
+    padding-top: 20px;
     font-size: small;
     font-family: Arial, Helvetica, sans-serif;
   }
@@ -157,5 +158,49 @@
     text-align: bottom;
     padding-left: 5%;   
   }
+
+  .card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+  }
+
+  .card-text {
+    width: 100%;
+  }
+
+  .card {
+    transition: box-shadow .3s;
+    border-radius:10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    float: left;
+    
+  }
+  .card:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  }
+
+  .col-categories {
+    width: 50%;
+  }
+
+  .sectionHeader {
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .textFont {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .restaurantProfile .a {
+    text-decoration: none;
+  }
+  
+  .restaurantProfile .a:link { 
+    color: gray;
+  }
+
   
   
