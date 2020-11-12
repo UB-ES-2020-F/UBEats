@@ -20,19 +20,15 @@ describe('Items', () => {
   // TEST DE GET ENDPOINT
   describe('/GET ITEM', () => {
     it('Get a known existing item. Should return 200', (done) => {
-      let item = {
-        item_id:        // existing id
-      }
       chai.request(app)
-        .get('/api/item')
+        .get('/api/items/1')
         .set('content-type', 'application/x-www-form-urlencoded')
-        .send(item)
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.have.property('item')
             res.body.item.should.have.property('item_id')
             res.body.item.should.have.property('title')
-            res.body.item.should.have.property('description')
+            res.body.item.should.have.property('desc')
             res.body.item.should.have.property('price')
             res.body.item.should.have.property('visible')
             res.body.item.should.have.property('rest_id')
@@ -41,44 +37,11 @@ describe('Items', () => {
     });
 
     it('Get a known non existing item. Should return 404', (done) => {
-      let item = {
-        item_id:       // Non existing id
-      }
       chai.request(app)
-        .get('/api/item')
+        .get('/api/items/75456123')
         .set('content-type', 'application/x-www-form-urlencoded')
-        .send(item)
         .end((err, res) => {
             res.should.have.status(404);
-            res.body.should.have.property('message')
-            done();
-          });
-    });
-
-    it('Malformed body request', (done) => {
-      let item = {
-        something_else: 4
-      }
-      chai.request(app)
-        .get('/api/item')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send(item)
-        .end((err, res) => {
-            res.should.have.status(403);
-            res.body.should.have.property('message')
-            done();
-          });
-
-    });
-
-    it('Empty body request', (done) => {
-      let item = {}
-        chai.request(app)
-        .get('/api/item')
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send(item)
-        .end((err, res) => {
-            res.should.have.status(403);
             res.body.should.have.property('message')
             done();
           });
@@ -94,5 +57,5 @@ describe('Items', () => {
   // TEST THE PUT ENDPOINT
 
 
-
+})
 
