@@ -32,7 +32,7 @@ async function getTypes(email){
  * 
  */
 async function menu(email){
-    const query = format('SELECT items.item_id,title,items.description,price,name FROM items,type_items,types WHERE items.item_id=type_items.item_id AND rest_id=$1 AND types.type_id=type_items.type_id AND visible = %s ORDER BY items.item_id',[email],'1')
+    const query = format('SELECT items.item_id,title,items.description,price,name FROM items,type_items,types WHERE items.item_id=type_items.item_id AND rest_id=$1 AND types.type_id=type_items.type_id AND visible = %L ORDER BY items.item_id',[email],1)
     return pool.query(query)
     .then(res =>{
         return res.rows[0] || null
