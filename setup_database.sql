@@ -5,7 +5,7 @@ CREATE TYPE tipo_user AS ENUM ('restaurant','deliveryman','customer');
 CREATE TABLE "users" (
 "email" VARCHAR(50) NOT NULL,
 "name" VARCHAR(50) NOT NULL,
-"CIF" VARCHAR(20) NOT NULL,
+"cif" VARCHAR(20) NOT NULL,
 "street" VARCHAR(200) NOT NULL,
 "pass" VARCHAR(50) NOT NULL,
 "phone" VARCHAR(20) NOT NULL,
@@ -61,7 +61,7 @@ ON UPDATE CASCADE
 CREATE TABLE "items" (
 "item_id" SERIAL NOT NULL UNIQUE,
 "title" VARCHAR(30) NOT NULL,
-"desc" VARCHAR(200) NOT NULL,
+"description" VARCHAR(200) NOT NULL,
 "price" float NOT NULL,
 "visible" BIT,
 "rest_id" VARCHAR(50) NOT NULL,
@@ -166,7 +166,7 @@ INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tar
 (DEFAULT,'pulpo con patatas','pulpo a la brasa acompañado de patatas fritas pochadas',18.99,'1','r2@gmail.com');
 --Here we have the order_id, the item_id, and the amount
 INSERT INTO order_items VALUES (1,1,2),(2,2,4);
---Two feedbacks about the 2 orders
+--Two feedbacks about the 2 orders(email rest, email user)
 INSERT INTO feedbacks VALUES ('rrr@gmail.com','ran@gmail.com',8,'comida de calidad a precio economico',CURRENT_TIMESTAMP(0)),
 ('rrr@gmail.com','r4@gmail.com',5,'Muy caro y no es para tirar cohetes',CURRENT_TIMESTAMP(0));
 --The favourite restaurants of one customer
@@ -179,7 +179,7 @@ INSERT INTO types VALUES (DEFAULT,'vegetariano','comida ecologica responsable co
 --Labels of the restaurants that they have chosen
 INSERT INTO type_restaurants VALUES (1,'rrr@gmail.com'),(2,'r2@gmail.com');
 --Labels of the items of the restaurant that the owner of the item has chosen
-INSERT INTO type_items VALUES (1,1),(2,2);
+INSERT INTO type_items VALUES (1,1),(2,2),(2,1);
 --Añadimos un refresco y un extra al plato espagueti tartufo, siendo el refresco obligatorio y el queso opcional
 INSERT INTO "extra_items" VALUES (DEFAULT,'cocacola','refresco de cola con cafeina',2.95,'0',1),
 (DEFAULT,'queso chedar','queso chedar para acompañar salsa tartufo',0.0,'1',1);
