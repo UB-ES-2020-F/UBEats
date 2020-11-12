@@ -38,6 +38,18 @@ async function menu(req, res){
     return res.status(200).send({menu})
 }
 
-module.exports = { feedback, getTypes, menu }
+/**
+ * Method called to get all the info from a restaurant
+ * @param {} req 
+ * @param {*} res 
+ */
+async function readR(req, res){
+    const {body} = req 
+    const readR = await restaurants.readR(body.email) 
+    if (readR.error) res.status(404).send({"message":`Restaurant not found with email:${body.email}.`})
+    return res.status(200).send({readR})
+}
+
+module.exports = { feedback, getTypes, menu, readR }
 
 
