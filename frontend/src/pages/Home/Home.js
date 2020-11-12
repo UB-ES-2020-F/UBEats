@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../commons/components/Main.scss'
+import '../../commons/components/Main.css'
 import photo from '../../images/under_construction.png'
 import 'react-bootstrap';
 import'react-router-dom';
