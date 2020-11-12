@@ -2,10 +2,22 @@ import React from 'react';
 
 import {Navbar, Form, FormControl, Nav} from 'react-bootstrap';
 
+import { useDispatch } from "react-redux";
+
+
+import { logout } from "../../actions/auth";
+
+
 import photo from '../../images/ubeats.png'
 
 
-function MainNav() { 
+function MainNav(props) { 
+    const dispatch = useDispatch();
+
+    const logOut = () => {
+        dispatch(logout());
+      };
+
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="/">
@@ -21,9 +33,17 @@ function MainNav() {
                 <Form inline >
                 <FormControl type="text" placeholder="Enter delivery address" className="mr-sm-2" />
                 </Form>
-                <Nav className="mr-auto"> 
-                    <Nav.Link href='/login'>Log in</Nav.Link>
+                {props.isLogged ? 
+                (<Nav className="mr-auto"> 
+                    <Nav.Link onClick={logOut}>Log out</Nav.Link>
                 </Nav>
+                
+                ) : 
+                (<Nav className="mr-auto"> 
+                    <Nav.Link href='/login'>Log in</Nav.Link>
+                 </Nav>
+                ) }      
+
             </Navbar.Collapse>
         </Navbar>
     );

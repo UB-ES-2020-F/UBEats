@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import { history } from './utils/history';
@@ -21,10 +20,12 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 const App = () => {
 
-  const { user: currentUser } = useSelector((state) => state.auth);
+  const { user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  console.log({user: currentUser})
+  console.log({user: currentUser});
+  console.log({isLoggedIn:  isLogged});
+
 
   useEffect(() => {
     history.listen((location) => {
@@ -32,15 +33,10 @@ const App = () => {
     });
   }, [dispatch]);
 
-// eslint-disable-next-line
-  const logOut = () => {
-    dispatch(logout());
-  };
-
   return (
     <Router history={history}>
       <div>
-        <MainNav />
+        <MainNav isLogged={isLogged}/>
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path='/login' component={Login}/>

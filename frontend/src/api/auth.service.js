@@ -22,6 +22,7 @@ const login = (email, password) => {
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
+        console.log("user recieved, now in the store");
       }
       return response.data;
     });
