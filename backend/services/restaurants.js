@@ -40,5 +40,17 @@ async function menu(email){
     .catch(err => err) 
 }
 
+/**
+ * Method that gets all the info from a restaurant in the DB
+ * 
+ */
+async function readR(email){
+    return pool.query('SELECT users.email,name,CIF,street,pass,phone,tipo,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=$1 AND users.email=restaurants.email',[email])
+    .then(res =>{
+        return res.rows[0] || null
+    })
+    .catch(err => err) 
+}
 
-module.exports = {feedback, getTypes, menu}
+
+module.exports = {feedback, getTypes, menu, readR}
