@@ -36,10 +36,11 @@ async function create(req, res)
     const {body} = req
 
     const status = await items_db.createItem(body)
+    console.log(status)
     if(status.error)
         return res.status(403).send({"message": "Could not create item", "error": status.error})
 
-    return status
+    return res.status(200).send({status})
 }
 
 async function remove(req, res)
@@ -51,11 +52,10 @@ async function remove(req, res)
 
     const item = await items_db.deleteItem(body.item_id)
     //check for error retreiving from DDBB
-    if(!item)
-        return res.status(404).send({"message": `Item ${body.item_id} not found`})
+    if(item.error)
+        return res.status(404).send({"message": `Item ${body.item_id} not found`, "error": item.error})
 
     return res.status(200).send({item})
-
 }
 
 async function update(req, res)
@@ -69,7 +69,7 @@ async function update(req, res)
     if(status.error)
         return res.status(403).send({"message": "Could not update item", error: status.error})
 
-    return status
+    return res.status(200).send({status})
 }
 
 module.exports = {get, create, remove, update, getAll}

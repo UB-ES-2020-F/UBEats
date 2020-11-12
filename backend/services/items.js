@@ -1,4 +1,4 @@
-const postgre_format = require('pg-format')
+const format = require('pg-format')
 const {pool} = require('../database/index.js')
 
 function getAllItems()
@@ -28,13 +28,16 @@ function createItem(values)
 {
         //check the values
         const check = _checkItemCreationParameters(values)
+        console.log(check)
         if(check.err)
                 return {error: check.err, errCode: 403}
 
         //construct the query
-        let db_values = [values.title, values.desc, values.price, values.visible || '', values.rest_id]
+        let db_values = [values.title, values.desc, values.price, values.visible || '0', values.rest_id]
 
-        const query = postgre_format('INSERT INTO items VALUES (%L) RETURNING *', db_values)
+        const query = format('INSERT INTO items VALUES (DEFAULT, %L) RETURNING *', db_values)
+
+        return pool.query(query)
                 .then((res) => {
                        return res.rows[0] || null
                 })
@@ -45,7 +48,13 @@ function createItem(values)
 
 function deleteItem(id)
 {
-
+        return pool.query('DELETE FROM items WHERE item_id = $1 RETURNING *', [id])
+                .then((res) => {
+                        return res.rows[0] || null
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
 }
 
 function updateItem(id, values)

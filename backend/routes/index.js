@@ -24,8 +24,8 @@ router.post('/restaurant/register',Users.register)
 //Items
 router.get('/items', Items.getAll)
 router.get('/items/:item_id', Items.get)
-//router.post('/item', Items.create)
-//router.delete('/item', Items.remove)
+router.post('/items', Items.create)
+router.delete('/items', Items.remove)
 //router.put('/item', Items.update)
 
 //Debug
