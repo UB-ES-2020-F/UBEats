@@ -25,6 +25,7 @@ router.delete('/restaurant/delete',Users.deleteUser)
 router.get('/restaurant/feedback',Restaurants.feedback)
 router.get('/restaurant/type',Restaurants.getTypes)
 router.get('/restaurant/menu',Restaurants.menu)
+router.get('/restaurant/read',Restaurants.readR)
 
 //Deliveryman
 router.delete('/deliveryman/delete',Users.deleteUser)
