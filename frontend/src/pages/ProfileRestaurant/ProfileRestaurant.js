@@ -1,8 +1,10 @@
 import React from 'react';
-import { Button, Container, Row, Card, Col } from 'react-bootstrap';
+import { Button, Container, Row, Card, Col, Modal, Nav } from 'react-bootstrap';
 import pollo from "../../images/banner.jpg";
 import pikachu from "../../images/pikachu.jpg";
 import bucket from "../../images/bucket.jpg";
+import wings from "../../images/alitas.jpg";
+
 
 const listaPlatos = [
   {
@@ -14,7 +16,7 @@ const listaPlatos = [
   {
     Name: "Hot wings",
     Price: "6$",
-    Image: pollo,
+    Image: wings,
     Description: "Chicken wings, of course! *wink wink*"
   },
   {
@@ -117,37 +119,51 @@ function ListaCategorias(props) {
 
   for (var categoria in props.listaSecciones) {
     var categoriaX =
-    <div class="p-2">
-      <p className="textFont">{props.listaSecciones[categoria].Header}</p>
-    </div>
+    <Nav.Item as="li">
+      <Nav.Link href="#" className="navbar-link">{props.listaSecciones[categoria].Header}</Nav.Link>
+    </Nav.Item>
     
-    columnas++;
-  
     listaCategorias.push(categoriaX)
   }
 
-  while (columnas < 6) {
-    var columnaVacia = 
-    <div class="p-2">
-      <p></p>
-    </div>
-    
-
-    columnas++;
-    listaCategorias.push(columnaVacia)
-  }
-
-  {/**  
-  var desplegable = 
-  <div class="p-2">
-      <p className="textFont">More</p>
-  </div>
+  {/** Desplegable aun no despliega */}
+  var desplegable =
+  <Nav.Item as="li" className="ml-auto">
+    <Nav.Link href="#" className="navbar-link">More</Nav.Link>
+  </Nav.Item>
 
   listaCategorias.push(desplegable);
 
-  */}
 
   return(listaCategorias);
+}
+
+function MoreInfoModal (props) {
+  const [show, setShow] = React.useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <p className="textFont" onClick={handleShow}><strong>More info</strong></p>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 }
 
 function ProfileRestaurant() {
@@ -167,7 +183,7 @@ function ProfileRestaurant() {
                   <h1 className="textFont"><strong>KFC</strong></h1>
                 </Row>
                 <Row className="restaurantTitle">
-                  <h8><strong>Precio de envio: 2$ • 15/20 min • Valoracion: 4.8/5</strong></h8>
+                  <h8><strong>Delivery: 2$ • 15/20 min • 4.8/5(300+)</strong></h8>
                 </Row>
               </Container>
             </Row>
@@ -181,7 +197,7 @@ function ProfileRestaurant() {
         <Row className="restaurantContainer">
           <Container>
             <Row>
-              <p>$ • Chicken • American • <a href="https://weirdorconfusing.com/">More info</a></p> 
+              <p>$ • Chicken • American • <a href="#">More info</a></p> 
             </Row>
             <Row>
               <p>Rambla de Catalunya 58, 08001, Barcelona</p>
@@ -189,10 +205,10 @@ function ProfileRestaurant() {
           </Container>
         </Row>
 
-        <Container className="restaurantContainer">
-          <div className="d-flex flex-row">
+        <Container className="">
+          <Nav as="ul" className="categories-navbar">
             <ListaCategorias listaSecciones={listaSecciones}></ListaCategorias>
-          </div>
+          </Nav>
         </Container>
         
 
@@ -206,7 +222,5 @@ function ProfileRestaurant() {
 
   );
 }
-
-
 
 export default ProfileRestaurant;

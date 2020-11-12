@@ -202,5 +202,16 @@
     padding-top: 15px;
   }
 
+  .restaurantProfile .navbar-link {
+    color: black;
+    font-size: 14px;
+  }
+
+  .restaurantProfile .categories-navbar {
+    padding-left: 10px;
+    padding-top: 3%;
+    padding-right: 10%;
+  }
+
   
   
