@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../commons/components/Main.scss'
 import photo from '../../images/under_construction.png'
-import React from 'react';
 import 'react-bootstrap';
 import'react-router-dom';
 
