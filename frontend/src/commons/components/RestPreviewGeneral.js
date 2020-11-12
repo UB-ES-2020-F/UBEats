@@ -1,5 +1,5 @@
 import React from 'react';
-import './Main.scss';
+import './Main.css';
 import 'react-bootstrap';
 import'react-router-dom';
 import photo from '../../images/ubeats.png'
