@@ -8,10 +8,10 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../actions/auth";
 
 
-import photo from '../../images/ubeats.png'
+import photo from '../../images/ubeats.png';
+import sidebar from '../../images/sidebar.jpg';
 
-
-function MainNav(props) { 
+const MainNav = ({isLogged, openSidebar}) => { 
     const dispatch = useDispatch();
 
     const logOut = () => {
@@ -20,6 +20,14 @@ function MainNav(props) {
 
     return (
         <Navbar bg="light" expand="lg">
+            <a onClick={() => openSidebar()}>
+                <img style = {{margin:"25px"}}
+                    src={sidebar} 
+                    height="15px"
+                    width="17px"
+                    alt="Open sidebar">
+                </img>
+            </a>
             <Navbar.Brand href="/">
             <img
                 src={photo}
@@ -33,7 +41,7 @@ function MainNav(props) {
                 <Form inline >
                 <FormControl type="text" placeholder="Enter delivery address" className="mr-sm-2" />
                 </Form>
-                {props.isLogged ? 
+                {isLogged ? 
                 (<Nav className="mr-auto"> 
                     <Nav.Link onClick={logOut}>Log out</Nav.Link>
                 </Nav>
