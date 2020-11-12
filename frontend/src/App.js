@@ -14,6 +14,7 @@ import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
 
 import MainNav from './commons/components/MainNav.js';
+import GeneralSidebar from './commons/components/GeneralSidebar.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
@@ -21,6 +22,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 const App = () => {
 
   const { user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const dispatch = useDispatch();
 
   console.log({user: currentUser});
@@ -36,7 +38,8 @@ const App = () => {
   return (
     <Router history={history}>
       <div>
-        <MainNav isLogged={isLogged}/>
+        <MainNav isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
+        <GeneralSidebar />
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path='/login' component={Login}/>
