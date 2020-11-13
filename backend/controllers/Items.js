@@ -8,12 +8,12 @@ async function getAll(req, res)
     if(params.restaurant) // GET ALL ITEMS FOR A SPECIFIED RESTAURANT
         {}
 
-    const status = await items_db.getAllItems()
-    console.log(status)
-    if(status.error)
-        return res.status(404).send({"message": "could not retrieve items", "error": status.error})
+    const items = await items_db.getAllItems()
+    console.log(items)
+    if(items.error)
+        return res.status(404).send({"message": "could not retrieve items", "error": items.error})
 
-    return res.status(200).send({status})
+    return res.status(200).send({items})
 }
 
 async function get(req, res)
@@ -35,12 +35,12 @@ async function create(req, res)
 {
     const {body} = req
 
-    const status = await items_db.createItem(body)
-    console.log(status)
-    if(status.error)
-        return res.status(403).send({"message": "Could not create item", "error": status.error})
+    const item = await items_db.createItem(body)
+    console.log(item)
+    if(item.error)
+        return res.status(403).send({"message": "Could not create item", "error": item.error})
 
-    return res.status(200).send({status})
+    return res.status(200).send({item})
 }
 
 async function remove(req, res)
@@ -65,11 +65,11 @@ async function update(req, res)
     if(!(body.item_id))
         return res.status(403).send({"message": "Item ID not specified"})
 
-    const status = await items_db.updateItem(body.item_id, body)
-    if(status.error)
-        return res.status(403).send({"message": "Could not update item", error: status.error})
+    const item = await items_db.updateItem(body.item_id, body)
+    if(item.error)
+        return res.status(403).send({"message": "Could not update item", error: item.error})
 
-    return res.status(200).send({status})
+    return res.status(200).send({item})
 }
 
 module.exports = {get, create, remove, update, getAll}
