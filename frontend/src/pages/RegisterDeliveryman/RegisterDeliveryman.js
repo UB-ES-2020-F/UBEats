@@ -90,13 +90,22 @@ const Register = () => {
 
   return (
     <section className="login">
+       <link href="//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text" rel="stylesheet" type="text/css"/> 
       <div className="loginContainer">
+      <div class="logo">
+          <h1>UB<span>Eats</span></h1>
+        </div>
+        <p></p><p ></p>
+        <p ></p>
+        <h2>¡Trabajé como repartidor!</h2>
+        <p></p><p></p>
         <Form onSubmit={handleRegister} ref={form}>
-          <label>Deliveryman Name</label>
+          <label>Introduzca su nombre</label>
           <Input
           type="text"
           autoFocus
           required
+          placeholder="Nombre"
           name='name'
           value={name}
           onChange={onChangeName}
@@ -104,11 +113,12 @@ const Register = () => {
           />
           <p className="errorMsg"></p>
 
-          <label>E-mail</label>
+          <label>Introduzca su E-mail</label>
           <Input
           type="text"
           autoFocus
           required
+          placeholder="E-mail"
           name='email'
           value={email}
           onChange={onChangeEmail}
@@ -116,11 +126,12 @@ const Register = () => {
           />
           <p className="errorMsg"></p>
 
-          <label>Password</label>
+          <label>Escriba su contraseña</label>
           <Input
           type="text"
           autoFocus
           required
+          placeholder="Contraseña"
           name='password'
           value={password}
           onChange={onChangePassword}
@@ -129,16 +140,7 @@ const Register = () => {
           <p className="errorMsg"></p>
 
           <div className="btnContainer">
-            <button className="btn btn-primary btn-block"> Sign up </button>
-            <p>Do you have an account?
-              <Link to="./login"> Sign in</Link>
-            </p>
-            <p>Do you want to register as a client?
-              <Link to="/registerclient"> Sign up</Link>
-            </p>
-            <p>Do you want to register as a restaurant?
-              <Link to="/registerrestaurant"> Sign up</Link>
-            </p>
+            <button> Registrar </button>
           </div>   
           {message && (
             <div className="form-group">
