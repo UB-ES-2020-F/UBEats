@@ -1,0 +1,219 @@
+@import url(//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text);
+ :root {
+	 --font-family: sans-serif;
+	 font-size: 16px;
+	 --color-green: #06c167;
+	 --color-grey: #eee;
+	 --color-greyDarker: #545454;
+}
+ * {
+	 box-sizing: border-box;
+}
+ @font-face {
+	 font-family: "Uber Move Text";
+	 src: url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.eot");
+	 src: url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff") format("woff"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.svg#Uber Move Text") format("svg");
+}
+
+ body {
+	 margin: 0;
+	 font-family: sans-serif;
+}
+ .container {
+	 width: calc(100% - 120px);
+	 margin: auto;
+}
+ header .logo h1 {
+	 font-weight: 600;
+	 font-family: "Uber Move Text";
+}
+ header .logo h1 span {
+	 font-weight: 900;
+	 color: var(--color-green);
+	 font-size: 24px;
+}
+ header .container {
+	 display: flex;
+	 align-items: center;
+	 height: 45px;
+	 padding-top: 25px;
+}
+
+ header span {
+	 font-size: 19px;
+	 font-family: "Uber Move Text";
+}
+ .general {
+	 margin-bottom: -24px;
+	 margin-right: -12px;
+	 flex-wrap: nowrap;
+	 box-sizing: border-box;
+	 display: flex;
+	 color: black;
+}
+ .general .container {
+	 width: 25%;
+	 margin-left: 0%;
+	 margin-bottom: 24px;
+	 padding-right: 12px;
+	 padding-left: 12px;
+	 box-sizing: border-box;
+	 flex: 0 0 auto;
+	 display: block;
+}
+ .general h3 {
+	 font-size: 40px;
+	 margin-left: 15%;
+	 font-family: "Uber Move Text";
+}
+ .general input {
+	 font-family: sans-serif;
+	 font-size: 15px;
+	 font-weight: bold;
+	 font-family: "Uber Move Text";
+}
+ .header2 .logo h1 {
+	 font-weight: 300;
+	 color: white;
+	 font-family: "Uber Move Text";
+}
+ .header2 .logo h1 span {
+	 font-weight: 600;
+	 color: var(--color-green);
+	 font-family: "Uber Move Text";
+}
+
+
+
+.tosidebar {
+	margin-right: 3%;
+}
+
+ button {
+	 border: 0;
+	 background: black;
+	 width: 100%;
+	 color: white;
+	 font-size: 18px;
+	 letter-spacing: 1px;
+}
+
+.linkto{
+	text-decoration: none;
+}
+
+.smallText {
+    font-size: 16px;
+    font-weight: bold;
+	font-family: "Uber Move Text";
+}
+
+.actionLabel {
+	font-size: 16px;
+    font-weight: bold;
+	font-family: "Uber Move Text";
+	cursor: pointer;
+
+}
+
+img {
+	cursor: pointer;
+}
+
+.linkto:visited { text-decoration: none; color:black; }
+.linkto:hover { text-decoration: none; color:black; }
+.linkto:focus { text-decoration: none; color:black; }
+.linkto:hover, a:active { text-decoration: none; color:black }
+  
+
+.parentDiv {
+    margin: 30px;
+}
+
+.sidebarlink {
+    margin-top: 20px;
+    font-size: 18px;
+
+}
+
+.linkdiv {
+    margin-top: 30px;
+}
+
+.actions {
+	margin-top: 30px;
+}
+
+.separator {
+	color: rgba(240, 240, 240, 0.623);
+}
+
+
+.profile {
+	margin-bottom: 30px;
+}
+
+.logoutDiv {
+	margin-top: 50px;
+}
+
+.logout {
+	font-size: 16px;
+    font-weight: bold;
+	font-family: "Uber Move Text";
+	color: gray;
+	text-decoration: none;
+}
+
+.username {
+	font-size: 16px;
+    font-weight: bold;
+    font-family: "Uber Move Text";
+}
+
+.account {
+	font-size: 14px;
+	font-weight: bold;
+	color: #06c167;
+	font-family: "Uber Move Text";
+	text-decoration: none;
+}
+
+.account:visited { text-decoration: none; color: #06c167;}
+.account:hover { text-decoration: none; color: #06c167; }
+.account:focus { text-decoration: none; color: #06c167; }
+.account:hover, a:active { text-decoration: none; color: #06c167; }
+  
+
+/* Username and profile picture*/
+.column1 {
+	float: left;
+	width: 25%;
+}
+
+.column2 {
+	float: right;
+	width: 75%;
+} 
+
+.column3 {
+	float: left;
+	width: 15%;
+}
+
+.column4 {
+	float: right;
+	width: 85%;
+} 
+  
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.logout:visited { text-decoration: none; color: gray;}
+.logout:hover { text-decoration: none; color: gray; }
+.logout:focus { text-decoration: none; color: gray; }
+.logout:hover, a:active { text-decoration: none; color:gray; }
+  

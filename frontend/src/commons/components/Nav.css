@@ -16,3 +16,17 @@ li {
     justify-content: space-around;
     align-items: center;
 }
+
+.caret {
+    display: none;
+}
+
+#dropdown-basic::after{
+    display: none; 
+ }
+
+.parentnav {
+    text-align: center;
+    width: 100%;
+}
+

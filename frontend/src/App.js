@@ -12,8 +12,11 @@ import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js
 import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman.js';
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
+import Sidebar from 'react-sidebar';
 
-import MainNav from './commons/components/MainNav.js';
+
+import GeneralNav from './commons/components/GeneralNav.js';
+
 import GeneralSidebar from './commons/components/GeneralSidebar.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -37,20 +40,20 @@ const App = () => {
 
   return (
     <Router history={history}>
-      <div>
-        {console.log(sidebarOpen)}
-        <MainNav isLogged={isLogged} openSidebar={() => setSidebarOpen(true)}/>
-        <GeneralSidebar />
-        <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/registerclient' component={RegisterClient}/>
-          <Route path='/registerrestaurant' component={RegisterRestaurant}/>
-          <Route path='/registerdeliveryman' component={RegisterDeliveryman}/>
-          <Route path='/profileclient' component={ProfileClient}/>
-          <Route path='/ProfileRestaurant' component={ProfileRestaurant}/>
-        </Switch>
-      </div>
+
+      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} key='sidebar'/>):(<div/>)}
+      <GeneralNav isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)} key='navbar'/>
+
+      <Switch>
+        <Route exact path="/" component={Home} key='home'/>
+        <Route path='/login' component={Login} key='login'/>
+        <Route path='/registerclient' component={RegisterClient} key='register client'/>
+        <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
+        <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
+        <Route path='/profileclient' component={ProfileClient} key='profile client'/>
+        <Route path='/ProfileRestaurant' component={ProfileRestaurant} key='profile restaurant'/>
+      </Switch>
+
     </Router>
     
   );

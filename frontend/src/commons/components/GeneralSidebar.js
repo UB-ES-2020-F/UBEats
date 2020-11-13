@@ -1,34 +1,27 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
 
 import {Link} from 'react-router-dom';
 
 import Sidebar from 'react-sidebar';
 
+import LoggedSidebar from './LoggedSidebar';
+import DefaultSidebar from './DefaultSidebar';
 import './GeneralSidebar.css';
 
-const GeneralSidebar = () => { 
+const GeneralSidebar = ({isOpen, onOpen, isLogged}) => { 
     return (
         <Sidebar
             sidebar={
-                <div>
-                    <div className='div-margin'>
-                        <div className='div-button'>
-                        <Link to='/login'><Button variant='dark'>Log in</Button></Link>
-                        </div>
-                        <div style={{ textDecoration: 'none' }}>
-                            <Link to='/registerrestaurant' className='navlink'>Register as a restaurant</Link>
-                            <br></br>
-                            <Link to='/registerdeliveryman'>Register as a deliveryman</Link>
-                        </div>
-                    </div>
-                </div>
+               <div>{isLogged ?  (<LoggedSidebar openSidebar={onOpen}/>) : (<DefaultSidebar openSidebar={onOpen}/>)}</div>
             }
-            styles={{ sidebar: { background: "white" } }}
+            open={isOpen}
+            onSetOpen={onOpen}
+            styles={{ sidebar: { background: "white", width:'20%' } }}
         >
         </Sidebar>
     );
-    
 }
+
+
 
 export default GeneralSidebar;
