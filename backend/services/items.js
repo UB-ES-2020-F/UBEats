@@ -1,6 +1,9 @@
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
 
+/**
+ * Query for retrieving all the items from the items table
+ */
 function getAllItems()
 {
         return pool.query('SELECT * FROM items')
@@ -12,6 +15,10 @@ function getAllItems()
                 })
 }
 
+/**
+ * Query to retrieve an specific item from the items table
+ * Selection is done by item_id
+ */
 function getItemByID(id)
 {
        return pool.query('SELECT * FROM items WHERE item_id = $1', [id])
@@ -24,6 +31,10 @@ function getItemByID(id)
                 })
 }
 
+/**
+ * Query to insert a new item.
+ * item_id is set to default and the database will take care of incrementing it
+ */
 function createItem(values)
 {
         //check the values
@@ -36,6 +47,8 @@ function createItem(values)
         let db_values = [values.title, values.desc, values.price, values.visible || '0', values.rest_id]
 
         const query = format('INSERT INTO items VALUES (DEFAULT, %L) RETURNING *', db_values)
+        if(query.error)
+                return {error: query.error, errCode: 403}
 
         return pool.query(query)
                 .then((res) => {
@@ -46,6 +59,9 @@ function createItem(values)
                 })
 }
 
+/**
+ * Query to delete an item from items table selected by item_id
+ */
 function deleteItem(id)
 {
         return pool.query('DELETE FROM items WHERE item_id = $1 RETURNING *', [id])
@@ -57,6 +73,9 @@ function deleteItem(id)
                 })
 }
 
+/**
+ * Modify the values of an item from the tables items, selected by id
+ */
 function updateItem(id, values)
 {
         const check = _checkItemUpdateParameters(values)
@@ -65,6 +84,8 @@ function updateItem(id, values)
                 return {error: check.err, errCode: 403}
 
         const query = _createUpdateDynamicQuery(values)
+        if(query.error)
+                return {error: query.error, errCode: 403}
 
         return pool.query(query)
                 .then((res) => {
@@ -75,6 +96,15 @@ function updateItem(id, values)
                 })
 }
 
+/**
+ * Auxiliary function to check for the parameters of a body
+ * This function is called in the context of item creation
+ * Certain parameters are necessary for the creation of an item
+ * or have certain constraints and requirements.
+ * This functions checks for this constraints and if any of them
+ * if violated, an error string is concatenated with previous errors.
+ * Finally, an string with all the errors is returned
+ */
 function _checkItemCreationParameters(params)
 {
         var err_str = ''
@@ -104,12 +134,24 @@ function _checkItemCreationParameters(params)
                 // also, check that the token_rest == rest_id
         }
 
+        //if errors happenend, return the error string
         if(err_str.length > 0)
                 return {err: err_str}
 
+        //if no errors happened, return a boolean indicated all OK
         return {all_good: true}
 }
 
+/**
+ * Auxiliary function to check for the parameters of a body
+ * This function is called in the context of item update
+ * The parameters of an item have constraints that must be
+ * checked before an update is possible.
+ * This functions checks for this constraints and if any of them
+ * if violated, an error string is concatenated with previous errors.
+ * Finally, an string with all the errors is returned
+ * body is expected to have more than 0 key:value pairs
+ */
 function _checkItemUpdateParameters(params)
 {
         var err_str = ''
@@ -137,6 +179,11 @@ function _checkItemUpdateParameters(params)
         return {all_good: true}
 }
 
+/**
+ * Auxiliary function that builds a dynamic query
+ * for SQL with the key:values of an object
+ * body is expected to have more than 0 key:value pairs
+ */
 function _createUpdateDynamicQuery(body)
 {
         //console.log(body)
@@ -144,6 +191,9 @@ function _createUpdateDynamicQuery(body)
         delete body.item_id
 
         var body_size = Object.keys(body).length;
+        if(body_size == 0)
+                return {"error": "body is empty"}
+
         var counter = 0;
 
         var dynamicQuery = 'UPDATE items SET'
@@ -151,12 +201,15 @@ function _createUpdateDynamicQuery(body)
         {
                 //console.log(key)
                 dynamicQuery = dynamicQuery.concat(` "${key}" = `)
+                //if value is string, add a '
                 if(typeof body[key] == "string")
                         dynamicQuery = dynamicQuery.concat('\'')
                 dynamicQuery = dynamicQuery.concat(`${body[key]}`)
+                //if value is string, add a '
                 if(typeof body[key] == "string")
                         dynamicQuery = dynamicQuery.concat('\'')
 
+                //if keys is not the last, add a comma separator
                 if(body_size > 1 && ++counter < body_size)
                         dynamicQuery = dynamicQuery.concat(",")
         }

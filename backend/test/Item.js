@@ -147,9 +147,6 @@ describe('Items', () => {
           done();
         });
     });
-
-
-
   });
   
   // TEST THE DELETE ENDPOINT
@@ -335,6 +332,25 @@ describe('Items', () => {
           res.should.have.status(404);
           res.body.should.have.property('message')
           res.body.message.should.equal("Item 7865345 not found")
+          done();
+        });
+    });
+
+    it('Update an item. Body is empty. Should return 404', (done) => {
+      let item = {
+        item_id: id
+      }
+
+      chai.request(app)
+        .put('/api/items')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(item)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message')
+          res.body.message.should.equal("Could not update item")
+          res.body.should.have.property('error')
+          res.body.error.should.equal("body is empty")
           done();
         });
     });
