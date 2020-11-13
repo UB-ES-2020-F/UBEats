@@ -38,7 +38,8 @@ const App = () => {
   return (
     <Router history={history}>
       <div>
-        <MainNav isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
+        {console.log(sidebarOpen)}
+        <MainNav isLogged={isLogged} openSidebar={() => setSidebarOpen(true)}/>
         <GeneralSidebar />
         <Switch>
           <Route exact path="/" component={Home}/>
