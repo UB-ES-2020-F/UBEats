@@ -63,6 +63,15 @@ function updateItem(id, values)
         if(check.err)
                 return {error: check.err, errCode: 403}
 
+        const query = _createUpdateDynamicQuery(values)
+
+        return pool.query(query)
+                .then((res) => {
+                        return res.rows[0] || null
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
 }
 
 function _checkItemCreationParameters(params)
@@ -125,6 +134,30 @@ function _checkItemUpdateParameters(params)
                 return {err: err_str}
 
         return {all_good: true}
+}
+
+function _createUpdateDynamicQuery(body)
+{
+        //console.log(body)
+        const {item_id} = body
+        delete body.item_id
+
+        var dynamicQuery = 'UPDATE items SET'
+        for(const key in body)
+        {
+                console.log(key)
+                dynamicQuery = dynamicQuery.concat(` ${key} = `)
+                if(typeof body[key] == "string")
+                        dynamicQuery = dynamicQuery.concat('\'')
+                dynamicQuery = dynamicQuery.concat(`${body[key]}`)
+                if(typeof body[key] == "string")
+                        dynamicQuery = dynamicQuery.concat('\'')
+        }
+        dynamicQuery = dynamicQuery.concat(` WHERE item_id = ${item_id} RETURNING *`)
+
+        console.log(dynamicQuery)
+
+        return dynamicQuery
 }
 
 module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems}

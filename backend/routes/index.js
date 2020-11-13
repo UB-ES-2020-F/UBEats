@@ -26,7 +26,7 @@ router.get('/items', Items.getAll)
 router.get('/items/:item_id', Items.get)
 router.post('/items', Items.create)
 router.delete('/items', Items.remove)
-//router.put('/item', Items.update)
+router.put('/items', Items.update)
 
 //Debug
 router.get('/qwertyuiop/users',Users._get_all_users)
