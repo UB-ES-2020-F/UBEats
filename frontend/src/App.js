@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import { history } from './utils/history';
@@ -14,17 +13,20 @@ import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
 
-import MainNav from './commons/components/MainNav.js';
+import GeneralNav from './pages/Navbar/GeneralNav.js';
+
+import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-
+//This is the main component of the app. It acts as the router.
+//It gets user and isLogged state here and pass it down to its children components.
+//It manages intercomponent communication between navbar and sidebar using useState sidebarOpen and setSidebarOpen.
 const App = () => {
 
-  const { user: currentUser } = useSelector((state) => state.auth);
+  const { user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
+  const [sidebarOpen, setSidebarOpen] = useState(false); //We set a state hook to sidebarOpen to manage the state of the sidebar.
   const dispatch = useDispatch();
-
-  console.log({user: currentUser})
 
   useEffect(() => {
     history.listen((location) => {
@@ -32,25 +34,22 @@ const App = () => {
     });
   }, [dispatch]);
 
-// eslint-disable-next-line
-  const logOut = () => {
-    dispatch(logout());
-  };
-
   return (
     <Router history={history}>
-      <div>
-        <MainNav />
-        <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/registerclient' component={RegisterClient}/>
-          <Route path='/registerrestaurant' component={RegisterRestaurant}/>
-          <Route path='/registerdeliveryman' component={RegisterDeliveryman}/>
-          <Route path='/profileclient' component={ProfileClient}/>
-          <Route path='/ProfileRestaurant' component={ProfileRestaurant}/>
-        </Switch>
-      </div>
+
+      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} key='sidebar'/>):(<div/>)}
+      <GeneralNav isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)} key='navbar'/>
+
+      <Switch>
+        <Route exact path="/" component={Home} key='home'/>
+        <Route path='/login' component={Login} key='login'/>
+        <Route path='/registerclient' component={RegisterClient} key='register client'/>
+        <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
+        <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
+        <Route path='/profileclient' component={ProfileClient} key='profile client'/>
+        <Route path='/ProfileRestaurant' component={ProfileRestaurant} key='profile restaurant'/>
+      </Switch>
+
     </Router>
     
   );
