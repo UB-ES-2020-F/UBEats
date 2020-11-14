@@ -1,8 +1,29 @@
+@import url(//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text);
+
+ :root {
+     --font-family: sans-serif;
+     font-size: 16px;
+     --color-green: #06C167
+;
+     --color-grey: #eee;
+     --color-greyDarker: #545454
+;
+}
+ * {
+     box-sizing: border-box;
+}
+ @font-face {
+     font-family: "Uber Move Text";
+     src: url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.eot");
+     src: url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff") format("woff"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.svg#Uber Move Text") format("svg");
+
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Nunito", sans-serif;
+    font-family: "Uber Move Text";
   }
   
   button {
@@ -126,5 +147,92 @@
     padding: 8px 0;
     background: #3a2b58;
   }
+
+  .restaurantProfile {
+    width: 100%;
+    min-height: 100vh;
+    background: #fafafa;
+    display: flex;
+    font-family: "Uber Move Text";
+  }
+
+  .restaurantProfile .restaurantBanner {
+    height: 15rem;
+  }
+
+  .restaurantProfile .restaurantContainer {
+    padding-left: 5%;
+    padding-top: 20px;
+    font-size: small;
+    font-family: "Uber Move Text";
+  }
+
+  .card + .card{
+    margin: 10px 0 0 10px;
+  }
+
+  .restaurantProfile .restaurantBanner .restaurantTitle {
+    text-align: bottom;
+    padding-left: 5%;   
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+  }
+
+  .card-text {
+    width: 100%;
+  }
+
+  .card {
+    transition: box-shadow .3s;
+    border-radius:10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    float: left;
+    
+  }
+  .card:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  }
+
+  .col-categories {
+    width: 50%;
+  }
+
+  .sectionHeader {
+    font-weight: 600;
+    font-family: "Uber Move Text";
+  }
+
+  .textFont {
+    font-family: "Uber Move Text";
+  }
+
+  .restaurantProfile .a {
+    text-decoration: none;
+  }
+  
+  .restaurantProfile .a:link { 
+    color: gray;
+  }
+
+  .restaurantProfile .productRow {
+    padding-top: 15px;
+  }
+
+  .restaurantProfile .navbar-link {
+    color: black;
+    font-size: 14px;
+  }
+
+  .restaurantProfile .categories-navbar {
+    padding-left: 10px;
+    padding-top: 3%;
+    padding-right: 10%;
+  }
+
   
   

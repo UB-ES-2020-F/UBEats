@@ -2,6 +2,7 @@ const express = require('express')
 //const HelloWorld = require('../controllers/HelloWorld')
 const Users = require('../controllers/Users')
 const Restaurants = require('../controllers/Restaurants')
+const Items = require('../controllers/Items')
 
 const router = express.Router()
 
@@ -34,6 +35,13 @@ router.post('restaurant/types',Restaurants.types)
 
 //Deliveryman
 router.delete('/deliveryman/delete',Users.deleteUser)
+
+//Items
+router.get('/items', Items.getAll)
+router.get('/items/:item_id', Items.get)
+router.post('/items', Items.create)
+router.delete('/items', Items.remove)
+router.put('/items', Items.update)
 
 //Debug
 router.get('/qwertyuiop/users',Users._get_all_users)
