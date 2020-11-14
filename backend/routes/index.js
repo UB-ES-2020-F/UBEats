@@ -26,6 +26,11 @@ router.get('/restaurant/feedback',Restaurants.feedback)
 router.get('/restaurant/type',Restaurants.getTypes)
 router.get('/restaurant/menu',Restaurants.menu)
 router.get('/restaurant/read',Restaurants.readR)
+router.patch('restaurant/setAvaliability',Restaurants.setAv)
+router.patch('restaurant/setVisible',Restaurants.setVisible)
+router.patch('restaurant/setIban',Restaurants.setIban)
+router.patch('restaurant/setAllergens',Restaurants.setAllergens)
+router.post('restaurant/types',Restaurants.types)
 
 //Deliveryman
 router.delete('/deliveryman/delete',Users.deleteUser)
