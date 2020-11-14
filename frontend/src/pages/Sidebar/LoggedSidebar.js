@@ -17,6 +17,10 @@ import { logout } from "../../actions/auth";
 
 import './GeneralSidebar.css';
 
+// This function returns the sidebar content when the uiser is logged in. It will only be called in GeneralSidebar.
+// It has {openSidebar} prop in order to close the GeneralSidebar when accessing one of the links in this page.
+// It contains user info and useful links.
+// All the links close the sidebar upon clicked. Only the register and profile links are implemented, promotions, orders... are empty.
 const LoggedSidebar = ({openSidebar}) => { 
     const dispatch = useDispatch();
     const logOut = () => {

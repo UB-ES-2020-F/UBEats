@@ -11,12 +11,16 @@ import sidebar from '../../images/sidebar.jpg';
 
 import './MainNav.css'
 
+//This function contains the navbar.
+//It displays a clickable logo that links to the homepage, a form that wil be used to input direction of delivery and a button to open the sidebar, openSidebar is called to manage this latter action.
+//isLogged is used to select whether the right-most part of the navbar displays a log in button that is linked to /login page or a log out button that logs the current user out.
 const GeneralNav = ({isLogged, openSidebar}) => {
     const dispatch = useDispatch();
     
-    const form = useRef();
-    const [ubication, setUbication] = useState();
+    const form = useRef(); //form reference.
+    const [ubication, setUbication] = useState(); //get delivery address value, and update it.
 
+    //This function dispatches redux action logout, to log out the user.
     const logOut = () => {
         dispatch(logout());
       };

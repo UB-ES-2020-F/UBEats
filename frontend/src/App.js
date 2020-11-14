@@ -12,12 +12,11 @@ import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js
 import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman.js';
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
-import Sidebar from 'react-sidebar';
 
 
-import GeneralNav from './commons/components/GeneralNav.js';
+import GeneralNav from './pages/Navbar/GeneralNav.js';
 
-import GeneralSidebar from './commons/components/GeneralSidebar.js';
+import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
