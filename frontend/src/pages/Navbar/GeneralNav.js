@@ -7,7 +7,8 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 
 import {Link} from 'react-router-dom';
-import sidebar from '../../images/sidebar.jpg';
+import sidebar from '../../images/sidebar_btn.jpg';
+
 
 import './MainNav.css'
 
