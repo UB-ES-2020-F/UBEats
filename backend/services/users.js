@@ -91,4 +91,21 @@ function _createSpecficicUser(values){
     
 }
 
-module.exports = {getUsers, getUserByEmail, createUser}
+/**
+ * Method that deletes a user from the DB
+ * 
+ */
+async function deleteUser(email){
+
+    //Check every key to be present
+    if (!email) 
+        return {error : "email must be filled", errCode : 400}
+
+    return pool.query('DELETE FROM users WHERE email = $1',[email])
+    .then(res =>{
+        return res.rows[0] || null
+    })
+    .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
+}
+
+module.exports = {getUsers, getUserByEmail, createUser, deleteUser }
