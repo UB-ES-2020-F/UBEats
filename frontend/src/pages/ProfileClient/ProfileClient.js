@@ -1,27 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../commons/components/App.css';
-import { Button, Image, Row, Container, Col } from 'react-bootstrap';
+import { Button, Image, Row, Container, Col, Toast } from 'react-bootstrap';
 import profilepic from "../../images/profilepicture.jpg"
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated'
 
 var userInfo = {
   username: "Pepito Gonzalez",
   userpic: profilepic,
   userphone: "+34 667534645",
-  ubicacion: null,
-  idioma: null,
+  ubicacion: 'España',
+  idioma: 'English',
   codigoinvitacion: "k4tb6g",
   email: "pepito@pepito.com",
   appsautorizadas: [],
 }
 
+const listaIdiomas = [
+  { value: 'english', label: 'English'},
+  { value: 'spanish', label: 'Spanish'},
+  { value: 'italian', label: 'Italian'},
+  { value: 'russian', label: 'Russian'},
+]
+
+const listaUbicaciones = [
+  { value: 'españa', label: 'España'},
+  { value: 'uk', label: 'UK'},
+  { value: 'italia', label: 'Italia'},
+  { value: 'russia', label: 'Russia'},
+]
+
+
 function ProfileClient() {
+
+  const [ubicacion, setUbicacion] = useState(userInfo.ubicacion);
+  const [idioma, setIdioma] = useState(userInfo.idioma);
+  const [email, setEmail] = useState(userInfo.email);
+  const [showToast, setShowToast] = useState(false);
+
+  function SaveChanges () {
+    userInfo.idioma = idioma;
+    userInfo.ubicacion = ubicacion;
+    userInfo.email = email;
+    setShowToast(true);
+  }
+  
   return (
     <section className="profileClient">
 
       <Container className="profileContainer">
 
         <Row>
-          <Col >
+          <Col>
             <Image className="profilePicture" src={profilepic} roundedCircle />
           </Col>
 
@@ -38,7 +68,13 @@ function ProfileClient() {
           </Col>
 
           <Col>
-          {/** Desplegable */}
+            <Select
+              options={listaUbicaciones}
+              defaultInputValue={userInfo.ubicacion}
+              isSearchable
+              components={makeAnimated()}
+              onChange={setUbicacion}
+            />
           </Col>
         </Row>
 
@@ -48,7 +84,14 @@ function ProfileClient() {
           </Col>
 
           <Col>
-          {/** Desplegable */}
+            <Select
+              options={listaIdiomas}
+              defaultInputValue={userInfo.idioma}
+              isSearchable
+              components={makeAnimated()}
+              onChange={setIdioma}
+            />
+            
           </Col>
         </Row>
 
@@ -58,7 +101,7 @@ function ProfileClient() {
           </Col>
 
           <Col>
-            <p>{userInfo.codigoinvitacion}</p>
+            <p>{userInfo.codigoinvitacion}</p> 
           </Col>
         </Row>
 
@@ -68,28 +111,55 @@ function ProfileClient() {
           </Col>
 
           <Col>
-            <p>{userInfo.email}</p>
+            <input 
+              type="email" 
+              defaultValue={email}
+              onChange={setEmail}
+              >
+              
+            </input>
+            
           </Col>
         </Row>
 
         <Row>
-          <Button variant="primary">Save changes</Button>
+          <Button 
+            className="profileButton" 
+            variant="primary"
+            onClick={SaveChanges}
+
+            >Save changes
+          </Button>
         </Row>
 
         <Row>
-          <p>Authorised applications</p>
+          <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+            <Toast.Header>
+              <p><strong>UB Eats</strong></p>
+            </Toast.Header>
+            <Toast.Body>Your changes have been saved</Toast.Body>
+          </Toast>
         </Row>
 
         <Row>
-          <p>{userInfo.appsautorizadas}</p>
+          <p><strong>Authorised applications</strong></p>
         </Row>
 
-      {/** Boton cerrar sesion */}
+        <Row>
+          <p style={{fontSize: 13}}>There are no authorised apps.</p>
+        </Row>
+
+        <Row>
+          <Button 
+            variant="outline-danger" 
+            className="profileButton">
+              Log out
+          </Button>
+        </Row>
+
 
       </Container>
 
-
-      
     </section>
 
   );
