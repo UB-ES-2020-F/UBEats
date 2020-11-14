@@ -134,9 +134,6 @@ function ProfileClient() {
 
         <Row>
           <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
-            <Toast.Header>
-              <p><strong>UB Eats</strong></p>
-            </Toast.Header>
             <Toast.Body>Your changes have been saved</Toast.Body>
           </Toast>
         </Row>
