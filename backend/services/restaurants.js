@@ -167,7 +167,7 @@ async function types(body){
         return res.rows[0] || null
     })
     .catch(err =>  {
-        pool.query('INSERT INTO type_restaurants VALUES $1',Inserts('$1,$2',deleteT.rows[0]))
+        pool.query('INSERT INTO type_restaurants VALUES $1',Inserts('$1,$2',deleteT))
         /*Not take the res,err because it's re-insert the types deleted */
         return {error: `${err} specific`, errCode : 400}
     }) 
