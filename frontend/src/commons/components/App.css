@@ -1,8 +1,27 @@
+@import url(//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text);
+ :root {
+     --font-family: sans-serif;
+     font-size: 16px;
+     --color-green: #06C167
+;
+     --color-grey: #eee;
+     --color-greyDarker: #545454
+;
+}
+ * {
+     box-sizing: border-box;
+}
+ @font-face {
+     font-family: "Uber Move Text";
+     src: url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.eot");
+     src: url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff") format("woff"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.svg#Uber Move Text") format("svg");
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Nunito", sans-serif;
+    font-family: "Uber Move Text";
   }
   
   button {
@@ -132,7 +151,7 @@
     min-height: 100vh;
     background: #fafafa;
     display: flex;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Uber Move Text";
   }
 
   .restaurantProfile .restaurantBanner {
@@ -143,7 +162,7 @@
     padding-left: 5%;
     padding-top: 20px;
     font-size: small;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Uber Move Text";
   }
 
   .card + .card{
@@ -183,11 +202,11 @@
 
   .sectionHeader {
     font-weight: 600;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Uber Move Text";
   }
 
   .textFont {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Uber Move Text";
   }
 
   .restaurantProfile .a {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Row, Card, Col, Modal, Nav } from 'react-bootstrap';
 import pollo from "../../images/banner.jpg";
 import pikachu from "../../images/pikachu.jpg";
@@ -52,7 +52,10 @@ const listaSecciones = [
   },
 ]
 
-
+{/**
+  * Generates a product's card
+  * props: Product's name, description, image and price.
+  */}
 
 function CardPlato(props) {
   return (
@@ -68,6 +71,12 @@ function CardPlato(props) {
     </Card>
   );
 }
+
+{/**
+  * Generates an array of product's cards
+  * props: Array of product's data
+  */}
+
 
 function FilaPlatos (props) {
   var plato;
@@ -87,6 +96,11 @@ function FilaPlatos (props) {
   return (listaPlatos);
 }
 
+{/**
+  * Generates a product's row
+  * props: Dictionary with the row's header and the product's info array
+  */}
+
 function SeccionPlatos (props) {
   var seccionesReturn = [];
   
@@ -96,7 +110,10 @@ function SeccionPlatos (props) {
       <Row className="restaurantContainer">
         <Container>
           <Row>
-            <h5 className="sectionHeader">{props.listaSecciones[seccion].Header}</h5>
+            <h5 
+              className="sectionHeader"
+              id={props.listaSecciones[seccion].Header}
+            >{props.listaSecciones[seccion].Header}</h5>
           </Row>
           <Row className="productRow">
             
@@ -113,14 +130,21 @@ function SeccionPlatos (props) {
   return (seccionesReturn);
 }
 
+{/**
+  * Generates a categories navigation bar
+  * props: props: Dictionary with the row's header and the product's info array
+  * (only the headers are used)
+  */}
+
 function ListaCategorias(props) {
   var listaCategorias = []
   var columnas = 0;
 
   for (var categoria in props.listaSecciones) {
+    var hrefitem = "#" + props.listaSecciones[categoria].Header;
     var categoriaX =
     <Nav.Item as="li">
-      <Nav.Link href="#" className="navbar-link">{props.listaSecciones[categoria].Header}</Nav.Link>
+      <Nav.Link href={hrefitem} className="navbar-link">{props.listaSecciones[categoria].Header}</Nav.Link>
     </Nav.Item>
     
     listaCategorias.push(categoriaX)
@@ -138,35 +162,14 @@ function ListaCategorias(props) {
   return(listaCategorias);
 }
 
-function MoreInfoModal (props) {
-  const [show, setShow] = React.useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  return (
-    <>
-      <p className="textFont" onClick={handleShow}><strong>More info</strong></p>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-}
 
 function ProfileRestaurant() {
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
   return (
     <section className="restaurantProfile">
 
@@ -197,7 +200,7 @@ function ProfileRestaurant() {
         <Row className="restaurantContainer">
           <Container>
             <Row>
-              <p>$ • Chicken • American • <a href="#">More info</a></p> 
+              <p>$ • Chicken • American • <a onClick={handleShow} href="#">More info</a></p> 
             </Row>
             <Row>
               <p>Rambla de Catalunya 58, 08001, Barcelona</p>
@@ -205,11 +208,36 @@ function ProfileRestaurant() {
           </Container>
         </Row>
 
+        {/**
+         * This next component is the Modal, shown only when
+         * More Info is clicked.
+         */}
+
+        <Modal show={showModal} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>KFC</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>This is a Modal with the restaurant's info.</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/**
+         * This next part generates the categories' navbar.
+         */}
+
         <Container className="">
           <Nav as="ul" className="categories-navbar">
             <ListaCategorias listaSecciones={listaSecciones}></ListaCategorias>
           </Nav>
         </Container>
+
+        {/**
+         * And this one generates the product rows.
+         */}
         
 
         <SeccionPlatos listaSecciones={listaSecciones}>
