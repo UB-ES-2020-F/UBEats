@@ -13,23 +13,20 @@ import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
 
-
 import GeneralNav from './pages/Navbar/GeneralNav.js';
 
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-
+//This is the main component of the app. It acts as the router.
+//It gets user and isLogged state here and pass it down to its children components.
+//It manages intercomponent communication between navbar and sidebar using useState sidebarOpen and setSidebarOpen.
 const App = () => {
 
-  const { user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
+  const [sidebarOpen, setSidebarOpen] = useState(false); //We set a state hook to sidebarOpen to manage the state of the sidebar.
   const dispatch = useDispatch();
-
-  console.log({user: currentUser});
-  console.log({isLoggedIn:  isLogged});
-
 
   useEffect(() => {
     history.listen((location) => {

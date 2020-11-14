@@ -4,6 +4,7 @@ import axios from "axios";
 const API_URL_BUILD = "https://cors-anywhere.herokuapp.com/http://ub-gei-es-ubeats-clone.herokuapp.com/api/";
 const API_URL = API_URL_BUILD;
 
+//Send POST to API_URL/register with name, email, password, type.
 const register = (name, email, password, type) => {
   return axios.post(API_URL + "register", {
     name,
@@ -12,7 +13,7 @@ const register = (name, email, password, type) => {
     type
   });
 };
-
+//Send post to API_URL/login with email, password. Wait for response and set localStorage 'user' as the response.
 const login = (email, password) => {
   return axios
     .post(API_URL + "login", {
@@ -27,7 +28,7 @@ const login = (email, password) => {
       return response.data;
     });
 };
-
+//Remove user from locarStorage
 const logout = () => {
   localStorage.removeItem("user");
 };
