@@ -30,7 +30,19 @@ const listaPlatos = [
     Price: "11$",
     Image: bucket,
     Description: "Will satisfy all your needs."
-  }
+  },
+  {
+    Name: "Fried Pikachu",
+    Price: "4$",
+    Image: pikachu,
+    Description: "Simply electric."
+  },
+  {
+    Name: "Fried Pikachu",
+    Price: "4$",
+    Image: pikachu,
+    Description: "Simply electric."
+  },
 ];
 
 const listaSecciones = [
