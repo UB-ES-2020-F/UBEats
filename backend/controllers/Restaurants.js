@@ -50,6 +50,64 @@ async function readR(req, res){
     return res.status(200).send({readR})
 }
 
-module.exports = { feedback, getTypes, menu, readR }
+/**
+ * Method called to update the avaliability of a restaurant
+ * @param {} req
+ * @param {*} res 
+ */
+async function setAv(req, res){
+    const {body} = req 
+    const avaliability = await restaurants.setAv(body) 
+    if (avaliability.error) res.status(404).send({"message":`Avaliability not updated of Restaurant with email:${body.email}.`})
+    return res.status(200).send({avaliability})
+}
 
+/**
+ * Method called to update the 'visible' of a restaurant
+ * @param {} req
+ * @param {*} res 
+ */
+async function setVisible(req, res){
+    const {body} = req 
+    const visible = await restaurants.setVisible(body) 
+    if (visible.error) res.status(404).send({"message":`Visible not updated of Restaurant with email:${body.email}.`})
+    return res.status(200).send({visible})
+}
 
+/**
+ * Method called to update the 'iban' of a restaurant
+ * @param {} req
+ * @param {*} res 
+ */
+async function setIban(req, res){
+    const {body} = req 
+    const iban = await restaurants.setIban(body) 
+    if (iban.error) res.status(404).send({"message":`iban not updated of Restaurant with email:${body.email}.`})
+    return res.status(200).send({iban})
+}
+
+/**
+ * Method called to update the 'allergens' of a restaurant
+ * @param {} req
+ * @param {*} res 
+ */
+async function setAllergens(req, res){
+    const {body} = req 
+    const allergens = await restaurants.setAllergens(body) 
+    if (allergens.error) res.status(404).send({"message":`allergens not updated of Restaurant with email:${body.email}.`})
+    return res.status(200).send({allergens})
+}
+
+/**
+ * Method called to update the types of a restaurant, given the pre-existing list, by their id
+ * @param {} req
+ * @param {*} res 
+ */
+async function types(req, res){
+    const {body} = req //body.email, body.types an array of ids
+    const types = await restaurants.types(body) 
+    if (types.error) res.status(404).send({"message":`types not updated of Restaurant with email:${body.email}.`})
+    return res.status(200).send({types})
+}
+
+module.exports = { feedback, getTypes, menu, readR, setAv, setVisible, setIban, setAllergens, types }
