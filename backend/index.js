@@ -17,6 +17,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 app.use(cors())
 
+// First use the api routes because the regular expression
+// for the frontend will match all the api calls
+app.use('/api', routes)
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
@@ -25,7 +28,6 @@ app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
-app.use('/api', routes)
 
 app.listen(PORT, function (){
     console.log(`App running in port ${PORT}`);
