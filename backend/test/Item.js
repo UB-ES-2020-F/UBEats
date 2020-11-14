@@ -58,7 +58,7 @@ describe('Items', () => {
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.have.property('items');
-            res.body.items.should.be.an('array').to.have.lengthOf(4);
+            res.body.items.should.be.an('array').to.have.lengthOf.above(0);
             done();
           });
 

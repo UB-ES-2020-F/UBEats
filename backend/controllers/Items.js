@@ -13,7 +13,7 @@ async function getAll(req, res)
     if(items.error)
         return res.status(404).send({"message": "could not retrieve items", "error": items.error})
 
-    console.log(items)
+    //console.log(items)
 
     return res.status(200).send({items})
 }
