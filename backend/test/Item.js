@@ -49,6 +49,22 @@ describe('Items', () => {
 
   })
 
+  // TEST THE GET ALL ENDPOINT
+  describe('/GET ITEMS', () => {
+    it('Get all existing items. Should return 200', (done) => {
+      chai.request(app)
+        .get('/api/items')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('items');
+            res.body.items.should.be.an('array').to.have.lengthOf(4);
+            done();
+          });
+
+    });
+  });
+
   // TEST THE POST ENDPOINT
   describe('POST /api/items', () => {
     beforeEach( async () => {
