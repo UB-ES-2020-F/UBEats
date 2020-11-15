@@ -50,6 +50,7 @@ async function get(req, res)
         return res.status(403).send({"message": "Item ID not specified"})
     
     const item = await items_db.getItemByID(params.item_id)
+    //console.log(item)
     //check for error retreiving from DDBB
     if(!item)
         return res.status(404).send({"message": `Item ${params.item_id} not found`})

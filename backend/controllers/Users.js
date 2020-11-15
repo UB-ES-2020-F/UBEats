@@ -43,4 +43,23 @@ async function register(req, res){
     return res.status(200).send({user}) 
 }
 
-module.exports = { login, register, _get_all_users }
+/**
+ * Method called to delete a user (customer, restaurant, deliveryman) using the email
+ * @param {} req 
+ * @param {*} res 
+ */
+async function deleteUser(req, res){
+    const {body} = req 
+    //console.log(body.email)
+    const user = await sch_users.deleteUser(body.email) 
+
+    //check for error retreiving from DDBB
+    if(!user) // pg returns NULL but the query executed successfully
+        return res.status(404).send({"message": `User ${body.email} not found`})
+    if(user.error)
+        return res.status(404).send({"message": `User ${body.email} not found`, "error": user.error})
+
+    return res.status(200).send({user})
+}
+
+module.exports = { login, register, _get_all_users, deleteUser }
