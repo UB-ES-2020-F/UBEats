@@ -34,15 +34,34 @@
     color: #fff;
     font-size: 16px;
     letter-spacing: 1px;
-    background: #3ba728;
+    background: black;
+    font-family: "Uber Move Text";
     cursor: pointer;
+  }
+  
+  
+  
+  .logo{
+    text-align: center;
+  }
+  
+  .logo h1 {
+      font-weight: 600;
+      font-family: "Uber Move Text";
+      font-size: 70px;
+  }
+  
+  .logo span{
+      font-weight: 900;
+      font-family: "Uber Move Text";
+      color: rgb(7, 190, 7);
+      font-size: 70px;
   }
   
   .login {
     width: 100%;
-    min-height: 100vh;
-    padding: 0 20px;
-    background: #e9e9e9;
+    padding: 0 0px;
+    background: white;
     display: flex;
   }
   
@@ -50,26 +69,25 @@
     padding: 60px;
     margin: auto;
     width: 100%;
-    max-width: 520px;
-    min-height: 600px;
+    max-width: 750px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: radial-gradient(
-      ellipse at left bottom,
-      rgb(86, 117, 90) 0%,
-      rgba(71, 105, 75, 0.9) 59%,
-      rgba(59, 99, 64, 0.9) 100%
-    );
-    box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.8);
+    background: white;
   }
   
   .login .loginContainer label {
-    color: white;
+    color: rgb(100, 100, 100);
     margin: 14px 0;
     display: block;
-    font-size: 22px;
+    font-size: 20px;
+    font-family: "Uber Move Text";
     line-height: 1;
+  }
+  
+  .login .loginContainer h2 {
+    font-family: "Uber Move Text";
+    font-size: 40px;
   }
   
   .login .loginContainer input {
@@ -79,10 +97,13 @@
     font-size: 19px;
     padding: 10px;
     background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    color: black;
     letter-spacing: 1px;
+    border-color: black;
+    border: 1px solid black;
+    font-family: "Uber Move Text";
   }
-
+  
   .login .loginContainer p {
     margin: 14px 0 0 0;
     text-align: right;
@@ -147,7 +168,52 @@
     padding: 8px 0;
     background: #3a2b58;
   }
-
+  
+  .btnContainer label{
+    text-align: center;
+    color: black;
+    margin: 14px 0;
+    display: block;
+    font-size: 22px;
+    font-family: "Uber Move Text";
+    line-height: 1;
+  }
+  
+  
+  
+  .btnContainer span{
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: all 400ms ease-in-out;
+    font-family: "Uber Move Text";
+  }
+  
+  footer {
+    background-color: rgb(80, 80, 80);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    padding:15px;
+    color: white;
+  }
+  
+  footer h3{
+    font-size: 20px;
+    font-family: "Uber Move Text";
+  }
+  
+  p{
+    color: black;
+  }
+  
+  .link{
+    color: green;
+  }
   .restaurantProfile {
     width: 100%;
     min-height: 100vh;
