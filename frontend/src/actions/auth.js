@@ -1,3 +1,4 @@
+//Here are the auth actions: register, login and logout. They will call /api/auth.service functions.
 import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -76,6 +77,7 @@ import {
       }
     );
   };
+  
   
   export const logout = () => (dispatch) => {
     AuthService.logout();
