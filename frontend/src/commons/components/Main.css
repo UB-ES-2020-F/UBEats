@@ -19,12 +19,23 @@
 	 font-weight: 300;
 	 font-family: "Uber Move Text";
 }
+<<<<<<< Updated upstream
  body {
 	 margin: 0;
 	 font-family: sans-serif;
 }
  .container {
 	 width: 100%;
+=======
+ .body2 {
+	 margin: 0;
+	 font-family: sans-serif;
+	 background-color: white;
+}
+ .container {
+	 width: 100%;
+	 margin: 0;
+>>>>>>> Stashed changes
 }
  header .logo h1 {
 	 font-weight: 600;
@@ -40,6 +51,10 @@
 	 align-items: center;
 	 height: 40px;
 	 padding-top: 25px;
+<<<<<<< Updated upstream
+=======
+	 width: 100%;
+>>>>>>> Stashed changes
 }
  header .searchBar {
 	 margin-left: auto;
@@ -49,6 +64,10 @@
 	 letter-spacing: 0.6px;
 	 display: flex;
 	 align-items: center;
+<<<<<<< Updated upstream
+=======
+	 width: 100%;
+>>>>>>> Stashed changes
 }
  header .header-option svg {
 	 margin-right: 1rem;
@@ -104,7 +123,11 @@
 	 color: white;
 	 font-family: "Uber Move Text";
 }
+<<<<<<< Updated upstream
  .header2 .container {
+=======
+ .header2 .container2 {
+>>>>>>> Stashed changes
 	 display: flex;
 	 align-items: center;
 	 padding-left: 3rem;
@@ -211,6 +234,13 @@
 	 padding: 2rem 0;
 	 width: 100%;
 }
+<<<<<<< Updated upstream
+=======
+
+.listings .container3{
+	width: 100%;
+}
+>>>>>>> Stashed changes
  .listings .header {
 	 display: flex;
 	 align-items: center;
@@ -416,4 +446,8 @@
 	 font-weight: 400;
 	 padding-left: 5px;
 	 font-family: "Uber Move Text";
+<<<<<<< Updated upstream
 }
+=======
+} 
+>>>>>>> Stashed changes

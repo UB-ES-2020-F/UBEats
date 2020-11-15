@@ -6,7 +6,7 @@ import * as serviceWorker from './utils/serviceWorker';
 import Store from './store'
 
 import './commons/components/App.css';
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 require('dotenv').config()
 

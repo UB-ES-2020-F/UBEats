@@ -1,15 +1,22 @@
 import React from 'react';
 import '../../commons/components/Main.css'
+<<<<<<< Updated upstream
 import photo from '../../images/under_construction.png'
 import 'react-bootstrap';
 import'react-router-dom';
+=======
+>>>>>>> Stashed changes
 
 
 function Home() {
   return (
     <section className="login">
 
+<<<<<<< Updated upstream
         <body>
+=======
+        <body2>
+>>>>>>> Stashed changes
  
 
 
@@ -40,7 +47,11 @@ function Home() {
 
 
     <div class="listings">
+<<<<<<< Updated upstream
       <div class="container">
+=======
+      <div class="container3">
+>>>>>>> Stashed changes
         <div class="listings-grid">
           
             <div class="listings-grid-element2">
@@ -117,7 +128,11 @@ function Home() {
 
 
       <div class="listings">
+<<<<<<< Updated upstream
       <div class="container">
+=======
+      <div class="container3">
+>>>>>>> Stashed changes
         <div class="header">
           <div class="header-title">
             <h2>Populares cerca de ti</h2>
@@ -263,7 +278,11 @@ function Home() {
 
     
     <div class="listings">
+<<<<<<< Updated upstream
       <div class="container">
+=======
+      <div class="container3">
+>>>>>>> Stashed changes
         <div class="header">
           <div class="header-title">
             <h2>¿Buscas algo diferente?</h2>
@@ -380,7 +399,11 @@ function Home() {
       </div>
 
     <div class="listings">
+<<<<<<< Updated upstream
       <div class="container">
+=======
+      <div class="container3">
+>>>>>>> Stashed changes
         <div class="listings-grid">
           <div class="listings-col">
             <div class="listings-grid-element">
@@ -435,7 +458,11 @@ function Home() {
 
 
     <div class="listings">
+<<<<<<< Updated upstream
       <div class="container">
+=======
+      <div class="container3">
+>>>>>>> Stashed changes
         <div class="header">
           <div class="header-title">
             <h2>¿Tienes prisa?</h2>
@@ -578,7 +605,11 @@ function Home() {
     </div>
 
     <div class="listings">
+<<<<<<< Updated upstream
       <div class="container">
+=======
+      <div class="container3">
+>>>>>>> Stashed changes
         <div class="header">
           <div class="header-title">
             <h2>Ofertas de hoy</h2>
@@ -721,7 +752,11 @@ function Home() {
 
 
     <div class="listings">
+<<<<<<< Updated upstream
       <div class="container">
+=======
+      <div class="container3">
+>>>>>>> Stashed changes
         <div class="header">
           <div class="header-title">
             <h2>Todos los establecimientos</h2>
@@ -911,7 +946,11 @@ function Home() {
     </div>
 
     <div class="header2">
+<<<<<<< Updated upstream
       <div class="container">
+=======
+      <div class="container2">
+>>>>>>> Stashed changes
         <div class="logo">
           <h1>UB<span>Eats</span></h1>
         </div>
@@ -927,7 +966,11 @@ function Home() {
       </div>
     </div>
 
+<<<<<<< Updated upstream
   </body>
+=======
+  </body2>
+>>>>>>> Stashed changes
 
     </section>
 
