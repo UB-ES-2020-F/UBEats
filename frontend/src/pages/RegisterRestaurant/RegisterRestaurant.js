@@ -89,13 +89,22 @@ const Register = () => {
 
   return (
     <section className="login">
+      <link href="//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text" rel="stylesheet" type="text/css"/> 
       <div className="loginContainer">
+      <div class="logo">
+          <h1>UB<span>Eats</span></h1>
+        </div>
+        <p></p><p ></p>
+        <p ></p>
+        <h2>¡Añada su restaurante!</h2>
+        <p></p><p></p>
         <Form onSubmit={handleRegister} ref={form}>
-          <label>Restaurant Name</label>
+          <label>Introduzca el nombre de su restaurante</label>
           <Input
           type="text"
           autoFocus
           required
+          placeholder="Nombre"
           name='name'
           value={name}
           onChange={onChangeName}
@@ -103,11 +112,12 @@ const Register = () => {
           />
           <p className="errorMsg"></p>
 
-          <label>E-mail</label>
+          <label>Introduzca su E-mail</label>
           <Input
           type="text"
           autoFocus
           required
+          placeholder="E-mail"
           name='email'
           value={email}
           onChange={onChangeEmail}
@@ -115,11 +125,13 @@ const Register = () => {
           />
           <p className="errorMsg"></p>
 
-          <label>Password</label>
+          <label>Escriba su contraseña</label>
           <Input
           type="text"
           autoFocus
           required
+          placeholder="Contraseña"
+          type="password"
           name='password'
           value={password}
           onChange={onChangePassword}
@@ -127,17 +139,47 @@ const Register = () => {
           />
           <p className="errorMsg"></p>
 
+          <label>Escriba la calle</label>
+          <Input
+          type="text"
+          autoFocus
+          required
+          placeholder="Calle"
+          //name='password'
+          //value={password}
+          //onChange={onChangePassword}
+          //validations={[required, vpassword]}
+          />
+          <p className="errorMsg"></p>
+
+          <label>Introduzca su telefono</label>
+          <Input
+          type="text"
+          autoFocus
+          required
+          placeholder="Telefono"
+          //name='password'
+          //value={password}
+          //onChange={onChangePassword}
+          //validations={[required, vpassword]}
+          />
+          <p className="errorMsg"></p>
+
+          <label>Introduzca su IBAN</label>
+          <Input
+          type="text"
+          autoFocus
+          required
+          placeholder="IBAN"
+          //name='password'
+          //value={password}
+          //onChange={onChangePassword}
+          //validations={[required, vpassword]}
+          />
+          <p className="errorMsg"></p>
+
           <div className="btnContainer">
-            <button className="btn btn-primary btn-block"> Sign up </button>
-            <p>Do you have an account?
-              <Link to="./login"> Sign in</Link>
-            </p>
-            <p>Do you want to register as a client?
-              <Link to="/registerclient"> Sign up</Link>
-            </p>
-            <p>Do you want to register as a deliveryman?
-              <Link to="/registerdeliveryman"> Sign up</Link>
-            </p>
+            <button> Resgistrar </button>
           </div>   
           {message && (
             <div className="form-group">

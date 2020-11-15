@@ -55,6 +55,10 @@ const Register = () => {
   const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
 
+  const enabled =
+          email.length > 0 &&
+          password.length > 0 && name.length > 0;
+
   const onChangeName = (e) => {
     const name = e.target.value;
     setname(name);
@@ -132,6 +136,7 @@ const Register = () => {
           autoFocus
           required
           placeholder="Contraseña"
+          type="password"
           name='password'
           value={password}
           onChange={onChangePassword}
@@ -140,7 +145,8 @@ const Register = () => {
           <p className="errorMsg"></p>
 
           <div className="btnContainer">
-            <button> Registrar </button>
+
+            <button disabled={!enabled}> Registrar </button>
             <label>¿Ya tiene una cuenta?    
               <Link to="./login" className="link"> Inicia sesion</Link>
             </label>
