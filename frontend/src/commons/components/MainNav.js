@@ -4,7 +4,6 @@ import {Navbar, Form, FormControl, Nav} from 'react-bootstrap';
 
 import photo from '../../images/ubeats.png'
 
-
 function MainNav() { 
     return (
         <Navbar bg="light" expand="lg">

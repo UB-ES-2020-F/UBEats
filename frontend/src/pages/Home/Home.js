@@ -11,30 +11,6 @@ function Home() {
 
         <body>
  
-    <header>
-      <link href="//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text" rel="stylesheet" type="text/css"/> 
-      <div class="container">
-        <div class="logo">
-          <h1>UB<span>Eats</span></h1>
-        </div>
-        <div class="currentDetails">
-          <div class="header-option">
-            <i data-feather="map-pin"></i>
-            <span>Ubicación actual</span>
-          </div>
-          <div class="header-option">
-            <i data-feather="clock"></i>
-            <span>Recoger</span>
-          </div>
-        </div>
-      
-        <div class="searchBar">
-          <div class="header-option">
-            <span>Sign in</span>
-          </div>
-        </div>
-      </div>
-    </header>
 
 
 
