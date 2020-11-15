@@ -47,7 +47,7 @@ const App = () => {
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
         <Route path='/profileclient' component={ProfileClient} key='profile client'/>
-        <Route path='/ProfileRestaurant' component={ProfileRestaurant} key='profile restaurant'/>
+        <Route path='/profilerestaurant' component={ProfileRestaurant} key='profile restaurant'/>
       </Switch>
 
     </Router>
