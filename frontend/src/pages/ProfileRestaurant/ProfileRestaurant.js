@@ -67,119 +67,9 @@ const listaSecciones = [
   },
 ]
 
-/**
-  * Generates a product's card
-  * props: Product's name, description, image and price.
-  */
-
-function CardPlato(props) {
-  return (
-    <Card style={{ width: '14rem' }}>
-      <Card.Img className="card-img-top" variant="top" src={props.Image} fluid/>
-      <Card.Body>
-        <Card.Title className="textFont">{props.Name}</Card.Title>
-        <Card.Text className="textFont">
-          {props.Description}
-        </Card.Text>
-        {/** <Button variant="success">Añadir al carrito</Button> */}
-      </Card.Body>
-    </Card>
-  );
-}
-
-/**
-  * Generates an array of product's cards
-  * props: Array of product's data
-  */
 
 
-function FilaPlatos (props) {
-  var plato;
-  var listaPlatos = []
-  for (plato of props.listaPlatos) {
-    
-    var cardPlato = <CardPlato 
-      Name={plato.title}
-      Description={plato.desc}
-      Price={plato.price}
-      Image={pollo}
-    >
-    </CardPlato>
-
-    listaPlatos.push(cardPlato);
-  }
-  return (listaPlatos);
-}
-
-/**
-  * Generates a product's row
-  * props: Dictionary with the row's header and the product's info array
-  */
-
-function SeccionPlatos (props) {
-  var seccionesReturn = [];
-  
-  for (var seccion in props.listaSecciones) {
-    
-    var seccionX = 
-      <Row className="restaurantContainer">
-        <Container>
-          <Row>
-            <h5 
-              className="sectionHeader"
-              id={props.listaSecciones[seccion].Header}
-            >{props.listaSecciones[seccion].Header}</h5>
-          </Row>
-          <Row className="productRow">
-            
-            <FilaPlatos listaPlatos={props.listaSecciones[seccion].ListaPlatos}>
-            </FilaPlatos>
-
-          </Row>
-        </Container>
-      </Row>
-    
-    seccionesReturn.push(seccionX)
-  }
-
-  return (seccionesReturn);
-}
-
-/**
-  * Generates a categories navigation bar
-  * props: Dictionary with the row's header and the product's info array
-  * (only the headers are used)
-  */
-
-function ListaCategorias(props) {
-  var listaCategorias = []
-  var columnas = 0;
-
-  for (var categoria in props.listaSecciones) {
-    var hrefitem = "#" + props.listaSecciones[categoria].Header;
-    var categoriaX =
-    <Nav.Item as="li">
-      <Nav.Link href={hrefitem} className="navbar-link">{props.listaSecciones[categoria].Header}</Nav.Link>
-    </Nav.Item>
-    
-    listaCategorias.push(categoriaX)
-  }
-
-  /** Desplegable aun no despliega */
-  var desplegable =
-  <Nav.Item as="li" className="ml-auto">
-    <Nav.Link href="#" className="navbar-link">More</Nav.Link>
-  </Nav.Item>
-
-  listaCategorias.push(desplegable);
-
-
-  return(listaCategorias);
-}
-
-
-function ProfileRestaurant() {
-
+function ProfileRestaurant({rest_id, restaurantPhoto}) {
   const [showModal, setShowModal] = useState(false);
   const [menuList, setMenuList] = useState([{
     title: "Default menu",
@@ -193,7 +83,7 @@ function ProfileRestaurant() {
 
 
   const fetchMenu = async () => {
-    const items = await restService.getMenu('rrr@gmail.com');
+    const items = await restService.getMenu(rest_id);
     setMenuList(items);
     console.log(menuList);
   };
@@ -221,7 +111,116 @@ function ProfileRestaurant() {
       ListaPlatos: menuList
     },
   ]
+  
+    /**
+    * Generates a product's card
+    * props: Product's name, description, image and price.
+    */
+
+  function CardPlato(props) {
+    return (
+      <Card style={{ width: '14rem' }}>
+        <Card.Img className="card-img-top" variant="top" src={props.Image} fluid/>
+        <Card.Body>
+          <Card.Title className="textFont">{props.Name}</Card.Title>
+          <Card.Text className="textFont">
+            {props.Description}
+          </Card.Text>
+          {/** <Button variant="success">Añadir al carrito</Button> */}
+        </Card.Body>
+      </Card>
+    );
+  }
+
+  /**
+    * Generates an array of product's cards
+    * props: Array of product's data
+    */
+
+
+  function FilaPlatos (props) {
+    var plato;
+    var listaPlatos = []
+    for (plato of props.listaPlatos) {
+      
+      var cardPlato = <CardPlato 
+        Name={plato.title}
+        Description={plato.desc}
+        Price={plato.price}
+        Image={restaurantPhoto}
+      >
+      </CardPlato>
+
+      listaPlatos.push(cardPlato);
+    }
+    return (listaPlatos);
+  }
+
+  /**
+    * Generates a product's row
+    * props: Dictionary with the row's header and the product's info array
+    */
+
+  function SeccionPlatos (props) {
+    var seccionesReturn = [];
     
+    for (var seccion in props.listaSecciones) {
+      
+      var seccionX = 
+        <Row className="restaurantContainer">
+          <Container>
+            <Row>
+              <h5 
+                className="sectionHeader"
+                id={props.listaSecciones[seccion].Header}
+              >{props.listaSecciones[seccion].Header}</h5>
+            </Row>
+            <Row className="productRow">
+              
+              <FilaPlatos listaPlatos={props.listaSecciones[seccion].ListaPlatos}>
+              </FilaPlatos>
+
+            </Row>
+          </Container>
+        </Row>
+      
+      seccionesReturn.push(seccionX)
+    }
+
+    return (seccionesReturn);
+  }
+
+  /**
+    * Generates a categories navigation bar
+    * props: Dictionary with the row's header and the product's info array
+    * (only the headers are used)
+    */
+
+  function ListaCategorias(props) {
+    var listaCategorias = []
+    var columnas = 0;
+
+    for (var categoria in props.listaSecciones) {
+      var hrefitem = "#" + props.listaSecciones[categoria].Header;
+      var categoriaX =
+      <Nav.Item as="li">
+        <Nav.Link href={hrefitem} className="navbar-link">{props.listaSecciones[categoria].Header}</Nav.Link>
+      </Nav.Item>
+      
+      listaCategorias.push(categoriaX)
+    }
+
+    /** Desplegable aun no despliega */
+    var desplegable =
+    <Nav.Item as="li" className="ml-auto">
+      <Nav.Link href="#" className="navbar-link">More</Nav.Link>
+    </Nav.Item>
+
+    listaCategorias.push(desplegable);
+
+
+    return(listaCategorias);
+  }
 
   return (
     <section className="restaurantProfile">
@@ -231,7 +230,7 @@ function ProfileRestaurant() {
           <Container fluid>
             {/* Banner */}
             <Row className="restaurantBanner"
-            style={{backgroundImage: 'url(' + require('../../images/banner.jpg') + ')'}}>
+            style={{backgroundImage: 'url(' +restaurantPhoto+ ')'}}>
               <Container >
                 <Row style={{height: '55%'}}>
                 </Row>
@@ -292,7 +291,6 @@ function ProfileRestaurant() {
          * And this one generates the product rows.
          */}
         {console.log(listaSecciones_dyn)}
-
         <SeccionPlatos listaSecciones={listaSecciones_dyn}>
 
         </SeccionPlatos>
