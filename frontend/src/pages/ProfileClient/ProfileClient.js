@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../../commons/components/App.css';
+
 import { Button, Image, Row, Container, Col, Toast } from 'react-bootstrap';
 import profilepic from "../../images/profilepicture.jpg"
 import Select from 'react-select';
@@ -29,6 +30,7 @@ const listaUbicaciones = [
   { value: 'italia', label: 'Italia'},
   { value: 'russia', label: 'Russia'},
 ]
+
 
 
 function ProfileClient() {

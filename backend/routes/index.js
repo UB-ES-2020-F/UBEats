@@ -1,6 +1,7 @@
 const express = require('express')
 //const HelloWorld = require('../controllers/HelloWorld')
 const Users = require('../controllers/Users')
+const Items = require('../controllers/Items')
 
 const router = express.Router()
 
@@ -19,6 +20,16 @@ router.post('/customer/register',Users.register)
 //Restaurant
 router.post('/restaurant/login',Users.login)
 router.post('/restaurant/register',Users.register)
+
+//Items
+router.get('/items', Items.getAll)
+router.get('/items/:item_id', Items.get)
+router.post('/items', Items.create)
+router.delete('/items', Items.remove)
+router.put('/items', Items.update)
+
+//Placeholder for restaurant api
+router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
 
 //Debug
 router.get('/qwertyuiop/users',Users._get_all_users)

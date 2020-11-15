@@ -2,9 +2,9 @@
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
 
-const user_type = { customer    : { table : 'customers',    cols : ['email','card']},  
-                    deliveryman : { table : 'deliverymans', cols : ['email', 'visibility', 'availiability', 'iban']}, 
-                    restaurant  : { table : 'restaurants',  cols : ['email', 'visibility', 'availiability', 'iban']}
+const user_type = { customer    : { table : 'customers',    cols : ['email','card'], defaultValues : {'email' : '', 'card': ''}},  
+                    deliveryman : { table : 'deliverymans', cols : ['email',  'availiability', 'visible', 'iban'], defaultValues : {'email' : '', 'visible': 'inactive', 'availiability' : 'rojo','iban': ''}}, 
+                    restaurant  : { table : 'restaurants',  cols : ['email',  'availiability', 'visible', 'iban'], defaultValues : {'email' : '', 'visible': 'inactive', 'availiability' : 'rojo','iban': ''}}
                 }
 /**
      * Customer      -- email || card var(23) 
@@ -54,8 +54,15 @@ async function createUser(values){
     return pool.query(query)
     .then( async(res)  => {
         let resSpecificrows = await _createSpecficicUser(values)
-        if (resSpecificrows.error) return {error: `${resSpecificrows.error}`, errCode : resSpecificrows.errCode}
-        res.rows[0].specfics = resSpecificrows
+        //If an error has occurred during userspecific creating it deletes the user 
+        //and returns the error
+        if (resSpecificrows.error) {
+            var sqlUsers = format("DELETE FROM users WHERE email=%L",res.rows[0].email)
+            var deletedUsers = await pool.query(sqlUsers)
+            return {error: `${resSpecificrows.error}`, errCode : resSpecificrows.errCode}
+        }       
+        res.rows[0].specifics = resSpecificrows
+
         return res.rows[0] || null
     })
     .catch(err =>  { return {error: `${err}`, errCode : 400}}) 
@@ -73,7 +80,7 @@ async function createUser(values){
 function _createSpecficicUser(values){
     var arrayValues = []
     for (let i of user_type[values.type].cols){
-        arrayValues.push(values[i] || '')
+        arrayValues.push(values[i] || user_type[values.type].defaultValues[i])    
     }
     var sql = format('INSERT INTO %I VALUES (%L) RETURNING *', user_type[values.type].table, arrayValues)
     return pool.query(sql)
