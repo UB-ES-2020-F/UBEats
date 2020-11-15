@@ -101,11 +101,13 @@ async function deleteUser(email){
     if (!email) 
         return {error : "email must be filled", errCode : 400}
 
-    return pool.query('DELETE FROM users WHERE email = $1',[email])
-    .then(res =>{
-        return res.rows[0] || null
-    })
-    .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
+    return pool.query('DELETE FROM users WHERE email = $1 RETURNING *',[email])
+        .then((res) => {
+            return res.rows[0] || null
+        })
+        .catch(err => {
+            return {error: err, errCode: 500}
+        })
 }
 
 module.exports = {getUsers, getUserByEmail, createUser, deleteUser }

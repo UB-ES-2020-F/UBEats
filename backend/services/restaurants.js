@@ -15,6 +15,7 @@ async function feedback(email){
 
     return pool.query('SELECT rating,explanation,timestamp,name FROM feedbacks,users WHERE feedbacks.cust_id=users.email AND rest_id=$1',[email])
     .then(res =>{
+        //console.log(res.rows)
         return res.rows
     })
     .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
@@ -47,20 +48,29 @@ async function menu(email){
     if (!email) 
         return {error : "email must be filled", errCode : 400}
 
-    const query = format('SELECT items.item_id,title,items.description,price,types.name FROM items,type_items,types WHERE items.item_id=type_items.item_id AND rest_id=$1 AND types.type_id=type_items.type_id AND visible = %L ORDER BY items.item_id',[email],1)
+    const query = format('SELECT items.item_id,title,items.desc,price,types.name FROM items,type_items,types WHERE items.item_id=type_items.item_id AND rest_id=%L AND types.type_id=type_items.type_id AND visible = %L ORDER BY items.item_id',[email],1)
+    
     return pool.query(query)
     .then(res =>{
-        var arrayValues = []
-        for (let i of res.rows.length){
-            if(res.rows[i].item_id != id_prev){
-                arrayValues.push([res.rows[i].item_id,res.rows[i].title,res.rows[i].description,res.rows[i].price,[res.rows[i].name]])
-                id_prev = res.rows[i].item_id
+        var resSpecificRows = []
+        var id_prev = -1
+        res.rows.forEach(item => {
+            if(item.item_id != id_prev){
+                resSpecificRows.push(
+                    {
+                        item_id : item.item_id,
+                        title : item.title,
+                        desc : item.desc,
+                        price : item.price,
+                        types : [item.name]
+                    })
+                id_prev = item.item_id
             } else{
-                arrayValues[arrayValues.length -1][4].push(res.rows[i].name)
+                resSpecificRows[resSpecificRows.length -1].types.push(item.name)
             }
-        }
-        res.rows = arrayValues
-        return res.rows
+        })
+        //console.log(resSpecificRows)
+        return resSpecificRows
     })
     .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
@@ -94,7 +104,8 @@ async function setAv(values){
     if (!values.email || !values.avaliability) 
         return {error : "email and avaliability must be filled", errCode : 400}
 
-    return pool.query('UPDATE restaurants SET avaliability=$1 WHERE email=$2',[values.avaliability],[values.email])
+    const query = format('UPDATE restaurants SET avaliability=%L WHERE email=%L RETURNING *',[values.avaliability],[values.email])
+    return pool.query(query)
     .then(res =>{
         return res.rows[0] || null
     })
@@ -113,7 +124,8 @@ async function setVisible(values){
     if (!values.email || !values.visible) 
         return {error : "email and 'visible' must be filled", errCode : 400}
 
-    return pool.query('UPDATE restaurants SET visible=$1 WHERE email=$2',[values.visible],[values.email])
+    const query = format('UPDATE restaurants SET visible=%L WHERE email=%L RETURNING *',[values.visible],[values.email])
+    return pool.query(query)
     .then(res =>{
         return res.rows[0] || null
     })
@@ -135,7 +147,8 @@ async function setIban(values){
     if (values.iban.length != 24) 
         return {error : "IBAN needs 24 chars exactly, this is the standard of Spain", errCode : 400}
 
-    return pool.query('UPDATE restaurants SET iban=$1 WHERE email=$2',[values.iban],[values.email])
+    const query = format('UPDATE restaurants SET iban=%L WHERE email=%L RETURNING *',[values.iban],[values.email])
+    return pool.query(query)
     .then(res =>{
         return res.rows[0] || null
     })
@@ -154,7 +167,8 @@ async function setAllergens(values){
     if (!values.allergens || !values.email || values.allergens.length==0) 
         return {error : "email and 'allergens link' must be filled", errCode : 400}
 
-    return pool.query('UPDATE restaurants SET allergens=$1 WHERE email=$2',[values.allergens],[values.email])
+    const query = format('UPDATE restaurants SET allergens=%L WHERE email=%L RETURNING *',[values.allergens],[values.email])
+    return pool.query(query)
     .then(res =>{
         return res.rows[0] || null
     })
@@ -162,69 +176,42 @@ async function setAllergens(values){
 }
 
 /**
- * Support method that deletes the types of a restaurant returning * if there is an error
- * This association is made via @argument tipo inside @var values
- * @param {*} values 
- * 
- * 
- */
-async function _deleteTypes(email){
-    
-    //Check every key to be present
-    if (!email) 
-        return {error : "email must be filled", errCode : 400}
-
-    return pool.query('DELETE FROM type_restaurants WHERE rest_id=$1 RETURNING *',[email])
-    .then(res =>{
-        return res.rows
-    })
-    .catch(err =>  { return {error: `${err} specific`, errCode : 400}}) 
-}
-
-/**
- * Suport method:
- * Function from pg-promise to made multiple inserts
- * @param {} template 
- * @param {*} data 
- */
-function Inserts(template, data) {
-    if (!(this instanceof Inserts)) {
-        return new Inserts(template, data);
-    }
-    this._rawDBType = true;
-    this.formatDBType = function () {
-        return data.map(d=>'(' + pgp.as.format(template, d) + ')').join(',');
-    };
-}
-
-/**
- * Method that updates the types of restaurant
- * @param {*} values contains the new list of ids of types and the email of the rest. that is going to be updated 
+ * Method that deletes a type of the restaurant by the type_id and email
+ * @param {*} values contains the email and the id
  * @returns 
  */
-async function types(values){
+async function deleteType(values){
 
     //Check every key to be present
-    if (!values.email || !values.types) 
-        return {error : "email and list of types must be filled", errCode : 400}
+    if (!values.type_id || !values.email) 
+        return {error : "email and type_id must be filled", errCode : 400}
 
-    var arrayValues = []
-    for (let i of values.types.length){
-        arrayValues.push([values.types[i],values.email])
-    }
-
-    let deleteT = await _deleteTypes(values.email)
-    if (deleteT.error) return {error: `${deleteT.error}`, errCode : deleteT.errCode}
-
-    return pool.query('INSERT INTO type_restaurants VALUES $1',Inserts('$1,$2',arrayValues))
-    .then(res =>{
-        return res.rows[0] || null
-    })
-    .catch(err =>  {
-        pool.query('INSERT INTO type_restaurants VALUES $1',Inserts('$1,$2',deleteT))
-        /*Not take the res,err because it's re-insert the types deleted */
-        return {error: `${err} specific`, errCode : 400}
-    }) 
+    const query = format('DELETE FROM type_restaurants WHERE type_id=%L AND rest_id=%L RETURNING *',[values.type_id],[values.email])
+    return pool.query(query)
+        .then(res =>{
+            //console.log(res.rows[0])
+            return res.rows[0] || null
+        })
+        .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
 
-module.exports = {feedback, getTypes, menu, readR, setAv, setVisible, setIban, setAllergens, types }
+/**
+ * Method that inserts a type of the restaurant by the type_id and email
+ * @param {*} values contains the email and the id
+ * @returns 
+ */
+async function insertType(values){
+
+    //Check every key to be present
+    if (!values.type_id || !values.email) 
+        return {error : "email and type_id must be filled", errCode : 400}
+
+    const query = format('INSERT INTO type_restaurants VALUES (%L,%L) RETURNING *',[values.type_id],[values.email])
+    return pool.query(query)
+        .then(res =>{
+            return res.rows[0] || null
+        })
+        .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
+}
+
+module.exports = {feedback, getTypes, menu, readR, setAv, setVisible, setIban, setAllergens, deleteType, insertType }

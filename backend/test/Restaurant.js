@@ -10,6 +10,7 @@ const {pool} = require('../database/index.js')
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../index');
+const { readR } = require('../services/restaurants.js');
 let should = chai.should();
 
 
@@ -25,6 +26,7 @@ describe('Restaurants', () => {
       var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant') RETURNING *"
       var insertedRest = await pool.query(query)
       emailUser = insertedRest.rows[0].email
+      //console.log(emailUser)
     })
     afterEach( async () => {
       var query = "DELETE FROM users WHERE email = 'rst@gmail.com'"
@@ -36,6 +38,7 @@ describe('Restaurants', () => {
       let user = {
         email: emailUser
       }
+      //console.log(user.email)
 
       chai.request(app)
         .delete('/api/restaurant')
@@ -59,7 +62,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("User not found to delete.")
+          res.body.message.should.equal("User kjnpobrtnrptonbprotenub@gmail.com not found")
           done();
         });
     });
@@ -80,6 +83,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('feedback');
+          //console.log(res.body.feedback)
           res.body.feedback.should.be.an('array').to.have.lengthOf.above(0);
           done();
         });
@@ -98,7 +102,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("Feedback not found.")
+          res.body.message.should.equal("Feedback not found")
           done();
         });
     });
@@ -136,7 +140,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("Types not found.")
+          res.body.message.should.equal("Types not found")
           done();
         });
     });
@@ -173,7 +177,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("Menu not found.")
+          res.body.message.should.equal("Menu not found")
           done();
         });
     });
@@ -194,17 +198,18 @@ describe('Restaurants', () => {
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.have.property('email');
-          res.body.should.have.property('name');
-          res.body.should.have.property('CIF');
-          res.body.should.have.property('street');
-          res.body.should.have.property('pass');
-          res.body.should.have.property('phone');
-          res.body.should.have.property('tipo');
-          res.body.should.have.property('avaliability');
-          res.body.should.have.property('visible');
-          res.body.should.have.property('iban');
-          res.body.should.have.property('allergens');
+          res.body.should.have.property('restaurant')
+          res.body.restaurant.should.have.property('email');
+          res.body.restaurant.should.have.property('name');
+          res.body.restaurant.should.have.property('CIF');
+          res.body.restaurant.should.have.property('street');
+          res.body.restaurant.should.have.property('pass');
+          res.body.restaurant.should.have.property('phone');
+          res.body.restaurant.should.have.property('tipo');
+          res.body.restaurant.should.have.property('avaliability');
+          res.body.restaurant.should.have.property('visible');
+          res.body.restaurant.should.have.property('iban');
+          res.body.restaurant.should.have.property('allergens');
           done();
         });
     });
@@ -220,14 +225,14 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("Restaurant not found.")
+          res.body.message.should.equal("Restaurant not found")
           done();
         });
     });
   })
 
-  // TEST PATCH AVALIABILITY OF RESTAURANT
-  describe('PATCH /api/restaurant/setAvaliability', () => {
+  // TEST POST AVALIABILITY OF RESTAURANT
+  describe('POST /api/restaurant/setAvaliability', () => {
 
     it('Set Avaliability of a restaurant. All OK. Should return 200', (done) => {
 
@@ -235,14 +240,15 @@ describe('Restaurants', () => {
         email : 'rrr@gmail.com',
         avaliability : 'rojo'
       }
-
+      
       chai.request(app)
-        .patch('/api/restaurant/setAvaliability')
+        .post('/api/restaurant/setAvaliability')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('avaliability');
+          res.body.avaliability.should.have.property('email');
           done();
         });
     });
@@ -253,20 +259,20 @@ describe('Restaurants', () => {
         avaliability : 'rojo'
       }
       chai.request(app)
-        .patch('/api/restaurant/setAvaliability')
+        .post('/api/restaurant/setAvaliability')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(userM)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("Avaliability not updated.")
+          res.body.message.should.equal("Avaliability not updated")
           done();
         });
     });
   })
 
-  // TEST PATCH VISIBLE OF RESTAURANT
-  describe('PATCH /api/restaurant/setVisible', () => {
+  // TEST POST VISIBLE OF RESTAURANT
+  describe('POST /api/restaurant/setVisible', () => {
 
     it('Set Visible of a restaurant. All OK. Should return 200', (done) => {
 
@@ -276,12 +282,13 @@ describe('Restaurants', () => {
       }
 
       chai.request(app)
-        .patch('/api/restaurant/setVisible')
+        .post('/api/restaurant/setVisible')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('visible');
+          res.body.visible.should.have.property('email');
           done();
         });
     });
@@ -292,20 +299,20 @@ describe('Restaurants', () => {
         visible: 'inactive'
       }
       chai.request(app)
-        .patch('/api/restaurant/setVisible')
+        .post('/api/restaurant/setVisible')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(userM)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("Visible not updated.")
+          res.body.message.should.equal("Visible not updated")
           done();
         });
     });
   })
 
-  // TEST PATCH IBAN OF RESTAURANT
-  describe('PATCH /api/restaurant/setIban', () => {
+  // TEST POST IBAN OF RESTAURANT
+  describe('POST /api/restaurant/setIban', () => {
 
     it('Set Iban of a restaurant. All OK. Should return 200', (done) => {
 
@@ -315,12 +322,13 @@ describe('Restaurants', () => {
       }
 
       chai.request(app)
-        .patch('/api/restaurant/setIban')
+        .post('/api/restaurant/setIban')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('iban');
+          res.body.iban.should.have.property('email');
           done();
         });
     });
@@ -331,20 +339,20 @@ describe('Restaurants', () => {
         iban: 'ES1100009999888877776666'
       }
       chai.request(app)
-        .patch('/api/restaurant/setIban')
+        .post('/api/restaurant/setIban')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(userM)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("iban not updated.")
+          res.body.message.should.equal("Iban not updated")
           done();
         });
     });
   })
 
-  // TEST PATCH ALLERGENS LINK OF RESTAURANT
-  describe('PATCH /api/restaurant/setAllergens', () => {
+  // TEST POST ALLERGENS LINK OF RESTAURANT
+  describe('POST /api/restaurant/setAllergens', () => {
 
     it('Set Allergens of a restaurant. All OK. Should return 200', (done) => {
 
@@ -354,12 +362,13 @@ describe('Restaurants', () => {
       }
 
       chai.request(app)
-        .patch('/api/restaurant/setAllergens')
+        .post('/api/restaurant/setAllergens')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('allergens');
+          res.body.allergens.should.have.property('email');
           done();
         });
     });
@@ -370,76 +379,112 @@ describe('Restaurants', () => {
         allergens: 'http://www.restaurante.com/list-of-allergens.pdf'
       }
       chai.request(app)
-        .patch('/api/restaurant/setAllergens')
+        .post('/api/restaurant/setAllergens')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(userM)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("allergens not updated.")
+          res.body.message.should.equal("Allergens not updated")
           done();
         });
     });
   })
 
-  // TEST POST TYPES LINK OF RESTAURANT
-  describe('POST /api/restaurant/types', () => {
+  // TEST DELETE A TYPE OF A RESTAURANT
+  describe('DELETE /api/restaurant/type', () => {
 
-    it('Set Types of a restaurant. All OK. Should return 200', (done) => {
+    beforeEach(async () => {
+      await pool.query("INSERT INTO type_restaurants VALUES (2,'rrr@gmail.com')")
+    });
 
-      let type1 = {
-        type_id : 1,
-        name :  'vegetariano',
-        description : 'comida ecologica responsable con el medio ambiente y el maltrato animal'
-      }
+    afterEach(async () => {
+      await pool.query("DELETE FROM type_restaurants WHERE type_id='2' AND rest_id='rrr@gmail.com'")
+    });
+    
 
-      let type2 = {
-        type_id : 2,
-        name :  'omnivoro',
-        description : 'contiene toda clase de ingredientes de origen carnico y vegetal'
-      }
+    it('Delete a type of a restaurant. All OK. Should return 200', (done) => {
+
       let user = {
         email : 'rrr@gmail.com',
-        types: [type1.type_id,type2.type_id]
+        type_id: 2
       }
 
       chai.request(app)
-        .post('/api/restaurant/types')
+        .delete('/api/restaurant/type')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.have.property('types');
+          res.body.should.have.property('delType');
+          res.body.delType.should.have.property('type_id');
+          res.body.delType.should.have.property('rest_id');
           done();
         });
     });
 
-    it('Set Types of a restaurant. Invalid email. Should return 404', (done) => {
+    it('Delete a type of a restaurant. Invalid email. Should return 404', (done) => {
 
-      let type1 = {
-        type_id : 1,
-        name :  'vegetariano',
-        description : 'comida ecologica responsable con el medio ambiente y el maltrato animal'
-      }
-
-      let type2 = {
-        type_id : 2,
-        name :  'omnivoro',
-        description : 'contiene toda clase de ingredientes de origen carnico y vegetal'
-      }
       let userM = {
-        email : 'rrrojuwbnwregpfourb@gmail.com',
-        types: [type1.type_id,type2.type_id]
+        email : 'rrgbergrbbr@gmail.com',
+        type_id: 1
       }
 
       chai.request(app)
-        .post('/api/restaurant/types')
+        .delete('/api/restaurant/type')
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(userM)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.have.property('message');
-          res.body.message.should.equal("types not updated.")
+          res.body.message.should.equal("Type not deleted")
+          done();
+        });
+    });
+  })
+
+  // TEST POST A TYPE OF A RESTAURANT
+  describe('POST /api/restaurant/type', () => {
+
+    beforeEach(async () => {
+      await pool.query("DELETE FROM type_restaurants WHERE type_id='2' AND rest_id='rrr@gmail.com'")
+    });
+
+    it('Insert a type of a restaurant. All OK. Should return 200', (done) => {
+
+      let user = {
+        email : 'rrr@gmail.com',
+        type_id: 2
+      }
+
+      chai.request(app)
+        .post('/api/restaurant/type')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.have.property('insType');
+          res.body.insType.should.have.property('type_id');
+          res.body.insType.should.have.property('rest_id');
+          done();
+        });
+    });
+
+    it('Insert a type of a restaurant. Invalid email. Should return 404', (done) => {
+
+      let userM = {
+        email : 'rrgbergrtrtrbbr@gmail.com',
+        type_id: 1
+      }
+
+      chai.request(app)
+        .post('/api/restaurant/type')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(userM)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.have.property('message');
+          res.body.message.should.equal("Type not added")
           done();
         });
     });
