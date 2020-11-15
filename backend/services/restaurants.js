@@ -15,7 +15,7 @@ async function feedback(email){
 
     return pool.query('SELECT rating,explanation,timestamp,name FROM feedbacks,users WHERE feedbacks.cust_id=users.email AND rest_id=$1',[email])
     .then(res =>{
-        return res.rows[0] || null
+        return res.rows
     })
     .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
@@ -32,7 +32,7 @@ async function getTypes(email){
 
     return pool.query('SELECT name,description FROM types,type_restaurants WHERE rest_id = $1 AND types.type_id=type_restaurants.type_id',[email])
     .then(res =>{
-        return res.rows[0] || null
+        return res.rows
     })
     .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
@@ -51,16 +51,16 @@ async function menu(email){
     return pool.query(query)
     .then(res =>{
         var arrayValues = []
-        for (let i of res.rows[0].length){
-            if(res.rows[0][i].items.item_id != id_prev){
-                arrayValues.push([res.rows[0][i][0],res.rows[0][i][1],res.rows[0][i][2],res.rows[0][i][3],[res.rows[0][i][4]]])
-                id_prev = res.rows[0][i].items.item_id
+        for (let i of res.rows.length){
+            if(res.rows[i].items.item_id != id_prev){
+                arrayValues.push([res.rows[i][0],res.rows[i][1],res.rows[i][2],res.rows[i][3],[res.rows[i][4]]])
+                id_prev = res.rows[i].items.item_id
             } else{
-                arrayValues[arrayValues.length -1][4].push(res.rows[0][i][4])
+                arrayValues[arrayValues.length -1][4].push(res.rows[i][4])
             }
         }
-        res.rows[0] = arrayValues
-        return res.rows[0] || null
+        res.rows = arrayValues
+        return res.rows
     })
     .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
@@ -91,7 +91,7 @@ async function readR(email){
 async function setAv(values){
     
     //Check every key to be present
-    if (!values.email || values.avaliability) 
+    if (!values.email || !values.avaliability) 
         return {error : "email and avaliability must be filled", errCode : 400}
 
     return pool.query('UPDATE restaurants SET avaliability=$1 WHERE email=$2',[values.avaliability],[values.email])
@@ -110,7 +110,7 @@ async function setAv(values){
 async function setVisible(values){
     
     //Check every key to be present
-    if (!values.email || values.visible) 
+    if (!values.email || !values.visible) 
         return {error : "email and 'visible' must be filled", errCode : 400}
 
     return pool.query('UPDATE restaurants SET visible=$1 WHERE email=$2',[values.visible],[values.email])
@@ -176,12 +176,13 @@ async function _deleteTypes(email){
 
     return pool.query('DELETE FROM type_restaurants WHERE rest_id=$1 RETURNING *',[email])
     .then(res =>{
-        return res.rows[0] || null
+        return res.rows
     })
     .catch(err =>  { return {error: `${err} specific`, errCode : 400}}) 
 }
 
 /**
+ * Suport method:
  * Function from pg-promise to made multiple inserts
  * @param {} template 
  * @param {*} data 

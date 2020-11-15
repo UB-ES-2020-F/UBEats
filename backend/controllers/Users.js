@@ -51,7 +51,7 @@ async function register(req, res){
 async function deleteUser(req, res){
     const {body} = req 
     const user = await sch_users.deleteUser(body.email) 
-    if (user.error) res.status(404).send({"message":`User with email:${body.email} not found to delete.`})
+    if (user.error) res.status(404).send({"message":`User not found to delete.`})
     return res.status(200)
 }
 
