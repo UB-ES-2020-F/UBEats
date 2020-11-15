@@ -65,6 +65,33 @@ describe('Items', () => {
     });
   });
 
+  // TEST THE GET ALL FOR A RESTAURANT
+  describe('/GET RESTAURANT ITEMS', () => {
+    it('Get all items for a specific restaurant. Should return 200', (done) => {
+      chai.request(app)
+        .get('/api/restaurant/rrr@gmail.com/items')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('items');
+            res.body.items.should.be.an('array').to.have.lengthOf.above(0);
+            done();
+          });
+    });
+
+    it('Get all items for a non existing restaurant. Should return 200 and an empty list', (done) => {
+      chai.request(app)
+        .get('/api/restaurant/qpmzuywbwi@inventado.com/items')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('items');
+            res.body.items.should.be.an('array').to.have.lengthOf(0);
+            done();
+          });
+    });
+  });
+
   // TEST THE POST ENDPOINT
   describe('POST /api/items', () => {
     beforeEach( async () => {

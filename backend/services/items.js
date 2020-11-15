@@ -16,6 +16,23 @@ function getAllItems()
 }
 
 /**
+ * Query to retrieve items for a specific restaurant from the items table
+ * Selection is done by rest_id
+ */
+function getAllItemsByRestaurantID(rest_id)
+{
+        const query = format('SELECT * FROM items WHERE rest_id = %L', rest_id)
+
+        return pool.query(query)
+                .then(res => {
+                        return res.rows
+                })
+                .catch(err => {
+                        return {error: err}
+                })
+}
+
+/**
  * Query to retrieve an specific item from the items table
  * Selection is done by item_id
  */
@@ -220,4 +237,4 @@ function _createUpdateDynamicQuery(body)
         return dynamicQuery
 }
 
-module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems}
+module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems, getAllItemsByRestaurantID}
