@@ -19,6 +19,27 @@ async function getAll(req, res)
 }
 
 /**
+ * Function that returns all items for a specific restaurant from the database
+ */
+async function getAllByRestaurant(req, res)
+{
+    console.log("getAllByRestaurant")
+    const {params} = req
+    if(!(params.rest_id))
+        return res.status(403).send({"message": "Item ID not specified"})
+
+    const items = await items_db.getAllItemsByRestaurantID(params.rest_id)
+    //check for error retreiving from DDBB
+    if(!items)
+        return res.status(404).send({"message": `Items for restaurant ${params.rest_id} not found`})
+    if(items.error)
+        return res.status(404).send({"message": `Could not retrieve items for restaurant ${params.rest_id}`, "error": items.error})
+
+    return res.status(200).send({items})
+
+}
+
+/**
  * Function that returns an specific item from the database
  */
 async function get(req, res)
@@ -96,4 +117,4 @@ async function update(req, res)
     return res.status(200).send({item})
 }
 
-module.exports = {get, create, remove, update, getAll}
+module.exports = {get, create, remove, update, getAll, getAllByRestaurant}
