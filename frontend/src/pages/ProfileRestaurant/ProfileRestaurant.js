@@ -1,47 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Button, Container, Row, Card, Col, Modal, Nav } from 'react-bootstrap';
 import pollo from "../../images/banner.jpg";
 import pikachu from "../../images/pikachu.jpg";
 import bucket from "../../images/bucket.jpg";
 import wings from "../../images/alitas.jpg";
 
+import restService from "../../api/restaurant.js";
+
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 const listaPlatos = [
   {
-    Name: "Pollo frito",
-    Price: "3$",
+    title: "Pollo frito",
+    price: "3$",
     Image: pollo,
-    Description: "Delicious fried chicken, 100% deadly."
+    desc: "Delicious fried chicken, 100% deadly."
   },
   {
-    Name: "Hot wings",
-    Price: "6$",
+    title: "Hot wings",
+    price: "6$",
     Image: wings,
-    Description: "Chicken wings, of course! *wink wink*"
+    desc: "Chicken wings, of course! *wink wink*"
   },
   {
-    Name: "Fried Pikachu",
-    Price: "4$",
+    title: "Fried Pikachu",
+    price: "4$",
     Image: pikachu,
-    Description: "Simply electric."
+    desc: "Simply electric."
   },
   {
-    Name: "Chicken bucket",
-    Price: "11$",
+    title: "Chicken bucket",
+    price: "11$",
     Image: bucket,
-    Description: "Will satisfy all your needs."
+    desc: "Will satisfy all your needs."
   },
   {
-    Name: "Fried Pikachu",
-    Price: "4$",
+    title: "Fried Pikachu",
+    price: "4$",
     Image: pikachu,
-    Description: "Simply electric."
+    desc: "Simply electric."
   },
   {
-    Name: "Fried Pikachu",
-    Price: "4$",
+    title: "Fried Pikachu",
+    price: "4$",
     Image: pikachu,
-    Description: "Simply electric."
+    desc: "Simply electric."
   },
 ];
 
@@ -64,10 +67,10 @@ const listaSecciones = [
   },
 ]
 
-{/**
+/**
   * Generates a product's card
   * props: Product's name, description, image and price.
-  */}
+  */
 
 function CardPlato(props) {
   return (
@@ -84,10 +87,10 @@ function CardPlato(props) {
   );
 }
 
-{/**
+/**
   * Generates an array of product's cards
   * props: Array of product's data
-  */}
+  */
 
 
 function FilaPlatos (props) {
@@ -96,10 +99,10 @@ function FilaPlatos (props) {
   for (plato of props.listaPlatos) {
     
     var cardPlato = <CardPlato 
-      Name={plato.Name}
-      Description={plato.Description}
-      Price={plato.Price}
-      Image={plato.Image}
+      Name={plato.title}
+      Description={plato.desc}
+      Price={plato.price}
+      Image={pollo}
     >
     </CardPlato>
 
@@ -108,10 +111,10 @@ function FilaPlatos (props) {
   return (listaPlatos);
 }
 
-{/**
+/**
   * Generates a product's row
   * props: Dictionary with the row's header and the product's info array
-  */}
+  */
 
 function SeccionPlatos (props) {
   var seccionesReturn = [];
@@ -142,11 +145,11 @@ function SeccionPlatos (props) {
   return (seccionesReturn);
 }
 
-{/**
+/**
   * Generates a categories navigation bar
-  * props: props: Dictionary with the row's header and the product's info array
+  * props: Dictionary with the row's header and the product's info array
   * (only the headers are used)
-  */}
+  */
 
 function ListaCategorias(props) {
   var listaCategorias = []
@@ -162,7 +165,7 @@ function ListaCategorias(props) {
     listaCategorias.push(categoriaX)
   }
 
-  {/** Desplegable aun no despliega */}
+  /** Desplegable aun no despliega */
   var desplegable =
   <Nav.Item as="li" className="ml-auto">
     <Nav.Link href="#" className="navbar-link">More</Nav.Link>
@@ -178,9 +181,47 @@ function ListaCategorias(props) {
 function ProfileRestaurant() {
 
   const [showModal, setShowModal] = useState(false);
+  const [menuList, setMenuList] = useState([{
+    title: "Default menu",
+    price: "11$",
+    Image: bucket,
+    desc: "Loading data."
+  }]);
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
+
+
+  const fetchMenu = async () => {
+    const items = await restService.getMenu('rrr@gmail.com');
+    setMenuList(items);
+    console.log(menuList);
+  };
+
+  useEffect(() => {
+    fetchMenu();
+  }, []);
+
+
+  const listaSecciones_dyn = [
+    {
+      Header: "Picked for you",
+      ListaPlatos: menuList
+    },
+    {
+      Header: "Classics",
+      ListaPlatos: menuList
+    },
+    {
+      Header: "Recently ordered",
+      ListaPlatos: menuList
+    },
+    {
+      Header: "New items",
+      ListaPlatos: menuList
+    },
+  ]
+    
 
   return (
     <section className="restaurantProfile">
@@ -243,16 +284,16 @@ function ProfileRestaurant() {
 
         <Container className="">
           <Nav as="ul" className="categories-navbar">
-            <ListaCategorias listaSecciones={listaSecciones}></ListaCategorias>
+            <ListaCategorias listaSecciones={listaSecciones_dyn}></ListaCategorias>
           </Nav>
         </Container>
 
         {/**
          * And this one generates the product rows.
          */}
-        
+        {console.log(listaSecciones_dyn)}
 
-        <SeccionPlatos listaSecciones={listaSecciones}>
+        <SeccionPlatos listaSecciones={listaSecciones_dyn}>
 
         </SeccionPlatos>
         
