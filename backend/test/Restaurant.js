@@ -234,6 +234,10 @@ describe('Restaurants', () => {
   // TEST POST AVALIABILITY OF RESTAURANT
   describe('POST /api/restaurant/setAvaliability', () => {
 
+    afterEach( async () => {
+      await pool.query("UPDATE restaurants SET avaliability='verde' WHERE email='rrr@gmail.com'")
+    })
+
     it('Set Avaliability of a restaurant. All OK. Should return 200', (done) => {
 
       let user = {
@@ -274,11 +278,15 @@ describe('Restaurants', () => {
   // TEST POST VISIBLE OF RESTAURANT
   describe('POST /api/restaurant/setVisible', () => {
 
+    afterEach( async () => {
+      await pool.query("UPDATE restaurants SET visible='inactive' WHERE email='rrr@gmail.com'")
+    })
+
     it('Set Visible of a restaurant. All OK. Should return 200', (done) => {
 
       let user = {
         email : 'rrr@gmail.com',
-        visible: 'inactive'
+        visible: 'visible'
       }
 
       chai.request(app)
@@ -313,6 +321,10 @@ describe('Restaurants', () => {
 
   // TEST POST IBAN OF RESTAURANT
   describe('POST /api/restaurant/setIban', () => {
+
+    afterEach( async () => {
+      await pool.query("UPDATE restaurants SET iban='ES8021000000000000001234' WHERE email='rrr@gmail.com'")
+    })
 
     it('Set Iban of a restaurant. All OK. Should return 200', (done) => {
 
@@ -353,6 +365,10 @@ describe('Restaurants', () => {
 
   // TEST POST ALLERGENS LINK OF RESTAURANT
   describe('POST /api/restaurant/setAllergens', () => {
+
+    afterEach( async () => {
+      await pool.query("UPDATE restaurants SET allergens='' WHERE email='rrr@gmail.com'")
+    })
 
     it('Set Allergens of a restaurant. All OK. Should return 200', (done) => {
 
@@ -446,7 +462,7 @@ describe('Restaurants', () => {
   // TEST POST A TYPE OF A RESTAURANT
   describe('POST /api/restaurant/type', () => {
 
-    beforeEach(async () => {
+    afterEach(async () => {
       await pool.query("DELETE FROM type_restaurants WHERE type_id='2' AND rest_id='rrr@gmail.com'")
     });
 
