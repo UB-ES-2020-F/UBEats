@@ -28,6 +28,9 @@ router.post('/items', Items.create)
 router.delete('/items', Items.remove)
 router.put('/items', Items.update)
 
+//Placeholder for restaurant api
+router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
+
 //Debug
 router.get('/qwertyuiop/users',Users._get_all_users)
 

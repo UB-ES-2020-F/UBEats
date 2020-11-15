@@ -37,6 +37,7 @@
     background: black;
     font-family: "Uber Move Text";
     cursor: pointer;
+
     }
     
     
@@ -59,6 +60,7 @@
     }
     
     .login {
+
     width: 100%;
     padding: 0 0px;
     background: white;
@@ -74,15 +76,18 @@
     flex-direction: column;
     justify-content: center;
     background: white;
+
     }
     
     .login .loginContainer label {
+
     color: rgb(100, 100, 100);
     margin: 14px 0;
     display: block;
     font-size: 20px;
     font-family: "Uber Move Text";
     line-height: 1;
+
     }
     
     .login .loginContainer h2 {
@@ -91,6 +96,7 @@
     }
     
     .login .loginContainer input {
+
     width: 100%;
     border: none;
     outline: none;
@@ -102,9 +108,11 @@
     border-color: black;
     border: 1px solid black;
     font-family: "Uber Move Text";
+
     }
     
     .login .loginContainer p {
+
     margin: 14px 0 0 0;
     text-align: right;
     color: #fff;
@@ -167,9 +175,11 @@
     width: 86px;
     padding: 8px 0;
     background: #3a2b58;
+
     }
     
     .btnContainer label{
+
     text-align: center;
     color: black;
     margin: 14px 0;
@@ -177,11 +187,13 @@
     font-size: 22px;
     font-family: "Uber Move Text";
     line-height: 1;
+
     }
     
     
     
     .btnContainer span{
+
     color: white;
     font-weight: 500;
     letter-spacing: 0.5px;
@@ -189,9 +201,11 @@
     cursor: pointer;
     transition: all 400ms ease-in-out;
     font-family: "Uber Move Text";
+
     }
     
     footer {
+
     background-color: rgb(80, 80, 80);
     position: absolute;
     bottom: 0;
@@ -200,6 +214,7 @@
     text-align: center;
     padding:15px;
     color: white;
+
     }
     
     footer h3{

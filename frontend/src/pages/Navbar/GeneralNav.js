@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom';
 import sidebar from '../../images/sidebar_btn.jpg';
 
 
-import './MainNav.css'
+import './MainNav.css';
 
 //This function contains the navbar.
 //It displays a clickable logo that links to the homepage, a form that wil be used to input direction of delivery and a button to open the sidebar, openSidebar is called to manage this latter action.
@@ -26,9 +26,8 @@ const GeneralNav = ({isLogged, openSidebar}) => {
         dispatch(logout());
       };
     
-
     return (
-        <header className='navbar'>
+        <header className='navbarCustom'>
             <link href="//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text" rel="stylesheet" type="text/css"/> 
             <div class="container">
                 <a className='tosidebar' onClick={() => openSidebar()}>
