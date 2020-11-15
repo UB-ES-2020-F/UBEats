@@ -52,11 +52,11 @@ async function menu(email){
     .then(res =>{
         var arrayValues = []
         for (let i of res.rows.length){
-            if(res.rows[i].items.item_id != id_prev){
-                arrayValues.push([res.rows[i][0],res.rows[i][1],res.rows[i][2],res.rows[i][3],[res.rows[i][4]]])
-                id_prev = res.rows[i].items.item_id
+            if(res.rows[i].item_id != id_prev){
+                arrayValues.push([res.rows[i].item_id,res.rows[i].title,res.rows[i].description,res.rows[i].price,[res.rows[i].name]])
+                id_prev = res.rows[i].item_id
             } else{
-                arrayValues[arrayValues.length -1][4].push(res.rows[i][4])
+                arrayValues[arrayValues.length -1][4].push(res.rows[i].name)
             }
         }
         res.rows = arrayValues
