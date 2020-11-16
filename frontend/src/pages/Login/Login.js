@@ -109,7 +109,7 @@ return (
 
           <label>Introduce tu contraseña para iniciar sesión.</label>
           <Input
-            type="text"
+            type="password"
             autoFocus
             required
             name='password'
