@@ -84,13 +84,22 @@ const Login = (props) => {
   
 return (
     <section className="login">
+      <link href="//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text" rel="stylesheet" type="text/css"/> 
       <div className="loginContainer">
+      <div class="logo">
+          <h1>UB<span>Eats</span></h1>
+        </div>
+        <p></p><p ></p><p ></p>
+        <p ></p>
+        <h2>¡Hola de nuevo!</h2>
+        <p></p><p></p>
         <Form onSubmit={handleLogin} ref={form}>
-          <label>E-mail</label>
+          <label>Inicia sesión con tu dirección de email</label>
           <Input
             type="text"
             autoFocus
             required
+            placeholder="E-mail"
             name='email'
             value={email}
             onChange={onChangeEmail}
@@ -98,12 +107,13 @@ return (
           />
           <p className="errorMsg"></p>
 
-          <label>Password</label>
+          <label>Introduce tu contraseña para iniciar sesión.</label>
           <Input
-            type="text"
+            type="password"
             autoFocus
             required
             name='password'
+            placeholder="Contraseña"
             value={password}
             onChange={onChangePassword}
             validations={[required]}
@@ -118,19 +128,22 @@ return (
           )}
 
           <div className="btnContainer">
-            <button className="btn btn-primary btn-block" disabled={loading}> 
+            <button disabled={loading}> 
               {loading ? (
                 <span> Loading...</span>
                 
               ) : (<span>Sign up</span>)
             }
             </button>
-            <p>Do you have an account ?   
-            <Link to="/registerclient"> Sign in</Link></p>
+            <label>¿Es tu primera vez en Uber?      
+            <span><Link to="/registerclient" className="link">Crea una cuenta</Link></span></label>
           </div>       
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
+      <footer>
+        <h3>© 2020 Universitat de Barcelona.</h3>
+      </footer>
     </section>
   );
 }
