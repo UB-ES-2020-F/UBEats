@@ -66,8 +66,9 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(email, password))
         .then(() => {
-          props.history.push("/profileclient");
-          window.location.reload();
+          //props.history.push("/profileclient");
+          //window.location.reload();
+          
         })
         .catch(() => {
           setLoading(false);
