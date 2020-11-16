@@ -1,10 +1,17 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+
 import '../../commons/components/Main.css'
 
 
 
 
-function Home() {
+function Home({setRestaurantId, setPicture}) {
+  const onClickRestaurantPage = (rest_id, photo) => {
+    setRestaurantId(rest_id);
+    setPicture(photo);
+  };
+
   return (
     <section className="login">
 
@@ -150,7 +157,7 @@ function Home() {
               </div>
               <div class="text">
                 <div class="text-title">
-                  <h3>German Doner Kebab</h3>
+                  <h3 onClick={() => onClickRestaurantPage('doner@kebab.german', "https://images.unsplash.com/photo-1562967914-01efa7e87832?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2252&q=80")}><Link className='linkto' to='/profilerestaurant'>German Doner Kebab</Link></h3>
                   <div class="info">
                     <span>£4.99 delivery fee | 20-30 MINS | £</span>
                   </div>
@@ -169,7 +176,7 @@ function Home() {
               </div>
               <div class="text">
                 <div class="text-title">
-                  <h3>German Doner Kebab</h3>
+                  <h3 onClick={() => onClickRestaurantPage('burger@life.com', "https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80")}><Link className='linkto' to='/profilerestaurant'>Life Burger</Link></h3>
                   <div class="info">
                     <span>£4.99 delivery fee | 20-30 MINS | £</span>
                   </div>
@@ -188,7 +195,7 @@ function Home() {
               </div>
               <div class="text">
                 <div class="text-title">
-                  <h3>German Doner Kebab</h3>
+                  <h3 onClick={() => onClickRestaurantPage('red@burg.es', "https://images.unsplash.com/photo-1532636875304-0c89119d9b4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80")}><Link className='linkto' to='/profilerestaurant'>Steak House</Link></h3>
                   <div class="info">
                     <span>£4.99 delivery fee | 20-30 MINS | £</span>
                   </div>
@@ -209,7 +216,7 @@ function Home() {
               </div>
               <div class="text">
                 <div class="text-title">
-                  <h3>German Doner Kebab 222</h3>
+                  <h3>German Doner Kebab</h3>
                   <div class="info">
                     <span>£4.99 delivery fee | 20-30 MINS | £</span>
                   </div>
@@ -307,7 +314,7 @@ function Home() {
               </div>
               <div class="text">
                 <div class="text-title">
-                  <h3>Sushi</h3>
+                  <h3 onClick={() => onClickRestaurantPage('r2@gmail.com','https://duyt4h9nfnj50.cloudfront.net/sku/21b6882726bf71ba17b29ab47ef16d22')}><Link className='linkto' to='/profilerestaurant'>Sushi</Link></h3>
                 </div>
               </div>
             </div>
@@ -317,7 +324,7 @@ function Home() {
               </div>
               <div class="text">
                 <div class="text-title">
-                  <h3>Pizza</h3>                  
+                  <h3 onClick={() => onClickRestaurantPage('rrr@gmail.com',"https://duyt4h9nfnj50.cloudfront.net/sku/971d80f9ccce0c8eab98014650ee97eb")}><Link className='linkto' to='/profilerestaurant'>Pizza</Link></h3>                  
                 </div>                
               </div> 
               </div>             
