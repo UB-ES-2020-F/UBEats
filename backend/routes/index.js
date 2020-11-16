@@ -7,32 +7,26 @@ const Items = require('../controllers/Items')
 const router = express.Router()
 
 
-/**
- * LOGIN  
- */
 
+// Login / Register
 router.post('/login',Users.login)
 router.post('/register',Users.register)
 
 //Customer
-router.post('/customer/login',Users.login)
-router.post('/customer/register',Users.register)
 router.delete('customer/delete',Users.deleteUser)
 
 //Restaurant
-router.post('/restaurant/login',Users.login)
-router.post('/restaurant/register',Users.register)
-router.delete('/restaurant',Users.deleteUser)
-router.get('/restaurant/feedback',Restaurants.feedback)
-router.get('/restaurant/types',Restaurants.getTypes)
-router.get('/restaurant/menu',Restaurants.menu)
 router.get('/restaurant/read',Restaurants.readR)
+router.get('/restaurant/menu',Restaurants.menu)
+router.get('/restaurant/types',Restaurants.getTypes)
+router.get('/restaurant/feedback',Restaurants.feedback)
+router.post('/restaurant/type',Restaurants.insertType)
 router.post('/restaurant/setAvaliability',Restaurants.setAv)
 router.post('/restaurant/setVisible',Restaurants.setVisible)
 router.post('/restaurant/setIban',Restaurants.setIban)
 router.post('/restaurant/setAllergens',Restaurants.setAllergens)
 router.delete('/restaurant/type',Restaurants.deleteType)
-router.post('/restaurant/type',Restaurants.insertType)
+router.delete('/restaurant',Users.deleteUser)
 
 //Items
 router.get('/items', Items.getAll)
