@@ -32,8 +32,8 @@ router.delete('/restaurant',Users.deleteUser)
 router.get('/items', Items.getAll)
 router.get('/items/:item_id', Items.get)
 router.post('/items', Items.create)
-router.delete('/items', Items.remove)
-router.put('/items', Items.update)
+router.delete('/items/:item_id', Items.remove)
+router.put('/items/:item_id', Items.update)
 
 //Placeholder for restaurant api
 router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
