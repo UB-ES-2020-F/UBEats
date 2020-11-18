@@ -20,8 +20,10 @@ describe('Items', () => {
 
   // TEST DE GET ENDPOINT
   describe('/GET ITEM', () => {
+    // values by default, beforeEach will try to get values from the ddbb
     var id = 1
     var rest = "rrr@gmail"
+    var cat_id = 1
 
     let db_values = [
       "my_title",
@@ -37,6 +39,16 @@ describe('Items', () => {
 
       db_values.push(rest)
 
+      db_values.push("https://image.com/cute_cat.jpg")
+
+      //create a category
+      var result = await pool.query("INSERT INTO categories VALUES (DEFAULT, 'my supercategory') RETURNING *")
+      cat_id = result.rows[0].cat_id
+
+      db_values.push(cat_id)
+
+      //console.log(db_values)
+
       var query = format("INSERT INTO items VALUES (DEFAULT, %L) RETURNING *", db_values)
       //console.log(query)
       var result = await pool.query(query)
@@ -46,6 +58,10 @@ describe('Items', () => {
     afterEach( async () => {
       var result = await pool.query('DELETE FROM items WHERE item_id = $1 RETURNING *', [id])
 
+      var result = await pool.query('DELETE FROM categories WHERE cat_id = $1 RETURNING *', [cat_id])
+
+      db_values.pop()
+      db_values.pop()
       db_values.pop()
     })
 
@@ -315,9 +331,14 @@ describe('Items', () => {
   describe('PUT /api/items', () => {
     var id;
     var saved_title;
+    var cat_id;
 
     beforeEach( async () => {
-      var query = "INSERT INTO items VALUES (DEFAULT, 'qwertyuiop', 'qwefr qerivg', 3.141592, '0', 'rrr@gmail.com') RETURNING *"
+      //create a category
+      var result = await pool.query("INSERT INTO categories VALUES (DEFAULT, 'my supercategory') RETURNING *")
+      cat_id = result.rows[0].cat_id
+
+      var query = `INSERT INTO items VALUES (DEFAULT, 'qwertyuiop', 'qwefr qerivg', 3.141592, '0', 'rrr@gmail.com', 'images_of_cats.com', ${cat_id}) RETURNING *`
       var insertedItems = await pool.query(query)
       id = insertedItems.rows[0].item_id
       saved_title = insertedItems.rows[0].title
@@ -326,6 +347,9 @@ describe('Items', () => {
     afterEach( async () => {
       var query = `DELETE FROM items WHERE item_id = ${id}`
       var deletedItems = await pool.query(query)
+
+      var result = await pool.query('DELETE FROM categories WHERE cat_id = $1 RETURNING *', [cat_id])
+
     })
 
 
@@ -342,6 +366,7 @@ describe('Items', () => {
     it('Update an item. All OK. Should return 200', (done) => {
       let item = {
         title: 'wefvweochi2echrg',
+        url: 'more_images_of_kitties.com/1.jpg',
       }
 
       chai.request(app)
@@ -358,6 +383,7 @@ describe('Items', () => {
           res.body.item.should.have.property('visible')
           res.body.item.should.have.property('rest_id')
           res.body.item.should.have.property('url')
+          res.body.item.url.should.equal('more_images_of_kitties.com/1.jpg')
           res.body.item.should.have.property('cat_id')
           done();
         });

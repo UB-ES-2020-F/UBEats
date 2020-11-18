@@ -142,10 +142,10 @@ function _checkItemCreationParameters(params)
         if(params.price && params.price < 0)
                 err_str = err_str.concat("Item price is a negative number\n")
 
-        /*if(!(params.url))
-                err_str = err_str.concat("No URL provided for item\n")
+        if(!(params.url))
+                err_str = err_str.concat("No image URL provided for item\n")
         if(params.url && params.url.length > 200)
-                err_str = err_str.concat("URL exceeds the limit of 200 chars\n")*/
+                err_str = err_str.concat("Image URL exceeds the limit of 200 chars\n")
 
         if(!(params.rest_id))
                 err_str = err_str.concat("No restaurant provided for item\n")
@@ -156,10 +156,7 @@ function _checkItemCreationParameters(params)
                 // check that the restaurant exists
                 // also, check that the token_rest == rest_id
         }
-        if(!(params.url))
-                err_str = err_str.concat("No image url provided for item\n")
-        if(params.url && params.url.length > 200)
-                err_str = err_str.concat("Image URL exceeds the limit of 200 chars\n")
+        
         if(!(params.cat_id))
                 err_str = err_str.concat("No category ID provided for item\n")
         if(params.cat_id && params.cat_id < 0)
@@ -206,8 +203,10 @@ function _checkItemUpdateParameters(params)
                 // check that the restaurant exists
                 // also, check that the token_rest == rest_id
         }
+
         if(params.url && params.url.length > 200)
                 err_str = err_str.concat("Image URL exceeds the limit of 200 chars\n")
+
         if(params.cat_id && params.cat_id < 0)
                 err_str = err_str.concat("Category ID is a negative number\n")
 
