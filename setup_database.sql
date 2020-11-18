@@ -10,6 +10,7 @@ CREATE TABLE "users" (
 "pass" VARCHAR(50) NOT NULL,
 "phone" VARCHAR(20) NOT NULL,
 "tipo"  tipo_user NOT NULL,
+"url" VARCHAR(200) NOT NULL,
 Constraint "user_pkey" Primary Key ("email")
 );
 CREATE TYPE avaliability_rest AS ENUM ('verde','amarillo','naranja','rojo');
@@ -58,6 +59,11 @@ ON UPDATE CASCADE,
 Constraint "order_fkey_cust" Foreign Key ("cust_id") References "customers"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
 );
+CREATE TABLE "categories" (
+"cat_id" SERIAL NOT NULL UNIQUE,
+"name" VARCHAR(50) NOT NULL,
+Constraint "categories_pkey" Primary Key ("cat_id")
+);
 CREATE TABLE "items" (
 "item_id" SERIAL NOT NULL UNIQUE,
 "title" VARCHAR(30) NOT NULL,
@@ -65,9 +71,12 @@ CREATE TABLE "items" (
 "price" float NOT NULL,
 "visible" BIT,
 "rest_id" VARCHAR(50) NOT NULL,
+"url" VARCHAR(200) NOT NULL,
+"cat_id" INT NOT NULL,
 Constraint "item_pkey" Primary Key ("item_id"),
 Constraint "item_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE
-ON UPDATE CASCADE
+ON UPDATE CASCADE,
+Constraint "item_fkey_cat" Foreign Key ("cat_id") References "categories"("cat_id") ON DELETE CASCADE
 );
 CREATE TABLE "order_items" (
 "order_id" INT NOT NULL,
@@ -146,12 +155,12 @@ Constraint "orderextraitems_fkey_extraitem" Foreign Key ("extraitem_id") Referen
 );
 --Mock data to test all the tables. Two mock data in each table. Insert two restaurants, two customers and two deliverymans
 INSERT INTO "users" VALUES
-('rrr@gmail.com','Rrr','33333330E','calle perdida alejada de todo, numero 30, barcelona','12344','609773493','restaurant'),
-('r2@gmail.com','Carlos','33333430E','Gran Via, numero 30, Barcelona','1234','609773495','restaurant'),
-('rub@gmail.com','Rub','33343330E','calle perdida alejada de todo, numero 35, barcelona','1234666','60985996','deliveryman'),
-('r3@gmail.com','David','33343330V','Av Diagonal, num 2, barcelona','12345','61985996','deliveryman'),
-('ran@gmail.com','Ran','44444092R','calle arago, numero 40, Barcelona','123456789gjh','608375886','customer'),
-('r4@gmail.com','Carla','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','customer');
+('rrr@gmail.com','Rrr','33333330E','calle perdida alejada de todo, numero 30, barcelona','12344','609773493','restaurant',''),
+('r2@gmail.com','Carlos','33333430E','Gran Via, numero 30, Barcelona','1234','609773495','restaurant',''),
+('rub@gmail.com','Rub','33343330E','calle perdida alejada de todo, numero 35, barcelona','1234666','60985996','deliveryman',''),
+('r3@gmail.com','David','33343330V','Av Diagonal, num 2, barcelona','12345','61985996','deliveryman',''),
+('ran@gmail.com','Ran','44444092R','calle arago, numero 40, Barcelona','123456789gjh','608375886','customer',''),
+('r4@gmail.com','Carla','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','customer','');
 INSERT INTO restaurants VALUES('rrr@gmail.com','verde','inactive','ES8021000000000000001234',''),
 ('r2@gmail.com','rojo','visible','ES8021000004444000001234','restaurante.com/allergens.pdf');
 INSERT INTO deliverymans VALUES('rub@gmail.com','rojo','visible','ES8021000000000000001235'),
@@ -161,9 +170,11 @@ INSERT INTO customers VALUES('ran@gmail.com','12345678912345670921345'),
 --Insert two mock orders that later we are going to rate and make feedback
 INSERT INTO orders VALUES (DEFAULT,'rrr@gmail.com','r3@gmail.com','r4@gmail.com','esperando',CURRENT_TIMESTAMP(0)),
 (DEFAULT,'r2@gmail.com','r3@gmail.com','r4@gmail.com','preparando',CURRENT_TIMESTAMP(0));
+--Insert the four categories
+INSERT INTO categories VALUES (DEFAULT,'Picked for you'),(DEFAULT,'Classics'),(DEFAULT,'Recently ordered'),(DEFAULT,'New items');
 --Two items, in different restaurants
-INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rrr@gmail.com'),
-(DEFAULT,'pulpo con patatas','pulpo a la brasa acompañado de patatas fritas pochadas',18.99,'1','r2@gmail.com');
+INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rrr@gmail.com','',4),
+(DEFAULT,'pulpo con patatas','pulpo a la brasa acompañado de patatas fritas pochadas',18.99,'1','r2@gmail.com','',4);
 --Here we have the order_id, the item_id, and the amount
 INSERT INTO order_items VALUES (1,1,2),(2,2,4);
 --Two feedbacks about the 2 orders
