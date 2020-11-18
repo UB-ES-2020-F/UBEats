@@ -1,5 +1,23 @@
 const restaurants = require('../services/restaurants')
 
+/**
+ * Method called to get all the restaurants from the DDBB
+ * @param {} req 
+ * @param {*} res 
+ */
+async function getAll(req, res){
+    
+    const {params} = req
+
+    const rest = await restaurants.getAllRestaurants()
+    //console.log(rest)
+    if(rest.error)
+        return res.status(404).send({"message": "could not retrieve restaurants", "error": rest.error})
+
+    //console.log(rest)
+
+    return res.status(200).send({rest})
+}
 
 
 /**
@@ -184,4 +202,4 @@ async function insertType(req, res){
     return res.status(200).send({insType})
 }
 
-module.exports = { feedback, getTypes, menu, readR, setAv, setVisible, setIban, setAllergens, deleteType, insertType }
+module.exports = { getAll, feedback, getTypes, menu, readR, setAv, setVisible, setIban, setAllergens, deleteType, insertType }

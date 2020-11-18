@@ -4,6 +4,20 @@ const {pool} = require('../database/index.js')
 
 
 /**
+ * Query for retrieving all the restaurants from the users, restaurants(join) table
+ */
+function getAllRestaurants()
+{
+        return pool.query('SELECT users.email,name,"CIF",street,phone,url,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=restaurants.email')
+                .then(res => {
+                        return res.rows
+                })
+                .catch(err => {
+                        return {error: err}
+                })
+}
+
+/**
  * Method that gets the feedback of a restaurant from the DB
  * 
  */
@@ -85,7 +99,7 @@ async function readR(email){
     if (!email) 
         return {error : "email must be filled", errCode : 400}
 
-    return pool.query('SELECT users.email,name,"CIF",street,pass,phone,tipo,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=$1 AND users.email=restaurants.email',[email])
+    return pool.query('SELECT users.email,name,"CIF",street,pass,phone,tipo,url,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=$1 AND users.email=restaurants.email',[email])
     .then(res =>{
         return res.rows[0] || null
     })
@@ -214,4 +228,4 @@ async function insertType(values){
         .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
 
-module.exports = {feedback, getTypes, menu, readR, setAv, setVisible, setIban, setAllergens, deleteType, insertType }
+module.exports = {getAllRestaurants, feedback, getTypes, menu, readR, setAv, setVisible, setIban, setAllergens, deleteType, insertType }

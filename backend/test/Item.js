@@ -62,6 +62,9 @@ describe('Items', () => {
             res.body.item.should.have.property('price')
             res.body.item.should.have.property('visible')
             res.body.item.should.have.property('rest_id')
+            res.body.item.should.have.property('url')
+            res.body.item.should.have.property('cat_id')
+            res.body.item.should.have.property('category')
             done();
           });
     });
@@ -150,6 +153,8 @@ describe('Items', () => {
         desc: 'qiur qejhfrg hqeoi qhfiqe he',
         price: 3.141592,
         rest_id: 'rrr@gmail.com',
+        url: 'www.images.com/ofnforn.jpg',
+        cat_id: 4
       }
 
       chai.request(app)
@@ -164,6 +169,8 @@ describe('Items', () => {
           res.body.item.should.have.property('price')
           res.body.item.should.have.property('visible')
           res.body.item.should.have.property('rest_id')
+          res.body.item.should.have.property('url')
+          res.body.item.should.have.property('cat_id')
           done();
         });
     });
@@ -173,6 +180,8 @@ describe('Items', () => {
         desc: 'qiur qejhfrg hqeoi qhfiqe he',
         price: 3.141592,
         rest_id: 'rrr@gmail.com',
+        url: 'images.com/nfvosnf.jpg',
+        cat_id: 4
       }
 
       chai.request(app)
@@ -195,6 +204,8 @@ describe('Items', () => {
         desc: 'qiur qejhfrg hqeoi qhfiqe he',
         price: 3.141592,
         rest_id: 'rrr@gmail.com',
+        url: 'www.images.com/ofnforn.jpg',
+        cat_id: 4
       }
 
       chai.request(app)
@@ -216,6 +227,8 @@ describe('Items', () => {
         title: 'eofuhvb',
         desc: 'qiur qejhfrg hqeoi qhfiqe he',
         price: -3.1415,
+        url: 'images.com/nfvosnf.jpg',
+        cat_id: 4
       }
 
       chai.request(app)
@@ -238,7 +251,7 @@ describe('Items', () => {
     var id;
 
     beforeEach( async () => {
-      var query = "INSERT INTO items VALUES (DEFAULT, 'qwertyuiop', 'qwefr qerivg', 3.141592, '0', 'rrr@gmail.com') RETURNING *"
+      var query = "INSERT INTO items VALUES (DEFAULT, 'qwertyuiop', 'qwefr qerivg', 3.141592, '0', 'rrr@gmail.com', '', 4) RETURNING *"
       var insertedItems = await pool.query(query)
       id = insertedItems.rows[0].item_id
     })
@@ -261,6 +274,8 @@ describe('Items', () => {
           res.body.item.should.have.property('price')
           res.body.item.should.have.property('visible')
           res.body.item.should.have.property('rest_id')
+          res.body.item.should.have.property('url')
+          res.body.item.should.have.property('cat_id')
           done();
         });
     });
@@ -342,6 +357,8 @@ describe('Items', () => {
           res.body.item.should.have.property('price')
           res.body.item.should.have.property('visible')
           res.body.item.should.have.property('rest_id')
+          res.body.item.should.have.property('url')
+          res.body.item.should.have.property('cat_id')
           done();
         });
     });
@@ -371,6 +388,8 @@ describe('Items', () => {
         desc: 'qiur qejhfrg hqeoi qhfiqe he',
         price: 3.141592,
         rest_id: 'rrr@gmail.com',
+        url: 'www.images.com/ofnforn.jpg',
+        cat_id: 4
       }
 
       chai.request(app)

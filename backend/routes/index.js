@@ -16,6 +16,7 @@ router.post('/register',Users.register)
 router.delete('customer/delete',Users.deleteUser)
 
 //Restaurant
+router.get('/restaurants',Restaurants.getAll)
 router.get('/restaurant/read',Restaurants.readR)
 router.get('/restaurant/menu',Restaurants.menu)
 router.get('/restaurant/types',Restaurants.getTypes)
