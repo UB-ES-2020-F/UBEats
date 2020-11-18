@@ -6,7 +6,7 @@ const {pool} = require('../database/index.js')
  */
 function getAllItems()
 {
-        return pool.query('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,categorie FROM items,categories WHERE items.cat_id=categories.cat_id')
+        return pool.query('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,category FROM items,categories WHERE items.cat_id=categories.cat_id')
                 .then(res => {
                         return res.rows
                 })
@@ -21,7 +21,7 @@ function getAllItems()
  */
 function getAllItemsByRestaurantID(rest_id)
 {
-        const query = format('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,categorie FROM items,categories WHERE items.cat_id=categories.cat_id AND rest_id = %L', rest_id)
+        const query = format('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,category FROM items,categories WHERE items.cat_id=categories.cat_id AND rest_id = %L', rest_id)
 
         return pool.query(query)
                 .then(res => {
@@ -38,7 +38,7 @@ function getAllItemsByRestaurantID(rest_id)
  */
 function getItemByID(id)
 {
-       return pool.query('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,categorie FROM items,categories WHERE items.cat_id=categories.cat_id AND item_id = $1', [id])
+       return pool.query('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,category FROM items,categories WHERE items.cat_id=categories.cat_id AND item_id = $1', [id])
                 .then(res => {
                         // should ONLY be one match
                         return res.rows[0] || null
@@ -156,9 +156,9 @@ function _checkItemCreationParameters(params)
         if(params.url && params.url.length > 200)
                 err_str = err_str.concat("Image URL exceeds the limit of 200 chars\n")
         if(!(params.cat_id))
-                err_str = err_str.concat("No categorie ID provided for item\n")
+                err_str = err_str.concat("No category ID provided for item\n")
         if(params.cat_id && params.cat_id < 0)
-                err_str = err_str.concat("Categorie ID is a negative number\n")
+                err_str = err_str.concat("Category ID is a negative number\n")
 
         //if errors happenend, return the error string
         if(err_str.length > 0)
@@ -201,7 +201,7 @@ function _checkItemUpdateParameters(params)
         if(params.url && params.url.length > 200)
                 err_str = err_str.concat("Image URL exceeds the limit of 200 chars\n")
         if(params.cat_id && params.cat_id < 0)
-                err_str = err_str.concat("Categorie ID is a negative number\n")
+                err_str = err_str.concat("Category ID is a negative number\n")
 
         if(err_str.length > 0)
                 return {err: err_str}

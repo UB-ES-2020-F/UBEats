@@ -128,7 +128,7 @@ describe('Users', () => {
         CIF : '55455093R',
         street : 'Calle de las ventas destruidas, 45, Madrid',
         phone : '432521545',
-        url: 'images.com/nfown.jpg'
+        url: 'https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'
       }
       chai.request(app)
         .post('/api/register')
@@ -158,7 +158,7 @@ describe('Users', () => {
           CIF : '55455093R',
           street : 'Calle de las ventas destruidas, 45, Madrid',
           phone : '432521545',
-          url: 'images.com/nfown.jpg'
+          url: 'https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'
         }
         chai.request(app)
           .post('/api/register')
@@ -194,7 +194,7 @@ describe('Users', () => {
               CIF : '55455093R',
               street : 'Calle de las ventas destruidas, 45, Madrid',
               phone : '432521545',
-              url: 'images.com/nfown.jpg'
+              url: 'https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'
             }
           chai.request(app) // Register raulito84@gmail.com but its already registered!
               .post('/api/register')
@@ -227,7 +227,7 @@ describe('Users', () => {
               CIF : '55455093R',
               street : 'Calle de las ventas destruidas, 45, Madrid',
               phone : '432521545',
-              url: 'images.com/nfirnf.jpg'
+              url: 'https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'
             }
             chai.request(app)
               .post('/api/register')
@@ -263,7 +263,7 @@ describe('Users', () => {
             CIF : '55455093R',
             street : 'Calle de las ventas destruidas, 45, Madrid',
             phone : '432521545',
-            url: 'images.com/nfirnf.jpg'
+            url: 'https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'
           }
           chai.request(app)
             .post('/api/register')

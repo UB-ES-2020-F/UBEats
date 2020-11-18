@@ -34,7 +34,7 @@ describe('Items', () => {
             res.body.item.should.have.property('rest_id')
             res.body.item.should.have.property('url')
             res.body.item.should.have.property('cat_id')
-            res.body.item.should.have.property('categorie')
+            res.body.item.should.have.property('category')
             done();
           });
     });

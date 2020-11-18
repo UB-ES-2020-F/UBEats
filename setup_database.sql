@@ -61,7 +61,7 @@ ON UPDATE CASCADE
 );
 CREATE TABLE "categories" (
 "cat_id" SERIAL NOT NULL UNIQUE,
-"categorie" VARCHAR(50) NOT NULL,
+"category" VARCHAR(50) NOT NULL,
 Constraint "categories_pkey" Primary Key ("cat_id")
 );
 CREATE TABLE "items" (
@@ -155,12 +155,12 @@ Constraint "orderextraitems_fkey_extraitem" Foreign Key ("extraitem_id") Referen
 );
 --Mock data to test all the tables. Two mock data in each table. Insert two restaurants, two customers and two deliverymans
 INSERT INTO "users" VALUES
-('rrr@gmail.com','Rrr','33333330E','calle perdida alejada de todo, numero 30, barcelona','12344','609773493','restaurant',''),
-('r2@gmail.com','Carlos','33333430E','Gran Via, numero 30, Barcelona','1234','609773495','restaurant',''),
-('rub@gmail.com','Rub','33343330E','calle perdida alejada de todo, numero 35, barcelona','1234666','60985996','deliveryman',''),
-('r3@gmail.com','David','33343330V','Av Diagonal, num 2, barcelona','12345','61985996','deliveryman',''),
-('ran@gmail.com','Ran','44444092R','calle arago, numero 40, Barcelona','123456789gjh','608375886','customer',''),
-('r4@gmail.com','Carla','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','customer','');
+('rrr@gmail.com','Rrr','33333330E','calle perdida alejada de todo, numero 30, barcelona','12344','609773493','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('r2@gmail.com','Carlos','33333430E','Gran Via, numero 30, Barcelona','1234','609773495','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('rub@gmail.com','Rub','33343330E','calle perdida alejada de todo, numero 35, barcelona','1234666','60985996','deliveryman','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('r3@gmail.com','David','33343330V','Av Diagonal, num 2, barcelona','12345','61985996','deliveryman','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('ran@gmail.com','Ran','44444092R','calle arago, numero 40, Barcelona','123456789gjh','608375886','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('r4@gmail.com','Carla','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
 INSERT INTO restaurants VALUES('rrr@gmail.com','verde','inactive','ES8021000000000000001234',''),
 ('r2@gmail.com','rojo','visible','ES8021000004444000001234','restaurante.com/allergens.pdf');
 INSERT INTO deliverymans VALUES('rub@gmail.com','rojo','visible','ES8021000000000000001235'),
