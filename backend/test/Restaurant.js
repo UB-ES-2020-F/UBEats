@@ -18,6 +18,22 @@ chai.use(chaiHttp);
 //Our parent block
 describe('Restaurants', () => {
 
+  // TEST THE GET ALL ENDPOINT
+  describe('/GET RESTAURANTS', () => {
+    it('Get all existing restaurants. Should return 200', (done) => {
+      chai.request(app)
+        .get('/api/restaurants')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('rest');
+            res.body.rest.should.be.an('array').to.have.lengthOf.above(0);
+            done();
+          });
+
+    });
+  });
+
   // TEST THE DELETE RESTAURANT
   describe('DELETE /api/restaurant', () => {
     var email;
