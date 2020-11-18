@@ -23,7 +23,7 @@ describe('Restaurants', () => {
     var email;
 
     beforeEach( async () => {
-      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant') RETURNING *"
+      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *"
       var insertedRest = await pool.query(query)
       emailUser = insertedRest.rows[0].email
       //console.log(emailUser)
@@ -206,6 +206,7 @@ describe('Restaurants', () => {
           res.body.restaurant.should.have.property('pass');
           res.body.restaurant.should.have.property('phone');
           res.body.restaurant.should.have.property('tipo');
+          res.body.restaurant.should.have.property('url');
           res.body.restaurant.should.have.property('avaliability');
           res.body.restaurant.should.have.property('visible');
           res.body.restaurant.should.have.property('iban');

@@ -21,7 +21,8 @@ async function _get_all_users(req, res){
  */
 async function login(req, res){
     const {body} = req // body request 
-    const user = await sch_users.getUserByEmail(body.email) 
+    const user = await sch_users.getUserByEmail(body.email)
+    //console.log(user)
     if (!user) return res.status(404).send({"message":`User with email:${body.email} not found. Please enter a valid account.`}) 
     if (user) {
         if (!body.password || user.pass != body.password) return res.status(403).send({"message":"Invalid user/password. Please enter a valid account"})

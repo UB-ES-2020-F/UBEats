@@ -44,11 +44,11 @@ function getUserByEmail(email) {
  */
 async function createUser(values){
 
-    let db_values = [values.email, values.name, values.CIF || '', values.street || '', values.password, values.phone || '', values.type]
+    let db_values = [values.email, values.name, values.CIF || '', values.street || '', values.password, values.phone || '', values.type, values.url]
     const query = format('INSERT INTO users VALUES (%L) RETURNING *', db_values)
 
     //Check every key to be present
-    if (!values.name || !values.email || !values.password   || !values.type || !Object.keys(user_type).includes(values.type)) 
+    if (!values.name || !values.email || !values.password   || !values.type || !Object.keys(user_type).includes(values.type) || !values.url) 
         return {error : "All field must be filled in order to create the user", errCode : 400}
     
     return pool.query(query)

@@ -39,6 +39,7 @@ describe('Users', () => {
             res.body.user.should.have.property('street')
             res.body.user.should.have.property('phone')
             res.body.user.should.have.property('tipo')
+            res.body.user.should.have.property('url')
             res.body.user.should.not.have.property('pass')
             done();
           });
@@ -127,6 +128,7 @@ describe('Users', () => {
         CIF : '55455093R',
         street : 'Calle de las ventas destruidas, 45, Madrid',
         phone : '432521545',
+        url: 'images.com/nfown.jpg'
       }
       chai.request(app)
         .post('/api/register')
@@ -142,6 +144,7 @@ describe('Users', () => {
             res.body.user.should.have.property('phone')
             res.body.user.should.have.property('tipo')
             res.body.user.should.not.have.property('pass')
+            res.body.user.should.have.property('url')
             done();
           });
     });
@@ -155,6 +158,7 @@ describe('Users', () => {
           CIF : '55455093R',
           street : 'Calle de las ventas destruidas, 45, Madrid',
           phone : '432521545',
+          url: 'images.com/nfown.jpg'
         }
         chai.request(app)
           .post('/api/register')
@@ -172,7 +176,7 @@ describe('Users', () => {
    
           // Before the test registration we delete the row
     before( async ()=>{
-        var sqlUsers = "INSERT INTO users VALUES ('raulito84@gmail.com','Raul','55455093R','Calle de las ventas destruidas, 45, Madrid','797832','432521545','customer') RETURNING *"
+        var sqlUsers = "INSERT INTO users VALUES ('raulito84@gmail.com','Raul','55455093R','Calle de las ventas destruidas, 45, Madrid','797832','432521545','customer','images.com/nfown.jpg') RETURNING *"
         var deletedUsers = await pool.query(sqlUsers)
     })
     // After the test registration we delete the row
@@ -190,6 +194,7 @@ describe('Users', () => {
               CIF : '55455093R',
               street : 'Calle de las ventas destruidas, 45, Madrid',
               phone : '432521545',
+              url: 'images.com/nfown.jpg'
             }
           chai.request(app) // Register raulito84@gmail.com but its already registered!
               .post('/api/register')
@@ -207,6 +212,7 @@ describe('Users', () => {
                   res.body.user.specifics.should.have.property('email')
                   res.body.user.specifics.should.have.property('card')
                   res.body.user.should.not.have.property('pass')
+                  res.body.user.should.have.property('url')
                   done()
                 });
           });
@@ -221,6 +227,7 @@ describe('Users', () => {
               CIF : '55455093R',
               street : 'Calle de las ventas destruidas, 45, Madrid',
               phone : '432521545',
+              url: 'images.com/nfirnf.jpg'
             }
             chai.request(app)
               .post('/api/register')
@@ -241,6 +248,7 @@ describe('Users', () => {
                   res.body.user.specifics.should.have.property('visible')
                   res.body.user.specifics.should.have.property('iban')
                   res.body.user.should.not.have.property('pass')
+                  res.body.user.should.have.property('url')
                   done();
                 });
         });
@@ -255,6 +263,7 @@ describe('Users', () => {
             CIF : '55455093R',
             street : 'Calle de las ventas destruidas, 45, Madrid',
             phone : '432521545',
+            url: 'images.com/nfirnf.jpg'
           }
           chai.request(app)
             .post('/api/register')
@@ -275,6 +284,7 @@ describe('Users', () => {
                   res.body.user.specifics.should.have.property('visible')
                   res.body.user.specifics.should.have.property('iban')
                   res.body.user.should.not.have.property('pass')
+                  res.body.user.should.have.property('url')
                 done();
               });
         });

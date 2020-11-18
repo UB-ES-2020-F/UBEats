@@ -6,7 +6,7 @@ const {pool} = require('../database/index.js')
  */
 function getAllItems()
 {
-        return pool.query('SELECT * FROM items')
+        return pool.query('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,categorie FROM items,categories WHERE items.cat_id=categories.cat_id')
                 .then(res => {
                         return res.rows
                 })
@@ -21,7 +21,7 @@ function getAllItems()
  */
 function getAllItemsByRestaurantID(rest_id)
 {
-        const query = format('SELECT * FROM items WHERE rest_id = %L', rest_id)
+        const query = format('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,categorie FROM items,categories WHERE items.cat_id=categories.cat_id AND rest_id = %L', rest_id)
 
         return pool.query(query)
                 .then(res => {
@@ -38,7 +38,7 @@ function getAllItemsByRestaurantID(rest_id)
  */
 function getItemByID(id)
 {
-       return pool.query('SELECT * FROM items WHERE item_id = $1', [id])
+       return pool.query('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,categorie FROM items,categories WHERE items.cat_id=categories.cat_id AND item_id = $1', [id])
                 .then(res => {
                         // should ONLY be one match
                         return res.rows[0] || null
@@ -57,11 +57,12 @@ function createItem(values)
         //check the values
         const check = _checkItemCreationParameters(values)
         //console.log(check)
+
         if(check.err)
                 return {error: check.err, errCode: 403}
 
         //construct the query
-        let db_values = [values.title, values.desc, values.price, values.visible || '0', values.rest_id]
+        let db_values = [values.title, values.desc, values.price, values.visible || '0', values.rest_id, values.url, values.cat_id]
 
         const query = format('INSERT INTO items VALUES (DEFAULT, %L) RETURNING *', db_values)
         if(query.error)
@@ -150,6 +151,14 @@ function _checkItemCreationParameters(params)
                 // check that the restaurant exists
                 // also, check that the token_rest == rest_id
         }
+        if(!(params.url))
+                err_str = err_str.concat("No image url provided for item\n")
+        if(params.url && params.url.length > 200)
+                err_str = err_str.concat("Image URL exceeds the limit of 200 chars\n")
+        if(!(params.cat_id))
+                err_str = err_str.concat("No categorie ID provided for item\n")
+        if(params.cat_id && params.cat_id < 0)
+                err_str = err_str.concat("Categorie ID is a negative number\n")
 
         //if errors happenend, return the error string
         if(err_str.length > 0)
@@ -189,6 +198,10 @@ function _checkItemUpdateParameters(params)
                 // check that the restaurant exists
                 // also, check that the token_rest == rest_id
         }
+        if(params.url && params.url.length > 200)
+                err_str = err_str.concat("Image URL exceeds the limit of 200 chars\n")
+        if(params.cat_id && params.cat_id < 0)
+                err_str = err_str.concat("Categorie ID is a negative number\n")
 
         if(err_str.length > 0)
                 return {err: err_str}

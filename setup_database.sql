@@ -61,7 +61,7 @@ ON UPDATE CASCADE
 );
 CREATE TABLE "categories" (
 "cat_id" SERIAL NOT NULL UNIQUE,
-"name" VARCHAR(50) NOT NULL,
+"categorie" VARCHAR(50) NOT NULL,
 Constraint "categories_pkey" Primary Key ("cat_id")
 );
 CREATE TABLE "items" (

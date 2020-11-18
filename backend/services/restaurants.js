@@ -85,7 +85,7 @@ async function readR(email){
     if (!email) 
         return {error : "email must be filled", errCode : 400}
 
-    return pool.query('SELECT users.email,name,"CIF",street,pass,phone,tipo,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=$1 AND users.email=restaurants.email',[email])
+    return pool.query('SELECT users.email,name,"CIF",street,pass,phone,tipo,url,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=$1 AND users.email=restaurants.email',[email])
     .then(res =>{
         return res.rows[0] || null
     })
