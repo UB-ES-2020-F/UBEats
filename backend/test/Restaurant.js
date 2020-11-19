@@ -156,7 +156,7 @@ describe('Restaurants', () => {
     it('Update a restaurant. All OK. Should return 200', (done) => {
 
       let user = {
-        phone: '654321321'
+        iban: 'ES7021000022293894885934'
       }
 
       chai.request(app)
@@ -165,9 +165,9 @@ describe('Restaurants', () => {
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
-          res.should.have.property('restaurant')
-          res.restaurant.should.have.property('phone')
-          res.restaurant.phone.should.equal('654321321')
+          res.body.should.have.property('restaurant')
+          res.body.restaurant.should.have.property('iban')
+          res.body.restaurant.iban.should.equal('ES7021000022293894885934')
           done();
         });
     });
@@ -195,9 +195,11 @@ describe('Restaurants', () => {
     
     beforeEach( async () => {
       await pool.query("INSERT INTO users VALUES ('customer_test@gmail.com', 'Raul', '44444445S','calle arago 30. barcelona','1234','696696687','customer','images.com/gnroijgg.jpg') RETURNING *")
+      await pool.query("INSERT INTO customers VALUES ('customer_test@gmail.com', '11111111111111112222333') RETURNING *")
       await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *")
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailRest = insertedRest.rows[0].email
+      //console.log(emailRest)
 
       await pool.query("INSERT INTO feedbacks VALUES ('rst@gmail.com','customer_test@gmail.com',8,'comida de calidad a precio economico',CURRENT_TIMESTAMP(0)) RETURNING *")
     })
@@ -241,8 +243,8 @@ describe('Restaurants', () => {
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailRest = insertedRest.rows[0].email
 
-      await pool.query("INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rst@gmail.com','',4) RETURNING *")
-      id = insertedItems.rows[0].item_id
+      var insertedItem = await pool.query("INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rst@gmail.com','',4) RETURNING *")
+      id = insertedItem.rows[0].item_id
       var query = `INSERT INTO type_items VALUES (1,${id}),(2,${id}) RETURNING *`
       await pool.query(query)
     })
@@ -258,7 +260,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('menu');
-          console.log(res.body.menu)
+          //console.log(res.body.menu)
           res.body.menu.should.be.an('array').to.have.lengthOf.above(0);
           done();
         });
@@ -307,8 +309,8 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('types');
-          console.log(res.body.types)
-          res.body.menu.should.be.an('array').to.have.lengthOf.above(0);
+          //console.log(res.body.types)
+          res.body.types.should.be.an('array').to.have.lengthOf.above(0);
           done();
         });
     });
@@ -398,6 +400,9 @@ describe('Restaurants', () => {
       var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano prueba1','comida eco'),(DEFAULT,'vegetariano prueba2','comida eco') RETURNING *")
       tid1 = types.rows[0].type_id
       tid2 = types.rows[1].type_id
+
+      var query = `INSERT INTO type_restaurants VALUES (${tid1},'rst@gmail.com'),(${tid2},'rst@gmail.com') RETURNING *`
+      await pool.query(query)
     })
     afterEach( async () => {
       await pool.query("DELETE FROM users WHERE email = 'rst@gmail.com'")

@@ -42,12 +42,15 @@ function updateRestaurant(email, values)
         if(check.err)
                 return {error: check.err, errCode: 403}
 
-        const query = _createUpdateDynamicQuery(values)
+        const query = _createUpdateDynamicQueryRestaurant(values)
         if(query.error)
                 return {error: query.error, errCode: 403}
 
+        //console.log(query)
+
         return pool.query(query)
                 .then((res) => {
+                        //console.log(res.rows[0])
                         return res.rows[0] || null
                 })
                 .catch(err => {
@@ -93,7 +96,7 @@ function _checkRestaurantUpdateParameters(params)
  * for SQL with the key:values of an object
  * body is expected to have more than 0 key:value pairs
  */
-function _createUpdateDynamicQuery(body)
+function _createUpdateDynamicQueryRestaurant(body)
 {
         //console.log(body)
         const {email} = body
@@ -122,39 +125,12 @@ function _createUpdateDynamicQuery(body)
                 if(body_size > 1 && ++counter < body_size)
                         dynamicQuery = dynamicQuery.concat(",")
         }
-        dynamicQuery = dynamicQuery.concat(` WHERE email = ${email} RETURNING *`)
+        dynamicQuery = dynamicQuery.concat(` WHERE email = '${email}' RETURNING *`)
 
         //console.log(dynamicQuery)
 
         return dynamicQuery
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * Method that gets the feedback of a restaurant from the DB
@@ -222,7 +198,8 @@ async function getMenu(email){
  * @returns 
  */
 async function deleteType(values){
-    const query = format('DELETE FROM type_restaurants WHERE type_id=%L AND rest_id=%L RETURNING *',[values.type_id],[values.email])
+    const query = format(`DELETE FROM type_restaurants WHERE type_id=${values.type_id} AND rest_id=%L RETURNING *`,[values.email])
+    //console.log(query)
     return pool.query(query)
         .then(res =>{
             //console.log(res.rows[0])

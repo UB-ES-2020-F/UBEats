@@ -62,7 +62,7 @@ async function update(req, res)
         return res.status(404).send({"message": `Restaurant ${email} not found`})
     if(restaurant.error)
         return res.status(403).send({"message": "Could not update restaurant", error: restaurant.error})
-
+    
     return res.status(200).send({restaurant})
 }
 
