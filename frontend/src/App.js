@@ -12,6 +12,7 @@ import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js
 import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman.js';
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
+import Footer from './commons/components/Footer.js';
 
 import GeneralNav from './pages/Navbar/GeneralNav.js';
 
@@ -49,6 +50,8 @@ const App = () => {
         <Route path='/profileclient' component={ProfileClient} key='profile client'/>
         <Route path='/profilerestaurant' component={ProfileRestaurant} key='profile restaurant'/>
       </Switch>
+      
+      <Footer/>
 
     </Router>
     

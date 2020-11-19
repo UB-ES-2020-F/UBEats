@@ -924,27 +924,6 @@ function Home() {
         </div>
       </div>
     </div>
-
-    <div class="header2">
-
-      <div class="container2">
-
-        <div class="logo">
-          <h1>UB<span>Eats</span></h1>
-        </div>
-        <div class="searchBar">
-          <div class="header-option">
-            <i data-feather="search"></i>
-            <span>Crea una cuenta de empresa</span>
-          </div>
-          <div class="header-option">
-            <span>Registrate para hacer entregas</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
   </body2>
 
 
