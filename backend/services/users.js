@@ -99,11 +99,6 @@ function _createSpecficicUser(values){
  * 
  */
 async function deleteUser(email){
-
-    //Check every key to be present
-    if (!email) 
-        return {error : "email must be filled", errCode : 400}
-
     return pool.query('DELETE FROM users WHERE email = $1 RETURNING *',[email])
         .then((res) => {
             return res.rows[0] || null

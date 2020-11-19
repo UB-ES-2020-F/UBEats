@@ -19,15 +19,66 @@ async function getAll(req, res){
     return res.status(200).send({rest})
 }
 
+/**
+ * Method called to get all the info from a restaurant
+ * @param {} req 
+ * @param {*} res 
+ */
+async function get(req, res){
+    const {params} = req
+    //check if the request has the email
+    if(!(params.email))
+        return res.status(403).send({"message": "e-Mail not specified"})
+    
+    const restaurant = await restaurants.getRestaurantByID(params.email)
+    //console.log(restaurant)
+    //check for error retreiving from DDBB
+    if(!restaurant)
+        return res.status(404).send({"message": `restaurant with e-Mail ${params.email} not found`})
+
+    return res.status(200).send({restaurant})
+}
+
+/**
+ * Function that modifies the values of an existing restaurant from the database
+ * The restaurant selection its done by email
+ */
+async function update(req, res)
+{
+    const {params} = req
+    const {body} = req
+    //check if the request has the email
+    if(!(params.email))
+        return res.status(403).send({"message": "restaurant ID (e-Mail) not specified"})
+
+    const email = params.email
+    // the services restaurants.js functions works with the assumption
+    // that the body contains the email
+    body.email = email
+
+    const restaurant = await restaurants.updateRestaurant(email, body)
+    //console.log(restaurant)
+    if(!restaurant) // pg returns NULL but the query executed successfully
+        return res.status(404).send({"message": `Restaurant ${email} not found`})
+    if(restaurant.error)
+        return res.status(403).send({"message": "Could not update restaurant", error: restaurant.error})
+    
+    return res.status(200).send({restaurant})
+}
+
 
 /**
  * Method called to get all the feedback from a restaurant
  * @param {} req 
  * @param {*} res 
  */
-async function feedback(req, res){
-    const {body} = req 
-    const feedback = await restaurants.feedback(body.email) 
+async function getFeedback(req, res){
+    const {params} = req
+    //check if the request has the email
+    if(!(params.email))
+        return res.status(403).send({"message": "e-Mail not specified"})
+
+    const feedback = await restaurants.getFeedback(params.email) 
 
     //check for error retreiving from DDBB
     if(!feedback || feedback.length==0) // pg returns NULL/empty but the query executed successfully
@@ -44,8 +95,12 @@ async function feedback(req, res){
  * @param {*} res 
  */
 async function getTypes(req, res){
-    const {body} = req 
-    const types = await restaurants.getTypes(body.email) 
+    const {params} = req
+    //check if the request has the email
+    if(!(params.email))
+        return res.status(403).send({"message": "e-Mail not specified"})
+ 
+    const types = await restaurants.getTypes(params.email) 
     
     //check for error retreiving from DDBB
     if(!types || types.length==0) // pg returns NULL/empty but the query executed successfully
@@ -61,9 +116,13 @@ async function getTypes(req, res){
  * @param {} req 
  * @param {*} res 
  */
-async function menu(req, res){
-    const {body} = req 
-    const menu = await restaurants.menu(body.email) 
+async function getMenu(req, res){
+    const {params} = req
+    //check if the request has the email
+    if(!(params.email))
+        return res.status(403).send({"message": "e-Mail not specified"})
+
+    const menu = await restaurants.getMenu(params.email) 
 
     //check for error retreiving from DDBB
     if(!menu || menu.length==0) // pg returns NULL/empty but the query executed successfully
@@ -75,104 +134,18 @@ async function menu(req, res){
 }
 
 /**
- * Method called to get all the info from a restaurant
- * @param {} req 
- * @param {*} res 
- */
-async function readR(req, res){
-    const {body} = req 
-    const restaurant = await restaurants.readR(body.email) 
-
-    //check for error retreiving from DDBB
-    if(!restaurant) // pg returns NULL/empty but the query executed successfully
-        return res.status(404).send({"message": `Restaurant not found`})
-    if(restaurant.error)
-        return res.status(404).send({"message": `Restaurant not found`, "error": restaurant.error})
-
-    return res.status(200).send({restaurant})
-}
-
-/**
- * Method called to update the avaliability of a restaurant
- * @param {} req
- * @param {*} res 
- */
-async function setAv(req, res){
-
-    const {body} = req
-    const avaliability = await restaurants.setAv(body) 
-
-    //check for error retreiving from DDBB
-    if(!avaliability) // pg returns NULL/empty but the query executed successfully
-        return res.status(404).send({"message": `Avaliability not updated`})
-    if(avaliability.error)
-        return res.status(404).send({"message": `Avaliability not updated`, "error": avaliability.error})
-
-    return res.status(200).send({avaliability})
-}
-
-/**
- * Method called to update the 'visible' of a restaurant
- * @param {} req
- * @param {*} res 
- */
-async function setVisible(req, res){
-    const {body} = req 
-    const visible = await restaurants.setVisible(body) 
-    
-    //check for error retreiving from DDBB
-    if(!visible) // pg returns NULL/empty but the query executed successfully
-        return res.status(404).send({"message": `Visible not updated`})
-    if(visible.error)
-        return res.status(404).send({"message": `Visible not updated`, "error": visible.error})
-
-    return res.status(200).send({visible})
-}
-
-/**
- * Method called to update the 'iban' of a restaurant
- * @param {} req
- * @param {*} res 
- */
-async function setIban(req, res){
-    const {body} = req 
-    const iban = await restaurants.setIban(body) 
-    
-    //check for error retreiving from DDBB
-    if(!iban) // pg returns NULL/empty but the query executed successfully
-        return res.status(404).send({"message": `Iban not updated`})
-    if(iban.error)
-        return res.status(404).send({"message": `Iban not updated`, "error": iban.error})
-
-    return res.status(200).send({iban})
-}
-
-/**
- * Method called to update the 'allergens' of a restaurant
- * @param {} req
- * @param {*} res 
- */
-async function setAllergens(req, res){
-    const {body} = req 
-    const allergens = await restaurants.setAllergens(body) 
-    
-    //check for error retreiving from DDBB
-    if(!allergens) // pg returns NULL/empty but the query executed successfully
-        return res.status(404).send({"message": `Allergens not updated`})
-    if(allergens.error)
-        return res.status(404).send({"message": `Allergens not updated`, "error": allergens.error})
-
-    return res.status(200).send({allergens})
-}
-
-/**
  * Method called to delete a type of a restaurant, given the pre-existing list, by their id
  * @param {} req
  * @param {*} res 
  */
 async function deleteType(req, res){
-    const {body} = req
-    const delType = await restaurants.deleteType(body) 
+    const {params} = req
+
+    //Check every key to be present
+    if (!params.type_id || !params.email) 
+        return {error : "email and type_id must be filled", errCode : 400}
+
+    const delType = await restaurants.deleteType(params) 
     
     //console.log(delType)
     //check for error retreiving from DDBB
@@ -191,6 +164,11 @@ async function deleteType(req, res){
  */
 async function insertType(req, res){
     const {body} = req
+
+    //Check every key to be present
+    if (!body.type_id || !body.email) 
+        return {error : "email and type_id must be filled", errCode : 400}
+
     const insType = await restaurants.insertType(body) 
     
     //check for error retreiving from DDBB
@@ -202,4 +180,4 @@ async function insertType(req, res){
     return res.status(200).send({insType})
 }
 
-module.exports = { getAll, feedback, getTypes, menu, readR, setAv, setVisible, setIban, setAllergens, deleteType, insertType }
+module.exports = { getAll, get, update, getFeedback, getTypes, getMenu, deleteType, insertType }

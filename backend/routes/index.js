@@ -15,19 +15,19 @@ router.post('/register',Users.register)
 //Customer
 router.delete('customer/delete',Users.deleteUser)
 
-//Restaurant
+//Restaurants
 router.get('/restaurants',Restaurants.getAll)
-router.get('/restaurant/read',Restaurants.readR)
-router.get('/restaurant/menu',Restaurants.menu)
-router.get('/restaurant/types',Restaurants.getTypes)
-router.get('/restaurant/feedback',Restaurants.feedback)
-router.post('/restaurant/type',Restaurants.insertType)
-router.post('/restaurant/setAvaliability',Restaurants.setAv)
-router.post('/restaurant/setVisible',Restaurants.setVisible)
-router.post('/restaurant/setIban',Restaurants.setIban)
-router.post('/restaurant/setAllergens',Restaurants.setAllergens)
-router.delete('/restaurant/type',Restaurants.deleteType)
-router.delete('/restaurant',Users.deleteUser)
+router.get('/restaurants/:email',Restaurants.get)
+router.post('/restaurants',Users.register)
+router.delete('/restaurants/:email',Users.deleteUser)
+router.put('/restaurants/:email',Restaurants.update)
+//Falta ruta put para update de los atributos de la tabla user (Update Users)
+router.get('/restaurants/feedback/:email',Restaurants.getFeedback)
+router.get('/restaurants/menu/:email',Restaurants.getMenu)
+router.get('/restaurants/types/:email',Restaurants.getTypes)
+router.post('/restaurants/types',Restaurants.insertType)
+router.delete('/restaurants/types/:email/:type_id',Restaurants.deleteType)
+
 
 //Items
 router.get('/items', Items.getAll)

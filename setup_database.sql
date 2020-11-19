@@ -62,7 +62,10 @@ ON UPDATE CASCADE
 CREATE TABLE "categories" (
 "cat_id" SERIAL NOT NULL UNIQUE,
 "category" VARCHAR(50) NOT NULL,
-Constraint "categories_pkey" Primary Key ("cat_id")
+"rest_id" VARCHAR(50) NOT NULL,
+Constraint "categories_pkey" Primary Key ("cat_id"),
+Constraint "cat_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE
+ON UPDATE CASCADE
 );
 CREATE TABLE "items" (
 "item_id" SERIAL NOT NULL UNIQUE,
@@ -170,11 +173,12 @@ INSERT INTO customers VALUES('ran@gmail.com','12345678912345670921345'),
 --Insert two mock orders that later we are going to rate and make feedback
 INSERT INTO orders VALUES (DEFAULT,'rrr@gmail.com','r3@gmail.com','r4@gmail.com','esperando',CURRENT_TIMESTAMP(0)),
 (DEFAULT,'r2@gmail.com','r3@gmail.com','r4@gmail.com','preparando',CURRENT_TIMESTAMP(0));
---Insert the four categories
-INSERT INTO categories VALUES (DEFAULT,'Picked for you'),(DEFAULT,'Classics'),(DEFAULT,'Recently ordered'),(DEFAULT,'New items');
+--Insert the four categories in the two restaurants of the mock data
+INSERT INTO categories VALUES (DEFAULT,'Picked for you','rrr@gmail.com'),(DEFAULT,'Classics','rrr@gmail.com'),(DEFAULT,'Recently ordered','rrr@gmail.com'),(DEFAULT,'New items','rrr@gmail.com');
+INSERT INTO categories VALUES (DEFAULT,'Picked for you','r2@gmail.com'),(DEFAULT,'Classics','r2@gmail.com'),(DEFAULT,'Recently ordered','r2@gmail.com'),(DEFAULT,'New items','r2@gmail.com');
 --Two items, in different restaurants
 INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rrr@gmail.com','',4),
-(DEFAULT,'pulpo con patatas','pulpo a la brasa acompañado de patatas fritas pochadas',18.99,'1','r2@gmail.com','',4);
+(DEFAULT,'pulpo con patatas','pulpo a la brasa acompañado de patatas fritas pochadas',18.99,'1','r2@gmail.com','',8);
 --Here we have the order_id, the item_id, and the amount
 INSERT INTO order_items VALUES (1,1,2),(2,2,4);
 --Two feedbacks about the 2 orders

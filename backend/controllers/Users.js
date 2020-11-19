@@ -50,15 +50,16 @@ async function register(req, res){
  * @param {*} res 
  */
 async function deleteUser(req, res){
-    const {body} = req 
-    //console.log(body.email)
-    const user = await sch_users.deleteUser(body.email) 
-
+    const {params} = req
+    //check if the request has the email
+    if(!(params.email))
+        return res.status(403).send({"message": "e-Mail not specified"})
+    
+    const user = await sch_users.deleteUser(params.email)
+    //console.log(user)
     //check for error retreiving from DDBB
-    if(!user) // pg returns NULL but the query executed successfully
-        return res.status(404).send({"message": `User ${body.email} not found`})
-    if(user.error)
-        return res.status(404).send({"message": `User ${body.email} not found`, "error": user.error})
+    if(!user)
+        return res.status(404).send({"message": `User with e-Mail ${params.email} not found`})
 
     return res.status(200).send({user})
 }
