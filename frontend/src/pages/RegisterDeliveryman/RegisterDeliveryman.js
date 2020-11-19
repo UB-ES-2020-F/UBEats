@@ -1,6 +1,6 @@
 import React,  { useState, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -83,6 +83,7 @@ const Register = (props) => {
       dispatch(register(name, email, password, user_type))
         .then(() => {
           setSuccessful(true);
+          setLoading(false);
         })
         .catch(() => {
           setSuccessful(false);
@@ -92,6 +93,10 @@ const Register = (props) => {
       setLoading(false);
     };
   };
+
+  if (successful) {
+    return <Redirect to="/profileclient" />;
+  }
 
   return (
     <section className="login">

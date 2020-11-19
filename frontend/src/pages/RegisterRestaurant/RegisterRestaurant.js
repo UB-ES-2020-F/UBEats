@@ -82,8 +82,6 @@ const Register = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(register(name, email, password, user_type))
         .then(() => {
-          //props.history.push("/profileclient");
-          //window.location.reload();
           setSuccessful(true);
           setLoading(false);
         })
@@ -97,7 +95,6 @@ const Register = (props) => {
   };
 
   if (successful) {
-    console.log('yes');
     return <Redirect to="/profileclient" />;
   }
 
