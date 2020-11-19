@@ -14,6 +14,8 @@ import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
 
 import GeneralNav from './pages/Navbar/GeneralNav.js';
+import NavCustom from './pages/Navbar/NavCustom.js';
+
 
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
@@ -43,8 +45,7 @@ const App = () => {
     <Router history={history}>
 
       {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} key='sidebar'/>):(<div/>)}
-      <GeneralNav isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)} key='navbar'/>
-
+      <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
       <Switch>
         <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto}/>)} key='home'/>
         <Route path='/login' component={Login} key='login'/>

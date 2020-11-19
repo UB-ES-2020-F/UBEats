@@ -9,6 +9,10 @@ import Input from "react-validation/build/input";
 import {Link} from 'react-router-dom';
 import sidebar from '../../images/sidebar_btn.jpg';
 
+import {Navbar} from 'react-bootstrap';
+
+import Logo from '../../commons/components/Logo.js';
+
 
 import './MainNav.css';
 
@@ -27,8 +31,7 @@ const GeneralNav = ({isLogged, openSidebar}) => {
       };
     
     return (
-        <header className='navbarCustom'>
-            <link href="//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text" rel="stylesheet" type="text/css"/> 
+        <Navbar>
             <div class="container">
                 <a className='tosidebar' onClick={() => openSidebar()}>
                     <img
@@ -66,7 +69,7 @@ const GeneralNav = ({isLogged, openSidebar}) => {
                     </div>
                 </div>
             </div>
-        </header>
+        </Navbar>
     );
 }
 

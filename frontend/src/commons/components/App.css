@@ -39,25 +39,7 @@
     cursor: pointer;
 
     }
-    
-    
-    
-    .logo{
-    text-align: center;
-    }
-    
-    .logo h1 {
-    font-weight: 600;
-    font-family: "Uber Move Text";
-    font-size: 70px;
-    }
-    
-    .logo span{
-    font-weight: 900;
-    font-family: "Uber Move Text";
-    color: rgb(7, 190, 7);
-    font-size: 70px;
-    }
+
     
     .login {
 
