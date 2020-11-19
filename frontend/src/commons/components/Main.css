@@ -444,3 +444,15 @@
 
 } 
 
+.linkto{
+	text-decoration: none;
+}
+
+.linkto:visited { text-decoration: none; color:black; }
+.linkto:hover { text-decoration: none; color:black; }
+.linkto:focus { text-decoration: none; color:black; }
+.linkto:hover, a:active { text-decoration: none; color:black }
+
+.ubInc{
+	float: right;
+}

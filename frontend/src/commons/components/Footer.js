@@ -13,10 +13,10 @@ const Footer = () => {
                 <div className="searchBar">
                     <div cclassNamelass="header-option">
                         <i data-feather="search"/>
-                        <Link to='/registerrestaurant'><span>Create an enterprise account</span></Link>
+                        <Link to='/registerrestaurant' className='linkto'><span>Create an enterprise account</span></Link>
                     </div>
                     <div className="header-option">
-                        <Link to='/registerdeliveryman'><span>Join the delivery crew!</span></Link>
+                        <Link to='/registerdeliveryman' className='linkto'><span>Join the delivery crew!</span></Link>
                     </div>
                 </div>
             </div>

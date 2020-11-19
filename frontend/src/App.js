@@ -20,6 +20,8 @@ import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
+import defaultImage from './images/banner.jpg';
+
 //This is the main component of the app. It acts as the router.
 //It gets user and isLogged state here and pass it down to its children components.
 //It manages intercomponent communication between navbar and sidebar using useState sidebarOpen and setSidebarOpen.
@@ -29,12 +31,15 @@ const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false); //We set a state hook to sidebarOpen to manage the state of the sidebar.
   const dispatch = useDispatch();
 
+  const [restSelected, setRestSelected] = useState('r2@gmail.com');
+  const [restPhoto, setRestPhoto] = useState(defaultImage);
+
   useEffect(() => {
     history.listen((location) => {
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);
-
+  
   return (
     <Router history={history}>
 
@@ -42,17 +47,16 @@ const App = () => {
       <GeneralNav isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)} key='navbar'/>
 
       <Switch>
-        <Route exact path="/" component={Home} key='home'/>
+        <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto}/>)} key='home'/>
         <Route path='/login' component={Login} key='login'/>
         <Route path='/registerclient' component={RegisterClient} key='register client'/>
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
         <Route path='/profileclient' component={ProfileClient} key='profile client'/>
-        <Route path='/profilerestaurant' component={ProfileRestaurant} key='profile restaurant'/>
+        <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
       </Switch>
       
       <Footer/>
-
     </Router>
     
   );

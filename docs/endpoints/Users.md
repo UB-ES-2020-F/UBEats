@@ -4,12 +4,6 @@
 
 ---
 
-![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)
-![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)
-![PUT](https://img.shields.io/static/v1?label=&message=PUT&color=orange)
-![DELETE](https://img.shields.io/static/v1?label=&message=DELETE&color=ff0000)
-![endpoint](https://img.shields.io/static/v1?label=&message=/login&color=000000)
-
  
 ## Endpoints
 ---
@@ -64,7 +58,14 @@
     }
   }
 }
-``` 
+```
+ #### Commnents
+
+  This endpoint allows to register customer/restaurant/deliveryman. To do so just write the type in `type` body.
+  * `type : customer` to register a customer
+  * `type : restaurant` to register a new restaurant
+  * `type : deliveryman`  to register a deliveryman
+
 --- 
 
 
