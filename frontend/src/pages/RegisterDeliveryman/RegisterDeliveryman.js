@@ -43,7 +43,7 @@ const vpassword = (value) => {
   }
 };
 
-const Register = () => {
+const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
@@ -51,6 +51,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
+  const [loading, setLoading] = useState(false);
   const user_type = 'deliveryman' // customer, restaurant, deliveryman
   const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
@@ -74,6 +75,7 @@ const Register = () => {
     e.preventDefault();
 
     setSuccessful(false);
+    setLoading(true);
 
     form.current.validateAll();
 
@@ -84,8 +86,11 @@ const Register = () => {
         })
         .catch(() => {
           setSuccessful(false);
+          setLoading(false);
         });
-    }
+    } else {
+      setLoading(false);
+    };
   };
 
   return (
@@ -129,16 +134,7 @@ const Register = () => {
           <p className="errorMsg"></p>
 
           <div className="btnContainer">
-            <button className="btn btn-primary btn-block"> Sign up </button>
-            <p>Do you have an account?
-              <Link to="./login"> Sign in</Link>
-            </p>
-            <p>Do you want to register as a client?
-              <Link to="/registerclient"> Sign up</Link>
-            </p>
-            <p>Do you want to register as a restaurant?
-              <Link to="/registerrestaurant"> Sign up</Link>
-            </p>
+            <button className="btn btn-primary btn-block"> {loading ? ('Loading') : ('Resgistrar')} </button>
           </div>   
           {message && (
             <div className="form-group">

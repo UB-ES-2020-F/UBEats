@@ -56,7 +56,6 @@ const App = () => {
       </Switch>
       {console.log(restSelected)}
     </Router>
-    
   );
 }
 
