@@ -6,7 +6,7 @@ const {pool} = require('../database/index.js')
  */
 function getAllItems()
 {
-        return pool.query('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,category FROM items,categories WHERE items.cat_id=categories.cat_id')
+        return pool.query('SELECT * FROM items,categories WHERE items.cat_id=categories.cat_id')
                 .then(res => {
                         return res.rows
                 })
@@ -21,7 +21,7 @@ function getAllItems()
  */
 function getAllItemsByRestaurantID(rest_id)
 {
-        const query = format('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,category FROM items,categories WHERE items.cat_id=categories.cat_id AND rest_id = %L', rest_id)
+        const query = format('SELECT * FROM items,categories WHERE items.cat_id=categories.cat_id AND items.rest_id = %L', rest_id)
 
         return pool.query(query)
                 .then(res => {
@@ -38,7 +38,7 @@ function getAllItemsByRestaurantID(rest_id)
  */
 function getItemByID(id)
 {
-       return pool.query('SELECT item_id,title,"desc",price,visible,rest_id,url,categories.cat_id,category FROM items,categories WHERE items.cat_id=categories.cat_id AND item_id = $1', [id])
+       return pool.query('SELECT * FROM items,categories WHERE items.cat_id=categories.cat_id AND item_id = $1', [id])
                 .then(res => {
                         // should ONLY be one match
                         return res.rows[0] || null

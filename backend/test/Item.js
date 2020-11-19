@@ -423,14 +423,9 @@ describe('Items', () => {
   describe('PUT /api/items', () => {
     var id;
     var saved_title;
-    var cat_id;
 
     beforeEach( async () => {
-      //create a category
-      var result = await pool.query("INSERT INTO categories VALUES (DEFAULT, 'my supercategory') RETURNING *")
-      cat_id = result.rows[0].cat_id
-
-      var query = `INSERT INTO items VALUES (DEFAULT, 'qwertyuiop', 'qwefr qerivg', 3.141592, '0', 'rrr@gmail.com', 'images_of_cats.com', ${cat_id}) RETURNING *`
+      var query = `INSERT INTO items VALUES (DEFAULT, 'qwertyuiop', 'qwefr qerivg', 3.141592, '0', 'rrr@gmail.com', 'images_of_cats.com', ${item.cat_id}) RETURNING *`
       var insertedItems = await pool.query(query)
       id = insertedItems.rows[0].item_id
       saved_title = insertedItems.rows[0].title
@@ -439,9 +434,6 @@ describe('Items', () => {
     afterEach( async () => {
       var query = `DELETE FROM items WHERE item_id = ${id}`
       var deletedItems = await pool.query(query)
-
-      var result = await pool.query('DELETE FROM categories WHERE cat_id = $1 RETURNING *', [cat_id])
-
     })
 
 
