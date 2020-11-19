@@ -39,6 +39,7 @@ describe('Items', () => {
 
   let category = {
     category: 'rhijgrwejmhi',
+    rest_id: 'cergouihn',
   }
 
   var item = {
@@ -70,6 +71,7 @@ describe('Items', () => {
     query = format('INSERT INTO restaurants VALUES(%L) RETURNING *', Object.values(restaurant))
     result = await pool.query(query)
     item.rest_id = result.rows[0].email
+    category.rest_id = result.rows[0].email
     //Insert a new category
     query = format('INSERT INTO categories VALUES(DEFAULT, %L) RETURNING *', Object.values(category))
     result = await pool.query(query)
