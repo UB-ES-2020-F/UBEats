@@ -261,6 +261,7 @@ describe('Restaurants', () => {
     })
     afterEach( async () => {
       await pool.query("DELETE FROM users WHERE email = 'rst@gmail.com'")
+      await pool.query(`DELETE FROM types WHERE type_id=${type_id1} OR type_id=${type_id2}`)
     })
 
     it('Menu of a restaurant. All OK. Should return 200', (done) => {
