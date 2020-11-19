@@ -41,7 +41,7 @@ const NavCustom = ({isLogged, openSidebar}) => {
                 </img>
             </a>
             <Logo classNameProp='ml-sm-4'/>
-            <div className="navbarcustomform">
+            <div className="navbarcustomform mt-sm-3">
                 <i data-feather="map-pin"></i>
                 <Form ref={form}>
                     <Input
@@ -54,7 +54,7 @@ const NavCustom = ({isLogged, openSidebar}) => {
                 </Form>
             </div>
             <div>
-                <div className='mr-sm-4'>
+                <div className='mr-sm-4 mt-sm-3'>
                     {isLogged ? (
                         <Link className='linkto' onClick={logOut}>Log out</Link>
                     ) : (
