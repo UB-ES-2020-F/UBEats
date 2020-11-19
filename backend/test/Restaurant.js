@@ -236,16 +236,27 @@ describe('Restaurants', () => {
 
   // TEST THE GET MENU OF RESTAURANT
   describe('GET /api/restaurants/menu', () => {
-    var id;
+    var cat_id;
+    var item_id;
+    var type_id1;
+    var type_id2;
 
     beforeEach( async () => {
       await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *")
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailRest = insertedRest.rows[0].email
 
-      var insertedItem = await pool.query("INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rst@gmail.com','',4) RETURNING *")
-      id = insertedItem.rows[0].item_id
-      var query = `INSERT INTO type_items VALUES (1,${id}),(2,${id}) RETURNING *`
+      var category = await pool.query("INSERT INTO categories VALUES (DEFAULT,'Category test','rst@gmail.com') RETURNING *")
+      cat_id = category.rows[0].cat_id
+
+      var insertedItem = await pool.query(`INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rst@gmail.com','',${cat_id}) RETURNING *`)
+      item_id = insertedItem.rows[0].item_id
+
+      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano prueba1','comida eco'),(DEFAULT,'vegetariano prueba2','comida eco') RETURNING *")
+      type_id1 = types.rows[0].type_id
+      type_id2 = types.rows[1].type_id
+
+      var query = `INSERT INTO type_items VALUES (${type_id1},${item_id}),(${type_id2},${item_id}) RETURNING *`
       await pool.query(query)
     })
     afterEach( async () => {
