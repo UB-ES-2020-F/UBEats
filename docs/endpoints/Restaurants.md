@@ -7,85 +7,176 @@
 
 ## Endpoints
 ---
-### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/read&color=000000)   
+### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants&color=000000)   
   
-#### Body TO BE CHANGED!
+ #### Response  
 ```
 {
-	"email":"rrr@gmail.com"
+  "restaurants": [
+    {
+      "email": "rrr@gmail.com",
+      "name": "Rrr",
+      "CIF": "33333330E",
+      "street": "calle perdida alejada de todo, numero 30, barcelona",
+      "pass": "12344",
+      "phone": "609773493",
+      "tipo": "restaurant",
+      "url": "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+      "avaliability": "verde",
+      "visible": "inactive",
+      "iban": "ES8021000000000000001234",
+      "allergens": "restaurante1.com/allergens.pdf"
+    },
+    {
+      email": "r2@gmail.com",
+      "name": "Carlos",
+      "CIF": "33333330E",
+      "street": "calle perdida alejada de todo, numero 30, barcelona",
+      "pass": "12344",
+      "phone": "609773493",
+      "tipo": "restaurant",
+      "url": "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+      "avaliability": "verde",
+      "visible": "inactive",
+      "iban": "ES8021000000000000001234",
+      "allergens": "restaurante2.com/alle"rgens.pdf"
+    },
+  ]
 }
+
+``` 
+--- 
+---
+### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/:email&color=000000)   
+#### *Query*
+ `email` corresponding to the email of the restaurant, matched in database
+
+ #### Response  
 ```
+{
+  "email": "rrr@gmail.com",
+  "name": "Rrr",
+  "CIF": "33333330E",
+  "street": "calle perdida alejada de todo, numero 30, barcelona",
+  "pass": "12344",
+  "phone": "609773493",
+  "tipo": "restaurant",
+  "url": "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+  "avaliability": "verde",
+  "visible": "inactive",
+  "iban": "ES8021000000000000001234",
+  "allergens": "restaurante1.com/allergens.pdf"
+}
+``` 
+--- 
+---
+### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants&color=000000)  
+  
+ #### Body  
+```
+{
+  "restaurant": {
+    email: "rrr@gmail.com",
+    name: "Rrr",
+    CIF: "33333330E",
+    street: "calle perdida alejada de todo, numero 30, barcelona",
+    pass: "12344",
+    phone: "609773493",
+    tipo: "restaurant",
+    url: "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+    avaliability: "verde",
+    visible: "inactive",
+    iban: "ES8021000000000000001234",
+    allergens: "restaurante1.com/allergens.pdf"
+  }
+}
+``` 
+
+ #### Response
+ _Restaurant created_
+```
+{
+  "restaurant": {
+    email: "rrr@gmail.com",
+    name: "Rrr",
+    CIF: "33333330E",
+    street: "calle perdida alejada de todo, numero 30, barcelona",
+    pass: "12344",
+    phone: "609773493",
+    tipo: "restaurant",
+    url: "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+    avaliability: "verde",
+    visible: "inactive",
+    iban: "ES8021000000000000001234",
+    allergens: "restaurante1.com/allergens.pdf"
+  }
+}
+``` 
+
+---
+---
+### ![DELETE](https://img.shields.io/static/v1?label=&message=DELETE&color=ff0000)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/:email&color=000000)   
+#### *Query*
+ `email` corresponding to the email of the restaurant, matched in database
+
  #### Response  
 ```
 {
   "restaurant": {
-    "email": "rrr@gmail.com",
-    "name": "Rrr",
-    "CIF": "33333330E",
-    "street": "calle perdida alejada de todo, numero 30, barcelona",
-    "pass": "12344",
-    "phone": "609773493",
-    "tipo": "restaurant",
-    "avaliability": "verde",
-    "visible": "inactive",
-    "iban": "ES8021000000000000001234",
-    "allergens": ""
+    email: "rrr@gmail.com",
+    name: "Rrr",
+    CIF: "33333330E",
+    street: "calle perdida alejada de todo, numero 30, barcelona",
+    pass: "12344",
+    phone: "609773493",
+    tipo: "restaurant",
+    url: "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+    avaliability: "verde",
+    visible: "inactive",
+    iban: "ES8021000000000000001234",
+    allergens: "restaurante1.com/allergens.pdf"
   }
 }
 ``` 
---- 
----
-### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/menu&color=000000)   
-#### Body TO BE CHANGED!
-```
-{
-	"email":"rrr@gmail.com"
-}
-```
- #### Response  
-```
-{
-  menu: [
-    {
-      item_id: 1,
-      title: 'espaguetis tartufo',
-      desc: 'Espaguetis con salsa tartufata hecha a base de setas y trufa negra',
-      price: 10.95,
-      types: [Array]
-    }
-  ]
-}
-``` 
---- 
----
-### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/types&color=000000)  
 
-#### Body TO BE CHANGED!
+---
+---
+### ![PUT](https://img.shields.io/static/v1?label=&message=PUT&color=orange)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/:email&color=000000)   
+
+ #### Body  
 ```
 {
-	"email":"rrr@gmail.com"
-}
-```
- #### Response  
-```
-{
-  "types": [
-    {
-      "name": "vegetariano",
-      "description": "comida ecologica responsable con el medio ambiente y el maltrato animal"
-    }
-  ]
+    visible: "active"
 }
 ``` 
---- 
----
-### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/feedback&color=000000)   
-#### Body TO BE CHANGED!
+
+ #### Response
+ _Restaurant updated
 ```
 {
-    "email":"rrr@gmail.com"
+  "restaurant": {
+    email: "rrr@gmail.com",
+    name: "Rrr",
+    CIF: "33333330E",
+    street: "calle perdida alejada de todo, numero 30, barcelona",
+    pass: "12344",
+    phone: "609773493",
+    tipo: "restaurant",
+    url: "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+    avaliability: "verde",
+    visible: "active",
+    iban: "ES8021000000000000001234",
+    allergens: "restaurante1.com/allergens.pdf"
+  }
 }
-```
+``` 
+
+---
+---
+### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/feedback/:email&color=000000)   
+#### *Query*
+ `email` corresponding to the email of the restaurant, matched in database
+
  #### Response  
 ```
 {
@@ -107,186 +198,71 @@
 ``` 
 ---
 ---
-### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/:rest_id/items&color=000000)   
-#### Query 
-```
-    rest_id : email ( rrr@gmail.com)
-```
+### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/menu/:email&color=000000)   
+#### *Query*
+ `email` corresponding to the email of the restaurant, matched in database
+
  #### Response  
 ```
 {
-  "items": [
-    {
-      "item_id": 4,
-      "title": "Pizza Dolç i Bacó",
-      "desc": "Paleta cuita Canària de primeríssima qualitat, cansalada fumada i provolone italià amb Pimentón de la Vera D.O. i orenga.",
-      "price": 11.8,
-      "visible": "1",
-      "rest_id": "rrr@gmail.com"
-    },
-    {
-      "item_id": 5,
-      "title": "Pizza Indian Curry",
-      "desc": "Pit de pollastre rostit, formatge havarti danès, cansalada fumada, orenga i la nostra salsa Garam Masala Curry.",
-      "price": 12.8,
-      "visible": "1",
-      "rest_id": "rrr@gmail.com"
-    }
+  "menu": 
+    [
+      {
+        item_id: 15,
+        title: 'espaguetis tartufo',
+        desc: 'Espaguetis con salsa tartufata hecha a base de setas y trufa negra',
+        price: 10.95,
+        types: [ 'vegetariano prueba1', 'vegetariano prueba2' ]
+      }
+    ]
+}
+``` 
+---
+---
+### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/types/:email&color=000000)   
+#### *Query*
+ `email` corresponding to the email of the restaurant, matched in database
+
+ #### Response  
+```
+{
+  types: [
+    { name: 'vegetariano prueba1', description: 'comida eco' },
+    { name: 'vegetariano prueba2', description: 'comida eco' }
   ]
 }
 ``` 
 ---
 ---
-### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)     ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/type&color=000000)   
-  
-#### Body
-```
-{
-    email : 'rrr@gmail.com',
-    type_id: 2
-}
-```
- #### Response  
+### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/types&color=000000)  
+
+ #### Response
+ _Type added to the restaurant_
 ```
 {
   "insType": {
-    "type_id": 2,
-    "rest_id": "rrr@gmail.com"
+    type_id: 73,
+    rest_id: 'rst@gmail.com'
   }
 }
 ``` 
 ---
 ---
-### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)     ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/setAvaliability&color=000000)   
+### ![DELETE](https://img.shields.io/static/v1?label=&message=DELETE&color=ff0000)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/types/:email/:type_id&color=000000)  
   
- #### Body 
-```
-{
-    email : 'rrr@gmail.com',
-    avaliability : 'rojo'
-}
-```
- #### Response  
-```
-{
-  "avaliability": {
-    "email": "rrr@gmail.com",
-    "avaliability": "rojo",
-    "visible": "inactive",
-    "iban": "ES8021000000000000001234",
-    "allergens": ""
-  }
-}
+#### *Query*
+ `email` corresponding to the email of the restaurant, matched in database
+ `type_id` corresponding to the type_id of the type we want to delete from this restaurant, matched in database
+
+ #### Response
+  _Type deleted of the restaurant_
 ``` 
----
----
-### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)     ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/setVisible&color=000000)   
-  
-#### Body 
-```
-{
-	"email": "rrr@gmail.com",
-	"visible" : "inactive"
-}
-```
- #### Response  
-```
-{
-  "visible": {
-    "email": "rrr@gmail.com",
-    "avaliability": "rojo",
-    "visible": "inactive",
-    "iban": "ES8021000000000000001234",
-    "allergens": ""
-  }
-}
-``` 
----
----
-### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)     ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/setIban&color=000000)   
- #### Body 
-```
-{
-	"email": "rrr@gmail.com",
-	 "iban":"123123123123123123123123"
-}
-```
- #### Response  
-```
-{
-  "iban": {
-    "email": "rrr@gmail.com",
-    "avaliability": "rojo",
-    "visible": "inactive",
-    "iban": "123123123123123123123123",
-    "allergens": ""
-  }
-}
-``` 
----
----
-### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)     ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/setAllergens&color=000000)   
-#### Body 
-```
-{
-    email : 'rrr@gmail.com',
-    allergens: 'http://www.restaurante.com/list-of-allergens.pdf'
-}
-```
- #### Response  
-```
-{
-  "allergens": {
-    "email": "rrr@gmail.com",
-    "avaliability": "rojo",
-    "visible": "inactive",
-    "iban": "123123123123123123123123",
-    "allergens": "http://www.restaurante.com/list-of-allergens.pdf"
-  }
-}
-``` 
----
----
-### ![DELETE](https://img.shields.io/static/v1?label=&message=DELETE&color=ff0000)![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant/type&color=000000)   
-  
-#### Body 
-```
-{
-	"email": "rrr@gmail.com",
-	 "type_id":"2"
-}
-```
- #### Response  
-```
-{
+ {
   "delType": {
-    "type_id": 2,
-    "rest_id": "rrr@gmail.com"
+    type_id: 73,
+    rest_id: 'rst@gmail.com'
   }
 }
 ``` 
----
----
-### ![DELETE](https://img.shields.io/static/v1?label=&message=DELETE&color=ff0000)![endpoint](https://img.shields.io/static/v1?label=&message=/restaurant&color=000000)   
-  
-#### Body 
-```
-{
-    "email":"rst@gmail.com"
-}
-```
- #### Response  
-```
-{
-  user: {
-    email: 'rst@gmail.com',
-    name: 'roberto',
-    CIF: '44444444E',
-    street: 'calle arago 35. barcelona',
-    pass: '1234',
-    phone: '696696686',
-    tipo: 'restaurant'
-  }
-}
-``` 
----         
+
+--- 
