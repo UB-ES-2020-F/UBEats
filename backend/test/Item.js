@@ -193,18 +193,18 @@ describe('Items', () => {
   // TEST THE POST ENDPOINT
   describe('POST /api/items', () => {
     beforeEach( async () => {
-      var query = "DELETE FROM items WHERE title = 'qwertyuiop'"
+      var query = "DELETE FROM items WHERE title = 'plato numero 3'"
       var deletedItems = await pool.query(query)
     })
     afterEach( async () => {
-      var query = "DELETE FROM items WHERE title = 'qwertyuiop'"
+      var query = "DELETE FROM items WHERE title = 'plato numero 3'"
       var deletedItems = await pool.query(query)
     })
 
     it('Create a new item. All OK. Should return 200', (done) => {
       let item2 = {
-        title: 'qwertyuiop',
-        desc: 'qiur qejhfrg hqeoi qhfiqe he',
+        title: 'plato numero 3',
+        desc: 'Todavia no nos hemos decidido por un nombre',
         price: 3.141592,
         rest_id: item.rest_id,
         url: 'www.images.com/ofnforn.jpg',
