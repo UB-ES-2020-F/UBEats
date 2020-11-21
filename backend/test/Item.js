@@ -19,36 +19,36 @@ chai.use(chaiHttp);
 describe('Items', () => {
 
   let user = {
-    email: 'jfbnmdlhfgb',
-    name: 'Oneqvqhbewfb',
+    email: 'fulanito@imap.server.com',
+    name: 'Fulanito',
     CIF: '55455093R',
-    street: 'rgeqohugrehonij',
-    pass: 'qwerpui',
+    street: 'C/ de la piruleta, 123',
+    pass: 'supercontrasena',
     phone: '123456789',
     type: 'restaurant',
-    url: 'iuwbeiqevqepiv',
+    url: 'https://pornhub.com/643wh&e',
   }
 
   var restaurant = {
-    email: 'cergouihn',
+    email: 'fulanito@imap.server.com',
     avaliability: 'amarillo',
     visible: 'invisible',
-    iban: 'aaabbbcccdddeeefffggghhh',
-    allergens: 'rgheuiuognrce',
+    iban: '111222333444555666777888',
+    allergens: 'gluten',
   }
 
   let category = {
-    category: 'rhijgrwejmhi',
-    rest_id: 'cergouihn',
+    category: 'Mi supercategoria',
+    rest_id: 'fulanito@imap.server.com',
   }
 
   var item = {
-    title: 'wreijgohn',
-    desc: 'rugrgfwn',
+    title: 'Pan seca del dia anterior',
+    desc: 'pues eso, una barra de pan seca del dia anterior, ¿qué te esperabas?',
     price: 3.1415,
     visible: '1',
-    rest_id: 'cergouihn',
-    url: 'wrguiohenhigfec',
+    rest_id: 'fulanito@imap.server.com',
+    url: 'https://imgur.com/71g134913',
     cat_id: 1,
   }
 
@@ -231,7 +231,7 @@ describe('Items', () => {
 
     it('Create a new item. Malformed body. Should return 403', (done) => {
       let item2 = {
-        desc: 'qiur qejhfrg hqeoi qhfiqe he',
+        desc: 'Chuleta de cerdo con especias de noseque',
         price: 3.141592,
         rest_id: item.rest_id,
         url: 'images.com/nfvosnf.jpg',
@@ -254,8 +254,8 @@ describe('Items', () => {
 
     it('Create a new item. Invalid params. Should return 403', (done) => {
       let item2 = {
-        title: 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-        desc: 'qiur qejhfrg hqeoi qhfiqe he',
+        title: 'tortilla de patatas del mercadona',
+        desc: 'Con cebolla o sin cebolla, esa es la cuestion',
         price: 3.141592,
         rest_id: item.rest_id,
         url: 'www.images.com/ofnforn.jpg',
@@ -278,8 +278,8 @@ describe('Items', () => {
 
     it('Create a new item. Invalid params. Should return 403', (done) => {
       let item2 = {
-        title: 'eofuhvb',
-        desc: 'qiur qejhfrg hqeoi qhfiqe he',
+        title: 'Entrecot vegetariano',
+        desc: 'Carne pero sin carne',
         price: -3.1415,
         url: 'images.com/nfvosnf.jpg',
         cat_id: item.cat_id,
@@ -305,7 +305,7 @@ describe('Items', () => {
     var id;
 
     beforeEach( async () => {
-      var query = "INSERT INTO items VALUES (DEFAULT, 'qwertyuiop', 'qwefr qerivg', 3.141592, '0', 'rrr@gmail.com', '', 4) RETURNING *"
+      var query = "INSERT INTO items VALUES (DEFAULT, 'Sopa de sobre', 'Gallina negra', 3.141592, '0', 'rrr@gmail.com', '', 4) RETURNING *"
       var insertedItems = await pool.query(query)
       id = insertedItems.rows[0].item_id
     })
@@ -355,7 +355,7 @@ describe('Items', () => {
     var saved_title;
 
     beforeEach( async () => {
-      var query = `INSERT INTO items VALUES (DEFAULT, 'qwertyuiop', 'qwefr qerivg', 3.141592, '0', 'rrr@gmail.com', 'images_of_cats.com', ${item.cat_id}) RETURNING *`
+      var query = `INSERT INTO items VALUES (DEFAULT, 'Sardinas en lata', 'Disclaimer: no se incluye abrelatas', 3.141592, '0', 'rrr@gmail.com', 'images_of_cats.com', ${item.cat_id}) RETURNING *`
       var insertedItems = await pool.query(query)
       id = insertedItems.rows[0].item_id
       saved_title = insertedItems.rows[0].title
@@ -368,7 +368,7 @@ describe('Items', () => {
 
     it('Update an item. All OK. Should return 200', (done) => {
       let item = {
-        title: 'wefvweochi2echrg',
+        title: 'Lagarto muerto',
         url: 'more_images_of_kitties.com/1.jpg',
       }
 
@@ -380,7 +380,7 @@ describe('Items', () => {
           res.should.have.status(200);
           res.body.should.have.property('item');
           res.body.item.should.have.property('title')
-          res.body.item.title.should.equal('wefvweochi2echrg')
+          res.body.item.title.should.equal('Lagarto muerto')
           res.body.item.should.have.property('desc')
           res.body.item.should.have.property('price')
           res.body.item.should.have.property('visible')
@@ -394,8 +394,8 @@ describe('Items', () => {
 
     it('Update an item. Invalid parameters. Should return 403', (done) => {
       let item = {
-        title: 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-        desc: 'qiur qejhfrg hqeoi qhfiqe he',
+        title: 'Lagarto vivo y el resto es relleno que necesito para hacer que la string exceda 30 chars',
+        desc: 'Un caiman que me he encontrado por casa',
         price: 3.141592,
         rest_id: 'rrr@gmail.com',
         url: 'www.images.com/ofnforn.jpg',
@@ -418,8 +418,8 @@ describe('Items', () => {
 
     it('Update an item. Invalid parameters. Should return 403', (done) => {
       let item = {
-        title: 'eofuhvb',
-        desc: 'qiur qejhfrg hqeoi qhfiqe he',
+        title: 'Hamburguesa sorpresa',
+        desc: 'Ni nosotros sabemos lo que lleva',
         price: -3.1415,
       }
 
@@ -439,8 +439,8 @@ describe('Items', () => {
 
     it('Update a non existent item. Should return 404', (done) => {
       let item = {
-        title: 'eofuhvb',
-        desc: 'qiur qejhfrg hqeoi qhfiqe he',
+        title: 'Kit de pizza',
+        desc: 'Un kit para montarte tu propia pizza. No incluye los ingredientes',
         price: 3.1415,
       }
 
