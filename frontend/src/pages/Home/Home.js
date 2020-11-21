@@ -1,9 +1,36 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import RestPreviewGeneral from'../../commons/components/RestPreviewGeneral.js'
+import CategoriasHome from'../../commons/components/CategoriasHome.js'
 
 import '../../commons/components/Main.css'
 
 
+const listaprops = [{
+  Image:"https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80",
+  name: "Hey que tal",
+  time: "Lo que tarde",
+  desc: "Guapo",
+},
+{
+  Image:"https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80",
+  name: "2",
+  time: "Lo que tarde",
+  desc: "Guapo",
+},
+{
+  Image:"https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80",
+  name: "3",
+  time: "Lo que tarde",
+  desc: "Guapo",
+},
+{
+  Image:"https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80",
+  name: "4",
+  time: "Lo que tarde",
+  desc: "Guapo",
+},
+]
 
 
 function Home({setRestaurantId, setPicture}) {
@@ -16,12 +43,7 @@ function Home({setRestaurantId, setPicture}) {
     <section className="login">
 
 
-        <body2>
-
- 
-
-
-
+    <body2>
 
     <div class="listings">
       <div class="container2">
@@ -126,154 +148,9 @@ function Home({setRestaurantId, setPicture}) {
       </div>
 
 
-      <div class="listings">
-
-      <div class="container3">
-
-        <div class="header">
-          <div class="header-title">
-            <h2>Populares cerca de ti</h2>
-          </div>
-          <div class="header-viewOptions">
-            <div class="viewAll">
-              <span>Ver todo</span>
-            </div>
-            <div class="viewMore">
-              <span class="arrow circle left"><i data-feather="arrow-left"></i>
-              </span>
-              <span class="arrow circle right darker">
-                <i data-feather="arrow-right"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-  
-        
-        <div class="listings-grid">
-          <div class="listings-col">
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1562967914-01efa7e87832?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2252&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3 onClick={() => onClickRestaurantPage('doner@kebab.german', "https://images.unsplash.com/photo-1562967914-01efa7e87832?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2252&q=80")}><Link className='linkto' to='/profilerestaurant'>German Doner Kebab</Link></h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3 onClick={() => onClickRestaurantPage('burger@life.com', "https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80")}><Link className='linkto' to='/profilerestaurant'>Life Burger</Link></h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1532636875304-0c89119d9b4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3 onClick={() => onClickRestaurantPage('red@burg.es', "https://images.unsplash.com/photo-1532636875304-0c89119d9b4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80")}><Link className='linkto' to='/profilerestaurant'>Steak House</Link></h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-          </div>
-          <div class="listings-col">
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    
+      <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={listaprops.slice(0,3)}/></div>
+      <div className="listings"><CategoriasHome titulo="Favoritos" listaprops={listaprops.slice(0,3)}/></div>
+ 
     <div class="listings">
 
       <div class="container3">
@@ -450,296 +327,8 @@ function Home({setRestaurantId, setPicture}) {
     </div>
 
 
-    <div class="listings">
-
-      <div class="container3">
-
-        <div class="header">
-          <div class="header-title">
-            <h2>¿Tienes prisa?</h2>
-            <span>Estos son los establecimientos con la entrega más rápida</span>
-          </div>
-          <div class="header-viewOptions">
-            <div class="viewAll">
-              <span>View all</span>
-            </div>
-            <div class="viewMore">
-              <span class="arrow circle left"><i data-feather="arrow-left"></i>
-              </span>
-              <span class="arrow circle right darker">
-                <i data-feather="arrow-right"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="listings-grid">
-          <div class="listings-col">
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1562967914-01efa7e87832?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2252&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1532636875304-0c89119d9b4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-          </div>
-          <div class="listings-col">
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab 222</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="listings">
-
-      <div class="container3">
-
-        <div class="header">
-          <div class="header-title">
-            <h2>Ofertas de hoy</h2>
-          </div>
-          <div class="header-viewOptions">
-            <div class="viewAll">
-              <span>View all</span>
-            </div>
-            <div class="viewMore">
-              <span class="arrow circle left"><i data-feather="arrow-left"></i>
-              </span>
-              <span class="arrow circle right darker">
-                <i data-feather="arrow-right"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="listings-grid">
-          <div class="listings-col">
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1562967914-01efa7e87832?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2252&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1532636875304-0c89119d9b4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-          </div>
-          <div class="listings-col">
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab 222</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
+    <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={listaprops.slice(0,3)}/></div>
+    <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={listaprops.slice(0,3)}/></div>
     <div class="listings">
 
       <div class="container3">
@@ -752,206 +341,10 @@ function Home({setRestaurantId, setPicture}) {
           
         </div>
         <div class="listings-grid">
-        <div class="listings-col">
-          
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1562967914-01efa7e87832?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2252&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1532636875304-0c89119d9b4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-          
-          
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab 222</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab 222</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-            <div class="listings-grid-element">
-              <div class="image">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" alt="Listing pic"></img>
-              </div>
-              <div class="text">
-                <div class="text-title">
-                  <h3>German Doner Kebab</h3>
-                  <div class="info">
-                    <span>£4.99 delivery fee | 20-30 MINS | £</span>
-                  </div>
-                </div>
-                <div class="rating">
-                  <span class="circle">4.2</span>
-                </div>
-              </div>
-              <div class="text-lower">
-                <span class="smallText">German | Middle Eastern | Halal | Burger| Fast Food</span>
-              </div>
-            </div>
-          </div>
+          <div class="listings-col"> {listaprops.map( (restaurante) =><RestPreviewGeneral Image={restaurante.Image} name={restaurante.name} desc={restaurante.desc} time={restaurante.time} />)} </div>
         </div>
       </div>
     </div>
-
-    <div class="header2">
-
-      <div class="container2">
-
-        <div class="logo">
-          <h1>UB<span>Eats</span></h1>
-        </div>
-        <div class="searchBar">
-          <div class="header-option">
-            <i data-feather="search"></i>
-            <span>Crea una cuenta de empresa</span>
-          </div>
-          <div class="header-option">
-            <span>Registrate para hacer entregas</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
   </body2>
 
 
