@@ -41,6 +41,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.have.property('rest');
+            //console.log(res.body.rest)
             res.body.rest.should.be.an('array').to.have.lengthOf.above(0);
             done();
           });
@@ -71,6 +72,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('restaurant')
+          //console.log(res.body.restaurant)
           res.body.restaurant.should.have.property('email');
           res.body.restaurant.should.have.property('name');
           res.body.restaurant.should.have.property('CIF');
@@ -374,6 +376,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('insType');
+          //console.log(res.body.insType)
           res.body.insType.should.have.property('type_id');
           res.body.insType.should.have.property('rest_id');
           done();
@@ -430,6 +433,7 @@ describe('Restaurants', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.have.property('delType');
+          //console.log(res.body.delType)
           res.body.delType.should.have.property('type_id');
           res.body.delType.should.have.property('rest_id');
           done();
