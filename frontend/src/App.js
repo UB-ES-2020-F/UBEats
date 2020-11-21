@@ -13,7 +13,6 @@ import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
 
-import GeneralNav from './pages/Navbar/GeneralNav.js';
 import NavCustom from './pages/Navbar/NavCustom.js';
 
 
