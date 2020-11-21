@@ -4,6 +4,7 @@ import 'react-bootstrap';
 import'react-router-dom';
 import photo from '../../images/ubeats.png'
 import RestPreviewGeneral from './RestPreviewGeneral.js'
+import { Link } from 'react-router-dom';
 
 
 function CategoriasHome(props){
@@ -15,7 +16,7 @@ function CategoriasHome(props){
                 </div>
                 <div class="header-viewOptions">
                     <div class="viewAll">
-                        <span>View all</span>
+                        <Link to="./viewall" className="link">View All</Link>
                     </div>
                     <div class="viewMore">
                         <span class="arrow circle left"><i data-feather="arrow-left"></i>

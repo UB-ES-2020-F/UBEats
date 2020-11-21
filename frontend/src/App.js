@@ -12,6 +12,7 @@ import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js
 import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman.js';
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
+import ViewAll from './pages/ViewAll/ViewAll.js'
 
 import GeneralNav from './pages/Navbar/GeneralNav.js';
 
@@ -48,6 +49,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto}/>)} key='home'/>
         <Route path='/login' component={Login} key='login'/>
+        <Route path='/viewall' component={ViewAll} key='viewall'/>
         <Route path='/registerclient' component={RegisterClient} key='register client'/>
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
