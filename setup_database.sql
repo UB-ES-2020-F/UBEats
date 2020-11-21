@@ -69,8 +69,8 @@ ON UPDATE CASCADE
 );
 CREATE TABLE "items" (
 "item_id" SERIAL NOT NULL UNIQUE,
-"title" VARCHAR(50) NOT NULL,
-"desc" VARCHAR(300) NOT NULL,
+"title" VARCHAR NOT NULL,
+"desc" VARCHAR NOT NULL,
 "price" float NOT NULL,
 "visible" BIT,
 "rest_id" VARCHAR NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE "feedbacks" (
 "rest_id" VARCHAR NOT NULL,
 "cust_id" VARCHAR NOT NULL,
 "rating" INT,
-"explanation" VARCHAR(400) NOT NULL,
+"explanation" VARCHAR NOT NULL,
 "timestamp" TIMESTAMPTZ NOT NULL,
 Constraint "feedback_pkey" Primary Key ("rest_id", "cust_id"),
 Constraint "feedback_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE
@@ -113,7 +113,7 @@ ON UPDATE CASCADE
 CREATE TABLE "reports" (
 "rep_id" SERIAL NOT NULL UNIQUE,
 "order_id" INT NOT NULL,
-"description" VARCHAR(400) NOT NULL,
+"description" VARCHAR NOT NULL,
 "timestamp" TIMESTAMPTZ NOT NULL,
 Constraint "reports_pkey" Primary Key ("rep_id"),
 Constraint "reports_fkey_order" Foreign Key ("order_id") References "orders"("order_id") ON DELETE CASCADE
@@ -121,7 +121,7 @@ Constraint "reports_fkey_order" Foreign Key ("order_id") References "orders"("or
 CREATE TABLE "types" (
 "type_id" SERIAL NOT NULL UNIQUE,
 "name" VARCHAR,
-"description" VARCHAR(400),
+"description" VARCHAR,
 Constraint "types_pkey" Primary Key ("type_id")
 );
 CREATE TABLE "type_restaurants" (
@@ -141,7 +141,7 @@ Constraint "typeitems_fkey_item" Foreign Key ("item_id") References "items"("ite
 CREATE TABLE "extra_items" (
 "extraitem_id" SERIAL NOT NULL UNIQUE,
 "name" VARCHAR NOT NULL,
-"desc" VARCHAR(400) NOT NULL,
+"desc" VARCHAR NOT NULL,
 "price" float NOT NULL,
 "mandatory" BIT,
 "item_id" INT NOT NULL,
