@@ -23,7 +23,7 @@ describe('Restaurants', () => {
   describe('/GET RESTAURANTS', () => {
 
     beforeEach( async () => {
-      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *"
+      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
       await pool.query(query)
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailUser = insertedRest.rows[0].email
@@ -53,7 +53,7 @@ describe('Restaurants', () => {
   describe('GET /api/restaurants', () => {
 
     beforeEach( async () => {
-      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *"
+      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
       await pool.query(query)
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailUser = insertedRest.rows[0].email
@@ -105,7 +105,7 @@ describe('Restaurants', () => {
   describe('DELETE /api/restaurants', () => {
 
     beforeEach( async () => {
-      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *"
+      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
       await pool.query(query)
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailUser = insertedRest.rows[0].email
@@ -144,7 +144,7 @@ describe('Restaurants', () => {
   describe('UPDATE /api/restaurants', () => {
 
     beforeEach( async () => {
-      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *"
+      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
       await pool.query(query)
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailUser = insertedRest.rows[0].email
@@ -196,9 +196,9 @@ describe('Restaurants', () => {
   describe('GET /api/restaurants/feedback', () => {
     
     beforeEach( async () => {
-      await pool.query("INSERT INTO users VALUES ('customer_test@gmail.com', 'Raul', '44444445S','calle arago 30. barcelona','1234','696696687','customer','images.com/gnroijgg.jpg') RETURNING *")
+      await pool.query("INSERT INTO users VALUES ('customer_test@gmail.com', 'Raul', '44444445S','calle arago 30. barcelona','1234','696696687','customer','images.com/perfil.jpg') RETURNING *")
       await pool.query("INSERT INTO customers VALUES ('customer_test@gmail.com', '11111111111111112222333') RETURNING *")
-      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *")
+      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil2.jpg') RETURNING *")
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailRest = insertedRest.rows[0].email
       //console.log(emailRest)
@@ -244,17 +244,17 @@ describe('Restaurants', () => {
     var type_id2;
 
     beforeEach( async () => {
-      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *")
+      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *")
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailRest = insertedRest.rows[0].email
 
-      var category = await pool.query("INSERT INTO categories VALUES (DEFAULT,'Category test','rst@gmail.com') RETURNING *")
+      var category = await pool.query("INSERT INTO categories VALUES (DEFAULT,'New items','rst@gmail.com') RETURNING *")
       cat_id = category.rows[0].cat_id
 
       var insertedItem = await pool.query(`INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rst@gmail.com','',${cat_id}) RETURNING *`)
       item_id = insertedItem.rows[0].item_id
 
-      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano prueba1','comida eco'),(DEFAULT,'vegetariano prueba2','comida eco') RETURNING *")
+      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano','comida vegetariana que por tanto incluye huevo y queso'),(DEFAULT,'vegano','comida mas restrictiva, no hay nada de origen animal') RETURNING *")
       type_id1 = types.rows[0].type_id
       type_id2 = types.rows[1].type_id
 
@@ -299,11 +299,11 @@ describe('Restaurants', () => {
     var tid2;
 
     beforeEach( async () => {
-      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *")
+      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *")
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailRest = insertedRest.rows[0].email
 
-      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano prueba1','comida eco'),(DEFAULT,'vegetariano prueba2','comida eco') RETURNING *")
+      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano','comida vegetariana que por tanto incluye huevo y queso'),(DEFAULT,'vegano','comida mas restrictiva, no hay nada de origen animal') RETURNING *")
       tid1 = types.rows[0].type_id
       tid2 = types.rows[1].type_id
       var query = `INSERT INTO type_restaurants VALUES (${tid1},'rst@gmail.com'),(${tid2},'rst@gmail.com') RETURNING *`
@@ -348,11 +348,11 @@ describe('Restaurants', () => {
     var tid2;
 
     beforeEach( async () => {
-      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *")
+      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *")
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailRest = insertedRest.rows[0].email
 
-      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano prueba1','comida eco'),(DEFAULT,'vegetariano prueba2','comida eco') RETURNING *")
+      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano','comida vegetariana que por tanto incluye huevo y queso'),(DEFAULT,'vegano','comida mas restrictiva, no hay nada de origen animal') RETURNING *")
       tid1 = types.rows[0].type_id
       tid2 = types.rows[1].type_id
     })
@@ -408,11 +408,11 @@ describe('Restaurants', () => {
     var tid2;
 
     beforeEach( async () => {
-      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/gnroijng.jpg') RETURNING *")
+      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *")
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailRest = insertedRest.rows[0].email
 
-      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano prueba1','comida eco'),(DEFAULT,'vegetariano prueba2','comida eco') RETURNING *")
+      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano','comida vegetariana que por tanto incluye huevo y queso'),(DEFAULT,'vegano','comida mas restrictiva, no hay nada de origen animal') RETURNING *")
       tid1 = types.rows[0].type_id
       tid2 = types.rows[1].type_id
 

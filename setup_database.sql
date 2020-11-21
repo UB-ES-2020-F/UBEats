@@ -3,24 +3,24 @@ CREATE DATABASE ubereats;
 \connect ubereats;
 CREATE TYPE tipo_user AS ENUM ('restaurant','deliveryman','customer');
 CREATE TABLE "users" (
-"email" VARCHAR(50) NOT NULL,
-"name" VARCHAR(50) NOT NULL,
+"email" VARCHAR NOT NULL,
+"name" VARCHAR NOT NULL,
 "CIF" VARCHAR(20) NOT NULL,
-"street" VARCHAR(200) NOT NULL,
-"pass" VARCHAR(50) NOT NULL,
+"street" VARCHAR NOT NULL,
+"pass" VARCHAR NOT NULL,
 "phone" VARCHAR(20) NOT NULL,
 "tipo"  tipo_user NOT NULL,
-"url" VARCHAR(200) NOT NULL,
+"url" VARCHAR,
 Constraint "user_pkey" Primary Key ("email")
 );
 CREATE TYPE avaliability_rest AS ENUM ('verde','amarillo','naranja','rojo');
 CREATE TYPE visible_rest AS ENUM ('inactive','invisible','visible');
 CREATE TABLE "restaurants" (
-"email" VARCHAR(50) NOT NULL,
+"email" VARCHAR NOT NULL,
 "avaliability" avaliability_rest NOT NULL,
 "visible" visible_rest NOT NULL,
-"iban" VARCHAR(24) NOT NULL,
-"allergens" VARCHAR(200),
+"iban" CHAR(24) NOT NULL,
+"allergens" VARCHAR,
 Constraint "restaurant_pkey" Primary Key ("email"),
 Constraint "restaurant_fkey_user" Foreign Key ("email") References "users"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
@@ -28,17 +28,17 @@ ON UPDATE CASCADE
 CREATE TYPE avaliability_deliv AS ENUM ('verde','rojo');
 CREATE TYPE visible_deliv AS ENUM ('inactive','invisible','visible');
 CREATE TABLE "deliverymans" (
-"email" VARCHAR(50) NOT NULL,
+"email" VARCHAR NOT NULL,
 "avaliability" avaliability_deliv NOT NULL,
 "visible" visible_deliv NOT NULL,
-"iban" VARCHAR(24) NOT NULL,
+"iban" CHAR(24) NOT NULL,
 Constraint "deliveryman_pkey" Primary Key ("email"),
 Constraint "deliveryman_fkey_user" Foreign Key ("email") References "users"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
 );
 CREATE TABLE "customers" (
-"email" VARCHAR(50) NOT NULL,
-"card" VARCHAR(23) NOT NULL,
+"email" VARCHAR NOT NULL,
+"card" CHAR(23) NOT NULL,
 Constraint "customer_pkey" Primary Key ("email"),
 Constraint "customer_fkey_user" Foreign Key ("email") References "users"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
@@ -46,9 +46,9 @@ ON UPDATE CASCADE
 CREATE TYPE status_orders AS ENUM ('esperando','preparando','preparado','enviado','entregado');
 CREATE TABLE "orders" (
 "order_id" SERIAL NOT NULL UNIQUE,
-"rest_id" VARCHAR(50) NOT NULL,
-"deliv_id" VARCHAR(50) NOT NULL,
-"cust_id" VARCHAR(50) NOT NULL,
+"rest_id" VARCHAR NOT NULL,
+"deliv_id" VARCHAR NOT NULL,
+"cust_id" VARCHAR NOT NULL,
 "status" status_orders NOT NULL,
 "timestamp" TIMESTAMPTZ NOT NULL,
 Constraint "order_pkey" Primary Key ("order_id"),
@@ -61,20 +61,20 @@ ON UPDATE CASCADE
 );
 CREATE TABLE "categories" (
 "cat_id" SERIAL NOT NULL UNIQUE,
-"category" VARCHAR(50) NOT NULL,
-"rest_id" VARCHAR(50) NOT NULL,
+"category" VARCHAR NOT NULL,
+"rest_id" VARCHAR NOT NULL,
 Constraint "categories_pkey" Primary Key ("cat_id"),
 Constraint "cat_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
 );
 CREATE TABLE "items" (
 "item_id" SERIAL NOT NULL UNIQUE,
-"title" VARCHAR(30) NOT NULL,
-"desc" VARCHAR(200) NOT NULL,
+"title" VARCHAR(50) NOT NULL,
+"desc" VARCHAR(300) NOT NULL,
 "price" float NOT NULL,
 "visible" BIT,
-"rest_id" VARCHAR(50) NOT NULL,
-"url" VARCHAR(200) NOT NULL,
+"rest_id" VARCHAR NOT NULL,
+"url" VARCHAR,
 "cat_id" INT NOT NULL,
 Constraint "item_pkey" Primary Key ("item_id"),
 Constraint "item_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE
@@ -90,10 +90,10 @@ Constraint "orderitems_fkey_order" Foreign Key ("order_id") References "orders"(
 Constraint "orderitems_fkey_item" Foreign Key ("item_id") References "items"("item_id") ON DELETE CASCADE
 );
 CREATE TABLE "feedbacks" (
-"rest_id" VARCHAR(50) NOT NULL,
-"cust_id" VARCHAR(50) NOT NULL,
+"rest_id" VARCHAR NOT NULL,
+"cust_id" VARCHAR NOT NULL,
 "rating" INT,
-"explanation" VARCHAR(200) NOT NULL,
+"explanation" VARCHAR(400) NOT NULL,
 "timestamp" TIMESTAMPTZ NOT NULL,
 Constraint "feedback_pkey" Primary Key ("rest_id", "cust_id"),
 Constraint "feedback_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE
@@ -102,8 +102,8 @@ Constraint "feedback_fkey_cust" Foreign Key ("cust_id") References "customers"("
 ON UPDATE CASCADE
 );
 CREATE TABLE "favourites" (
-"cust_id" VARCHAR(50) NOT NULL,
-"rest_id" VARCHAR(50) NOT NULL,
+"cust_id" VARCHAR NOT NULL,
+"rest_id" VARCHAR NOT NULL,
 Constraint "favourites_pkey" Primary Key ("cust_id","rest_id"),
 Constraint "favourites_fkey_cust" Foreign Key ("cust_id") References "customers"("email") ON DELETE CASCADE
 ON UPDATE CASCADE,
@@ -113,20 +113,20 @@ ON UPDATE CASCADE
 CREATE TABLE "reports" (
 "rep_id" SERIAL NOT NULL UNIQUE,
 "order_id" INT NOT NULL,
-"description" VARCHAR(200) NOT NULL,
+"description" VARCHAR(400) NOT NULL,
 "timestamp" TIMESTAMPTZ NOT NULL,
 Constraint "reports_pkey" Primary Key ("rep_id"),
 Constraint "reports_fkey_order" Foreign Key ("order_id") References "orders"("order_id") ON DELETE CASCADE
 );
 CREATE TABLE "types" (
 "type_id" SERIAL NOT NULL UNIQUE,
-"name" VARCHAR(20),
-"description" VARCHAR(100),
+"name" VARCHAR,
+"description" VARCHAR(400),
 Constraint "types_pkey" Primary Key ("type_id")
 );
 CREATE TABLE "type_restaurants" (
 "type_id" INT NOT NULL,
-"rest_id" VARCHAR(50) NOT NULL,
+"rest_id" VARCHAR NOT NULL,
 Constraint "typerestaurants_pkey" Primary Key ("type_id","rest_id"),
 Constraint "typerestaurants_fkey_type" Foreign Key ("type_id") References "types"("type_id") ON DELETE CASCADE,
 Constraint "typerestaurants_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE ON UPDATE CASCADE
@@ -140,8 +140,8 @@ Constraint "typeitems_fkey_item" Foreign Key ("item_id") References "items"("ite
 );
 CREATE TABLE "extra_items" (
 "extraitem_id" SERIAL NOT NULL UNIQUE,
-"name" VARCHAR(30) NOT NULL,
-"desc" VARCHAR(200) NOT NULL,
+"name" VARCHAR NOT NULL,
+"desc" VARCHAR(400) NOT NULL,
 "price" float NOT NULL,
 "mandatory" BIT,
 "item_id" INT NOT NULL,
