@@ -112,51 +112,6 @@ describe('Items', () => {
 
   // TEST DE GET ENDPOINT
   describe('/GET ITEM', () => {
-    // values by default, beforeEach will try to get values from the ddbb
-    /*var id = 1
-    var rest = "rrr@gmail"
-    var cat_id = 1
-
-    let db_values = [
-      "my_title",
-      "my_description",
-      3.1415,
-      '0',
-    ]*/
-
-    /*beforeEach( async () => {
-      // get an existing restaurant from ddbb
-      var result = await pool.query('SELECT * FROM restaurants')
-      rest = result.rows[0].email
-
-      db_values.push(rest)
-
-      db_values.push("https://image.com/cute_cat.jpg")
-
-      //create a category
-      var result = await pool.query("INSERT INTO categories VALUES (DEFAULT, 'my supercategory') RETURNING *")
-      cat_id = result.rows[0].cat_id
-
-      db_values.push(cat_id)
-
-      //console.log(db_values)
-
-      var query = format("INSERT INTO items VALUES (DEFAULT, %L) RETURNING *", db_values)
-      //console.log(query)
-      var result = await pool.query(query)
-      id = result.rows[0].item_id
-    })
-
-    afterEach( async () => {
-      var result = await pool.query('DELETE FROM items WHERE item_id = $1 RETURNING *', [id])
-
-      var result = await pool.query('DELETE FROM categories WHERE cat_id = $1 RETURNING *', [cat_id])
-
-      db_values.pop()
-      db_values.pop()
-      db_values.pop()
-    })*/
-
     it('Get a known existing item. Should return 200', (done) => {
       chai.request(app)
         .get('/api/items/'.concat(item_id))
@@ -210,15 +165,6 @@ describe('Items', () => {
 
   // TEST THE GET ALL FOR A RESTAURANT
   describe('/GET RESTAURANT ITEMS', () => {
-    /*var rest = "rrr@gmail.com"
-
-    beforeEach( async () => {
-      // get an existing restaurant from ddbb
-      var result = await pool.query('SELECT * FROM restaurants')
-      rest = result.rows[0].email
-    })*/
-
-
     it('Get all items for a specific restaurant. Should return 200', (done) => {
       chai.request(app)
         .get('/api/restaurant/'.concat(item.rest_id, '/items'))
@@ -388,22 +334,6 @@ describe('Items', () => {
         });
     });
 
-    //it('Delete an item. Malformed body. Should return 403', (done) => {
-      //let item = {}
-//
-      //chai.request(app)
-        //.delete('/api/items')
-        //.set('content-type', 'application/x-www-form-urlencoded')
-        //.send(item)
-        //.end((err, res) => {
-          //res.should.have.status(403);
-          //res.body.should.have.property('message');
-          //res.body.message.should.equal("Item ID not specified")
-          //done();
-        //});
-    //});
-
-
     it('Delete a non existing item. Should return 404', (done) => {
 
       chai.request(app)
@@ -436,17 +366,6 @@ describe('Items', () => {
       var deletedItems = await pool.query(query)
     })
 
-
-    //beforeEach( async () => {
-      //var items = await pool.query('SELECT * FROM items')
-      //id = items.rows[0].item_id
-      //saved_title = items.rows[0].title
-    //})
-
-    //afterEach( async () => {
-      //await pool.query(`UPDATE items SET title = '${saved_title}' WHERE item_id = ${id}`)
-    //})
-
     it('Update an item. All OK. Should return 200', (done) => {
       let item = {
         title: 'wefvweochi2echrg',
@@ -472,25 +391,6 @@ describe('Items', () => {
           done();
         });
     });
-
-    /*
-    it('Update an item. Invalid parameters. Should return 403', (done) => {
-      let item = {
-        title: 'wefvweochi2echrg',
-      }
-
-      chai.request(app)
-        .put('/api/items/'.concat(id))
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send(item)
-        .end((err, res) => {
-          res.should.have.status(403);
-          res.body.should.have.property('message');
-          res.body.message.should.equal("Item ID not specified")
-          done();
-        });
-
-    });*/
 
     it('Update an item. Invalid parameters. Should return 403', (done) => {
       let item = {
@@ -574,7 +474,6 @@ describe('Items', () => {
           done();
         });
     });
-
 
   });
 
