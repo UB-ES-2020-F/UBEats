@@ -1,6 +1,9 @@
 const items_db = require('../services/items.js')
 const extras_db = require('../services/extra_items.js')
 
+/**
+ * Function to get all the extra items for a specified item
+ */
 async function getAllExtrasForItem(req, res)
 {
     const item_id = req.params.item_id
@@ -19,6 +22,9 @@ async function getAllExtrasForItem(req, res)
     return res.status(200).send({extras})
 }
 
+/**
+ * Function to get one specific extra item for a specified item
+ */
 async function getExtraForItem(req, res)
 {
     const item_id = req.params.item_id
@@ -40,6 +46,9 @@ async function getExtraForItem(req, res)
 
 }
 
+/**
+ * Function to create a new extra item for a specified item
+ */
 async function createExtraForItem(req, res)
 {
     const item_id = req.params.item_id
@@ -59,6 +68,9 @@ async function createExtraForItem(req, res)
     return res.status(200).send({extra})
 }
 
+/**
+ * Function to update an existing extra item for a specified item
+ */
 async function updateExtraForItem(req, res)
 {
     const item_id = req.params.item_id
@@ -80,6 +92,9 @@ async function updateExtraForItem(req, res)
     return res.status(200).send({extra})
 }
 
+/**
+ * Function to delete an existing extra item for a specified item
+ */
 async function deleteExtraForItem(req, res)
 {
     const item_id = req.params.item_id

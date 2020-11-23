@@ -1,6 +1,9 @@
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
 
+/**
+ * Function that performs a query to the ddbb to get all extra items for a specific item_id
+ */
 function getAllExtrasForItem(item_id)
 {
         return pool.query('SELECT * FROM extra_items WHERE item_id = $1 AND EXISTS (SELECT * FROM items WHERE item_id = $1)', [item_id])
@@ -12,6 +15,9 @@ function getAllExtrasForItem(item_id)
                 })
 }
 
+/**
+ * Function that performs a query to the ddbb to get one specific item for a specific item_id
+ */
 function getExtraForItem(item_id, extra_id)
 {
         return pool.query('SELECT * FROM extra_items WHERE item_id = $1 AND extraitem_id = $2', [item_id, extra_id])
@@ -23,6 +29,9 @@ function getExtraForItem(item_id, extra_id)
                 })
 }
 
+/**
+ * Function that performs a insertion on the ddbb for a specific item_id with the values on body
+ */
 function createExtraForItem(item_id, body)
 {
         const check = _checkCreateBody(item_id, body)
@@ -40,6 +49,10 @@ function createExtraForItem(item_id, body)
                 })
 }
 
+/**
+ * Function that performs an update of an existing extra item for a specific item_id an extraitem_id
+ * The values are passed on the body
+ */
 function updateExtraForItem(item_id, extra_id, body)
 {
         const check = _checkUpdateBody(item_id, body)
@@ -60,6 +73,9 @@ function updateExtraForItem(item_id, extra_id, body)
                 })
 }
 
+/**
+ * Function that deletes an extra item from the ddbb by extraitem_id
+ */
 function deleteExtraForItem(item_id, extra_id)
 {
         return pool.query('DELETE FROM extra_items WHERE extraitem_id = $1', [extra_id, item_id])
@@ -71,6 +87,9 @@ function deleteExtraForItem(item_id, extra_id)
                 })
 }
 
+/**
+ * Auxiliary function that performs validity checks on the body of an HTTP POST request
+ */
 function _checkCreateBody(item_id, body)
 {
         var err_str = ''
@@ -104,6 +123,9 @@ function _checkCreateBody(item_id, body)
         return {all_good: true}
 }
 
+/**
+ * Auxiliary function that performs validity checks on the body of an HTTP PUT request
+ */
 function _checkUpdateBody(item_id, body)
 {
         var err_str = ''

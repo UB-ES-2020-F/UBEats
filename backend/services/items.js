@@ -115,7 +115,7 @@ function updateItem(id, values)
 }
 
 /**
- * Function to check for the existance of and item by its id
+ * Function to check for the existance of an item by its id
  */
 function existsItemID(item_id)
 {
