@@ -282,6 +282,9 @@ describe('Extra items', () => {
     extra_item2.mandatory = '1'
     var extra_item2_id;
 
+    var extra_item3 = Object.assign({}, extra_item2)
+    extra_item3.price = -3
+
     beforeEach( async () => {
       const query = format('INSERT INTO extra_items VALUES(DEFAULT, %L) RETURNING *', Object.values(extra_item2))
       const result = await pool.query(query)
@@ -308,6 +311,19 @@ describe('Extra items', () => {
         });
     })
 
+    it('Update a known existing extra item for a known existing item. The body is NOT OK. Should return 403', (done) => {
+      chai.request(app)
+        .put(`/api/items/${extra_item2.item_id}/extras/${extra_item2_id}`)
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(extra_item3)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message')
+          done();
+        });
+    })
+
+
     it('Update a known non existing extra item for a known existing item. The body is OK. Should return 404', (done) => {
       chai.request(app)
         .put(`/api/items/${extra_item2.item_id}/extras/${extra_item2_id+1}`)
@@ -319,6 +335,19 @@ describe('Extra items', () => {
           done();
         });
     })
+
+    it('Update a known non existing extra item for a known non existing item. The body is OK. Should return 403', (done) => {
+      chai.request(app)
+        .put(`/api/items/${extra_item2.item_id+1}/extras/${extra_item2_id+1}`)
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(extra_item2)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message')
+          done();
+        });
+    })
+
 
   })
 
@@ -352,6 +381,31 @@ describe('Extra items', () => {
           done();
         });
     })
+
+    it('Delette a known non existing extra for a known existing item. Should return 404', (done) => {
+      chai.request(app)
+        .put(`/api/items/${extra_item2.item_id}/extras/${extra_item2_id+1}`)
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(extra_item2)
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.have.property('message')
+          done();
+        });
+    })
+
+    it('Delette a known non existing extra for a known non existing item. Should return 403', (done) => {
+      chai.request(app)
+        .put(`/api/items/${extra_item2.item_id+1}/extras/${extra_item2_id+1}`)
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(extra_item2)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.have.property('message')
+          done();
+        });
+    })
+
   })
 })
 

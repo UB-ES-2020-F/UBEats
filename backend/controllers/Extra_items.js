@@ -66,12 +66,12 @@ async function updateExtraForItem(req, res)
     const {body} = req
 
     const item_exists = await items_db.existsItemID(item_id)
-    console.log(item_exists)
+    //console.log(item_exists)
     if(item_exists.error || !(item_exists.exists))
         return res.status(404).send({message: `Extra item ${item_id} does not exist`})
 
     const extra = await extras_db.updateExtraForItem(item_id, extra_id, body)
-    console.log(extra)
+    //console.log(extra)
     if(!extra)
         return res.status(404).send({message: "Could not update extra item because it does not exists"})
     if(extra.error)
@@ -86,12 +86,12 @@ async function deleteExtraForItem(req, res)
     const extra_id = req.params.extra_id
 
     const item_exists = await items_db.existsItemID(item_id)
-    console.log(item_exists)
+    //console.log(item_exists)
     if(item_exists.error || !(item_exists.exists))
         return res.status(404).send({message: `Extra item ${item_id} does not exist`})
 
     const extra = await extras_db.deleteExtraForItem(item_id, extra_id)
-    console.log(extra)
+    //console.log(extra)
     if(!extra)
         return res.status(404).send({message: "Could not update extra item because it does not exists"})
     if(extra.error)
