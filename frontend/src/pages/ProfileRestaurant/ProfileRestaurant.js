@@ -283,15 +283,19 @@ function ProfileRestaurant({rest_id, restaurantPhoto}) {
 
         <Container className="">
           <Nav as="ul" className="categories-navbar">
-            <ListaCategorias listaSecciones={listaSecciones_dyn}></ListaCategorias>
+            <ListaCategorias listaSecciones={listaSecciones}></ListaCategorias>
           </Nav>
         </Container>
+
+        {/** Platos hardcodeados para poder hacer las pruebas 
+         * pendiente de poner los de la base de datos.
+        */}
 
         {/**
          * And this one generates the product rows.
          */}
         {console.log(listaSecciones_dyn)}
-        <SeccionPlatos listaSecciones={listaSecciones_dyn}>
+        <SeccionPlatos listaSecciones={listaSecciones}>
 
         </SeccionPlatos>
         
