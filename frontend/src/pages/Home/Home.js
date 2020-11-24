@@ -1,28 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+
+import RestService from "../../api/homepage.service";
 
 import '../../commons/components/Main.css'
 
 
-
-
 function Home({setRestaurantId, setPicture}) {
+  const [restList, setRestList] = useState('algo');
   const onClickRestaurantPage = (rest_id, photo) => {
     setRestaurantId(rest_id);
     setPicture(photo);
   };
 
+  const fetchMenu = async () => {
+    const items = await RestService.getAll();
+    setRestList(items);
+    console.log(restList);
+  };
+
+  useEffect(() => {
+    fetchMenu();
+  }, []);
+
   return (
     <section className="login">
-
-
+    { console.log(restList)}
         <body2>
-
- 
-
-
-
-
     <div class="listings">
       <div class="container2">
         <div class="listings-grid">

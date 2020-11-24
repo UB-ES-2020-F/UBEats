@@ -41,8 +41,8 @@ const App = () => {
   
   return (
     <Router history={history}>
-
-      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} key='sidebar'/>):(<div/>)}
+      {console.log(currentUser)}
+      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} user={currentUser} key='sidebar'/>):(<div/>)}
       <GeneralNav isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)} key='navbar'/>
 
       <Switch>
@@ -54,7 +54,6 @@ const App = () => {
         <Route path='/profileclient' component={ProfileClient} key='profile client'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
       </Switch>
-      {console.log(restSelected)}
     </Router>
     
   );
