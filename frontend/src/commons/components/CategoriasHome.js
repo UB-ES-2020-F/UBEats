@@ -6,6 +6,12 @@ import photo from '../../images/ubeats.png'
 import RestPreviewGeneral from './RestPreviewGeneral.js'
 
 
+/**
+ * 
+ * Componente que muestra la categoria y las preview de los restaurantes, asi como un boton funcional para mostrar todos los restaurantes.
+ *  
+ */
+
 function CategoriasHome(props){
     return(
         <div class="container3">

@@ -4,6 +4,12 @@ import 'react-bootstrap';
 import'react-router-dom';
 import photo from '../../images/ubeats.png'
 
+/**
+ * 
+ * Componente que muestra la imagen, el titulo, el tiempo y la descripcion de un restaurante.
+ *  
+ */
+
 function RestPreviewGeneral(props){
 
     return(
