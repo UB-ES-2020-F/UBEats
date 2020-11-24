@@ -14,12 +14,12 @@ import RestPreviewGeneral from './RestPreviewGeneral.js'
 
 function Categorias(props){
     return(
-        <div class="listings-grid-element">
-              <div class="image">
+        <div className="listings-grid-element">
+              <div className="image">
               <img src={props.Image} alt="Type image"></img>
               </div>
-              <div class="text">
-                <div class="text-title">
+              <div className="text">
+                <div className="text-title">
                   <h3>{props.title}</h3>
                 </div>
               </div>

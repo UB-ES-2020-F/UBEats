@@ -78,21 +78,21 @@ function Home({setRestaurantId, setPicture}) {
 
     <body2>
 
-    <div class="listings">
-      <div class="container2">
-        <div class="listings-grid">
-          <div class="listings-col">
-            <div class="listings-grid-element">
+    <div className="listings">
+      <div className="container2">
+        <div className="listings-grid">
+          <div className="listings-col">
+            <div className="listings-grid-element">
               <h2>¿Tienes un antojo? Pídelo.</h2>
               <h1>Busca tu restaurante, cocina o plato favorito.</h1>
             </div>
-            <div class="listings-grid-element">
-              <div class="image">
+            <div className="listings-grid-element">
+              <div className="image">
                 <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element">
-              <div class="image">
+            <div className="listings-grid-element">
+              <div className="image">
                 <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80" alt="Listing pic"></img>
               </div>
             </div>
@@ -102,71 +102,71 @@ function Home({setRestaurantId, setPicture}) {
     </div>
 
 
-    <div class="listings">
-      <div class="container4">
-        <div class="listings-grid">          
-            <div class="listings-grid-element2">
-              <div class="image">
+    <div className="listings">
+      <div className="container4">
+        <div className="listings-grid">          
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/sushi.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/pizza.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/bbq.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/fastfood.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/japanese.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/burger.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/vegan.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/asian.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/wings.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/streetfood.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/coffeeandtea.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/italian.png" alt="Listing pic"></img>
               </div>
             </div>
-            <div class="listings-grid-element2">
-              <div class="image">
+            <div className="listings-grid-element2">
+              <div className="image">
                 <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/dessert.png" alt="Listing pic"></img>
               </div>
             </div>       
@@ -178,24 +178,24 @@ function Home({setRestaurantId, setPicture}) {
       <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={listaprops.slice(0,3)}/></div>
       <div className="listings"><CategoriasHome titulo="Favoritos" listaprops={listaprops.slice(0,3)}/></div>
  
-    <div class="listings">
-      <div class="container3">
-        <div class="header">
-          <div class="header-title">
+    <div className="listings">
+      <div className="container3">
+        <div className="header">
+          <div className="header-title">
             <h2>¿Buscas algo diferente?</h2>
           </div>
         </div>
 
-        <div class="listings-grid">
-          <div class="listings-col"> {listatipos.map( (tipo) =><Categorias Image={tipo.Image} title={tipo.title} />)} </div>
+        <div className="listings-grid">
+          <div className="listings-col"> {listatipos.map( (tipo) =><Categorias Image={tipo.Image} title={tipo.title} />)} </div>
         </div>
       </div>
     </div>
 
-    <div class="listings">
-      <div class="container3">
-        <div class="listings-grid">
-          <div class="listings-col">{listapubli.map( (publi) =><RegisterPubli Image={publi.Image} title={publi.title} desc={publi.desc} />)} </div>
+    <div className="listings">
+      <div className="container3">
+        <div className="listings-grid">
+          <div className="listings-col">{listapubli.map( (publi) =><RegisterPubli Image={publi.Image} title={publi.title} desc={publi.desc} />)} </div>
         </div>
       </div>
     </div>
@@ -203,15 +203,15 @@ function Home({setRestaurantId, setPicture}) {
     <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={listaprops.slice(0,3)}/></div>
     <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={listaprops.slice(0,3)}/></div>
 
-    <div class="listings">
-      <div class="container3">
-        <div class="header">
-          <div class="header-title">
+    <div className="listings">
+      <div className="container3">
+        <div className="header">
+          <div className="header-title">
             <h2>Todos los establecimientos</h2>
           </div>
         </div>
-        <div class="listings-grid">
-          <div class="listings-col"> {listaprops.map( (restaurante) =><RestPreviewGeneral Image={restaurante.Image} name={restaurante.name} desc={restaurante.desc} time={restaurante.time} />)} </div>
+        <div className="listings-grid">
+          <div className="listings-col"> {listaprops.map( (restaurante) =><RestPreviewGeneral Image={restaurante.Image} name={restaurante.name} desc={restaurante.desc} time={restaurante.time} />)} </div>
         </div>
       </div>
     </div>

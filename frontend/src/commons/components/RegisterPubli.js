@@ -14,14 +14,14 @@ import RestPreviewGeneral from './RestPreviewGeneral.js'
 
 function RegisterPubli(props){
     return(
-        <div class="listings-grid-element">
-            <div class="image_publi">
+        <div className="listings-grid-element">
+            <div className="image_publi">
                 <img src={props.Image} alt="Listing pic"></img>
             </div>
-            <div class="text">
-                <div class="text-title_publi">
+            <div className="text">
+                <div className="text-title_publi">
                     <h3>{props.title}</h3>
-                    <div class="info_publi">
+                    <div className="info_publi">
                         <span>{props.desc}</span>
                     </div>
                 </div>
