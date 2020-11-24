@@ -8,23 +8,23 @@ import '../../commons/components/Main.css'
 const listaprops = [{
     Image:"https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80",
     name: "Hey que tal",
-    time: "Lo que tarde",
-    desc: "Guapo",
+    time: "Lo que cueste",
+    price: "Guapo",
   },
   {
     Image:"https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80",
     name: "2",
-    time: "Lo que tarde",
+    price: "Lo que cueste",
   },
   {
     Image:"https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80",
     name: "3",
-    time: "Lo que tarde",
+    price: "Lo que cueste",
   },
   {
     Image:"https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80",
     name: "4",
-    time: "Lo que tarde",
+    price: "Lo que cueste",
   },
   ]
 
@@ -33,10 +33,10 @@ const listaprops = [{
   return (
     <body2>
         <section className="login">
-        <div class="listings">
-            <div class="container3">
-                <div class="listings-grid">
-                    <div class="listings-col"> {listaprops.map( (restaurante) =><RestPreviewMin Image={restaurante.Image} name={restaurante.name} time={restaurante.time} />)} </div>
+        <div className="listings">
+            <div className="container3">
+                <div className="listings-grid">
+                    <div className="listings-col"> {listaprops.map( (restaurante) =><RestPreviewMin Image={restaurante.Image} name={restaurante.name} price={restaurante.price} />)} </div>
                 </div>
             </div>
         </div>

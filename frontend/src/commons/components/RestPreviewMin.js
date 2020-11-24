@@ -15,7 +15,7 @@ function RestPreviewMin(props){
             <div class="text-title">
                 <h3>{props.name}</h3>
                 <div class="info">
-                    <span> {props.time} MINS </span>
+                    <span> {props.price} € </span>
                 </div>
             </div>
         </div>
