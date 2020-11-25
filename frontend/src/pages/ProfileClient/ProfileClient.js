@@ -62,7 +62,7 @@ function ProfileClient() {
     
     if (validateEmail(email)) {
       userInfo.email = email;
-      setShowToastFail(true);
+      setShowToast(true);
     }
 
     else {
