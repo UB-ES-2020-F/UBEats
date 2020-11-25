@@ -84,7 +84,7 @@ function ProfileClient() {
 
         <Row>
           <Col>
-            <Image className="profilePicture" src={profilepic} roundedCircle />
+            <Image className='profilePicture' src={profilepic} roundedCircle />
           </Col>
 
           <Col >
