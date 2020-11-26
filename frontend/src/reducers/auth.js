@@ -19,12 +19,14 @@ import {
       case REGISTER_SUCCESS:
         return {
           ...state,
-          isLoggedIn: false,
+          isLoggedIn: true,
+          user: payload.user,
         };
       case REGISTER_FAIL:
         return {
           ...state,
           isLoggedIn: false,
+          user: null,
         };
       case LOGIN_SUCCESS:
         return {

@@ -1,6 +1,6 @@
 import React,  { useState, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -42,7 +42,7 @@ const vpassword = (value) => {
   }
 };
 
-const Register = () => {
+const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
 
@@ -50,6 +50,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
   const user_type = 'restaurant' // customer, restaurant, deliveryman
   const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
@@ -71,6 +73,7 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     setSuccessful(false);
 
@@ -80,12 +83,20 @@ const Register = () => {
       dispatch(register(name, email, password, user_type))
         .then(() => {
           setSuccessful(true);
+          setLoading(false);
         })
         .catch(() => {
           setSuccessful(false);
+          setLoading(false);
         });
-    }
+    }else{
+      setLoading(false);
+    };
   };
+
+  if (successful) {
+    return <Redirect to="/profileclient" />;
+  }
 
   return (
     <section className="login">
@@ -179,7 +190,7 @@ const Register = () => {
           <p className="errorMsg"></p>
 
           <div className="btnContainer">
-            <button> Resgistrar </button>
+          <button> {loading ? ('Loading') : ('Resgistrar')} </button>
           </div>   
           {message && (
             <div className="form-group">
