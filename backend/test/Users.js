@@ -319,8 +319,6 @@ describe('Users', () => {
       .set('content-type', 'application/x-www-form-urlencoded')
       .send(user)
       .end((err, res) => {
-        console.log(res.body);
-
         res.should.have.status(200);
         res.body.should.have.property('user')
         res.body.user.should.have.property('specifics')
