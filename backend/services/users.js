@@ -1,8 +1,11 @@
 // Service module to retrieve data from Scheme Users 
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
+const {_createUpdateDynamicQuery} = require('../helpers/helpers')
 
-const user_type = { customer    : { table : 'customers',    cols : ['email','card'], defaultValues : {'email' : '', 'card': ''}},  
+const user_type = { 
+                    user        : { table : 'users',    cols : ['email','name','CIF','street','phone','tipo','url']},  
+                    customer    : { table : 'customers',    cols : ['email','card'], defaultValues : {'email' : '', 'card': ''}},  
                     deliveryman : { table : 'deliverymans', cols : ['email',  'availiability', 'visible', 'iban'], defaultValues : {'email' : '', 'visible': 'inactive', 'availiability' : 'rojo','iban': ''}}, 
                     restaurant  : { table : 'restaurants',  cols : ['email',  'availiability', 'visible', 'iban'], defaultValues : {'email' : '', 'visible': 'inactive', 'availiability' : 'rojo','iban': ''}}
                 }
@@ -108,4 +111,70 @@ async function deleteUser(email){
         })
 }
 
-module.exports = {getUsers, getUserByEmail, createUser, deleteUser }
+
+/**
+ * Method that updates a user from Database
+ * @param email the email of the user. User with that email must exist on db
+ * @param values corresponds to the new user information. It has the email and type too.
+ */
+async function updateUser(email, values){
+    
+
+
+    const preUser = await getUserByEmail(email)
+    if (!preUser)
+        return {error : `User with email ${email} not found`, errCode : 404}
+
+    // We divide the values into 2 objects : User and specificUser ( restaurant, customer, deliveryman)
+    const userType = user_type[values.type]
+
+    let spcificUser = {}
+    let user = {}
+
+    user.email = email
+    spcificUser.email = email
+
+    //user object
+    for (let i of user_type.user.cols){
+        if (values[i]){
+            user[i] = values[i]
+            delete values[i]
+        }
+    }
+
+    // specificUser object
+    for (let i of userType.cols){
+        if (values[i]){
+            spcificUser[i] = values[i]
+            delete values[i]
+        }
+    }
+
+    delete user.type
+    delete values.type
+    
+    if (Object.entries(values).length != 0) return {error: `Some fields does not match any column.`, errCode : 403}
+    const query = _createUpdateDynamicQuery(user, 'users', 'email')// Table users changed via email
+    const resUser = !query.error ? await pool.query(query) : null
+    if (resUser && resUser.error) {
+        return {error: `${resUser.error}`, errCode : resUser.errCode}
+    }
+
+    const querySp = _createUpdateDynamicQuery(spcificUser,`${userType.table}`, 'email')// Table specificUser (restaurant, customer, delivery) changed via email
+    const resSpecific = !querySp.error ? await pool.query(querySp) : null
+    if (resSpecific && resSpecific.error){
+        const qPre = _createUpdateDynamicQuery(preUser, 'users','email')
+        const resPrevUser = await pool.query(qPre)
+        return {error: `${resSpecific.error}`, errCode : resSpecific.errCode}
+    }
+    
+    let res = {}
+
+
+    if (resUser) res = {...res,...resUser.rows[0]}
+    if (resSpecific) res = {...res,...resSpecific.rows[0]}
+
+    return res
+}
+
+module.exports = {getUsers, getUserByEmail, createUser, deleteUser, updateUser}
