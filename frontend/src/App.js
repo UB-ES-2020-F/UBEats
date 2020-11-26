@@ -14,7 +14,11 @@ import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
 import ViewAll from './pages/ViewAll/ViewAll.js'
 
-import GeneralNav from './pages/Navbar/GeneralNav.js';
+import Footer from './commons/components/Footer.js';
+
+import NavCustom from './pages/Navbar/NavCustom.js';
+
+
 
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
@@ -44,8 +48,7 @@ const App = () => {
     <Router history={history}>
 
       {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} key='sidebar'/>):(<div/>)}
-      <GeneralNav isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)} key='navbar'/>
-
+      <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
       <Switch>
         <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto}/>)} key='home'/>
         <Route path='/login' component={Login} key='login'/>
@@ -56,9 +59,9 @@ const App = () => {
         <Route path='/viewall' component={ViewAll} key='viewall'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
       </Switch>
-      {console.log(restSelected)}
+      
+      <Footer/>
     </Router>
-    
   );
 }
 

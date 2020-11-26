@@ -58,7 +58,6 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
     setLoading(true);
 
     form.current.validateAll();
@@ -67,8 +66,7 @@ const Login = (props) => {
       dispatch(login(email, password))
         .then(() => {
           //props.history.push("/profileclient");
-          //window.location.reload();
-          
+          //window.location.reload();   
         })
         .catch(() => {
           setLoading(false);
