@@ -172,7 +172,7 @@ async function updateUser(email, values){
 
 
     if (resUser) res = {...res,...resUser.rows[0]}
-    if (resSpecific) res = {...res,...resSpecific.rows[0]}
+    if (resSpecific) res.specifics = {...resSpecific.rows[0]}
 
     return res
 }

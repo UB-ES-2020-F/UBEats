@@ -319,12 +319,15 @@ describe('Users', () => {
       .set('content-type', 'application/x-www-form-urlencoded')
       .send(user)
       .end((err, res) => {
+        console.log(res.body);
+
         res.should.have.status(200);
         res.body.should.have.property('user')
-        res.body.user.should.have.property('card')
+        res.body.user.should.have.property('specifics')
         res.body.user.should.have.property('name')
-        res.body.user.card.should.equal('12312312312312312312312')
+        res.body.user.specifics.should.have.property('card')
         res.body.user.name.should.equal('Andres')
+        res.body.user.specifics.card.should.equal('12312312312312312312312')
         done();
       });
   });
@@ -361,8 +364,9 @@ describe('Users', () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.property('user')
-        res.body.user.should.have.property('card')
-        res.body.user.card.should.equal('12312312312312312312312')
+        res.body.user.should.have.property('specifics')
+        res.body.user.specifics.should.have.property('card')
+        res.body.user.specifics.card.should.equal('12312312312312312312312')
         done();
       });
   });
