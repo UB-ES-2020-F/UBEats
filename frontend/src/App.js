@@ -12,6 +12,7 @@ import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js
 import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman.js';
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
+import ViewAll from './pages/ViewAll/ViewAll.js'
 
 import GeneralNav from './pages/Navbar/GeneralNav.js';
 
@@ -52,6 +53,7 @@ const App = () => {
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
         <Route path='/profileclient' component={ProfileClient} key='profile client'/>
+        <Route path='/viewall' component={ViewAll} key='viewall'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
       </Switch>
       {console.log(restSelected)}
