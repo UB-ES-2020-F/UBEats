@@ -32,7 +32,7 @@ const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false); //We set a state hook to sidebarOpen to manage the state of the sidebar.
   const dispatch = useDispatch();
 
-  const [restSelected, setRestSelected] = useState('r2@gmail.com');
+  const [restSelected, setRestSelected] = useState('rrr@gmail.com');
   const [restPhoto, setRestPhoto] = useState(defaultImage);
 
   useEffect(() => {
