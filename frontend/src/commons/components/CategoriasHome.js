@@ -4,7 +4,9 @@ import 'react-bootstrap';
 import'react-router-dom';
 import photo from '../../images/ubeats.png'
 import RestPreviewGeneral from './RestPreviewGeneral.js'
+
 import { Link } from 'react-router-dom';
+
 
 
 /**
