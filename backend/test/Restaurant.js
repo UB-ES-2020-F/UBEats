@@ -91,7 +91,7 @@ describe('Restaurants', () => {
 
     it('Get a restaurant by email. Invalid email. Should return 404', (done) => {
       chai.request(app)
-        .get('/api/restaurants/'.concat(emailUser).concat('mmmmmmmmmmmmmmmmmmmmmmmmmm'))
+        .get('/api/restaurants/'.concat(emailUser).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
           res.should.have.status(404);
@@ -130,7 +130,7 @@ describe('Restaurants', () => {
     it('Delete a restaurant. Invalid email. Should return 404', (done) => {
       
       chai.request(app)
-        .delete('/api/restaurants/'.concat(emailUser).concat('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm'))
+        .delete('/api/restaurants/'.concat(emailUser).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
           res.should.have.status(404);
@@ -226,7 +226,7 @@ describe('Restaurants', () => {
     it('Feedback of a restaurant. Invalid email. Should return 404', (done) => {
 
       chai.request(app)
-        .get('/api/restaurants/feedback'.concat(emailRest).concat('mmmmmmmmmmmmmmmmm'))
+        .get('/api/restaurants/feedback'.concat(emailRest).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
           res.should.have.status(404);
@@ -283,7 +283,7 @@ describe('Restaurants', () => {
     it('Menu of a restaurant. Invalid email. Should return 404', (done) => {
 
       chai.request(app)
-        .get('/api/restaurants/menu/'.concat(emailRest).concat('mmmmmmmmmmmmmmmmm'))
+        .get('/api/restaurants/menu/'.concat(emailRest).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
           res.should.have.status(404);
@@ -332,7 +332,7 @@ describe('Restaurants', () => {
     it('Types of a restaurant. Invalid email. Should return 404', (done) => {
 
       chai.request(app)
-        .get('/api/restaurants/types/'.concat(emailRest).concat('mmmmmmmmmmmmmmmmm'))
+        .get('/api/restaurants/types/'.concat(emailRest).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
           res.should.have.status(404);
@@ -386,7 +386,7 @@ describe('Restaurants', () => {
     it('Insert a type of a restaurant. Invalid email. Should return 404', (done) => {
 
       let user = {
-        email : emailRest.concat('mmmmmmmmmmmmm'),
+        email : emailRest.concat('x'),
         type_id: tid2
       }
 
@@ -443,7 +443,7 @@ describe('Restaurants', () => {
     it('Delete a type of a restaurant. Invalid email. Should return 404', (done) => {
 
       chai.request(app)
-      .delete('/api/restaurants/types/'.concat(emailRest).concat('mmmmmmmmmmmmm/').concat(tid1))
+      .delete('/api/restaurants/types/'.concat(emailRest).concat('x/').concat(tid1))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
           res.should.have.status(404);
