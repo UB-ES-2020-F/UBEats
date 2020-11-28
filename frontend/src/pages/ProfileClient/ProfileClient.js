@@ -6,6 +6,8 @@ import profilepic from "../../images/profilepicture.jpg"
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated'
 
+import userService from '../../api/user.service.js';
+
 var userDefaultInfo = {
   name: "Username",
   userpic: profilepic,
@@ -40,7 +42,7 @@ function ProfileClient({user}) {
    */
   function SaveChanges () {
     if (validateEmail(email)) {
-      setShowToastFail(true);
+      setShowToast(true);
     }
     else {
       setShowToastFail(true);
@@ -52,7 +54,7 @@ function ProfileClient({user}) {
       {console.log(user)}
       <Container className="profileContainer">
 
-        {/** First row:
+        {/** 
          * Profile picture and user's name and phone
          */}
         <Row>
@@ -70,7 +72,7 @@ function ProfileClient({user}) {
             <p><strong> Phone: </strong>{phone}</p>
           </Col>
         </Row>
-        {/** Fourth row:
+        {/** 
          * Display of the invitation code.
          * It's not editable (and it shouldn't be)
          */}
@@ -82,7 +84,21 @@ function ProfileClient({user}) {
             <p>{invitationCode}</p> 
           </Col>
         </Row>
-        {/** Fifth row:
+
+        <Row>
+          <Col>
+            <p><strong>Address</strong></p>
+          </Col>
+          <Col>
+          <input 
+              defaultValue={address}
+              onChange={setAddress}
+              >
+            </input>
+          </Col>
+        </Row>
+
+        {/** 
          * Input field for email changes.
          * Default value: current email.
          */}
