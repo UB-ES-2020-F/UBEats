@@ -100,7 +100,7 @@ function Home({setRestaurantId, setPicture, isLogged}) {
   }, []);
 
   return (
-    <section className="login">
+    <section>
     <body2>
     <div className="listings">
       <div className="container2">

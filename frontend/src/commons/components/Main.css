@@ -22,6 +22,7 @@
 
  .body2 {
 	 margin: 0;
+	 margin-top: 0;
 	 margin-left: 5px;
 	 font-family: sans-serif;
 	 background-color: white;
@@ -221,7 +222,6 @@
 	 color: white;
 }
  .listings {
-	 padding: 2rem 0;
 	 width: 100%;
 }
 
