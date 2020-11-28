@@ -28,7 +28,7 @@ const listaprops = [{
   },
   ]
 
-  function ViewAll() {
+  function ViewAll(/*{containerdata}*/) {
 
   return (
     <body2>

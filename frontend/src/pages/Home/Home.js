@@ -5,7 +5,7 @@ import CategoriasHome from'../../commons/components/CategoriasHome.js'
 import Categorias from '../../commons/components/Categorias.js'
 import TypePreview from '../../commons/components/TypePreview.js'
 import RegisterPubli from '../../commons/components/RegisterPubli.js'
-import RestService from "../../api/homepage.service";
+import RestService from "../../api/restaurant.service";
 
 const listaprops = [{
   Image:"https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1301&q=80",
@@ -65,7 +65,7 @@ const listapubli = [{
 ]
 
 
-function Home({setRestaurantId, setPicture, isLogged}) {
+function Home({setRestaurantId, setPicture, isLogged, user}) {
   const [restList, setRestList] = useState([{name: '', url:''}]);
   const [favList, setFavList] = useState([{name: '', url:''}]);
 
@@ -82,10 +82,9 @@ function Home({setRestaurantId, setPicture, isLogged}) {
   };
   
   const fetchFavs = async () => {
-    /*const favItems = await RestService.getAll();
-    setFavList(favItems);
-    console.log(restList);*/
-    fetchMenu();
+    const items = await RestService.getAllLogged(user.user.email);
+    setRestList(items);
+    console.log(restList);
   };
 
   useEffect(() => {
