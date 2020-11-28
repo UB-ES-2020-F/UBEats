@@ -6,7 +6,7 @@ const API_URL = API_URL_DEV;
 
 
 //Send POST to API_URL/register with name, email, password, type.
-const getAll = (rest_id) => {
+const getAll = () => {
     return axios.get(API_URL, {
     }).then((response) => {
       console.log('all rest recieved');
