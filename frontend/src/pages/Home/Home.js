@@ -98,7 +98,6 @@ function Home({setRestaurantId, setPicture, isLogged}) {
   return (
     <section className="login">
     <body2>
-
     <div className="listings">
       <div className="container2">
         <div className="listings-grid">
