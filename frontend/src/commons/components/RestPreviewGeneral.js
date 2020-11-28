@@ -1,9 +1,12 @@
+
 import './Main.css';
 import 'react-bootstrap';
 import'react-router-dom';
 import photo from '../../images/ubeats.png'
+
 import React, { useState } from "react";
 import Heart from "react-animated-heart";
+
 
 
 /**
@@ -13,7 +16,9 @@ import Heart from "react-animated-heart";
  */
 
 function RestPreviewGeneral(props){
+
     const [isClick, setClick] = useState(false);
+
 
     return(
     <div className="listings-grid-element">
@@ -27,9 +32,11 @@ function RestPreviewGeneral(props){
                     <span> {props.time} MINS </span>
                 </div>
             </div>
+
             <div class="rating">
                 <Heart isClick={isClick} onClick={() => setClick(!isClick)} />
             </div>
+
         </div>
         <div className="text-lower">
             <span className="smallText">{props.desc}</span>
