@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import RestPreviewGeneral from'../../commons/components/RestPreviewGeneral.js'
 import CategoriasHome from'../../commons/components/CategoriasHome.js'
 import Categorias from '../../commons/components/Categorias.js'
+import TypePreview from '../../commons/components/TypePreview.js'
 import RegisterPubli from '../../commons/components/RegisterPubli.js'
-
 import RestService from "../../api/homepage.service";
 
 const listaprops = [{
@@ -80,19 +80,23 @@ function Home({setRestaurantId, setPicture, isLogged}) {
     setRestList(items);
     console.log(restList);
   };
-  /**
+  
   const fetchFavs = async () => {
-    const favItems = await RestService.getAll();
+    /*const favItems = await RestService.getAll();
     setFavList(favItems);
-    console.log(restList);
-  };*/
+    console.log(restList);*/
+    fetchMenu();
+  };
 
   useEffect(() => {
-    fetchMenu();
-    /*
-    if (isLogged){
+    if (true){
+      console.log('debugging');
+    }
+    else if (isLogged){
       fetchFavs();
-    };*/
+    } else {
+      fetchMenu();
+    };
   }, []);
 
   return (
@@ -124,72 +128,22 @@ function Home({setRestaurantId, setPicture, isLogged}) {
 
     <div className="listings">
       <div className="container4">
-        <div className="listings-grid">          
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/sushi.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/pizza.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/bbq.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/fastfood.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/japanese.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/burger.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/vegan.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/asian.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/wings.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/streetfood.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/coffeeandtea.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/italian.png" alt="Listing pic"></img>
-              </div>
-            </div>
-            <div className="listings-grid-element2">
-              <div className="image">
-                <img src="https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/dessert.png" alt="Listing pic"></img>
-              </div>
-            </div>       
+        <div className="listings-grid">        
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/sushi.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/pizza.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/bbq.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/fastfood.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/japanese.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/burger.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/vegan.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/sushi.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/asian.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/wings.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/streetfood.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/coffeeandtea.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/fastfood.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/italian.png'/>
+            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/dessert.png'/>
           </div>
         </div>
     </div>
