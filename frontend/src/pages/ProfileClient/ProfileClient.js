@@ -20,6 +20,7 @@ function ProfileClient({user}) {
   const [email, setEmail] = useState(user.user.email);
   const [photo, setPhoto] = useState(user.user.url);
   const [phone, setPhone] = useState(user.user.phone);
+  const [address, setAddress] = useState(user.user.street);
   const [invitationCode, setInvitationCode] = useState(userDefaultInfo.codigoinvitacion);
   const [showToast, setShowToast] = useState(false);
   const [showToastFail, setShowToastFail] = useState(false);
