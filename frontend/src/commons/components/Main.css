@@ -31,6 +31,21 @@
 	 margin: 0;
 
 }
+.buttonClass{
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	background-color: #cac7c7;
+	box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+.buttonClass:hover{
+	background-color: rgba(255, 0, 0, 0.61);
+}
+
+.heart {
+	font-size: 25px;
+	  color:red;
+  }
  header h1 {
 	 font-weight: 600;
 	 font-family: "Uber Move Text";
@@ -357,7 +372,7 @@
 	 align-items: center;
 	 font-family: "Uber Move Text";
 	 border-bottom: 1px solid #ddd;
-	 padding: 1rem 0;
+	 padding: 0;
 }
  .listings .listings-grid .listings-grid-element .text h3 {
 	 font-weight: 400;
@@ -372,7 +387,7 @@
 }
  .listings .listings-grid .listings-grid-element .text .rating {
 	 margin: auto 0 auto auto;
-	 height: 100%;
+	 height: 60%;
 }
  .listings .listings-grid .listings-grid-element .text .rating span {
 	 height: 40px;

@@ -33,13 +33,13 @@ const listaprops = [{
   return (
     <body2>
         <section className="login">
-        <div className="listings">
-            <div className="container3">
-                <div className="listings-grid">
-                    <div className="listings-col"> {listaprops.map( (restaurante) =><RestPreviewMin Image={restaurante.Image} name={restaurante.name} price={restaurante.price} />)} </div>
+            <div className="listings">
+                <div className="container3">
+                    <div className="listings-grid">
+                        <div className="listings-col"> {listaprops.map( (restaurante) =><RestPreviewMin Image={restaurante.Image} name={restaurante.name} price={restaurante.price} />)} </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </section>
     </body2>
     );
