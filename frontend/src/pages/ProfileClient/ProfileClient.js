@@ -43,6 +43,14 @@ function ProfileClient({user}) {
   function SaveChanges () {
     if (validateEmail(email)) {
       setShowToast(true);
+      var userInfoToPut = {
+          "email": email,
+          "name": name,
+          "CIF": user.user.CIF,
+          "street": address,
+          "phone": user.user.phone,
+          "tipo": user.user.tipo,
+      }
     }
     else {
       setShowToastFail(true);
