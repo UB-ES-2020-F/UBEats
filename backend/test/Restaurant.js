@@ -28,10 +28,25 @@ describe('Restaurants', () => {
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailUser = insertedRest.rows[0].email
       //console.log(emailUser)
+
+      var query2 = "INSERT INTO users VALUES ('rst2@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
+      await pool.query(query2)
+      var insertedRest2 = await pool.query("INSERT INTO restaurants VALUES ('rst2@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst2.com/allergens.pdf') RETURNING *")
+      emailUser2 = insertedRest2.rows[0].email
+      //console.log(emailUser2)
+
+      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano','comida vegetariana que por tanto incluye huevo y queso'),(DEFAULT,'vegano','comida mas restrictiva, no hay nada de origen animal') RETURNING *")
+      tid1 = types.rows[0].type_id
+      tid2 = types.rows[1].type_id
+      var query2 = `INSERT INTO type_restaurants VALUES (${tid1},'rst@gmail.com'),(${tid2},'rst@gmail.com'),(${tid1},'rst2@gmail.com'),(${tid2},'rst2@gmail.com') RETURNING *`
+      await pool.query(query2)
     })
     afterEach( async () => {
-      var query = "DELETE FROM users WHERE email = 'rst@gmail.com'"
+      var query = "DELETE FROM users WHERE email = 'rst@gmail.com' OR email = 'rst2@gmail.com'"
       var deletedRest = await pool.query(query)
+
+      var query2 = `DELETE FROM types WHERE type_id=${tid1} OR type_id=${tid2}`
+      await pool.query(query2)
     })
 
     it('Get all existing restaurants. Should return 200', (done) => {
@@ -58,10 +73,19 @@ describe('Restaurants', () => {
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
       emailUser = insertedRest.rows[0].email
       //console.log(emailUser)
+
+      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano','comida vegetariana que por tanto incluye huevo y queso'),(DEFAULT,'vegano','comida mas restrictiva, no hay nada de origen animal') RETURNING *")
+      tid1 = types.rows[0].type_id
+      tid2 = types.rows[1].type_id
+      var query2 = `INSERT INTO type_restaurants VALUES (${tid1},'rst@gmail.com'),(${tid2},'rst@gmail.com') RETURNING *`
+      await pool.query(query2)
     })
     afterEach( async () => {
       var query = "DELETE FROM users WHERE email = 'rst@gmail.com'"
-      var deletedRest = await pool.query(query)
+      await pool.query(query)
+
+      var query2 = `DELETE FROM types WHERE type_id=${tid1} OR type_id=${tid2}`
+      await pool.query(query2)
     })
 
     it('Get a restaurant by email. All OK. Should return 200', (done) => {
@@ -85,6 +109,8 @@ describe('Restaurants', () => {
           res.body.restaurant.should.have.property('visible');
           res.body.restaurant.should.have.property('iban');
           res.body.restaurant.should.have.property('allergens');
+          res.body.restaurant.should.have.property('types');
+          res.body.restaurant.types.should.be.an('array').to.have.lengthOf.above(0);
           done();
         });
     });
@@ -276,6 +302,14 @@ describe('Restaurants', () => {
           res.body.should.have.property('menu');
           //console.log(res.body.menu)
           res.body.menu.should.be.an('array').to.have.lengthOf.above(0);
+          res.body.menu[0].should.have.property('item_id')
+          res.body.menu[0].should.have.property('title')
+          res.body.menu[0].should.have.property('desc')
+          res.body.menu[0].should.have.property('price')
+          res.body.menu[0].should.have.property('cat_id')
+          res.body.menu[0].should.have.property('category')
+          res.body.menu[0].should.have.property('types')
+          res.body.menu[0].types.should.be.an('array').to.have.lengthOf.above(0);
           done();
         });
     });
@@ -284,55 +318,6 @@ describe('Restaurants', () => {
 
       chai.request(app)
         .get('/api/restaurants/menu/'.concat(emailRest).concat('x'))
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .end((err, res) => {
-          res.should.have.status(404);
-          res.body.should.have.property('message');
-          done();
-        });
-    });
-  })
-
-  // TEST THE GET TYPES OF RESTAURANT
-  describe('GET /api/restaurants/types', () => {
-    var tid1;
-    var tid2;
-
-    beforeEach( async () => {
-      await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *")
-      var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
-      emailRest = insertedRest.rows[0].email
-
-      var types = await pool.query("INSERT INTO types VALUES (DEFAULT,'vegetariano','comida vegetariana que por tanto incluye huevo y queso'),(DEFAULT,'vegano','comida mas restrictiva, no hay nada de origen animal') RETURNING *")
-      tid1 = types.rows[0].type_id
-      tid2 = types.rows[1].type_id
-      var query = `INSERT INTO type_restaurants VALUES (${tid1},'rst@gmail.com'),(${tid2},'rst@gmail.com') RETURNING *`
-      await pool.query(query)
-    })
-    afterEach( async () => {
-      await pool.query("DELETE FROM users WHERE email = 'rst@gmail.com'")
-      var query2 = `DELETE FROM types WHERE type_id=${tid1} OR type_id=${tid2}`
-      await pool.query(query2)
-    })
-
-    it('Types of a restaurant. All OK. Should return 200', (done) => {
-
-      chai.request(app)
-        .get('/api/restaurants/types/'.concat(emailRest))
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.have.property('types');
-          //console.log(res.body.types)
-          res.body.types.should.be.an('array').to.have.lengthOf.above(0);
-          done();
-        });
-    });
-
-    it('Types of a restaurant. Invalid email. Should return 404', (done) => {
-
-      chai.request(app)
-        .get('/api/restaurants/types/'.concat(emailRest).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
           res.should.have.status(404);
