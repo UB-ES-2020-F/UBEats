@@ -255,21 +255,6 @@
 ``` 
 ---
 ---
-### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/types/:email&color=000000)   
-#### *Query*
- `email` corresponding to the email of the restaurant, matched in database
-
- #### Response  
-```
-{
-  types: [
-    { name: 'vegetariano prueba1', description: 'comida eco' },
-    { name: 'vegetariano prueba2', description: 'comida eco' }
-  ]
-}
-``` 
----
----
 ### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/types&color=000000)  
 
  #### Response
