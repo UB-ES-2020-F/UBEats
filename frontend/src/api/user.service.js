@@ -22,15 +22,18 @@ const getAdminBoard = () => {
 };
 
 
-const setUserInfo = (email, name, cif, street, phone, tipo) => {
+const setUserInfo = (email, name, street, tipo) => {
+    console.log("Dentro de la funcion");
+    console.log(street);
     axios.put(API_URL + email, { 
-      "email": email,
-      "name": name,
-      "CIF": cif,
-      "street": street,
-      "phone": phone,
-      "tipo": tipo, 
-    });
+      name : "name",
+      type : tipo,
+      card : "1111",
+      street: "street",
+    }).then((response) => {
+      console.log("PUT con exito");
+      console.log(response.data);
+    }).catch((err)=> {console.log(err)});
 };
 
 

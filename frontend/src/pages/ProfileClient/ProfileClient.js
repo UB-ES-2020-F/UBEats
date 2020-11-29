@@ -35,15 +35,14 @@ function ProfileClient({user}) {
     return re.test(validate_email);
   }
 
-  const sendInfoToDataBase = async () => {
+  const sendInfoToDataBase = async (email, name, address, tipo) => {
     const updatedUserInfo =  await userService.setUserInfo(
-      email.value, 
-      name.value, 
-      user.user.CIF.value,
-      address.value,
-      user.user.phone.value,
-      user.user.tipo.value,
+      email, 
+      name, 
+      address,
+      tipo,
       );
+      console.log("updatedUserInfo: " + updatedUserInfo);
   };
 
   
@@ -55,15 +54,15 @@ function ProfileClient({user}) {
   function SaveChanges () {
     if (validateEmail(email)) {
       setShowToast(true);
-      var userInfoToPut = {
-          "email": email,
-          "name": name,
-          "CIF": user.user.CIF,
-          "street": address,
-          "phone": user.user.phone,
-          "tipo": user.user.tipo,
-      }
-      sendInfoToDataBase();
+      console.log(address);
+      console.log(userAddress);
+      var userAddress = address;
+      sendInfoToDataBase(
+        email,
+        name,
+        "userAddress",
+        user.user.tipo
+      );
     }
     else {
       setShowToastFail(true);
