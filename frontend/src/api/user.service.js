@@ -21,28 +21,25 @@ const getAdminBoard = () => {
   return axios.get(API_URL + "admin", { headers: authHeader() });
 };
 
-{/** 
+
 const setUserInfo = (email, name, cif, street, phone, tipo) => {
-  return axios.put(API_URL + "register", {
-    name,
-    email,
-    password,
-    type
-  }, {"Access-Control-Allow-Origin" : API_URL}).then((response) => {
-    if (response.data.accessToken) {
-      logout();
-      localStorage.setItem("user", JSON.stringify(response.data));
-      console.log("Info recieved, now in the store");
-    }
-    return response.data;
-  });
+    axios.put(API_URL + email, { 
+      "email": email,
+      "name": name,
+      "CIF": cif,
+      "street": street,
+      "phone": phone,
+      "tipo": tipo, 
+    });
 };
 
-*/}
+
+
 
 export default {
   getPublicContent,
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
+  setUserInfo,
 };

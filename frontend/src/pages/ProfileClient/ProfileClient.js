@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../commons/components/App.css';
 
 import { Button, Image, Row, Container, Col, Toast } from 'react-bootstrap';
@@ -34,6 +34,18 @@ function ProfileClient({user}) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(validate_email);
   }
+
+  const sendInfoToDataBase = async () => {
+    const updatedUserInfo =  await userService.setUserInfo(
+      email.value, 
+      name.value, 
+      user.user.CIF.value,
+      address.value,
+      user.user.phone.value,
+      user.user.tipo.value,
+      );
+  };
+
   
   /**
    * Function triggered by the "Save Changes" button.
@@ -51,6 +63,7 @@ function ProfileClient({user}) {
           "phone": user.user.phone,
           "tipo": user.user.tipo,
       }
+      sendInfoToDataBase();
     }
     else {
       setShowToastFail(true);
@@ -59,7 +72,6 @@ function ProfileClient({user}) {
 
   return (
     <section className="profileClient">
-      {console.log(user)}
       <Container className="profileContainer">
 
         {/** 
@@ -148,7 +160,7 @@ function ProfileClient({user}) {
          */}
         <Row>
           <Toast onClose={() => setShowToastFail(false)} show={showToastFail} delay={3000} autohide>
-            <Toast.Body>Enter a valid email</Toast.Body>
+            <Toast.Body>Please enter a valid address and email</Toast.Body>
           </Toast>
         </Row>
         <Row>
