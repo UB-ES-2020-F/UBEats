@@ -23,6 +23,8 @@ back_tests() {
 linting() {
 	cd "backend" || return 127
 
+	echo "[LOG] Linting"
+
 	npx eslint ./
 
 	cd ..
@@ -40,15 +42,13 @@ profiling() {
 	ps aux | grep ${APP_PID}
 	ps aux | grep node
 	sudo netstat -lntu --program
-	sudo lsof -i -P | grep ${APP_PID}
 
 	echo "[LOG] Profiling"
 
-	sudo curl -vX GET "http://localhost:${PORT}/api/qwertyuiop/users"
-	sudo curl -vX GET "http://localhost:${PORT}/api/items"
-
-	sudo curl -vX GET "https://localhost:${PORT}/api/qwertyuiop/users"
-	sudo curl -vX GET "https://localhost:${PORT}/api/items"
+	curl -vX GET "http://localhost:${PORT}/api/qwertyuiop/users"
+	curl -vX GET "http://localhost:${PORT}/api/items"
+	curl -vX GET "https://localhost:${PORT}/api/qwertyuiop/users"
+	curl -vX GET "https://localhost:${PORT}/api/items"
 	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/qwertyuiop/users" | grep -A11 'Concurrency Level')
 	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/items" | grep -A11 'Concurrency Level')
 
