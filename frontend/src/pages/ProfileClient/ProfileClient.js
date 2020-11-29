@@ -35,10 +35,13 @@ function ProfileClient({user}) {
     return re.test(validate_email);
   }
 
-  const sendInfoToDataBase = async (email, name, address, tipo) => {
+  {/**
+    Sends the user info to the database. Called by SaveChanges().
+   */}
+
+  const sendInfoToDataBase = async (email, address, tipo) => {
     const updatedUserInfo =  await userService.setUserInfo(
       email, 
-      name, 
       address,
       tipo,
       );
@@ -55,11 +58,9 @@ function ProfileClient({user}) {
     if (validateEmail(email)) {
       setShowToast(true);
       console.log(address);
-      console.log(userAddress);
-      var userAddress = address;
+      console.log(user.user.tipo);
       sendInfoToDataBase(
         email,
-        name,
         "userAddress",
         user.user.tipo
       );
