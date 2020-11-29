@@ -30,16 +30,16 @@ profiling() {
 
 	echo "[LOG] Profiling"
 
-	curl -X GET "http://localhost:3000/api/qwertyuiop/users"
-	curl -X GET "http://localhost:3000/api/items"
-	echo $(ab -k -c 20 -n 20 "http://localhost:3000/api/qwertyuiop/users" | grep -A11 'Concurrency Level')
-	echo $(ab -k -c 20 -n 20 "http://localhost:3000/api/items" | grep -A11 'Concurrency Level')
+	curl -X GET "http://localhost:${PORT}/api/qwertyuiop/users"
+	curl -X GET "http://localhost:${PORT}/api/items"
+	echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/qwertyuiop/users" | grep -A11 'Concurrency Level')
+	echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/items" | grep -A11 'Concurrency Level')
 
 	#Kill the node process once all checks have been done
 	kill ${APP_PID}
 
 	#Read the profile results and export them to text format
-	node --prof-proces isolate-0x*-v8.log > profiling.log
+	node --prof-process isolate-0x*-v8.log > profiling.log
 
 	#Grep the summary
 	echo $(grep -A5 '[Summary]' profiling.log)
