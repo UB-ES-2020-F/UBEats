@@ -41,7 +41,7 @@ The purpose of this project is focused on learning, in this particular project t
 * [Chai](https://www.chaijs.com/): BDD/TDD assertion library for node for javascript testing framework.
 * [Mocha](https://mochajs.org/): JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun.
 
-### Code analysis
+### Code analysis tools
 * [ESLint](https://eslint.org/): Linter for javascript.
 * [NodeJS built-in profiler](https://nodejs.org/en/docs/guides/simple-profiling/): V8 profiling engine built-in nodejs.
 
