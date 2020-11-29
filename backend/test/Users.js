@@ -290,3 +290,104 @@ describe('Users', () => {
         });
 });
 });
+
+  // Test /PUT users
+  describe('UPDATE /api/user', () => {
+
+  beforeEach( async () => {
+    var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
+    await pool.query(query)
+    var insCustomer = await pool.query("INSERT INTO customers VALUES ('rst@gmail.com','45645645645645645645645') RETURNING *")
+    emailUser = insCustomer.rows[0].email
+    //console.log(emailUser)
+  })
+  afterEach( async () => {
+    var query = "DELETE FROM users WHERE email = 'rst@gmail.com'"
+    var deletedRest = await pool.query(query)
+  })
+
+  it('Update a user customer. All OK. Should return 200', (done) => {
+
+    let user = {
+      card: '12312312312312312312312',
+      name : 'Andres',
+      type : 'customer'
+    }
+
+    chai.request(app)
+      .put('/api/user/'.concat(emailUser))
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('user')
+        res.body.user.should.have.property('specifics')
+        res.body.user.should.have.property('name')
+        res.body.user.specifics.should.have.property('card')
+        res.body.user.name.should.equal('Andres')
+        res.body.user.specifics.card.should.equal('12312312312312312312312')
+        done();
+      });
+  });
+  it('Update a user customer. Only customer user are updated. All OK. Should return 200', (done) => {
+
+    let user = {
+      name: 'Juan Andres',
+      type : 'customer'
+    }
+
+    chai.request(app)
+      .put('/api/user/'.concat(emailUser))
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('user')
+        res.body.user.should.have.property('name')
+        res.body.user.name.should.equal('Juan Andres')
+        done();
+      });
+  });
+  it('Update a user customer. Only customer columns are updated. All OK. Should return 200', (done) => {
+
+    let user = {
+      card: '12312312312312312312312',
+      type : 'customer'
+    }
+
+    chai.request(app)
+      .put('/api/user/'.concat(emailUser))
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('user')
+        res.body.user.should.have.property('specifics')
+        res.body.user.specifics.should.have.property('card')
+        res.body.user.specifics.card.should.equal('12312312312312312312312')
+        done();
+      });
+  });
+
+  it('Update a user customer. A restaurant does not have a CARD!. Should return 403', (done) => {
+
+    let user = {
+      card: '12312312312312312312312',
+      name : 'Andres',
+      type : 'restaurant'
+    }
+
+    chai.request(app)
+      .put('/api/user/'.concat(emailUser))
+      .set('content-type', 'application/x-www-form-urlencoded')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(403);
+        res.body.should.have.property('message')
+        res.body.message.should.be.eql("Some fields does not match any column.")
+        done();
+      });
+  });
+
+  
+})

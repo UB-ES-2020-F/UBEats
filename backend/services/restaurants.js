@@ -1,6 +1,7 @@
 // Service module to retrieve data from Scheme Users 
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
+const {_createUpdateDynamicQuery} = require('../helpers/helpers')
 
 
 /**
@@ -38,15 +39,14 @@ async function getRestaurantByID(email){
 function updateRestaurant(email, values)
 {
         const check = _checkRestaurantUpdateParameters(values)
-        //console.log(check)
+
         if(check.err)
                 return {error: check.err, errCode: 403}
-
-        const query = _createUpdateDynamicQueryRestaurant(values)
-        if(query.error)
+        
+        const query = _createUpdateDynamicQuery(values,'restaurants', 'email') // Update table restaurants via email.
+        if(query.error){
                 return {error: query.error, errCode: 403}
-
-        //console.log(query)
+        }
 
         return pool.query(query)
                 .then((res) => {
@@ -89,47 +89,6 @@ function _checkRestaurantUpdateParameters(params)
                 return {err: err_str}
 
         return {all_good: true}
-}
-
-/**
- * Auxiliary function that builds a dynamic query
- * for SQL with the key:values of an object
- * body is expected to have more than 0 key:value pairs
- */
-function _createUpdateDynamicQueryRestaurant(body)
-{
-        //console.log(body)
-        const {email} = body
-        delete body.email
-
-        var body_size = Object.keys(body).length;
-        if(body_size == 0)
-                return {"error": "body is empty"}
-
-        var counter = 0;
-
-        var dynamicQuery = 'UPDATE restaurants SET'
-        for(const key in body)
-        {
-                //console.log(key)
-                dynamicQuery = dynamicQuery.concat(` "${key}" = `)
-                //if value is string, add a '
-                if(typeof body[key] == "string")
-                        dynamicQuery = dynamicQuery.concat('\'')
-                dynamicQuery = dynamicQuery.concat(`${body[key]}`)
-                //if value is string, add a '
-                if(typeof body[key] == "string")
-                        dynamicQuery = dynamicQuery.concat('\'')
-
-                //if keys is not the last, add a comma separator
-                if(body_size > 1 && ++counter < body_size)
-                        dynamicQuery = dynamicQuery.concat(",")
-        }
-        dynamicQuery = dynamicQuery.concat(` WHERE email = '${email}' RETURNING *`)
-
-        //console.log(dynamicQuery)
-
-        return dynamicQuery
 }
 
 /**

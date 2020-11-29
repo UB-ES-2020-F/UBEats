@@ -12,6 +12,10 @@ const router = express.Router()
 router.post('/login',Users.login)
 router.post('/register',Users.register)
 
+//Users
+
+router.put('/user/:email', Users.updateUser)
+
 //Customer
 router.delete('customer/delete',Users.deleteUser)
 
