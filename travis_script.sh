@@ -30,11 +30,11 @@ profiling() {
 
 	echo "[LOG] Profiling"
 
-	curl -vX GET "http://localhost:${PORT}/api/qwertyuiop/users"
-	curl -vX GET "http://localhost:${PORT}/api/items"
+	sudo curl -vX GET "http://localhost:${PORT}/api/qwertyuiop/users"
+	sudo curl -vX GET "http://localhost:${PORT}/api/items"
 
-	curl -vX GET "https://localhost:${PORT}/api/qwertyuiop/users"
-	curl -vX GET "https://localhost:${PORT}/api/items"
+	sudo curl -vX GET "https://localhost:${PORT}/api/qwertyuiop/users"
+	sudo curl -vX GET "https://localhost:${PORT}/api/items"
 	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/qwertyuiop/users" | grep -A11 'Concurrency Level')
 	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/items" | grep -A11 'Concurrency Level')
 
