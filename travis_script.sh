@@ -32,8 +32,8 @@ profiling() {
 
 	curl -X GET "http://localhost:${PORT}/api/qwertyuiop/users"
 	curl -X GET "http://localhost:${PORT}/api/items"
-	echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/qwertyuiop/users" | grep -A11 'Concurrency Level')
-	echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/items" | grep -A11 'Concurrency Level')
+	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/qwertyuiop/users" | grep -A11 'Concurrency Level')
+	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/items" | grep -A11 'Concurrency Level')
 
 	#Kill the node process once all checks have been done
 	kill ${APP_PID}
@@ -42,7 +42,8 @@ profiling() {
 	node --prof-process isolate-0x*-v8.log > profiling.log
 
 	#Grep the summary
-	echo $(grep -A5 '[Summary]' profiling.log)
+	#echo $(grep -A6 Summary profiling.log)
+	grep -A6 Summary profiling.log
 
 	#Clean up
 	rm isolate-0x*-v8.log profiling.log
