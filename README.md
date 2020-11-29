@@ -77,10 +77,15 @@ and that you have a properly configured .env file in your backend folder.
 
 `
 PORT=3000
+
 DB_USER=${your postgresql user}
+
 DB_PWD=${your postgresql password}
+
 DB_HOST="localhost"
+
 DB_DATABASE="ubereats"
+
 DB_PORT=5432
 `
 
