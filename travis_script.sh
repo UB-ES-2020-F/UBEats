@@ -32,6 +32,7 @@ profiling() {
 	ps aux | grep ${APP_PID}
 	ps aux | grep node
 	sudo netstat -lntu --program
+	sudo lsof -i -P | grep ${APP_PID}
 
 	echo "[LOG] Profiling"
 
