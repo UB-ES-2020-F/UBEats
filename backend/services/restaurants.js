@@ -9,9 +9,46 @@ const {_createUpdateDynamicQuery} = require('../helpers/helpers')
  */
 function getAllRestaurants()
 {
-        return pool.query('SELECT users.email,name,"CIF",street,phone,url,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=restaurants.email')
+        return pool.query('SELECT users.email,users.name,"CIF" AS cif,street,pass,phone,tipo,url,avaliability,visible,iban,allergens,types.type_id,types.name AS type_name,description FROM users,restaurants,type_restaurants,types WHERE users.email=restaurants.email AND restaurants.email=type_restaurants.rest_id AND type_restaurants.type_id=types.type_id ORDER BY email')
                 .then(res => {
-                        return res.rows
+                        //check at least one row
+                        if(!res.rows[0]) return null
+
+                        var resSpecificRows = []
+                        var email_prev = ""
+                        res.rows.forEach(row => {
+                        if(row.email != email_prev){
+                                resSpecificRows.push(
+                                {
+                                        email: row.email,
+                                        name: row.name,
+                                        CIF: row.cif,
+                                        street: row.street,
+                                        pass: row.pass,
+                                        phone: row.phone,
+                                        tipo: row.tipo,
+                                        url: row.url,
+                                        avaliability: row.avaliability,
+                                        visible: row.visible,
+                                        iban: row.iban,
+                                        allergens: row.allergens,
+                                        types: [{
+                                                type_id : row.type_id,
+                                                name : row.type_name,
+                                                description : row.description
+                                        }]
+                                })
+                                email_prev = row.email
+                        } else{
+                                resSpecificRows[resSpecificRows.length -1].types.push({
+                                        type_id : row.type_id,
+                                        name : row.type_name,
+                                        description : row.description
+                                })
+                        }
+                        })
+                        //console.log(resSpecificRows)
+                        return resSpecificRows
                 })
                 .catch(err => {
                         return {error: err}
@@ -23,10 +60,39 @@ function getAllRestaurants()
  * 
  */
 async function getRestaurantByID(email){
-    return pool.query('SELECT users.email,name,"CIF",street,pass,phone,tipo,url,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=$1 AND users.email=restaurants.email',[email])
+    return pool.query('SELECT users.email,users.name,"CIF" AS cif,street,pass,phone,tipo,url,avaliability,visible,iban,allergens,types.type_id,types.name AS type_name,description FROM users,restaurants,type_restaurants,types WHERE users.email=$1 AND users.email=restaurants.email AND restaurants.email=type_restaurants.rest_id AND type_restaurants.type_id=types.type_id',[email])
         .then(res => {
-                // should ONLY be one match
-                return res.rows[0] || null
+                //Check at least one row
+                if(!res.rows[0]) return null
+
+                //console.log(res.rows)
+                var restaurant = {
+                        email: res.rows[0].email,
+                        name: res.rows[0].name,
+                        CIF: res.rows[0].cif,
+                        street: res.rows[0].street,
+                        pass: res.rows[0].pass,
+                        phone: res.rows[0].phone,
+                        tipo: res.rows[0].tipo,
+                        url: res.rows[0].url,
+                        avaliability: res.rows[0].avaliability,
+                        visible: res.rows[0].visible,
+                        iban: res.rows[0].iban,
+                        allergens: res.rows[0].allergens,
+                        types: []
+
+                }
+
+                res.rows.forEach(row => {
+                        restaurant.types.push(
+                            {
+                                type_id : row.type_id,
+                                name : row.type_name,
+                                description : row.description
+                            })
+                        })
+                //console.log(restaurant)
+                return restaurant
         })
         .catch(err => {
                 return {error: err}
@@ -106,19 +172,6 @@ async function getFeedback(email){
 }
 
 /**
- * Method that gets the types of a restaurant from the DB
- * 
- */
-async function getTypes(email){
-    
-    return pool.query('SELECT name,description FROM types,type_restaurants WHERE rest_id = $1 AND types.type_id=type_restaurants.type_id',[email])
-    .then(res =>{
-        return res.rows
-    })
-    .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
-}
-
-/**
  * Method that gets the menu: all the items and their types(repeated columns if they have more than one) from a restaurant from the DB
  * 
  */
@@ -128,6 +181,10 @@ async function getMenu(email){
     
     return pool.query(query)
     .then(res =>{
+
+        //check at least one row
+        if(!res.rows[0]) return null
+
         var resSpecificRows = []
         var id_prev = -1
         res.rows.forEach(item => {
@@ -181,4 +238,4 @@ async function insertType(values){
         .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
 
-module.exports = {getAllRestaurants, getRestaurantByID, updateRestaurant, getFeedback, getTypes, getMenu, deleteType, insertType }
+module.exports = {getAllRestaurants, getRestaurantByID, updateRestaurant, getFeedback, getMenu, deleteType, insertType }
