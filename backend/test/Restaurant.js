@@ -17,8 +17,6 @@ let should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe('Restaurants', () => {
-
-
   // TEST THE GET ALL ENDPOINT
   describe('/GET RESTAURANTS', () => {
 
@@ -39,6 +37,7 @@ describe('Restaurants', () => {
         .get('/api/restaurants')
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
+          console.log(res.body);
             res.should.have.status(200);
             res.body.should.have.property('rest');
             //console.log(res.body.rest)
@@ -47,6 +46,55 @@ describe('Restaurants', () => {
           });
 
     });
+  });
+
+// TEST THE GET ALL BY USER ENDPOINT
+  describe('/GET RESTAURANTS by user', () => {
+
+    beforeEach( async () => {
+      var queryRestaurants = "INSERT INTO users VALUES ('firstrestaurant@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), ('secondrestaurant@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'),('thirdrestaurant@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), RETURNING *"
+      var queryCustomers = "INSERT INTO users VALUES ('firstcustomer@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), ('secondcustomer@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'),('thirdcustomer@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), RETURNING *"
+      await pool.query(query)
+      var insertedRest = await pool.query("INSERT INTO favourites VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
+      emailUser = insertedRest.rows[0].email
+      //console.log(emailUser)
+    })
+    afterEach( async () => {
+      var query = "DELETE FROM users WHERE email = 'firstrestaurant@gmail.com' or email = 'secondrestaurant@gmail.com' or email = 'thirdrestaurant@gmail.com'"
+      var query = "DELETE FROM users WHERE email = 'firstcustomer@gmail.com' or email = 'secondcustomer@gmail.com' or email = 'thirdcustomer@gmail.com'"
+      var deletedRest = await pool.query(query)
+    })
+
+
+    it('Get all existing restaurants by user. Should return 200', (done) => {
+      chai.request(app)
+        .get('/api/restaurants')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('rest');
+            //console.log(res.body.rest)
+            res.body.rest.should.be.an('array').to.have.lengthOf.above(0);
+            done();
+          });
+
+    });
+
+    it('Get all existing restaurants by user.Gets error as email is not specified Should return 403', (done) => {
+      
+      chai.request(app)
+        .get('/api/restaurants/user/')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('rest');
+            //console.log(res.body.rest)
+            res.body.rest.should.be.an('array').to.have.lengthOf.above(0);
+            done();
+          });
+
+    });
+
   });
 
   // TEST READ AN EXISTING RESTAURANT BY EMAIL

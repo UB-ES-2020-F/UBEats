@@ -12,7 +12,47 @@ async function getAll(req, res){
     const rest = await restaurants.getAllRestaurants()
     //console.log(rest)
     if(rest.error)
-        return res.status(404).send({"message": "could not retrieve restaurants", "error": rest.error})
+        return res.status(404).send({"message": "Could not retrieve restaurants", "error": rest.error})
+
+    //console.log(rest)
+
+    return res.status(200).send({rest})
+}
+
+/**
+ * Method called to get all the restaurants from the DDBB using a userId
+ * @param {} req  params : email of a user
+ * @param {*} res 
+ */
+async function getAllByUser(req, res){
+    
+    const {email} = req.params
+    if (!email)
+        return res.status(403).send({message : "e-mail not specified"})
+    const rest = await restaurants.getAllRestaurantsByUser(email)
+
+    if(rest.error)
+        return res.status(404).send({"message": "Could not retrieve restaurants", "error": rest.error})
+
+    //console.log(rest)
+
+    return res.status(200).send({rest})
+}
+
+/**
+ * Method called to get all the restaurants from the DDBB using a userId
+ * @param {} req params : type_id 
+ * @param {*} res 
+ */
+async function getAllByType(req, res){
+    
+    const {type_id} = req.params
+    if (!type_id)
+        return res.status(403).send({message : "Type not specified"})
+    const rest = await restaurants.getAllRestaurantsByType(type_id)
+
+    if(rest.error)
+        return res.status(404).send({"message": "Could not retrieve restaurants", "error": rest.error})
 
     //console.log(rest)
 
@@ -28,13 +68,13 @@ async function get(req, res){
     const {params} = req
     //check if the request has the email
     if(!(params.email))
-        return res.status(403).send({"message": "e-Mail not specified"})
+        return res.status(403).send({"message": "e-mail not specified"})
     
     const restaurant = await restaurants.getRestaurantByID(params.email)
     //console.log(restaurant)
     //check for error retreiving from DDBB
     if(!restaurant)
-        return res.status(404).send({"message": `restaurant with e-Mail ${params.email} not found`})
+        return res.status(404).send({"message": `Restaurant with e-mail ${params.email} not found`})
 
     return res.status(200).send({restaurant})
 }
@@ -49,7 +89,7 @@ async function update(req, res)
     const {body} = req
     //check if the request has the email
     if(!(params.email))
-        return res.status(403).send({"message": "restaurant ID (e-Mail) not specified"})
+        return res.status(403).send({"message": "Restaurant ID (e-mail) not specified"})
 
     const email = params.email
     // the services restaurants.js functions works with the assumption
@@ -76,7 +116,7 @@ async function getFeedback(req, res){
     const {params} = req
     //check if the request has the email
     if(!(params.email))
-        return res.status(403).send({"message": "e-Mail not specified"})
+        return res.status(403).send({"message": "e-mail not specified"})
 
     const feedback = await restaurants.getFeedback(params.email) 
 
@@ -98,7 +138,7 @@ async function getTypes(req, res){
     const {params} = req
     //check if the request has the email
     if(!(params.email))
-        return res.status(403).send({"message": "e-Mail not specified"})
+        return res.status(403).send({"message": "e-mail not specified"})
  
     const types = await restaurants.getTypes(params.email) 
     
@@ -112,6 +152,21 @@ async function getTypes(req, res){
 }
 
 /**
+ * Method called to get all the types associated with the restaurants
+ * @param {} req 
+ * @param {*} res 
+ */
+async function getAllTypes(req, res){
+    const types = await restaurants.getAllTypes() 
+    
+    //check for error retreiving from DDBB
+    if(types.error)
+        return res.status(types.error).send({"message": types.error})
+
+    return res.status(200).send(types)
+}
+
+/**
  * Method called to get the menu: all the items and their types(repeated columns if they have more than one) from a restaurant
  * @param {} req 
  * @param {*} res 
@@ -120,7 +175,7 @@ async function getMenu(req, res){
     const {params} = req
     //check if the request has the email
     if(!(params.email))
-        return res.status(403).send({"message": "e-Mail not specified"})
+        return res.status(403).send({"message": "e-mail not specified"})
 
     const menu = await restaurants.getMenu(params.email) 
 
@@ -180,4 +235,30 @@ async function insertType(req, res){
     return res.status(200).send({insType})
 }
 
-module.exports = { getAll, get, update, getFeedback, getTypes, getMenu, deleteType, insertType }
+
+
+/**
+ * Function that modifies the values of an existing restaurant from the database
+ * The restaurant selection its done by email
+ */
+async function setFavourite(req, res)
+{
+    const {email_restaurant, email_user} = req.params
+    
+    //check if the request has the both emails : customer and restaurant
+    if(!email_restaurant)
+        return res.status(403).send({"message": "Restaurant e-mail not specified"})
+
+    if(!email_user)
+        return res.status(403).send({"message": "Customer e-mail not specified"})
+
+    const restaurant = await restaurants.upsertFavourite(email_restaurant, email_user)
+
+    // In case any error has occurred 
+    if(restaurant && restaurant.errMsg)
+        return res.status(restaurant.errCode).send({errMsg : restaurant.errMsg})
+    
+    return res.status(200).send({favourite : restaurant})
+}
+
+module.exports = { getAll, getAllByUser, getAllByType, get, update, getFeedback, getAllTypes, getTypes, getMenu, deleteType, insertType,setFavourite  }

@@ -6,14 +6,99 @@ const {_createUpdateDynamicQuery} = require('../helpers/helpers')
 
 /**
  * Query for retrieving all the restaurants from the users, restaurants(join) table
+ * This method is used only for non-logged users.
  */
 function getAllRestaurants()
 {
-        return pool.query('SELECT users.email,name,"CIF",street,phone,url,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=restaurants.email')
+        var query = format(`    SELECT
+                                        restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
+                                        users.street, users.phone, users.url, 
+                                        type_restaurants.type_id, "types"."name" as type_name, "types".description as type_desc  
+                                FROM restaurants LEFT JOIN users ON users.email = restaurants.email
+                                
+                                LEFT JOIN type_restaurants ON type_restaurants.rest_id = restaurants.email 
+                                LEFT JOIN "types" ON "types".type_id = type_restaurants.type_id`)
+
+        return pool.query(query)
                 .then(res => {
                         return res.rows
                 })
                 .catch(err => {
+                        return {error: err}
+                })
+}
+
+/**
+ * Query for retrieving all the restaurants from a particular user ( favourites)
+ * This method is used only for logged-in users.
+ */
+function getAllRestaurantsByUser(userId)
+{       
+        var query = format(`    SELECT
+                                        restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
+                                        users.street, users.phone, users.url, 
+                                        type_restaurants.type_id, "types"."name" as type_name, "types".description as type_desc,
+                                        favourites.cust_id as favourite  
+                                FROM restaurants LEFT JOIN users ON users.email = restaurants.email
+
+                                LEFT JOIN type_restaurants ON type_restaurants.rest_id = restaurants.email 
+                                LEFT JOIN "types" ON "types".type_id = type_restaurants.type_id
+                                LEFT JOIN favourites ON favourites.rest_id = restaurants.email and favourites.cust_id = %L`, userId)
+        return pool.query(query)
+                .then(res => {
+                        for (let r_id in res.rows){
+                                //res.rows[r_id].type = {} 
+                                res.rows[r_id].type = {...res.rows[r_id].type,
+                                        id : res.rows[r_id].type_id,
+                                        name : res.rows[r_id].type_name,
+                                        description : res.rows[r_id].type_desc
+                                }
+                                delete res.rows[r_id].type_id
+                                delete res.rows[r_id].type_name
+                                delete res.rows[r_id].type_desc
+                                if (res.rows[r_id].favourite === null) res.rows[r_id].favourite = 0
+                                else res.rows[r_id].favourite = 1
+                        }
+                        return res.rows
+                })
+                .catch(err => {
+                        
+                        return {error: err}
+                })
+}
+
+/**
+ * Query for retrieving all the restaurants from a concrete type ( Example : a sushi , id = 1, restaurants)
+ * This method is general
+ */
+function getAllRestaurantsByType(type_id)
+{       
+        var query = format(`    SELECT
+                                        restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
+                                        users.street, users.phone, users.url, 
+                                        type_restaurants.type_id, "types"."name" as type_name, "types".description as type_desc 
+                                FROM restaurants LEFT JOIN users ON users.email = restaurants.email
+
+                                LEFT JOIN type_restaurants ON type_restaurants.rest_id = restaurants.email 
+                                LEFT JOIN "types" ON "types".type_id = type_restaurants.type_id
+                                WHERE type_restaurants.type_id = %L`, type_id)
+        return pool.query(query)
+                .then(res => {
+                        for (let r_id in res.rows){
+                                //res.rows[r_id].type = {} 
+                                res.rows[r_id].type = {...res.rows[r_id].type,
+                                        id : res.rows[r_id].type_id,
+                                        name : res.rows[r_id].type_name,
+                                        description : res.rows[r_id].type_desc
+                                }
+                                delete res.rows[r_id].type_id
+                                delete res.rows[r_id].type_name
+                                delete res.rows[r_id].type_desc
+                        }
+                        return res.rows
+                })
+                .catch(err => {
+                        
                         return {error: err}
                 })
 }
@@ -119,6 +204,17 @@ async function getTypes(email){
 }
 
 /**
+ * Method that gets the types of a restaurant from the DB
+ * 
+ */
+async function getAllTypes(){
+        return pool.query('SELECT type_id, name as type_name, description as type_desc FROM types')
+        .then(res =>{
+            return res.rows
+        })
+        .catch(err => { return {error: `${err} specific`, errCode : 500}}) 
+    }
+/**
  * Method that gets the menu: all the items and their types(repeated columns if they have more than one) from a restaurant from the DB
  * 
  */
@@ -181,4 +277,54 @@ async function insertType(values){
         .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
 
-module.exports = {getAllRestaurants, getRestaurantByID, updateRestaurant, getFeedback, getTypes, getMenu, deleteType, insertType }
+
+/**
+ * Method that changes the state of favourites from customer and restaurant. 
+ * To do so it would create a new row in case there is not one (state : not favourite --> favourite) 
+ *      if found then it would delete the row ( state : favourite --> not favourite)
+ * @param {*} values contains the email and the id
+ * @returns 
+ */
+async function upsertFavourite(email_restaurant, email_user){
+
+        const rest = await pool.query(format(`SELECT * FROM restaurants WHERE email = %L`,[email_restaurant]))
+        const cust = await pool.query(format(`SELECT * FROM customers WHERE email = %L`,[email_user]))
+        
+        // If restaurant email doesnt match any restaurant
+        if (rest.rows.length === 0) return {errMsg : 'Error : provided restaurant email does not match any restaurants!', errCode : 404}
+
+        // If customer email doesnt match any customer
+        if (cust.rows.length === 0) return {errMsg : 'Error : provided customer email does not match any customers!', errCode : 404}
+
+        // Get if there is a row aka the customer has chosen the restaurant as favourite
+        const queryGet = format('SELECT * FROM favourites WHERE cust_id = %L and rest_id = %L',[email_user], [email_restaurant])
+        const fav = await pool.query(queryGet)
+
+
+        // Not found so it must CREATE it
+        if (fav.rows.length === 0) {
+                const queryCreate= format('INSERT INTO favourites VALUES(%L, %L) RETURNING *',[email_user], [email_restaurant])
+                return pool.query(queryCreate)
+                        .then((res)=>{
+                                console.log('Inserted');
+                                return res.rows
+                        })
+                        .catch((err)=>{
+                                return {errMsg : 'Error has occurred during creating a favourite relation', errCode : 500}
+                        })
+        }
+        // Has been found so it must be deleted
+        else {
+                const queryDelete= format('DELETE FROM favourites WHERE cust_id = %L and rest_id= %L RETURNING *',[email_user], [email_restaurant])
+                return pool.query(queryDelete)
+                        .then((res)=>{
+                                console.log('Deleted');
+                                return res.rows
+                        })
+                        .catch((err)=>{
+                                return {errMsg : 'Error has occurred during deletion of favourite relation', errCode : 500}
+                        })
+        }
+}
+
+module.exports = {getAllRestaurants, getAllRestaurantsByUser, getAllRestaurantsByType, getRestaurantByID, updateRestaurant, getFeedback, getAllTypes, getTypes, getMenu, deleteType, insertType, upsertFavourite }

@@ -295,7 +295,7 @@ describe('Users', () => {
   describe('UPDATE /api/user', () => {
 
   beforeEach( async () => {
-    var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
+    var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','customer','images.com/perfil.jpg') RETURNING *"
     await pool.query(query)
     var insCustomer = await pool.query("INSERT INTO customers VALUES ('rst@gmail.com','45645645645645645645645') RETURNING *")
     emailUser = insCustomer.rows[0].email
