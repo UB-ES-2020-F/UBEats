@@ -20,6 +20,14 @@ back_tests() {
 	return $BACK_TESTS_RESULT
 }
 
+linting() {
+	cd "backend" || return 127
+
+	npx eslint ./
+
+	cd ..
+}
+
 profiling() {
 	cd "backend" || return 127
 
@@ -66,6 +74,7 @@ FRONT_TESTS_RESULT=0
 #front_tests
 back_tests
 # QA tests and performance checks
+linting
 profiling
 
 if [ $FRONT_TESTS_RESULT -eq 0 ] && [ $BACK_TESTS_RESULT -eq 0 ]; then
