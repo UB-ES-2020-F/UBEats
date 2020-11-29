@@ -24,7 +24,7 @@ profiling() {
 	cd "backend" || return 127
 
 	#Start app in background
-	node --prof index.js
+	node --prof index.js &
 	#Save the process id on the background
 	APP_PID=$!
 
