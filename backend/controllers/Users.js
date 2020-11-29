@@ -84,7 +84,7 @@ async function updateUser(req, res){
     const user = await sch_users.updateUser(email, body)
 
     if(!user)
-    return res.status(404).send({"message": `User with email ${body.email} not found`})
+        return res.status(404).send({"message": `User with email ${body.email} not found`})
     if (user.error)
         return res.status(user.errCode).send({"message": user.error})
     return res.status(200).send({user})

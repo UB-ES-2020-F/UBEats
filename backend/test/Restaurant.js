@@ -37,14 +37,12 @@ describe('Restaurants', () => {
         .get('/api/restaurants')
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
-          console.log(res.body);
             res.should.have.status(200);
             res.body.should.have.property('rest');
             //console.log(res.body.rest)
             res.body.rest.should.be.an('array').to.have.lengthOf.above(0);
             done();
           });
-
     });
   });
 
@@ -52,23 +50,30 @@ describe('Restaurants', () => {
   describe('/GET RESTAURANTS by user', () => {
 
     beforeEach( async () => {
-      var queryRestaurants = "INSERT INTO users VALUES ('firstrestaurant@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), ('secondrestaurant@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'),('thirdrestaurant@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), RETURNING *"
-      var queryCustomers = "INSERT INTO users VALUES ('firstcustomer@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), ('secondcustomer@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'),('thirdcustomer@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), RETURNING *"
-      await pool.query(query)
-      var insertedRest = await pool.query("INSERT INTO favourites VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
-      emailUser = insertedRest.rows[0].email
-      //console.log(emailUser)
+      var queryRestaurants = "INSERT INTO users VALUES ('firstrestaurant@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), ('secondrestaurant@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'),('thirdrestaurant@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
+      var queryCustomers = "INSERT INTO users VALUES ('firstcustomer@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'), ('secondcustomer@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg'),('thirdcustomer@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
+      await pool.query(queryRestaurants)
+      await pool.query(queryCustomers)
+
+      // Favourites
+      await pool.query("INSERT INTO favourites VALUES (firstcustomer@gmail.com, firstrestaurant@gmail.com)(firstcustomer@gmail.com, thirdrestaurant@gmail.com)(secondcustomer@gmail.com, firstrestaurant@gmail.com) (thirdcustomer@gmail.com, firstrestaurant@gmail.com),(thirdcustomer@gmail.com, secondrestaurant@gmail.com),(thirdcustomer@gmail.com, thirdrestaurant@gmail.com)")
+
+      var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('firstrestaurant@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf'), ('secondrestaurant@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf'), ('thirdrestaurant@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
+      var insertedCust = await pool.query("INSERT INTO customers VALUES ('firstcustomer@gmail.com','12124545898923231023149'), ('secondcustomer@gmail.com','12124545898923231023149'), ('thirdcustomer@gmail.com','12124545898923231023149') RETURNING *")
+      var emailUser = insertedCust.rows[0].email
+      console.log(emailUser)
     })
     afterEach( async () => {
-      var query = "DELETE FROM users WHERE email = 'firstrestaurant@gmail.com' or email = 'secondrestaurant@gmail.com' or email = 'thirdrestaurant@gmail.com'"
-      var query = "DELETE FROM users WHERE email = 'firstcustomer@gmail.com' or email = 'secondcustomer@gmail.com' or email = 'thirdcustomer@gmail.com'"
-      var deletedRest = await pool.query(query)
+      var queryRest = "DELETE FROM users WHERE email = 'firstrestaurant@gmail.com' or email = 'secondrestaurant@gmail.com' or email = 'thirdrestaurant@gmail.com'"
+      var queryCust = "DELETE FROM users WHERE email = 'firstcustomer@gmail.com' or email = 'secondcustomer@gmail.com' or email = 'thirdcustomer@gmail.com'"
+      var deletedRest = await pool.query(queryRest)
+      var deletedCust = await pool.query(queryCust)
     })
 
 
     it('Get all existing restaurants by user. Should return 200', (done) => {
       chai.request(app)
-        .get('/api/restaurants')
+        .get('/api/restaurants'.concat(emailUser))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
             res.should.have.status(200);
@@ -104,7 +109,7 @@ describe('Restaurants', () => {
       var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
       await pool.query(query)
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
-      emailUser = insertedRest.rows[0].email
+      var emailUser = insertedRest.rows[0].email
       //console.log(emailUser)
     })
     afterEach( async () => {
@@ -156,7 +161,7 @@ describe('Restaurants', () => {
       var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
       await pool.query(query)
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
-      emailUser = insertedRest.rows[0].email
+      var emailUser = insertedRest.rows[0].email
       //console.log(emailUser)
     })
     afterEach( async () => {
@@ -195,7 +200,7 @@ describe('Restaurants', () => {
       var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
       await pool.query(query)
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
-      emailUser = insertedRest.rows[0].email
+      var emailUser = insertedRest.rows[0].email
       //console.log(emailUser)
     })
     afterEach( async () => {
@@ -248,7 +253,7 @@ describe('Restaurants', () => {
       await pool.query("INSERT INTO customers VALUES ('customer_test@gmail.com', '11111111111111112222333') RETURNING *")
       await pool.query("INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil2.jpg') RETURNING *")
       var insertedRest = await pool.query("INSERT INTO restaurants VALUES ('rst@gmail.com','verde','inactive','ES8721000022293894885934','restaurante-rst.com/allergens.pdf') RETURNING *")
-      emailRest = insertedRest.rows[0].email
+      var emailRest = insertedRest.rows[0].email
       //console.log(emailRest)
 
       await pool.query("INSERT INTO feedbacks VALUES ('rst@gmail.com','customer_test@gmail.com',8,'comida de calidad a precio economico',CURRENT_TIMESTAMP(0)) RETURNING *")
