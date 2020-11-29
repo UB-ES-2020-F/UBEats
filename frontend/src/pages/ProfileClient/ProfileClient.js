@@ -20,6 +20,7 @@ var userDefaultInfo = {
 function ProfileClient({user}) {
   const [name, setName] = useState(user.user.name);
   const [email, setEmail] = useState(user.user.email);
+  const [databaseEmail, setDatabaseEmail] = useState(user.user.email);
   const [photo, setPhoto] = useState(user.user.url);
   const [phone, setPhone] = useState(user.user.phone);
   const [address, setAddress] = useState(user.user.street);
@@ -39,13 +40,13 @@ function ProfileClient({user}) {
     Sends the user info to the database. Called by SaveChanges().
    */}
 
-  const sendInfoToDataBase = async (email, address, tipo) => {
+  const sendInfoToDataBase = async (databaseEmail, address, tipo, email) => {
     const updatedUserInfo =  await userService.setUserInfo(
-      email, 
+      databaseEmail, 
       address,
       tipo,
+      email
       );
-      console.log("updatedUserInfo: " + updatedUserInfo);     
   };
 
   
@@ -60,9 +61,10 @@ function ProfileClient({user}) {
       console.log(address);
       console.log(user.user.tipo);
       sendInfoToDataBase(
-        email,
-        "userAddress",
-        user.user.tipo
+        databaseEmail,
+        address,
+        user.user.tipo,
+        email
       );
     }
     else {
@@ -112,7 +114,7 @@ function ProfileClient({user}) {
           <Col>
           <input 
               defaultValue={address}
-              onChange={setAddress}
+              onChange={event => setAddress(event.target.value)}
               >
             </input>
           </Col>
@@ -130,7 +132,7 @@ function ProfileClient({user}) {
             <input 
               type="email" 
               defaultValue={email}
-              onChange={setEmail}
+              onChange={event => setEmail(event.target.value)}
               >
             </input>
           </Col>
