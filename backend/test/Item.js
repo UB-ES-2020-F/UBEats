@@ -76,7 +76,6 @@ describe('Items', () => {
     query = format('INSERT INTO categories VALUES(DEFAULT, %L) RETURNING *', Object.values(category))
     result = await pool.query(query)
     item.cat_id = result.rows[0].cat_id
-    console.log(result.rows[0])
   })
 
   after( async () => {
