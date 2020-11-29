@@ -28,6 +28,8 @@ profiling() {
 	#Save the process id on the background
 	APP_PID=$!
 
+	sudo netstat -lntu
+
 	echo "[LOG] Profiling"
 
 	sudo curl -vX GET "http://localhost:${PORT}/api/qwertyuiop/users"
