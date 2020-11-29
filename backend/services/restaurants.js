@@ -177,7 +177,7 @@ async function getFeedback(email){
  */
 async function getMenu(email){
     
-    const query = format('SELECT items.item_id,title,items.desc,price,types.name FROM items,type_items,types WHERE items.item_id=type_items.item_id AND rest_id=%L AND types.type_id=type_items.type_id AND visible = %L ORDER BY items.item_id',[email],1)
+    const query = format('SELECT items.item_id,title,items.desc,price,types.name,items.cat_id,category FROM items,type_items,types,categories WHERE items.item_id=type_items.item_id AND items.rest_id=%L AND types.type_id=type_items.type_id AND visible =%L AND categories.cat_id=items.cat_id ORDER BY items.item_id',[email],1)
     
     return pool.query(query)
     .then(res =>{
@@ -195,6 +195,8 @@ async function getMenu(email){
                         title : item.title,
                         desc : item.desc,
                         price : item.price,
+                        cat_id: item.cat_id,
+                        category: item.category,
                         types : [item.name]
                     })
                 id_prev = item.item_id

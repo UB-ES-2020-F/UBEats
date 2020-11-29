@@ -244,11 +244,13 @@
   "menu": 
     [
       {
-        item_id: 15,
+        item_id: 27,
         title: 'espaguetis tartufo',
         desc: 'Espaguetis con salsa tartufata hecha a base de setas y trufa negra',
         price: 10.95,
-        types: [ 'vegetariano prueba1', 'vegetariano prueba2' ]
+        cat_id: 10,
+        category: 'New items',
+        types: [ 'vegetariano', 'vegano' ]
       }
     ]
 }
