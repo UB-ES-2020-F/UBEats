@@ -11,6 +11,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Endpoints](#endpoints-documentation)
+* [Code analysis](#code-analysis)
 
 ---
 ---
@@ -93,25 +94,35 @@ Docs         | Description
 [Restaurants](docs/endpoints/Restaurants.md) | Restaurant relative information |
 [Items](docs/endpoints/Items.md)| CRUD information for Items belonging to Restaurants|
 
+---
+---
+
 ## Code analysis
 ### Static
 Use the javascript linter to detect bugs, undefines, unused variables, etc.
+
 `
 npx eslint ./
 `
 
 ### Dynamic
 To profile the application start it with this command instead of the typical npm start:
+
 `
 node --prof index.js
 `
+
 Then you should generate traffic so the profiler can get statistics. Generate all the traffic you can. More traffic == more statistics.
+
 `
 curl -X GET http://localhost:3000/api/items
 `
+
 Once you are satisfied with the traffic, stop the execution of the application. It should have created a file with the name isolate-0x*-v8.log. To examine this log you must first translate to a readable format.
+
 `
 node --prof-process isolate-0x*-v8.log > profiling.log
 `
+
 Now you can read the file.
 
