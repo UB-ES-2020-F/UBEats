@@ -66,11 +66,23 @@ cd Ubeats/frontend && npm i
 `
 cd Ubeats/backend && npm i
 `
+
 Make sure the database schema is actualized
+
 `
 psql -v ON_ERROR_STOP=ON -f setup_database.sql -U ${your postgre user}
 `
+
 and that you have a properly configured .env file in your backend folder.
+
+`
+PORT=3000
+DB_USER=${your postgresql user}
+DB_PWD=${your postgresql password}
+DB_HOST="localhost"
+DB_DATABASE="ubereats"
+DB_PORT=5432
+`
 
 Next step is to build the frontend project via `cd Ubeats/frontend && npm run build`. 
 
