@@ -29,6 +29,8 @@ profiling() {
 	APP_PID=$!
 	echo "Spawned node prof with pid: ${APP_PID}"
 
+	ps aux | grep ${APP_PID}
+	ps aux | grep node
 	sudo netstat -lntu --program
 
 	echo "[LOG] Profiling"
