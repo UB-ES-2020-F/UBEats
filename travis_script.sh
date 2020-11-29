@@ -27,8 +27,9 @@ profiling() {
 	node --prof index.js &
 	#Save the process id on the background
 	APP_PID=$!
+	echo "Spawned node prof with pid: ${APP_PID}"
 
-	sudo netstat -lntu --program | grep ${APP_PID}
+	sudo netstat -lntu --program
 
 	echo "[LOG] Profiling"
 
