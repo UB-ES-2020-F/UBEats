@@ -36,8 +36,14 @@ const setUserInfo = (email, name, street, tipo) => {
     }).catch((err) => {console.log(err)});
 };
 
-
-
+const setUserInfoDummy = (email) => {
+  axios.put(API_URL + email, { 
+    name : "name",
+    type : "restaurant",
+    street: "street",
+  }).then((response) => {console.log(response.data);
+  }).catch((err) => {console.log(err)});
+};
 
 export default {
   getPublicContent,
@@ -45,4 +51,5 @@ export default {
   getModeratorBoard,
   getAdminBoard,
   setUserInfo,
+  setUserInfoDummy,
 };

@@ -40,12 +40,16 @@ function ProfileClient({user}) {
    */}
 
   const sendInfoToDataBase = async (email, address, tipo) => {
+    {/** 
     const updatedUserInfo =  await userService.setUserInfo(
       email, 
       address,
       tipo,
       );
       console.log("updatedUserInfo: " + updatedUserInfo);
+      */}
+    
+      const updatedUserInfo = userService.setUserInfoDummy(email);
   };
 
   
