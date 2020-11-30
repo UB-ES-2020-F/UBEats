@@ -20,12 +20,23 @@ back_tests() {
 	return $BACK_TESTS_RESULT
 }
 
-linting() {
+front_linting() {
+	cd "frontend/src" || return 127
+
+	echo "[LOG] Linting frontend"
+
+	npx eslint ./
+
+	cd ../..
+}
+
+back_linting() {
 	cd "backend" || return 127
 
 	echo "[LOG] Linting"
 
-	npx eslint ./
+	#npx eslint ./
+	npx eslint controllers services routes index.js helpers
 
 	cd ..
 }
@@ -75,7 +86,8 @@ FRONT_TESTS_RESULT=0
 #front_tests
 back_tests
 # QA tests and performance checks
-linting
+front_linting
+back_linting
 profiling
 
 if [ $FRONT_TESTS_RESULT -eq 0 ] && [ $BACK_TESTS_RESULT -eq 0 ]; then
