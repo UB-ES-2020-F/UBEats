@@ -64,4 +64,33 @@ async function deleteUser(req, res){
     return res.status(200).send({user})
 }
 
-module.exports = { login, register, _get_all_users, deleteUser }
+/**
+ * Method called to update a user, either is a restaurant, customer or deliveryman
+ * @param {} req 
+ *          params : email of the user. NECESSARY
+ *          body : it cointains a body with the new user information as well as the type of the user. This information is a must. NECESSARY
+ * @param {*} res 
+ */
+async function updateUser(req, res){
+    const {email} = req.params
+    const {body} = req
+
+    if (!email)
+        return res.status(403).send({"message": "e-mail not specified"})
+
+    if (!body.type)
+        return res.status(403).send({"message": "type must be specified to update a user. It can be customer, restaurant or deliveryman"})
+
+    const user = await sch_users.updateUser(email, body)
+
+    if(!user)
+        return res.status(404).send({"message": `User with email ${body.email} not found`})
+    if (user.error)
+        return res.status(user.errCode).send({"message": user.error})
+    return res.status(200).send({user})
+
+}
+
+
+
+module.exports = { login, register, _get_all_users, deleteUser, updateUser }

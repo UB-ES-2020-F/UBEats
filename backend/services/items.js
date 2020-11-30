@@ -1,5 +1,6 @@
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
+const {_createUpdateDynamicQuery} = require('../helpers/helpers')
 
 /**
  * Query for retrieving all the items from the items table
@@ -101,13 +102,31 @@ function updateItem(id, values)
         if(check.err)
                 return {error: check.err, errCode: 403}
 
-        const query = _createUpdateDynamicQuery(values)
+        const query = _createUpdateDynamicQuery(values,'items', 'item_id') // Update table items via its item_id
+        //console.log(query);
         if(query.error)
                 return {error: query.error, errCode: 403}
 
         return pool.query(query)
                 .then((res) => {
                         return res.rows[0] || null
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
+}
+
+/**
+ * Function to check for the existance of an item by its id
+ */
+function existsItemID(item_id)
+{
+        return pool.query('SELECT COUNT(*) FROM items WHERE item_id = $1', [item_id])
+                .then((res) => {
+                        if(res.rows[0].count > 0)
+                                return {exists: true}
+                        else
+                                return {exists: false}
                 })
                 .catch(err => {
                         return {error: err, errCode: 500}
@@ -216,45 +235,6 @@ function _checkItemUpdateParameters(params)
         return {all_good: true}
 }
 
-/**
- * Auxiliary function that builds a dynamic query
- * for SQL with the key:values of an object
- * body is expected to have more than 0 key:value pairs
- */
-function _createUpdateDynamicQuery(body)
-{
-        //console.log(body)
-        const {item_id} = body
-        delete body.item_id
 
-        var body_size = Object.keys(body).length;
-        if(body_size == 0)
-                return {"error": "body is empty"}
 
-        var counter = 0;
-
-        var dynamicQuery = 'UPDATE items SET'
-        for(const key in body)
-        {
-                //console.log(key)
-                dynamicQuery = dynamicQuery.concat(` "${key}" = `)
-                //if value is string, add a '
-                if(typeof body[key] == "string")
-                        dynamicQuery = dynamicQuery.concat('\'')
-                dynamicQuery = dynamicQuery.concat(`${body[key]}`)
-                //if value is string, add a '
-                if(typeof body[key] == "string")
-                        dynamicQuery = dynamicQuery.concat('\'')
-
-                //if keys is not the last, add a comma separator
-                if(body_size > 1 && ++counter < body_size)
-                        dynamicQuery = dynamicQuery.concat(",")
-        }
-        dynamicQuery = dynamicQuery.concat(` WHERE item_id = ${item_id} RETURNING *`)
-
-        //console.log(dynamicQuery)
-
-        return dynamicQuery
-}
-
-module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems, getAllItemsByRestaurantID}
+module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems, getAllItemsByRestaurantID, existsItemID}

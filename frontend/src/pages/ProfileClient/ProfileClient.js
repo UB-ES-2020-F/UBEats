@@ -40,7 +40,8 @@ function ProfileClient({user}) {
    */
   function SaveChanges () {
     if (validateEmail(email)) {
-      setShowToastFail(true);
+      userInfo.email = email;
+      setShowToast(true);
     }
     else {
       setShowToastFail(true);
@@ -57,12 +58,32 @@ function ProfileClient({user}) {
          */}
         <Row>
           <Col>
-            <Image 
-              className="profilePicture" 
-              src={photo} 
-              roundedCircle 
-              height='100px'
-              width='100px'
+            <Image className='profilePicture' src={profilepic} roundedCircle />
+          </Col>
+
+          <Col >
+            <p><strong>{userInfo.username}</strong></p>
+            <p>{userInfo.userphone}</p>
+          </Col>
+          
+        </Row>
+
+        {/** Second row:
+         * Location selector, updates the component's state
+         */}
+
+        <Row>
+          <Col>
+            <p>Location</p>
+          </Col>
+
+          <Col>
+            <Select
+              options={listaUbicaciones}
+              defaultInputValue={userInfo.ubicacion}
+              isSearchable
+              components={makeAnimated()}
+              onChange={setUbicacion}
             />
           </Col>
           <Col >

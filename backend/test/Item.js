@@ -304,8 +304,22 @@ describe('Items', () => {
   describe('DELETE /api/items', () => {
     var id;
 
+    var item2 = {
+      title: "Sopa de sobre",
+      desc: "Gallina negra",
+      price: 3.141592,
+      visible: '0',
+      rest_id: restaurant.email,
+      url: '',
+      cat_id: item.cat_id
+    }
+
     beforeEach( async () => {
-      var query = "INSERT INTO items VALUES (DEFAULT, 'Sopa de sobre', 'Gallina negra', 3.141592, '0', 'rrr@gmail.com', '', 4) RETURNING *"
+      item2.rest_id = item.rest_id
+      item2.cat_id = item.cat_id
+      var query = format('INSERT INTO items VALUES(DEFAULT, %L) RETURNING *', Object.values(item2))
+      console.log(query)
+
       var insertedItems = await pool.query(query)
       id = insertedItems.rows[0].item_id
     })
@@ -354,8 +368,20 @@ describe('Items', () => {
     var id;
     var saved_title;
 
+    var item2 = {
+      title: "Sardinas en lata",
+      desc: "La lata se venda aparte",
+      price: 3.141592,
+      visible: '0',
+      rest_id: restaurant.email,
+      url: 'imges_of_cats.com',
+      cat_id: item.cat_id
+    }
+
     beforeEach( async () => {
-      var query = `INSERT INTO items VALUES (DEFAULT, 'Sardinas en lata', 'Disclaimer: no se incluye abrelatas', 3.141592, '0', 'rrr@gmail.com', 'images_of_cats.com', ${item.cat_id}) RETURNING *`
+      item2.rest_id = restaurant.email
+      item2.cat_id = item.cat_id
+      var query = format("INSERT INTO items VALUES (DEFAULT, %L) RETURNING *", Object.values(item2))
       var insertedItems = await pool.query(query)
       id = insertedItems.rows[0].item_id
       saved_title = insertedItems.rows[0].title
