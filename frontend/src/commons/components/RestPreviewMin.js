@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from "react";
+import Heart from "react-animated-heart";
 import './Main.css';
 import 'react-bootstrap';
 import'react-router-dom';
 import photo from '../../images/ubeats.png'
 
 function RestPreviewMin(props){
-
+    const [isClick, setClick] = useState(false);
     return(
     <div class="listings-grid-element">
         <div class="image">
@@ -17,6 +18,9 @@ function RestPreviewMin(props){
                 <div class="info">
                     <span> {props.price} € </span>
                 </div>
+            </div>
+            <div class="rating">
+                <Heart isClick={isClick} onClick={() => setClick(!isClick)} />
             </div>
         </div>
     </div>
