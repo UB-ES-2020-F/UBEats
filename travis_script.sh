@@ -34,7 +34,7 @@ profiling() {
 	cd "backend" || return 127
 
 	#Start app in background
-	node --prof index.js &> node_execution.log &
+	NODE_ENV=productio node --prof index.js &> node_execution.log &
 	#Save the process id on the background
 	APP_PID=$!
 	echo "Spawned node prof with pid: ${APP_PID}"
