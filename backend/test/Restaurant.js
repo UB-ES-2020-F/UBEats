@@ -361,8 +361,6 @@ describe('Restaurants', () => {
           res.body.menu[0].should.have.property('price')
           res.body.menu[0].should.have.property('cat_id')
           res.body.menu[0].should.have.property('category')
-          res.body.menu[0].should.have.property('types')
-          res.body.menu[0].types.should.be.an('array').to.have.lengthOf.above(0);
           done();
         });
     });
