@@ -103,7 +103,7 @@ function updateItem(id, values)
                 return {error: check.err, errCode: 403}
 
         const query = _createUpdateDynamicQuery(values,'items', 'item_id') // Update table items via its item_id
-        console.log(query);
+        //console.log(query);
         if(query.error)
                 return {error: query.error, errCode: 403}
 

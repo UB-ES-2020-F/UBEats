@@ -108,10 +108,39 @@ function getAllRestaurantsByType(type_id)
  * 
  */
 async function getRestaurantByID(email){
-    return pool.query('SELECT users.email,name,"CIF",street,pass,phone,tipo,url,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=$1 AND users.email=restaurants.email',[email])
+    return pool.query('SELECT users.email,users.name,"CIF" AS cif,street,pass,phone,tipo,url,avaliability,visible,iban,allergens,types.type_id,types.name AS type_name,description FROM users,restaurants,type_restaurants,types WHERE users.email=$1 AND users.email=restaurants.email AND restaurants.email=type_restaurants.rest_id AND type_restaurants.type_id=types.type_id',[email])
         .then(res => {
-                // should ONLY be one match
-                return res.rows[0] || null
+                //Check at least one row
+                if(!res.rows[0]) return null
+
+                //console.log(res.rows)
+                var restaurant = {
+                        email: res.rows[0].email,
+                        name: res.rows[0].name,
+                        CIF: res.rows[0].cif,
+                        street: res.rows[0].street,
+                        pass: res.rows[0].pass,
+                        phone: res.rows[0].phone,
+                        tipo: res.rows[0].tipo,
+                        url: res.rows[0].url,
+                        avaliability: res.rows[0].avaliability,
+                        visible: res.rows[0].visible,
+                        iban: res.rows[0].iban,
+                        allergens: res.rows[0].allergens,
+                        types: []
+
+                }
+
+                res.rows.forEach(row => {
+                        restaurant.types.push(
+                            {
+                                type_id : row.type_id,
+                                name : row.type_name,
+                                description : row.description
+                            })
+                        })
+                //console.log(restaurant)
+                return restaurant
         })
         .catch(err => {
                 return {error: err}
@@ -191,6 +220,7 @@ async function getFeedback(email){
 }
 
 /**
+
  * Method that gets the types of a restaurant from the DB
  * 
  */
@@ -215,15 +245,20 @@ async function getAllTypes(){
         .catch(err => { return {error: `${err} specific`, errCode : 500}}) 
     }
 /**
+
  * Method that gets the menu: all the items and their types(repeated columns if they have more than one) from a restaurant from the DB
  * 
  */
 async function getMenu(email){
     
-    const query = format('SELECT items.item_id,title,items.desc,price,types.name FROM items,type_items,types WHERE items.item_id=type_items.item_id AND rest_id=%L AND types.type_id=type_items.type_id AND visible = %L ORDER BY items.item_id',[email],1)
+    const query = format('SELECT items.item_id,title,items.desc,price,types.name,items.cat_id,category FROM items,type_items,types,categories WHERE items.item_id=type_items.item_id AND items.rest_id=%L AND types.type_id=type_items.type_id AND visible =%L AND categories.cat_id=items.cat_id ORDER BY items.item_id',[email],1)
     
     return pool.query(query)
     .then(res =>{
+
+        //check at least one row
+        if(!res.rows[0]) return null
+
         var resSpecificRows = []
         var id_prev = -1
         res.rows.forEach(item => {
@@ -234,6 +269,8 @@ async function getMenu(email){
                         title : item.title,
                         desc : item.desc,
                         price : item.price,
+                        cat_id: item.cat_id,
+                        category: item.category,
                         types : [item.name]
                     })
                 id_prev = item.item_id
@@ -276,6 +313,7 @@ async function insertType(values){
         })
         .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
+
 
 
 /**
@@ -328,3 +366,4 @@ async function upsertFavourite(email_restaurant, email_user){
 }
 
 module.exports = {getAllRestaurants, getAllRestaurantsByUser, getAllRestaurantsByType, getRestaurantByID, updateRestaurant, getFeedback, getAllTypes, getTypes, getMenu, deleteType, insertType, upsertFavourite }
+

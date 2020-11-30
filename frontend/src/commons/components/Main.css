@@ -22,6 +22,7 @@
 
  .body2 {
 	 margin: 0;
+	 margin-left: 5px;
 	 font-family: sans-serif;
 	 background-color: white;
 }
@@ -30,11 +31,11 @@
 	 margin: 0;
 
 }
- header .logo h1 {
+ header h1 {
 	 font-weight: 600;
 	 font-family: "Uber Move Text";
 }
- header .logo h1 span {
+ header h1 span {
 	 font-weight: 900;
 	 color: var(--color-green);
 	 font-size: 24px;
@@ -100,12 +101,12 @@
 	 font-weight: bold;
 	 font-family: "Uber Move Text";
 }
- .header2 .logo h1 {
+ .header2 h1 {
 	 font-weight: 300;
 	 color: white;
 	 font-family: "Uber Move Text";
 }
- .header2 .logo h1 span {
+ .header2 h1 span {
 	 font-weight: 600;
 	 color: var(--color-green);
 	 font-family: "Uber Move Text";
@@ -245,6 +246,7 @@
 	 font-size: 1.7rem;
 	 margin-bottom: 0.5rem;
 	 margin-top: 0;
+	 padding-left: 40px;
 	 font-family: "Uber Move Text";
 }
  .listings .header .header-title span {
@@ -306,8 +308,10 @@
  .listings .listings-grid {
 	 display: flex;
 	 overflow: hidden;
-	 scroll-snap-type: x mandatory;
-	 scroll-behavior: smooth;
+	 padding-left: 40px;
+	 padding-right: 40px;
+
+
 }
  .listings .listings-grid::-webkit-scrollbar {
 	 display: none;
@@ -321,7 +325,7 @@
 	 flex-shrink: 0;
 	 flex-basis: 100%;
 	 scroll-snap-align: start;
-	 margin-left: 25px;
+
 }
  .listings .listings-grid .listings-grid-element {
 	 width: calc(1 / 3 * 100% - (1 - 1 / 3) * 25px);
@@ -452,3 +456,7 @@
 .linkto:hover { text-decoration: none; color:black; }
 .linkto:focus { text-decoration: none; color:black; }
 .linkto:hover, a:active { text-decoration: none; color:black }
+
+.ubInc{
+	float: right;
+}

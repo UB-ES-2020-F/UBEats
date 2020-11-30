@@ -130,6 +130,7 @@ async function getFeedback(req, res){
 }
 
 /**
+
  * Method called to get all the types from a restaurant
  * @param {} req 
  * @param {*} res 
@@ -167,6 +168,7 @@ async function getAllTypes(req, res){
 }
 
 /**
+
  * Method called to get the menu: all the items and their types(repeated columns if they have more than one) from a restaurant
  * @param {} req 
  * @param {*} res 
@@ -237,6 +239,7 @@ async function insertType(req, res){
 
 
 
+
 /**
  * Function that modifies the values of an existing restaurant from the database
  * The restaurant selection its done by email
@@ -262,3 +265,4 @@ async function setFavourite(req, res)
 }
 
 module.exports = { getAll, getAllByUser, getAllByType, get, update, getFeedback, getAllTypes, getTypes, getMenu, deleteType, insertType,setFavourite  }
+

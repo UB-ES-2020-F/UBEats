@@ -21,7 +21,7 @@ deploy:
     secure: STNTF9rauVbjjjAbF8GZn66OO2bPPOeQawd+GzrGiVsLs961BxdwPf1CNOZeFDL+MAp2HRm2DGeG6A0YkI1j8B7M2qtoxvS2myH/5RrKyF18oz5+Cln4QOSI5cDGtxUfI9bkmkdpIEiwkvbPFA4as/0DAW4ZXVKttPPyjmzk9CUgZr0N0EV5iurHbd8DQBE7NmaKhIJYE/qkxwBmLzSaUu55WrpQRZZJYfBrDxrQtnY4D9f9zRrtPY3hi70qgOXz5cGV37xjxCUPG2yLLM/V/3mE7rovQO6jXqoc3VdofehzFmoVPip7LpwKtgJzrrKmnVJLYi2j6iPX6IIwOgg7+HdM7d5V2+LieQdnGLoAlqluDf2yjvPS2kxQVy/xmgvLEoTBHwC5SGW/g1iFKWAeU9uzTkx1PzKPzEcRB3+7CtvG/VF5dZCtYcGaKmGiBp1/JVj3jfO9n/HUGCQTU7yYM6tr8d/QTFfJQoFxOD5Q6t9AKkhvfrzqtE0CU2TuOWMPNVQp0fE1DCkE+/CTe4DhNDOMrHW6ctn449SGhMKvk+TICgNcXjgoQzNRoL4yIcjlZwOku1PRT+i9NPr6NRQFMBdP00T93l6A0RNPHTjR+Pbx3+prgg7/gPVWmPuxE7J5HoGoaGfNsttpWKamdhBz3CVppN2VSbPKRRp0VqQlcFI=
   app: ub-gei-es-ubeats-clone
   on:
-    repo: UB-ES-2020/UBEats
+    repo: UB-ES-2020-F/UBEats
     branch: main
 notifications:
   slack:

@@ -12,17 +12,12 @@ import {
   
   export const register = (name, email, password, type) => (dispatch) => {
     return AuthService.register(name, email, password, type).then(
-      (response) => {
+      (data) => {
         dispatch({
           type: REGISTER_SUCCESS,
+          payload: { user: data },
         });
-  
-        dispatch({
-          type: SET_MESSAGE,
-          payload: response.data.message,
-        });
-  
-        return Promise.resolve();
+        return Promise.resolve();  
       },
       (error) => {
         const message =
