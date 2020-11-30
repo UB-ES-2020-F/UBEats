@@ -21,11 +21,25 @@ describe('Users', () => {
     * Test the /POST login route
     */
   describe('/POST LOGIN', () => {
+    var insertedRest;
+
+    beforeEach( async () => {
+      var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
+      insertedRest = await pool.query(query)
+      console.log(insertedRest.rows[0].email)
+    })
+  
+    afterEach( async () => {
+      var query2 = "DELETE FROM users WHERE email = 'rst@gmail.com'"
+      await pool.query(query2)
+    })
+
     it('it should Log In. Returning 200', (done) => {
       let user = {
-        email : 'rrr@gmail.com',
-        password : '12344',
+        email : insertedRest.rows[0].email,
+        password : insertedRest.rows[0].pass
       }
+
       chai.request(app)
         .post('/api/login')
         .set('content-type', 'application/x-www-form-urlencoded')
@@ -47,9 +61,10 @@ describe('Users', () => {
 
     it('it should not log in. Email not found', (done) => {
         let user = {
-          email : 'rrrss@gmail.com',
-          password : '12344',
+        email : insertedRest.rows[0].email.concat('x'),
+        password : insertedRest.rows[0].pass
         }
+
         chai.request(app)
           .post('/api/login')
           .set('content-type', 'application/x-www-form-urlencoded')
@@ -64,9 +79,9 @@ describe('Users', () => {
 
       it('it should not log in. User/pass invalid', (done) => {
         let user = {
-          email : 'rrr@gmail.com',
-          password : '1234',
-        }
+          email : insertedRest.rows[0].email,
+          password : insertedRest.rows[0].pass.concat('x')
+          }
         chai.request(app)
           .post('/api/login')
           .set('content-type', 'application/x-www-form-urlencoded')
@@ -78,23 +93,6 @@ describe('Users', () => {
               done();
             });
       });
-
-      it('it should not log in. User not found', (done) => {
-        let user = {
-          password : '12344',
-        }
-        chai.request(app)
-          .post('/api/login')
-          .set('content-type', 'application/x-www-form-urlencoded')
-          .send(user)
-          .end((err, res) => {
-              res.should.have.status(404);
-              res.body.should.have.property('message')
-              done();
-            });
-      });
-  
-
 });
 
 /*
