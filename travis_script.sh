@@ -52,8 +52,10 @@ profiling() {
 
 	ps aux | grep ${APP_PID}
 	ps aux | grep node
+	sudo netstat -lntu --program
 
 	#docker_address_port=$(sudo netstat -lntu --program | grep docker | awk '{ print $4 '})
+	docker ps -a
 	docker top
 
 	echo "[LOG] Profiling"
