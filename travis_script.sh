@@ -13,12 +13,7 @@ front_tests() {
 back_tests() {
 	cd "backend" || return 127
 	echo "[LOG] Executing backend tests"
-	#ALERTA CHAPUZA
-	npm test &
-	sleep 1
-	sudo netstat -lntu --program
-	sleep 10
-	#ALERTA CHAPUZA
+	npm test
 	BACK_TESTS_RESULT=$?
 	echo "[LOG] Backend tests exit code: ${BACK_TESTS_RESULT}"
 	cd ..
@@ -59,6 +54,7 @@ profiling() {
 	ps aux | grep node
 
 	#docker_address_port=$(sudo netstat -lntu --program | grep docker | awk '{ print $4 '})
+	docker top
 
 	echo "[LOG] Profiling"
 
