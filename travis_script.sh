@@ -52,12 +52,13 @@ profiling() {
 
 	ps aux | grep ${APP_PID}
 	ps aux | grep node
-	sudo netstat -lntu --program
+
+	docker_address_port=$(sudo netstat -lntu --program | grep docker | awk '{ print $4 '})
 
 	echo "[LOG] Profiling"
 
-	curl -vX GET "http://localhost:${PORT}/api/qwertyuiop/users"
-	curl -vX GET "http://localhost:${PORT}/api/items"
+	curl -vX GET "http://${docker_address_port}/api/qwertyuiop/users"
+	curl -vX GET "http://${docker_address_port}/api/items"
 	curl -vX GET "https://localhost:${PORT}/api/qwertyuiop/users"
 	curl -vX GET "https://localhost:${PORT}/api/items"
 	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/qwertyuiop/users" | grep -A11 'Concurrency Level')
