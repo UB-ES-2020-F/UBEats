@@ -90,28 +90,6 @@ async function getFeedback(req, res){
 }
 
 /**
- * Method called to get all the types from a restaurant
- * @param {} req 
- * @param {*} res 
- */
-async function getTypes(req, res){
-    const {params} = req
-    //check if the request has the email
-    if(!(params.email))
-        return res.status(403).send({"message": "e-Mail not specified"})
- 
-    const types = await restaurants.getTypes(params.email) 
-    
-    //check for error retreiving from DDBB
-    if(!types || types.length==0) // pg returns NULL/empty but the query executed successfully
-        return res.status(404).send({"message": `Types not found`})
-    if(types.error)
-        return res.status(404).send({"message": `Types not found`, "error": types.error})
-
-    return res.status(200).send({types})
-}
-
-/**
  * Method called to get the menu: all the items and their types(repeated columns if they have more than one) from a restaurant
  * @param {} req 
  * @param {*} res 
@@ -180,4 +158,4 @@ async function insertType(req, res){
     return res.status(200).send({insType})
 }
 
-module.exports = { getAll, get, update, getFeedback, getTypes, getMenu, deleteType, insertType }
+module.exports = { getAll, get, update, getFeedback, getMenu, deleteType, insertType }

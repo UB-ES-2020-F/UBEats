@@ -1,6 +1,7 @@
 // Service module to retrieve data from Scheme Users 
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
+const {_createUpdateDynamicQuery} = require('../helpers/helpers')
 
 
 /**
@@ -8,9 +9,46 @@ const {pool} = require('../database/index.js')
  */
 function getAllRestaurants()
 {
-        return pool.query('SELECT users.email,name,"CIF",street,phone,url,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=restaurants.email')
+        return pool.query('SELECT users.email,users.name,"CIF" AS cif,street,pass,phone,tipo,url,avaliability,visible,iban,allergens,types.type_id,types.name AS type_name,description FROM users,restaurants,type_restaurants,types WHERE users.email=restaurants.email AND restaurants.email=type_restaurants.rest_id AND type_restaurants.type_id=types.type_id ORDER BY email')
                 .then(res => {
-                        return res.rows
+                        //check at least one row
+                        if(!res.rows[0]) return null
+
+                        var resSpecificRows = []
+                        var email_prev = ""
+                        res.rows.forEach(row => {
+                        if(row.email != email_prev){
+                                resSpecificRows.push(
+                                {
+                                        email: row.email,
+                                        name: row.name,
+                                        CIF: row.cif,
+                                        street: row.street,
+                                        pass: row.pass,
+                                        phone: row.phone,
+                                        tipo: row.tipo,
+                                        url: row.url,
+                                        avaliability: row.avaliability,
+                                        visible: row.visible,
+                                        iban: row.iban,
+                                        allergens: row.allergens,
+                                        types: [{
+                                                type_id : row.type_id,
+                                                name : row.type_name,
+                                                description : row.description
+                                        }]
+                                })
+                                email_prev = row.email
+                        } else{
+                                resSpecificRows[resSpecificRows.length -1].types.push({
+                                        type_id : row.type_id,
+                                        name : row.type_name,
+                                        description : row.description
+                                })
+                        }
+                        })
+                        //console.log(resSpecificRows)
+                        return resSpecificRows
                 })
                 .catch(err => {
                         return {error: err}
@@ -22,10 +60,39 @@ function getAllRestaurants()
  * 
  */
 async function getRestaurantByID(email){
-    return pool.query('SELECT users.email,name,"CIF",street,pass,phone,tipo,url,avaliability,visible,iban,allergens FROM users,restaurants WHERE users.email=$1 AND users.email=restaurants.email',[email])
+    return pool.query('SELECT users.email,users.name,"CIF" AS cif,street,pass,phone,tipo,url,avaliability,visible,iban,allergens,types.type_id,types.name AS type_name,description FROM users,restaurants,type_restaurants,types WHERE users.email=$1 AND users.email=restaurants.email AND restaurants.email=type_restaurants.rest_id AND type_restaurants.type_id=types.type_id',[email])
         .then(res => {
-                // should ONLY be one match
-                return res.rows[0] || null
+                //Check at least one row
+                if(!res.rows[0]) return null
+
+                //console.log(res.rows)
+                var restaurant = {
+                        email: res.rows[0].email,
+                        name: res.rows[0].name,
+                        CIF: res.rows[0].cif,
+                        street: res.rows[0].street,
+                        pass: res.rows[0].pass,
+                        phone: res.rows[0].phone,
+                        tipo: res.rows[0].tipo,
+                        url: res.rows[0].url,
+                        avaliability: res.rows[0].avaliability,
+                        visible: res.rows[0].visible,
+                        iban: res.rows[0].iban,
+                        allergens: res.rows[0].allergens,
+                        types: []
+
+                }
+
+                res.rows.forEach(row => {
+                        restaurant.types.push(
+                            {
+                                type_id : row.type_id,
+                                name : row.type_name,
+                                description : row.description
+                            })
+                        })
+                //console.log(restaurant)
+                return restaurant
         })
         .catch(err => {
                 return {error: err}
@@ -38,15 +105,14 @@ async function getRestaurantByID(email){
 function updateRestaurant(email, values)
 {
         const check = _checkRestaurantUpdateParameters(values)
-        //console.log(check)
+
         if(check.err)
                 return {error: check.err, errCode: 403}
-
-        const query = _createUpdateDynamicQueryRestaurant(values)
-        if(query.error)
+        
+        const query = _createUpdateDynamicQuery(values,'restaurants', 'email') // Update table restaurants via email.
+        if(query.error){
                 return {error: query.error, errCode: 403}
-
-        //console.log(query)
+        }
 
         return pool.query(query)
                 .then((res) => {
@@ -92,47 +158,6 @@ function _checkRestaurantUpdateParameters(params)
 }
 
 /**
- * Auxiliary function that builds a dynamic query
- * for SQL with the key:values of an object
- * body is expected to have more than 0 key:value pairs
- */
-function _createUpdateDynamicQueryRestaurant(body)
-{
-        //console.log(body)
-        const {email} = body
-        delete body.email
-
-        var body_size = Object.keys(body).length;
-        if(body_size == 0)
-                return {"error": "body is empty"}
-
-        var counter = 0;
-
-        var dynamicQuery = 'UPDATE restaurants SET'
-        for(const key in body)
-        {
-                //console.log(key)
-                dynamicQuery = dynamicQuery.concat(` "${key}" = `)
-                //if value is string, add a '
-                if(typeof body[key] == "string")
-                        dynamicQuery = dynamicQuery.concat('\'')
-                dynamicQuery = dynamicQuery.concat(`${body[key]}`)
-                //if value is string, add a '
-                if(typeof body[key] == "string")
-                        dynamicQuery = dynamicQuery.concat('\'')
-
-                //if keys is not the last, add a comma separator
-                if(body_size > 1 && ++counter < body_size)
-                        dynamicQuery = dynamicQuery.concat(",")
-        }
-        dynamicQuery = dynamicQuery.concat(` WHERE email = '${email}' RETURNING *`)
-
-        //console.log(dynamicQuery)
-
-        return dynamicQuery
-}
-
-/**
  * Method that gets the feedback of a restaurant from the DB
  * 
  */
@@ -147,28 +172,19 @@ async function getFeedback(email){
 }
 
 /**
- * Method that gets the types of a restaurant from the DB
- * 
- */
-async function getTypes(email){
-    
-    return pool.query('SELECT name,description FROM types,type_restaurants WHERE rest_id = $1 AND types.type_id=type_restaurants.type_id',[email])
-    .then(res =>{
-        return res.rows
-    })
-    .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
-}
-
-/**
  * Method that gets the menu: all the items and their types(repeated columns if they have more than one) from a restaurant from the DB
  * 
  */
 async function getMenu(email){
     
-    const query = format('SELECT items.item_id,title,items.desc,price,types.name FROM items,type_items,types WHERE items.item_id=type_items.item_id AND rest_id=%L AND types.type_id=type_items.type_id AND visible = %L ORDER BY items.item_id',[email],1)
+    const query = format('SELECT items.item_id,title,items.desc,price,types.name,items.cat_id,category FROM items,type_items,types,categories WHERE items.item_id=type_items.item_id AND items.rest_id=%L AND types.type_id=type_items.type_id AND visible =%L AND categories.cat_id=items.cat_id ORDER BY items.item_id',[email],1)
     
     return pool.query(query)
     .then(res =>{
+
+        //check at least one row
+        if(!res.rows[0]) return null
+
         var resSpecificRows = []
         var id_prev = -1
         res.rows.forEach(item => {
@@ -179,6 +195,8 @@ async function getMenu(email){
                         title : item.title,
                         desc : item.desc,
                         price : item.price,
+                        cat_id: item.cat_id,
+                        category: item.category,
                         types : [item.name]
                     })
                 id_prev = item.item_id
@@ -222,4 +240,4 @@ async function insertType(values){
         .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
 
-module.exports = {getAllRestaurants, getRestaurantByID, updateRestaurant, getFeedback, getTypes, getMenu, deleteType, insertType }
+module.exports = {getAllRestaurants, getRestaurantByID, updateRestaurant, getFeedback, getMenu, deleteType, insertType }

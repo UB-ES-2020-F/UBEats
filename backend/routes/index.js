@@ -12,6 +12,10 @@ const router = express.Router()
 router.post('/login',Users.login)
 router.post('/register',Users.register)
 
+//Users
+
+router.put('/user/:email', Users.updateUser)
+
 //Customer
 router.delete('customer/delete',Users.deleteUser)
 
@@ -24,7 +28,6 @@ router.put('/restaurants/:email',Restaurants.update)
 //Falta ruta put para update de los atributos de la tabla user (Update Users)
 router.get('/restaurants/feedback/:email',Restaurants.getFeedback)
 router.get('/restaurants/menu/:email',Restaurants.getMenu)
-router.get('/restaurants/types/:email',Restaurants.getTypes)
 router.post('/restaurants/types',Restaurants.insertType)
 router.delete('/restaurants/types/:email/:type_id',Restaurants.deleteType)
 
