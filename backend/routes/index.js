@@ -58,7 +58,7 @@ router.put('/items/:item_id/extras/:extra_id', Extras.updateExtraForItem)
 router.delete('/items/:item_id/extras/:extra_id', Extras.deleteExtraForItem)
 
 //Placeholder for restaurant api
-router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
+router.get('/restaurants/:rest_id/items', Items.getAllByRestaurant)
 
 
 

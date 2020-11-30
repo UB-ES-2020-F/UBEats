@@ -5,8 +5,9 @@ import pikachu from "../../images/pikachu.jpg";
 import bucket from "../../images/bucket.jpg";
 import wings from "../../images/alitas.jpg";
 
-import restaurantService from "../../api/restaurant.service.js";
+import restaurantService from "../../api/homepage.service.js";
 
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 const listaPlatos = [
   {
@@ -47,11 +48,29 @@ const listaPlatos = [
   },
 ];
 
+const listaSecciones = [
+  {
+    Header: "Picked for you",
+    ListaPlatos: listaPlatos
+  },
+  {
+    Header: "Classics",
+    ListaPlatos: listaPlatos
+  },
+  {
+    Header: "Recently ordered",
+    ListaPlatos: listaPlatos
+  },
+  {
+    Header: "New items",
+    ListaPlatos: listaPlatos
+  },
+]
+
 
 
 function ProfileRestaurantF({rest_id}) {
   const [showModal, setShowModal] = useState(false);
-  const [categories, setCategories] = useState();
   const [menuList, setMenuList] = useState([{
     item_id: 0,
     title: 'Loading',
@@ -75,6 +94,9 @@ function ProfileRestaurantF({rest_id}) {
     "allergens": " ",
   })
 
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
   const listaSecciones_dyn = [
     {
       Header: "Picked for you",
@@ -94,27 +116,24 @@ function ProfileRestaurantF({rest_id}) {
     },
   ]
 
-  const listaSecciones = [
-  ]
 
   const getCategories = (items) => {
     for (let cat in items){
-      listaSecciones.push({
+      listaSecciones_dyn.push({
         Header: cat,
         ListaPlatos: items[cat]
       })
     };
-    console.log({'listsec':listaSecciones});
+    console.log({'listsec':listaSecciones_dyn});
   };
-
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
 
   const fetchMenu = async () => {
     const items = await restaurantService.getRestaurantMenu(rest_id);
     setMenuList(items);
+    console.log(menuList);
     getCategories(items);
   };
+
 
   const fetchRestaurantInfo = async () => {
     const restInfo = await restaurantService.getRestaurant(rest_id);
@@ -122,10 +141,15 @@ function ProfileRestaurantF({rest_id}) {
     setRestaurantInfo(restInfo['restaurant']);
   };
 
+
+
   useEffect(() => {
     fetchRestaurantInfo();
     fetchMenu();
   }, []);
+
+
+
   
     /**
     * Generates a product's card
@@ -135,11 +159,11 @@ function ProfileRestaurantF({rest_id}) {
   function CardPlato(props) {
     return (
       <Card style={{ width: '14rem' }}>
-        <Card.Img className="card-img-top" variant="top" src={props.url} fluid/>
+        <Card.Img className="card-img-top" variant="top" src={props.Image} fluid/>
         <Card.Body>
-          <Card.Title className="textFont">{props.title}</Card.Title>
+          <Card.Title className="textFont">{props.Name}</Card.Title>
           <Card.Text className="textFont">
-            {props.desc}
+            {props.Description}
           </Card.Text>
           {/** <Button variant="success">Añadir al carrito</Button> */}
         </Card.Body>
@@ -159,10 +183,12 @@ function ProfileRestaurantF({rest_id}) {
     for (plato of props.listaPlatos) {
       
       var cardPlato = <CardPlato 
-        title={plato.title}
-        desc={plato.desc}
-        url={plato.url}
-      />
+        Name={plato.title}
+        Description={plato.desc}
+        Price={plato.price}
+        Image={plato.url}
+      >
+      </CardPlato>
 
       listaPlatos.push(cardPlato);
     }
@@ -178,7 +204,7 @@ function ProfileRestaurantF({rest_id}) {
     var seccionesReturn = [];
     
     for (var seccion in props.listaSecciones) {
-      console.log({'seccion':seccion});
+      
       var seccionX = 
         <Row className="restaurantContainer">
           <Container>
@@ -199,6 +225,7 @@ function ProfileRestaurantF({rest_id}) {
       
       seccionesReturn.push(seccionX)
     }
+
     return (seccionesReturn);
   }
 
@@ -229,11 +256,14 @@ function ProfileRestaurantF({rest_id}) {
     </Nav.Item>
 
     listaCategorias.push(desplegable);
+
+
     return(listaCategorias);
   }
 
   return (
     <section className="restaurantProfile">
+
       <Container>
         <Row>
           <Container fluid>
@@ -292,18 +322,15 @@ function ProfileRestaurantF({rest_id}) {
 
         <Container className="">
           <Nav as="ul" className="categories-navbar">
-            <ListaCategorias listaSecciones={listaSecciones}></ListaCategorias>
+            <ListaCategorias listaSecciones={listaSecciones_dyn}></ListaCategorias>
           </Nav>
         </Container>
-
-        {/** Platos hardcodeados para poder hacer las pruebas 
-         * pendiente de poner los de la base de datos.
-        */}
 
         {/**
          * And this one generates the product rows.
          */}
-        <SeccionPlatos listaSecciones={listaSecciones}>
+        {console.log(listaSecciones_dyn)}
+        <SeccionPlatos listaSecciones={listaSecciones_dyn}>
 
         </SeccionPlatos>
         
@@ -314,11 +341,13 @@ function ProfileRestaurantF({rest_id}) {
   );
 }
 
+
 class ProfileRestaurant extends React.Component {
-  render () {
-    return (
-      <ProfileRestaurantF rest_id={this.props.location.rest_id}/>
-    );
+    render () {
+      return (
+        <ProfileRestaurantF rest_id={this.props.location.rest_id}/>
+      );
+    };
   };
-};
 export default ProfileRestaurant;
+

@@ -56,8 +56,6 @@ const getRestaurantMenu = (rest_id) => {
     });
 };
 
-
-
 export default {
     getAll,
     getAllLogged,
