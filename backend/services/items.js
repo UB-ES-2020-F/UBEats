@@ -1,12 +1,13 @@
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
+const {_createUpdateDynamicQuery} = require('../helpers/helpers')
 
 /**
  * Query for retrieving all the items from the items table
  */
 function getAllItems()
 {
-        return pool.query('SELECT * FROM items')
+        return pool.query('SELECT * FROM items,categories WHERE items.cat_id=categories.cat_id')
                 .then(res => {
                         return res.rows
                 })
@@ -21,7 +22,7 @@ function getAllItems()
  */
 function getAllItemsByRestaurantID(rest_id)
 {
-        const query = format('SELECT * FROM items WHERE rest_id = %L', rest_id)
+        const query = format('SELECT * FROM items,categories WHERE items.cat_id=categories.cat_id AND items.rest_id = %L', rest_id)
 
         return pool.query(query)
                 .then(res => {
@@ -38,7 +39,7 @@ function getAllItemsByRestaurantID(rest_id)
  */
 function getItemByID(id)
 {
-       return pool.query('SELECT * FROM items WHERE item_id = $1', [id])
+       return pool.query('SELECT * FROM items,categories WHERE items.cat_id=categories.cat_id AND item_id = $1', [id])
                 .then(res => {
                         // should ONLY be one match
                         return res.rows[0] || null
@@ -57,11 +58,12 @@ function createItem(values)
         //check the values
         const check = _checkItemCreationParameters(values)
         //console.log(check)
+
         if(check.err)
                 return {error: check.err, errCode: 403}
 
         //construct the query
-        let db_values = [values.title, values.desc, values.price, values.visible || '0', values.rest_id]
+        let db_values = [values.title, values.desc, values.price, values.visible || '0', values.rest_id, values.url, values.cat_id]
 
         const query = format('INSERT INTO items VALUES (DEFAULT, %L) RETURNING *', db_values)
         if(query.error)
@@ -100,13 +102,31 @@ function updateItem(id, values)
         if(check.err)
                 return {error: check.err, errCode: 403}
 
-        const query = _createUpdateDynamicQuery(values)
+        const query = _createUpdateDynamicQuery(values,'items', 'item_id') // Update table items via its item_id
+        //console.log(query);
         if(query.error)
                 return {error: query.error, errCode: 403}
 
         return pool.query(query)
                 .then((res) => {
                         return res.rows[0] || null
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
+}
+
+/**
+ * Function to check for the existance of an item by its id
+ */
+function existsItemID(item_id)
+{
+        return pool.query('SELECT COUNT(*) FROM items WHERE item_id = $1', [item_id])
+                .then((res) => {
+                        if(res.rows[0].count > 0)
+                                return {exists: true}
+                        else
+                                return {exists: false}
                 })
                 .catch(err => {
                         return {error: err, errCode: 500}
@@ -141,6 +161,11 @@ function _checkItemCreationParameters(params)
         if(params.price && params.price < 0)
                 err_str = err_str.concat("Item price is a negative number\n")
 
+        if(!(params.url))
+                err_str = err_str.concat("No image URL provided for item\n")
+        if(params.url && params.url.length > 200)
+                err_str = err_str.concat("Image URL exceeds the limit of 200 chars\n")
+
         if(!(params.rest_id))
                 err_str = err_str.concat("No restaurant provided for item\n")
         if(params.rest_id)
@@ -150,6 +175,11 @@ function _checkItemCreationParameters(params)
                 // check that the restaurant exists
                 // also, check that the token_rest == rest_id
         }
+        
+        if(!(params.cat_id))
+                err_str = err_str.concat("No category ID provided for item\n")
+        if(params.cat_id && params.cat_id < 0)
+                err_str = err_str.concat("Category ID is a negative number\n")
 
         //if errors happenend, return the error string
         if(err_str.length > 0)
@@ -182,6 +212,9 @@ function _checkItemUpdateParameters(params)
         if(params.price && params.price < 0)
                 err_str = err_str.concat("Item price is a negative number\n")
 
+        if(params.url && params.url.length > 200)
+                err_str = err_str.concat("URL exceed the limit of 200 chars\n")
+
         if(params.rest_id)
         {
                 if(params.rest_id > 50)
@@ -190,51 +223,18 @@ function _checkItemUpdateParameters(params)
                 // also, check that the token_rest == rest_id
         }
 
+        if(params.url && params.url.length > 200)
+                err_str = err_str.concat("Image URL exceeds the limit of 200 chars\n")
+
+        if(params.cat_id && params.cat_id < 0)
+                err_str = err_str.concat("Category ID is a negative number\n")
+
         if(err_str.length > 0)
                 return {err: err_str}
 
         return {all_good: true}
 }
 
-/**
- * Auxiliary function that builds a dynamic query
- * for SQL with the key:values of an object
- * body is expected to have more than 0 key:value pairs
- */
-function _createUpdateDynamicQuery(body)
-{
-        //console.log(body)
-        const {item_id} = body
-        delete body.item_id
 
-        var body_size = Object.keys(body).length;
-        if(body_size == 0)
-                return {"error": "body is empty"}
 
-        var counter = 0;
-
-        var dynamicQuery = 'UPDATE items SET'
-        for(const key in body)
-        {
-                //console.log(key)
-                dynamicQuery = dynamicQuery.concat(` "${key}" = `)
-                //if value is string, add a '
-                if(typeof body[key] == "string")
-                        dynamicQuery = dynamicQuery.concat('\'')
-                dynamicQuery = dynamicQuery.concat(`${body[key]}`)
-                //if value is string, add a '
-                if(typeof body[key] == "string")
-                        dynamicQuery = dynamicQuery.concat('\'')
-
-                //if keys is not the last, add a comma separator
-                if(body_size > 1 && ++counter < body_size)
-                        dynamicQuery = dynamicQuery.concat(",")
-        }
-        dynamicQuery = dynamicQuery.concat(` WHERE item_id = ${item_id} RETURNING *`)
-
-        //console.log(dynamicQuery)
-
-        return dynamicQuery
-}
-
-module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems, getAllItemsByRestaurantID}
+module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems, getAllItemsByRestaurantID, existsItemID}

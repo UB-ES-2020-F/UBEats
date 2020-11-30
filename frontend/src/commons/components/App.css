@@ -231,10 +231,6 @@
     font-family: "Uber Move Text";
   }
 
-  .card + .card{
-    margin: 10px 0 0 10px;
-  }
-
   .restaurantProfile .restaurantBanner .restaurantTitle {
     text-align: bottom;
     padding-left: 5%;   
@@ -256,7 +252,9 @@
     border: 1px solid #ccc;
     background: #fff;
     float: left;
-    
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
   }
   .card:hover {
     box-shadow: 0 0 11px rgba(33,33,33,.2); 
@@ -296,6 +294,47 @@
     padding-left: 10px;
     padding-top: 3%;
     padding-right: 10%;
+  }
+
+
+  .profileClient {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0 20px;
+    background: white;
+    display: flex;
+    font-family: "Uber Move Text";
+  }
+
+  .profileClient p {
+    font-family: "Uber Move Text";
+  }
+
+  .profileClient .profileContainer {
+    padding-right: 20%;
+    padding-top: 10px;
+    flex-direction: column;
+    justify-content: center;
+    width: 55%;
+    font-family: "Uber Move Text";
+
+  }
+
+  .profileClient .profilePicture {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profileClient .row {
+    padding: 10px;
+  }
+
+  .profileButton {
+    font-family: "Uber Move Text";
+  }
+
+  .profileSelect {
+    font-family: "Uber Move Text";
   }
 
   
