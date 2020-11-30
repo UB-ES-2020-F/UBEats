@@ -1155,14 +1155,13 @@ INSERT INTO type_restaurants VALUES
 (3,'ayres@gmail.com'),(3,'royalnepal@gmail.com'),(3,'caneusebio@gmail.com'),(3,'bbqexpress@gmail.com'), 
 (4,'canvador@gmail.com'),(4,'chatico@gmail.com'),(4,'kfc@gmail.com'),(4,'mcdonald@gmail.com'), 
 (5,'wok@gmail.com'),(5,'boabao@gmail.com'),(5,'fulin@gmail.com'),(5,'fandimsum@gmail.com'), 
-(6,'saikosushi@gmail.com'),(6,'ramenya@gmail.com'),(6,'kuyi@gmail.com'),(6,'telemaki@gmail.com'), 
-(7,'chatico@gmail.com'),(7,'hideoutburger@gmail.com'),(7,'burgerniu@gmail.com'),(7,'tgb@gmail.com'), 
+(6,'ramenya@gmail.com'),(6,'kuyi@gmail.com'),(6,'telemaki@gmail.com'), 
+(7,'hideoutburger@gmail.com'),(7,'burgerniu@gmail.com'),(7,'tgb@gmail.com'), 
 (8,'mrgreensalad@gmail.com'),(8,'pokesi@gmail.com'),(8,'greenberry@gmail.com'),(8,'maoz@gmail.com'), 
-(9,'muns@gmail.com'),(9,'goiko@gmail.com'),(9,'papajohns@gmail.com'),(9,'hideoutburger@gmail.com'), 
-(10,'wok@gmail.com'),(10,'muns@gmail.com'),(10,'royalnepal@gmail.com'),(10,'boko@gmail.com'), 
-(11,'fandimsum@gmail.com'),(11,'chatime@gmail.com'),(11,'bubbolitas@gmail.com'),(11,'zenzoo@gmail.com'), 
+(9,'muns@gmail.com'),(9,'goiko@gmail.com'),(9,'papajohns@gmail.com'), 
+(10,'wok@gmail.com'),(10,'boko@gmail.com'),(11,'chatime@gmail.com'),(11,'zenzoo@gmail.com'), 
 (12,'tacobell@gmail.com'),(12,'rosanegra@gmail.com'),(12,'tacos99@gmail.com'),(12,'burritowey@gmail.com'), 
-(13,'bubbolitas@gmail.com'),(13,'zenzoo@gmail.com'),(13,'dulzuramia@gmail.com'),(13,'thefresh@gmail.com');
+(13,'bubbolitas@gmail.com')(13,'dulzuramia@gmail.com'),(13,'thefresh@gmail.com');
 --Labels of the items of the restaurant that the owner of the item has chosen
 INSERT INTO type_items VALUES (1,1),(2,2);
 --Añadimos un refresco y un extra al plato espagueti tartufo, siendo el refresco obligatorio y el queso opcional
