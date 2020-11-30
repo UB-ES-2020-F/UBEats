@@ -50,7 +50,7 @@ profiling() {
 	cd "backend" || return 127
 
 	#Start app in background
-	NODE_ENV=productio node --prof index.js &> node_execution.log &
+	NODE_ENV=production node --prof index.js &> node_execution.log &
 	#Save the process id on the background
 	APP_PID=$!
 	echo "Spawned node prof with pid: ${APP_PID}"
@@ -58,12 +58,12 @@ profiling() {
 	ps aux | grep ${APP_PID}
 	ps aux | grep node
 
-	docker_address_port=$(sudo netstat -lntu --program | grep docker | awk '{ print $4 '})
+	#docker_address_port=$(sudo netstat -lntu --program | grep docker | awk '{ print $4 '})
 
 	echo "[LOG] Profiling"
 
-	curl -vX GET "http://${docker_address_port}/api/qwertyuiop/users"
-	curl -vX GET "http://${docker_address_port}/api/items"
+	curl -vX GET "http://localhost:${PORT}/api/qwertyuiop/users"
+	curl -vX GET "http://localhost:${PORT}/api/items"
 	curl -vX GET "https://localhost:${PORT}/api/qwertyuiop/users"
 	curl -vX GET "https://localhost:${PORT}/api/items"
 	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/qwertyuiop/users" | grep -A11 'Concurrency Level')

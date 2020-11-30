@@ -7,7 +7,7 @@ branches:
 env:
   global:
     # CI=true -> warnings handled as errors
-  - SH=bash CI=false PGPORT=5432 PORT=3000 DB_PORT=5432 DB_USER=postgres DB_HOST=localhost DB_DATABASE=ubereats DB_PWD=""
+  - SH=bash CI=false PGPORT=5432 PORT=8080 DB_PORT=5432 DB_USER=postgres DB_HOST=localhost DB_DATABASE=ubereats DB_PWD=""
 services:
   - postgresql
 install: "./travis_install.sh"
