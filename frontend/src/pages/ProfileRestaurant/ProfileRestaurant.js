@@ -66,7 +66,7 @@ const listaSecciones = [
   },
 ]
 
-function ProfileRestaurant({rest_id, restaurantPhoto}) {
+function ProfileRestaurantF({rest_id}) {
   const [showModal, setShowModal] = useState(false);
   const [menuList, setMenuList] = useState([{
     item_id: 0,
@@ -170,7 +170,7 @@ function ProfileRestaurant({rest_id, restaurantPhoto}) {
         Name={plato.title}
         Description={plato.desc}
         Price={plato.price}
-        Image={restaurantPhoto}
+        Image={plato.url}
       >
       </CardPlato>
 
@@ -329,4 +329,11 @@ function ProfileRestaurant({rest_id, restaurantPhoto}) {
   );
 }
 
+class ProfileRestaurant extends React.Component {
+  render () {
+    return (
+      <ProfileRestaurantF rest_id={this.props.location.rest_id}/>
+    );
+  };
+};
 export default ProfileRestaurant;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import {Link} from 'react-router-dom';
 
 import Heart from "react-animated-heart";
 import './Main.css';
@@ -30,7 +31,11 @@ function RestPreviewGeneral(props){
         </div>
         <div className="text">
             <div className="text-title">
-                <h3>{props.rest.name}</h3>
+                <h3><Link to={{
+                            pathname:'/profilerestaurant',
+                            rest_id: props.rest.email
+                    }}>{props.rest.name}
+                    </Link></h3>
                 <div className="info">
                     <span> {props.rest.time} </span>
                 </div>

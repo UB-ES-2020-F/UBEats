@@ -7,8 +7,6 @@ import RestPreviewGeneral from './RestPreviewGeneral.js'
 
 import { Link } from 'react-router-dom';
 
-
-
 /**
  * 
  * Componente que muestra la categoria y las preview de los restaurantes, asi como un boton funcional para mostrar todos los restaurantes.
