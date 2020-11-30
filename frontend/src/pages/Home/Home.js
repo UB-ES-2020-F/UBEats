@@ -122,25 +122,21 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
       </div>
     </div>
 
-
     <div className="listings">
       <div className="container4">
         <div className="listings-grid">        
             <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/sushi.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/pizza.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/bbq.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/fastfood.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/japanese.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/burger.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/vegan.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/sushi.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/asian.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/wings.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/streetfood.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/coffeeandtea.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/fastfood.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/italian.png'/>
-            <TypePreview  type_id='1' type_name='sushi' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/dessert.png'/>
+            <TypePreview  type_id='2' type_name='pizzas' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/pizza.png'/>
+            <TypePreview  type_id='3' type_name='barbacoa' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/bbq.png'/>
+            <TypePreview  type_id='4' type_name='rapida' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/fastfood.png'/>
+            <TypePreview  type_id='5' type_name='china' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/japanese.png'/>
+            <TypePreview  type_id='7' type_name='hamburgesa' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/vegan.png'/>
+            <TypePreview  type_id='6' type_name='japonesa' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/burger.png'/>
+            <TypePreview  type_id='9' type_name='estadounidense' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/asian.png'/>
+            <TypePreview  type_id='10' type_name='callejera' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/wings.png'/>
+            <TypePreview  type_id='12' type_name='mejicana' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/streetfood.png'/>
+            <TypePreview  type_id='11' type_name='cafeyte' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/coffeeandtea.png'/>
+            <TypePreview  type_id='13' type_name='postres' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/fastfood.png'/>
           </div>
         </div>
     </div>

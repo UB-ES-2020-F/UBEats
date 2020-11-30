@@ -18,8 +18,6 @@ import Footer from './commons/components/Footer.js';
 
 import NavCustom from './pages/Navbar/NavCustom.js';
 
-
-
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';

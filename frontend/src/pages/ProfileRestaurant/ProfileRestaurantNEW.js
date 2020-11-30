@@ -1,75 +1,12 @@
 import React, { useState, useEffect} from 'react';
-import { Button, Container, Row, Card, Col, Modal, Nav } from 'react-bootstrap';
-import pollo from "../../images/banner.jpg";
-import pikachu from "../../images/pikachu.jpg";
-import bucket from "../../images/bucket.jpg";
-import wings from "../../images/alitas.jpg";
+import { Button, Container, Row, Card, Modal, Nav } from 'react-bootstrap';
 
 import restaurantService from "../../api/restaurant.service.js";
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
-const listaPlatos = [
-  {
-    title: "Pollo frito",
-    price: "3$",
-    Image: pollo,
-    desc: "Delicious fried chicken, 100% deadly."
-  },
-  {
-    title: "Hot wings",
-    price: "6$",
-    Image: wings,
-    desc: "Chicken wings, of course! *wink wink*"
-  },
-  {
-    title: "Fried Pikachu",
-    price: "4$",
-    Image: pikachu,
-    desc: "Simply electric."
-  },
-  {
-    title: "Chicken bucket",
-    price: "11$",
-    Image: bucket,
-    desc: "Will satisfy all your needs."
-  },
-  {
-    title: "Fried Pikachu",
-    price: "4$",
-    Image: pikachu,
-    desc: "Simply electric."
-  },
-  {
-    title: "Fried Pikachu",
-    price: "4$",
-    Image: pikachu,
-    desc: "Simply electric."
-  },
-];
-
-const listaSecciones = [
-  {
-    Header: "Picked for you",
-    ListaPlatos: listaPlatos
-  },
-  {
-    Header: "Classics",
-    ListaPlatos: listaPlatos
-  },
-  {
-    Header: "Recently ordered",
-    ListaPlatos: listaPlatos
-  },
-  {
-    Header: "New items",
-    ListaPlatos: listaPlatos
-  },
-]
-
-
-
 function ProfileRestaurantF({rest_id}) {
+  const [listaInfo, setListaInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [menuList, setMenuList] = useState([{
     item_id: 0,
@@ -97,27 +34,10 @@ function ProfileRestaurantF({rest_id}) {
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
-  const listaSecciones_dyn = [
-    {
-      Header: "Picked for you",
-      ListaPlatos: menuList
-    },
-    {
-      Header: "Classics",
-      ListaPlatos: menuList
-    },
-    {
-      Header: "Recently ordered",
-      ListaPlatos: menuList
-    },
-    {
-      Header: "New items",
-      ListaPlatos: menuList
-    },
-  ]
-
 
   const getCategories = (items) => {
+    const listaSecciones_dyn = [];
+
     for (let cat in items){
       listaSecciones_dyn.push({
         Header: cat,
@@ -125,12 +45,12 @@ function ProfileRestaurantF({rest_id}) {
       })
     };
     console.log({'listsec':listaSecciones_dyn});
+    setListaInfo(listaSecciones_dyn);
   };
 
   const fetchMenu = async () => {
     const items = await restaurantService.getRestaurantMenu(rest_id);
     setMenuList(items);
-    console.log(menuList);
     getCategories(items);
   };
 
@@ -141,16 +61,11 @@ function ProfileRestaurantF({rest_id}) {
     setRestaurantInfo(restInfo['restaurant']);
   };
 
-
-
   useEffect(() => {
     fetchRestaurantInfo();
     fetchMenu();
   }, []);
 
-
-
-  
     /**
     * Generates a product's card
     * props: Product's name, description, image and price.
@@ -175,8 +90,6 @@ function ProfileRestaurantF({rest_id}) {
     * Generates an array of product's cards
     * props: Array of product's data
     */
-
-
   function FilaPlatos (props) {
     var plato;
     var listaPlatos = []
@@ -225,7 +138,6 @@ function ProfileRestaurantF({rest_id}) {
       
       seccionesReturn.push(seccionX)
     }
-
     return (seccionesReturn);
   }
 
@@ -238,7 +150,7 @@ function ProfileRestaurantF({rest_id}) {
   function ListaCategorias(props) {
     var listaCategorias = []
     var columnas = 0;
-
+    console.log({'props':props})
     for (var categoria in props.listaSecciones) {
       var hrefitem = "#" + props.listaSecciones[categoria].Header;
       var categoriaX =
@@ -303,7 +215,6 @@ function ProfileRestaurantF({rest_id}) {
          * This next component is the Modal, shown only when
          * More Info is clicked.
          */}
-
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>{restaurantInfo['name']}</Modal.Title>
@@ -315,32 +226,24 @@ function ProfileRestaurantF({rest_id}) {
             </Button>
           </Modal.Footer>
         </Modal>
-
         {/**
          * This next part generates the categories' navbar.
          */}
-
         <Container className="">
           <Nav as="ul" className="categories-navbar">
-            <ListaCategorias listaSecciones={listaSecciones_dyn}></ListaCategorias>
+            <ListaCategorias listaSecciones={listaInfo}></ListaCategorias>
           </Nav>
         </Container>
-
         {/**
          * And this one generates the product rows.
          */}
-        {console.log(listaSecciones_dyn)}
-        <SeccionPlatos listaSecciones={listaSecciones_dyn}>
-
+        {console.log({'dyn':listaInfo})}
+        <SeccionPlatos listaSecciones={listaInfo}>
         </SeccionPlatos>
-        
       </Container>
-      
     </section>
-
   );
 }
-
 
 class ProfileRestaurant extends React.Component {
     render () {
