@@ -25,7 +25,7 @@ function RestPreviewMin(props){
             </div>
             <div className="text">
                 <div className="text-title">
-                    <h3><Link to={{
+                    <h3><Link className='linkto' to={{
                             pathname:'/profilerestaurant',
                             rest_id: props.rest.email
                     }}>{props.rest.name}</Link></h3>
