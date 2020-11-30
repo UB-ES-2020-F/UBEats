@@ -12,7 +12,7 @@ function getAllRestaurants()
 {
         var query = format(`    SELECT
                                         restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
-                                        users.street, users.phone, users.url, 
+                                        users.name, users."CIF",  users.street, users.phone, users.url, 
                                         type_restaurants.type_id, "types"."name" as type_name, "types".description as type_desc  
                                 FROM restaurants LEFT JOIN users ON users.email = restaurants.email
                                 
@@ -36,7 +36,7 @@ function getAllRestaurantsByUser(userId)
 {       
         var query = format(`    SELECT
                                         restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
-                                        users.street, users.phone, users.url, 
+                                        users.name, users."CIF", users.street, users.phone, users.url, 
                                         type_restaurants.type_id, "types"."name" as type_name, "types".description as type_desc,
                                         favourites.cust_id as favourite  
                                 FROM restaurants LEFT JOIN users ON users.email = restaurants.email
@@ -75,7 +75,7 @@ function getAllRestaurantsByType(type_id)
 {       
         var query = format(`    SELECT
                                         restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
-                                        users.street, users.phone, users.url, 
+                                        users.name, users."CIF", users.street, users.phone, users.url, 
                                         type_restaurants.type_id, "types"."name" as type_name, "types".description as type_desc 
                                 FROM restaurants LEFT JOIN users ON users.email = restaurants.email
 
