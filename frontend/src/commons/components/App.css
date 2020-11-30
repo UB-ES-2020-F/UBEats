@@ -231,10 +231,6 @@
     font-family: "Uber Move Text";
   }
 
-  .card + .card{
-    margin: 10px 0 0 10px;
-  }
-
   .restaurantProfile .restaurantBanner .restaurantTitle {
     text-align: bottom;
     padding-left: 5%;   
@@ -256,7 +252,9 @@
     border: 1px solid #ccc;
     background: #fff;
     float: left;
-    
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
   }
   .card:hover {
     box-shadow: 0 0 11px rgba(33,33,33,.2); 
