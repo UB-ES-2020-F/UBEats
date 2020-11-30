@@ -5,7 +5,7 @@ import pikachu from "../../images/pikachu.jpg";
 import bucket from "../../images/bucket.jpg";
 import wings from "../../images/alitas.jpg";
 
-import restaurantService from "../../api/homepage.service.js";
+import restaurantService from "../../api/restaurant.service.js";
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 

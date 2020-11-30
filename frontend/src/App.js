@@ -11,7 +11,7 @@ import RegisterClient from './pages/RegisterClient/RegisterClient.js';
 import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js';
 import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman.js';
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
-import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
+import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurantNEW.js'
 import ViewAll from './pages/ViewAll/ViewAll.js'
 
 import Footer from './commons/components/Footer.js';
