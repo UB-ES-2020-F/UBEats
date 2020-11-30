@@ -44,8 +44,11 @@ back_linting() {
 profiling() {
 	cd "backend" || return 127
 
+	mkdir logs
+	cd logs
+
 	#Start app in background
-	NODE_ENV=production node --prof index.js &> node_execution.log &
+	NODE_ENV=production node --prof ../index.js &> node_execution.log &
 	#Save the process id on the background
 	APP_PID=$!
 	echo "Spawned node prof with pid: ${APP_PID}"
@@ -82,7 +85,7 @@ profiling() {
 	#Clean up
 	rm isolate-0x*-v8.log profiling.log
 
-	cd ..
+	cd ../..
 }
 
 # [IMPORTANT] Don't uncomment front_tests if there are no tests for the frontend
