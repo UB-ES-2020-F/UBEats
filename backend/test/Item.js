@@ -318,7 +318,7 @@ describe('Items', () => {
       item2.rest_id = item.rest_id
       item2.cat_id = item.cat_id
       var query = format('INSERT INTO items VALUES(DEFAULT, %L) RETURNING *', Object.values(item2))
-      console.log(query)
+      //console.log(query)
 
       var insertedItems = await pool.query(query)
       id = insertedItems.rows[0].item_id
