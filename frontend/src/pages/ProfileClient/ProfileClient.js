@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../commons/components/App.css';
 
 import { Button, Image, Row, Container, Col, Toast } from 'react-bootstrap';
 import profilepic from "../../images/profilepicture.jpg"
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated'
+
+import userService from '../../api/user.service.js';
 
 var userDefaultInfo = {
   name: "Username",
@@ -18,6 +20,7 @@ var userDefaultInfo = {
 function ProfileClient({user}) {
   const [name, setName] = useState(user.user.name);
   const [email, setEmail] = useState(user.user.email);
+  const [databaseEmail, setDatabaseEmail] = useState(user.user.email);
   const [photo, setPhoto] = useState(user.user.url);
   const [phone, setPhone] = useState(user.user.phone);
   const [address, setAddress] = useState(user.user.street);
@@ -32,6 +35,20 @@ function ProfileClient({user}) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(validate_email);
   }
+
+  {/**
+    Sends the user info to the database. Called by SaveChanges().
+   */}
+
+  const sendInfoToDataBase = async (databaseEmail, address, tipo, email) => {
+    const updatedUserInfo =  await userService.setUserInfo(
+      databaseEmail, 
+      address,
+      tipo,
+      email
+      );
+  };
+
   
   /**
    * Function triggered by the "Save Changes" button.
@@ -39,8 +56,16 @@ function ProfileClient({user}) {
    * Also handles an incorrect email input.
    */
   function SaveChanges () {
-    if (validateEmail(email)) {
-      setShowToastFail(true);
+    if (validateEmail(email) && (address.length > 0)) {
+      setShowToast(true);
+      console.log(address);
+      console.log(user.user.tipo);
+      sendInfoToDataBase(
+        databaseEmail,
+        address,
+        user.user.tipo,
+        email
+      );
     }
     else {
       setShowToastFail(true);
@@ -49,10 +74,9 @@ function ProfileClient({user}) {
 
   return (
     <section className="profileClient">
-      {console.log(user)}
       <Container className="profileContainer">
 
-        {/** First row:
+        {/** 
          * Profile picture and user's name and phone
          */}
         <Row>
@@ -70,7 +94,7 @@ function ProfileClient({user}) {
             <p><strong> Phone: </strong>{phone}</p>
           </Col>
         </Row>
-        {/** Fourth row:
+        {/** 
          * Display of the invitation code.
          * It's not editable (and it shouldn't be)
          */}
@@ -82,7 +106,21 @@ function ProfileClient({user}) {
             <p>{invitationCode}</p> 
           </Col>
         </Row>
-        {/** Fifth row:
+
+        <Row>
+          <Col>
+            <p><strong>Address</strong></p>
+          </Col>
+          <Col>
+          <input 
+              defaultValue={address}
+              onChange={event => setAddress(event.target.value)}
+              >
+            </input>
+          </Col>
+        </Row>
+
+        {/** 
          * Input field for email changes.
          * Default value: current email.
          */}
@@ -94,7 +132,7 @@ function ProfileClient({user}) {
             <input 
               type="email" 
               defaultValue={email}
-              onChange={setEmail}
+              onChange={event => setEmail(event.target.value)}
               >
             </input>
           </Col>
@@ -124,7 +162,7 @@ function ProfileClient({user}) {
          */}
         <Row>
           <Toast onClose={() => setShowToastFail(false)} show={showToastFail} delay={3000} autohide>
-            <Toast.Body>Enter a valid email</Toast.Body>
+            <Toast.Body>Please enter a valid address and email</Toast.Body>
           </Toast>
         </Row>
         <Row>

@@ -77,8 +77,9 @@ function getAllRestaurantsByType(type_id)
                                         restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
                                         users.name, users."CIF", users.street, users.phone, users.url, 
                                         type_restaurants.type_id, "types"."name" as type_name, "types".description as type_desc 
-                                FROM restaurants LEFT JOIN users ON users.email = restaurants.email
+                                FROM restaurants 
 
+                                LEFT JOIN users ON users.email = restaurants.email
                                 LEFT JOIN type_restaurants ON type_restaurants.rest_id = restaurants.email 
                                 LEFT JOIN "types" ON "types".type_id = type_restaurants.type_id
                                 WHERE type_restaurants.type_id = %L`, type_id)
@@ -251,11 +252,10 @@ async function getAllTypes(){
  */
 async function getMenu(email){
     
-    const query = format('SELECT items.item_id,title,items.desc,price,types.name,items.cat_id,category FROM items,type_items,types,categories WHERE items.item_id=type_items.item_id AND items.rest_id=%L AND types.type_id=type_items.type_id AND visible =%L AND categories.cat_id=items.cat_id ORDER BY items.item_id',[email],1)
+    const query = format('SELECT items.item_id,title,items.desc,price,items.cat_id,category FROM items,categories WHERE items.rest_id=%L AND categories.cat_id=items.cat_id ORDER BY items.item_id',[email])
     
     return pool.query(query)
     .then(res =>{
-
         //check at least one row
         if(!res.rows[0]) return null
 
@@ -271,15 +271,22 @@ async function getMenu(email){
                         price : item.price,
                         cat_id: item.cat_id,
                         category: item.category,
-                        types : [item.name]
                     })
                 id_prev = item.item_id
             } else{
                 resSpecificRows[resSpecificRows.length -1].types.push(item.name)
             }
         })
+        let categories = {}
+        for (let it of resSpecificRows){
+                if (categories[it.category]){
+                        categories[it.category].push(it)
+                }else {
+                        categories[it.category]= [it]
+                }
+        }
         //console.log(resSpecificRows)
-        return resSpecificRows
+        return categories
     })
     .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
