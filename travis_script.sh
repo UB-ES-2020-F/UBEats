@@ -55,15 +55,15 @@ profiling() {
 	sudo netstat -lntu --program
 
 	#docker_address_port=$(sudo netstat -lntu --program | grep docker | awk '{ print $4 '})
-	#docker ps -a
-	#docker top
+	docker ps -a
+	docker top
 
 	echo "[LOG] Profiling"
 
 	curl -vX GET "http://localhost:${PORT}/api/qwertyuiop/users"
 	curl -vX GET "http://localhost:${PORT}/api/items"
-	curl -vX GET "https://localhost:${PORT}/api/qwertyuiop/users"
-	curl -vX GET "https://localhost:${PORT}/api/items"
+	curl -vX GET "http://localhost:${PORT}/api/qwertyuiop/users"
+	curl -vX GET "http://localhost:${PORT}/api/items"
 	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/qwertyuiop/users" | grep -A11 'Concurrency Level')
 	#echo $(ab -k -c 20 -n 20 "http://localhost:${PORT}/api/items" | grep -A11 'Concurrency Level')
 
