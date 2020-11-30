@@ -11,6 +11,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Endpoints](#endpoints-documentation)
+* [Code analysis](#code-analysis)
 
 ---
 ---
@@ -40,6 +41,11 @@ The purpose of this project is focused on learning, in this particular project t
 * [Chai](https://www.chaijs.com/): BDD/TDD assertion library for node for javascript testing framework.
 * [Mocha](https://mochajs.org/): JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun.
 
+### Code analysis tools
+* [ESLint](https://eslint.org/): Linter for javascript.
+* [NodeJS built-in profiler](https://nodejs.org/en/docs/guides/simple-profiling/): V8 profiling engine built-in nodejs.
+* [Istanbul test coverage](https://istanbul.js.org/): Metrics to know how useful are our unit tests.
+
 ### CI/CD
 
 * [TravisCI](https://travis-ci.org/): Used with Github to implement Continous Integration
@@ -62,6 +68,24 @@ cd Ubeats/frontend && npm i
 cd Ubeats/backend && npm i
 `
 
+Make sure the database schema is actualized
+
+`
+psql -v ON_ERROR_STOP=ON -f setup_database.sql -U ${your postgre user}
+`
+
+and that you have a properly configured .env file in your backend folder.
+
+```
+PORT=3000
+DB_USER=${your postgresql user}
+DB_PWD=${your postgresql password}
+DB_HOST="localhost"
+DB_DATABASE="ubereats"
+DB_PORT=5432
+
+```
+
 Next step is to build the frontend project via `cd Ubeats/frontend && npm run build`. 
 
 Finally to start the project just `npm start` inside _backend_ folder.
@@ -83,4 +107,44 @@ Docs         | Description
 [Users](docs/endpoints/Users.md) | User information management |
 [Restaurants](docs/endpoints/Restaurants.md) | Restaurant relative information |
 [Items](docs/endpoints/Items.md)| CRUD information for Items belonging to Restaurants|
+
+---
+---
+
+## Code analysis
+### Static
+Use the javascript linter to detect bugs, undefines, unused variables, etc.
+
+`
+npx eslint ./
+`
+
+### Dynamic
+To profile the application start it with this command instead of the typical npm start:
+
+`
+node --prof index.js
+`
+
+Then you should generate traffic so the profiler can get statistics. Generate all the traffic you can. More traffic == more statistics.
+
+`
+curl -X GET http://localhost:3000/api/items
+`
+
+Once you are satisfied with the traffic, stop the execution of the application. It should have created a file with the name isolate-0x*-v8.log. To examine this log you must first translate to a readable format.
+
+`
+node --prof-process isolate-0x*-v8.log > profiling.log
+`
+
+Now you can read the file.
+### Test coverage
+To know how useful are our unit tests just run
+
+```
+npm test
+```
+
+At the end of the tests a table will appear with all the relevant information about the tests done.
 

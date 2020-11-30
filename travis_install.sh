@@ -3,7 +3,10 @@
 front_install() {
 	cd "frontend" || return 127
 	echo "[LOG] Installing the frontend"
-	npm install && npm run build
+	npm install
+	# Fix this shit: https://github.com/validatorjs/validator.js/issues/1538
+	mv node_modules/validator/validator.js node_modules/validator/index.js
+	npm run build
 	FRONT_INSTALL_RESULT=$?
 	echo "[LOG] Frontend installed with exit code: ${FRONT_INSTALL_RESULT}"
 	cd ..
