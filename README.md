@@ -44,6 +44,7 @@ The purpose of this project is focused on learning, in this particular project t
 ### Code analysis tools
 * [ESLint](https://eslint.org/): Linter for javascript.
 * [NodeJS built-in profiler](https://nodejs.org/en/docs/guides/simple-profiling/): V8 profiling engine built-in nodejs.
+* [Istanbul test coverage](https://istanbul.js.org/): Metrics to know how useful are our unit tests.
 
 ### CI/CD
 
@@ -138,4 +139,12 @@ node --prof-process isolate-0x*-v8.log > profiling.log
 `
 
 Now you can read the file.
+### Test coverage
+To know how useful are our unit tests just run
+
+```
+npm test
+```
+
+At the end of the tests a table will appear with all the relevant information about the tests done.
 
