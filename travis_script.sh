@@ -58,6 +58,8 @@ profiling() {
 	#docker ps -a
 	#docker top
 
+	sleep 5 #wait for the app to be up
+
 	echo "[LOG] Profiling"
 
 	curl -vX GET "http://localhost:${PORT}/api/items"
