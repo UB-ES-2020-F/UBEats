@@ -46,16 +46,16 @@ const App = () => {
   
   return (
     <Router history={history}>
-
-      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} key='sidebar'/>):(<div/>)}
+      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} user={currentUser} key='sidebar'/>):(<div/>)}
       <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
+
       <Switch>
-        <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto}/>)} key='home'/>
+        <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto} isLogged={isLogged}/>)} key='home'/>
         <Route path='/login' component={Login} key='login'/>
         <Route path='/registerclient' component={RegisterClient} key='register client'/>
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
-        <Route path='/profileclient' component={ProfileClient} key='profile client'/>
+        {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
         <Route path='/viewall' component={ViewAll} key='viewall'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
       </Switch>

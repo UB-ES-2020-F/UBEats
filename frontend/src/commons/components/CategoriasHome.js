@@ -36,7 +36,7 @@ function CategoriasHome(props){
                 </div>
             </div>
             <div className="listings-grid">
-                <div className="listings-col"> {props.listaprops.map( (restaurante) =><RestPreviewGeneral Image={restaurante.Image} name={restaurante.name} desc={restaurante.desc} time={restaurante.time} />)} </div>
+                <div className="listings-col"> {props.listaprops.map( (restaurante) =><RestPreviewGeneral Image={restaurante.url} name={restaurante.name} />)} </div>
             </div>
         </div>
     );
