@@ -34,7 +34,7 @@ profiling() {
 	cd "backend" || return 127
 
 	#Start app in background
-	node --prof index.js &
+	node --prof index.js &> node_execution.log &
 	#Save the process id on the background
 	APP_PID=$!
 	echo "Spawned node prof with pid: ${APP_PID}"
@@ -54,6 +54,7 @@ profiling() {
 
 	#Kill the node process once all checks have been done
 	kill ${APP_PID}
+	cat node_execution.log
 
 	#Read the profile results and export them to text format
 	node --prof-process isolate-0x*-v8.log > profiling.log
