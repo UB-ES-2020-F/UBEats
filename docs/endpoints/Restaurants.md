@@ -13,34 +13,58 @@
 ```
 {
   "restaurants": [
-    {
-      "email": "rrr@gmail.com",
-      "name": "Rrr",
-      "CIF": "33333330E",
-      "street": "calle perdida alejada de todo, numero 30, barcelona",
-      "pass": "12344",
-      "phone": "609773493",
-      "tipo": "restaurant",
-      "url": "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-      "avaliability": "verde",
-      "visible": "inactive",
-      "iban": "ES8021000000000000001234",
-      "allergens": "restaurante1.com/allergens.pdf"
-    },
-    {
-      email": "r2@gmail.com",
-      "name": "Carlos",
-      "CIF": "33333330E",
-      "street": "calle perdida alejada de todo, numero 30, barcelona",
-      "pass": "12344",
-      "phone": "609773493",
-      "tipo": "restaurant",
-      "url": "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-      "avaliability": "verde",
-      "visible": "inactive",
-      "iban": "ES8021000000000000001234",
-      "allergens": "restaurante2.com/alle"rgens.pdf"
-    },
+  {
+    email: 'rst@gmail.com',
+    name: 'roberto',
+    CIF: '44444444E',
+    street: 'calle arago 35. barcelona',
+    pass: '1234',
+    phone: '696696686',
+    tipo: 'restaurant',
+    url: 'images.com/perfil.jpg',
+    avaliability: 'verde',
+    visible: 'inactive',
+    iban: 'ES8721000022293894885934',
+    allergens: 'restaurante-rst.com/allergens.pdf',
+    types: [ 
+      {
+        type_id: 219,
+        name: 'vegetariano',
+        description: 'comida vegetariana que por tanto incluye huevo y queso'
+      },
+      {
+        type_id: 220,
+        name: 'vegano',
+        description: 'comida mas restrictiva, no hay nada de origen animal'
+      }
+    ]
+  },
+  {
+    email: 'rst2@gmail.com',
+    name: 'roberto',
+    CIF: '44444444E',
+    street: 'calle arago 35. barcelona',
+    pass: '1234',
+    phone: '696696686',
+    tipo: 'restaurant',
+    url: 'images.com/perfil.jpg',
+    avaliability: 'verde',
+    visible: 'inactive',
+    iban: 'ES8721000022293894885934',
+    allergens: 'restaurante-rst2.com/allergens.pdf',
+    types: [ 
+      {
+        type_id: 219,
+        name: 'vegetariano',
+        description: 'comida vegetariana que por tanto incluye huevo y queso'
+      },
+      {
+        type_id: 220,
+        name: 'vegano',
+        description: 'comida mas restrictiva, no hay nada de origen animal'
+      }
+    ]
+  }
   ]
 }
 
@@ -54,18 +78,30 @@
  #### Response  
 ```
 {
-  "email": "rrr@gmail.com",
-  "name": "Rrr",
-  "CIF": "33333330E",
-  "street": "calle perdida alejada de todo, numero 30, barcelona",
-  "pass": "12344",
-  "phone": "609773493",
-  "tipo": "restaurant",
-  "url": "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-  "avaliability": "verde",
-  "visible": "inactive",
-  "iban": "ES8021000000000000001234",
-  "allergens": "restaurante1.com/allergens.pdf"
+  email: 'rst@gmail.com',
+  name: 'roberto',
+  CIF: '44444444E',
+  street: 'calle arago 35. barcelona',
+  pass: '1234',
+  phone: '696696686',
+  tipo: 'restaurant',
+  url: 'images.com/perfil.jpg',
+  avaliability: 'verde',
+  visible: 'inactive',
+  iban: 'ES8721000022293894885934',
+  allergens: 'restaurante-rst.com/allergens.pdf',
+  types: [
+    {
+      type_id: 87,
+      name: 'vegetariano',
+      description: 'comida vegetariana que por tanto incluye huevo y queso'
+    },
+    {
+      type_id: 88,
+      name: 'vegano',
+      description: 'comida mas restrictiva, no hay nada de origen animal'
+    }
+  ]
 }
 ``` 
 --- 
@@ -208,28 +244,15 @@
   "menu": 
     [
       {
-        item_id: 15,
+        item_id: 27,
         title: 'espaguetis tartufo',
         desc: 'Espaguetis con salsa tartufata hecha a base de setas y trufa negra',
         price: 10.95,
-        types: [ 'vegetariano prueba1', 'vegetariano prueba2' ]
+        cat_id: 10,
+        category: 'New items',
+        types: [ 'vegetariano', 'vegano' ]
       }
     ]
-}
-``` 
----
----
-### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/types/:email&color=000000)   
-#### *Query*
- `email` corresponding to the email of the restaurant, matched in database
-
- #### Response  
-```
-{
-  types: [
-    { name: 'vegetariano prueba1', description: 'comida eco' },
-    { name: 'vegetariano prueba2', description: 'comida eco' }
-  ]
 }
 ``` 
 ---
