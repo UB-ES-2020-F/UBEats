@@ -131,8 +131,8 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
             <TypePreview  type_id='4' type_name='rapida' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/fastfood.png'/>
             <TypePreview  type_id='5' type_name='china' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/japanese.png'/>
             <TypePreview  type_id='7' type_name='hamburgesa' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/vegan.png'/>
-            <TypePreview  type_id='6' type_name='japonesa' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/burger.png'/>
-            <TypePreview  type_id='9' type_name='estadounidense' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/asian.png'/>
+            <TypePreview  type_id='9' type_name='estadounidense' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/burger.png'/>
+            <TypePreview  type_id='6' type_name='japonesa' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/asian.png'/>
             <TypePreview  type_id='10' type_name='callejera' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/wings.png'/>
             <TypePreview  type_id='12' type_name='mejicana' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/streetfood.png'/>
             <TypePreview  type_id='11' type_name='cafeyte' photo='https://d4p17acsd5wyj.cloudfront.net/shortcuts/cuisines/coffeeandtea.png'/>
