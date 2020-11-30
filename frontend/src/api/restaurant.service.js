@@ -24,6 +24,15 @@ const getAllLogged = (user_id) => {
     });
 };
 
+//Get all restaurant types {type_id, type_name}
+const getTypes = () =>{
+  return axios.get(API_URL+'/types', {
+  }).then((response) => {
+    console.log('all rest types recieved');
+    return response.data;
+  });
+};
+
 const postFav = (rest_id, user_id, payload) => {
   //mirar si es fa a /restaurant o a /restaurants
   //mirar si hi ha body (payload) o no.
@@ -54,6 +63,7 @@ export default {
     getAll,
     getAllLogged,
     postFav,
+    getTypes,
     getRestaurantMenu,
     getRestaurant,
 };

@@ -68,6 +68,7 @@ const listapubli = [{
 function Home({setRestaurantId, setPicture, isLogged, user}) {
   const [restList, setRestList] = useState([{name: '', url:''}]);
   const [favList, setFavList] = useState([{name: '', url:''}]);
+  const [typeList, setTypeList] = useState([]);
 
   //Deprecated.
   const onClickRestaurantPage = (rest_id, photo) => {
@@ -84,7 +85,17 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
   const fetchFavs = async () => {
     const items = await RestService.getAllLogged(user.user.email);
     setRestList(items);
+    setFavList(restList.filter(rest => rest.fav==1));//We filter those that are faved.
+    
     console.log(restList);
+    console.log(favList);
+  };
+
+  const getTypeList = () => {
+    const types = [];//with type_id!
+    for (type in types){
+      setTypeList(typeList.push({type: restList.filter(rest=>rest.type==type)}));
+    };
   };
 
   useEffect(() => {
@@ -92,9 +103,9 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
       console.log('debugging');
     }
     else if (isLogged){
-      fetchFavs();
+      fetchFavs().then(getTypeList());
     } else {
-      fetchMenu();
+      fetchMenu().then(getTypeList());
     };
   }, []);
 
