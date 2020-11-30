@@ -252,7 +252,7 @@ async function getAllTypes(){
  */
 async function getMenu(email){
     
-    const query = format('SELECT items.item_id,title,items.desc,price,items.cat_id,category FROM items,categories WHERE items.rest_id=%L AND categories.cat_id=items.cat_id ORDER BY items.item_id',[email])
+    const query = format('SELECT items.item_id,title,items.desc,price,items.cat_id,items.url,category FROM items,categories WHERE items.rest_id=%L AND categories.cat_id=items.cat_id ORDER BY items.item_id',[email])
     
     return pool.query(query)
     .then(res =>{
@@ -271,6 +271,7 @@ async function getMenu(email){
                         price : item.price,
                         cat_id: item.cat_id,
                         category: item.category,
+                        url : item.url
                     })
                 id_prev = item.item_id
             } else{
