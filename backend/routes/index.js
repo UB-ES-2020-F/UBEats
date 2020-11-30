@@ -3,6 +3,7 @@ const express = require('express')
 const Users = require('../controllers/Users')
 const Restaurants = require('../controllers/Restaurants')
 const Items = require('../controllers/Items')
+const Extras = require('../controllers/Extra_items.js')
 
 const router = express.Router()
 
@@ -50,7 +51,16 @@ router.post('/items', Items.create)
 router.put('/items/:item_id', Items.update)
 router.delete('/items/:item_id', Items.remove)
 
+//Extras
+router.get('/items/:item_id/extras', Extras.getAllExtrasForItem)
+router.get('/items/:item_id/extras/:extra_id', Extras.getExtraForItem)
+router.post('/items/:item_id/extras', Extras.createExtraForItem)
+router.put('/items/:item_id/extras/:extra_id', Extras.updateExtraForItem)
+router.delete('/items/:item_id/extras/:extra_id', Extras.deleteExtraForItem)
+
 //Placeholder for restaurant api
+router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
+
 
 
 
