@@ -310,8 +310,6 @@
 	 overflow: hidden;
 	 padding-left: 40px;
 	 padding-right: 40px;
-
-
 }
  .listings .listings-grid::-webkit-scrollbar {
 	 display: none;
@@ -459,4 +457,12 @@
 
 .ubInc{
 	float: right;
+}
+
+.category_title {
+	margin-top: 20px;
+	margin-bottom: 0px;
+	margin-left: 40px;
+	font-weight: 700;
+	font-family: "Uber Move Text";	
 }

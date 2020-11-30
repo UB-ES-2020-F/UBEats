@@ -5,23 +5,22 @@ import'react-router-dom';
 import photo from '../../images/ubeats.png'
 
 function RestPreviewMin(props){
-
+    console.log(props.name)
     return(
-    <div class="listings-grid-element">
-        <div class="image">
+    <div className="listings-grid-element">
+        <div className="image">
             <img src={props.Image} alt="Restaurant image"></img>
         </div>
-        <div class="text">
-            <div class="text-title">
+        <div className="text">
+            <div className="text-title">
                 <h3>{props.name}</h3>
-                <div class="info">
-                    <span> {props.price} € </span>
+                <div className="info">
+                    <span><strong>€</strong></span>
                 </div>
             </div>
         </div>
     </div>
     );
-
 }
 
 

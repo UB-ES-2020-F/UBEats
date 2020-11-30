@@ -83,29 +83,16 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
   };
   
   const fetchFavs = async () => {
-    const items = await RestService.getAllLogged(user.user.email);
-    setRestList(items);
-    setFavList(restList.filter(rest => rest.fav==1));//We filter those that are faved.
-    
-    console.log(restList);
-    console.log(favList);
-  };
-
-  const getTypeList = () => {
-    const types = [];//with type_id!
-    for (type in types){
-      setTypeList(typeList.push({type: restList.filter(rest=>rest.type==type)}));
-    };
+    const items = await RestService.getAllLogged(user.user.email)
+    setRestList(items)
+    setFavList(items.filter(rest => rest.favourite==1));//We filter those that are faved.
   };
 
   useEffect(() => {
-    if (true){
-      console.log('debugging');
-    }
-    else if (isLogged){
-      fetchFavs().then(getTypeList());
+    if (isLogged){
+      fetchFavs();
     } else {
-      fetchMenu().then(getTypeList());
+      fetchMenu();
     };
   }, []);
 
@@ -157,10 +144,9 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
           </div>
         </div>
     </div>
-
-
-      <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={restList.slice(0,3)}/></div>
-      {!isLogged? (<div className="listings"><CategoriasHome titulo="Favoritos" listaprops={favList.slice(0,3)}/></div>) : (<div/>)}
+    
+      <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={restList}/></div>
+      {isLogged? (<div className="listings"><CategoriasHome titulo="Favoritos" listaprops={favList}/></div>) : (<div/>)}
  
     <div className="listings">
       <div className="container3">
@@ -184,8 +170,8 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
       </div>
     </div>
 
-    <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={restList.slice(0,3)}/></div>
-    <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={restList.slice(0,3)}/></div>
+    <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={restList}/></div>
+    <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={restList}/></div>
 
     <div className="listings">
       <div className="container3">

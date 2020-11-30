@@ -16,8 +16,7 @@ const getAll = () => {
 
 //Get all restaurants and favourites.
 const getAllLogged = (user_id) => {
-    return axios.get(API_URL, {
-      user_id
+    return axios.get(API_URL+'/user/'+user_id, {
     }).then((response) => {
       console.log('logged, all rest recieved');
       return response.data['rest'];
@@ -25,11 +24,11 @@ const getAllLogged = (user_id) => {
 };
 
 //Get all restaurant types {type_id, type_name}
-const getTypes = () =>{
-  return axios.get(API_URL+'/types', {
+const getRestaurantsByType = (type_id) =>{
+  return axios.get(API_URL+'/type/'+type_id, {
   }).then((response) => {
     console.log('all rest types recieved');
-    return response.data;
+    return response.data['rest'];
   });
 };
 
@@ -63,7 +62,7 @@ export default {
     getAll,
     getAllLogged,
     postFav,
-    getTypes,
+    getRestaurantsByType,
     getRestaurantMenu,
     getRestaurant,
 };

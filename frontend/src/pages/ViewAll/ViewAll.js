@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import RestPreviewMin from'../../commons/components/RestPreviewMin.js'
 import CategoriasHome from'../../commons/components/CategoriasHome.js'
@@ -28,21 +28,27 @@ const listaprops = [{
   },
   ]
 
-  function ViewAll(/*{containerdata}*/) {
-
-  return (
-    <body2>
-        <section className="login">
-        <div className="listings">
-            <div className="container3">
-                <div className="listings-grid">
-                    <div className="listings-col"> {listaprops.map( (restaurante) =><RestPreviewMin Image={restaurante.Image} name={restaurante.name} price={restaurante.price} />)} </div>
-                </div>
+  class ViewAll extends React.Component {
+    render() {  
+      return (
+        <body2>
+            <div className='container3'>
+              <div className="header-title">
+                <h2 className='category_title'>{this.props.location.title}</h2>
+              </div>
             </div>
-        </div>
-        </section>
-    </body2>
-    );
+            <section className="login">
+            <div className="listings">
+              <div className="container3">
+                <div className="listings-grid">
+                  <div className="listings-col"> {this.props.location.containerdata.map( (restaurante) =><RestPreviewMin Image={restaurante.url} name={restaurante.name} />)} </div>
+                </div>
+              </div>
+            </div>
+            </section>
+        </body2>
+        );
+      }
   }
 
-  export default ViewAll;
+export default ViewAll;
