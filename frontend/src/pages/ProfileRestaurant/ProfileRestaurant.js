@@ -7,7 +7,6 @@ import wings from "../../images/alitas.jpg";
 
 import restaurantService from "../../api/restaurant.service.js";
 
-//import 'bootstrap/dist/css/bootstrap.min.css';
 
 const listaPlatos = [
   {
@@ -66,8 +65,6 @@ const listaSecciones = [
     ListaPlatos: listaPlatos
   },
 ]
-
-
 
 function ProfileRestaurant({rest_id, restaurantPhoto}) {
   const [showModal, setShowModal] = useState(false);

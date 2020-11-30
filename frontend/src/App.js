@@ -31,7 +31,7 @@ import defaultImage from './images/banner.jpg';
 //It manages intercomponent communication between navbar and sidebar using useState sidebarOpen and setSidebarOpen.
 const App = () => {
 
-  const { user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
+  const {user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
   const [sidebarOpen, setSidebarOpen] = useState(false); //We set a state hook to sidebarOpen to manage the state of the sidebar.
   const dispatch = useDispatch();
 

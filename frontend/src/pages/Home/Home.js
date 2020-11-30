@@ -79,13 +79,14 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
   const fetchMenu = async () => {
     const items = await RestService.getAll();
     setRestList(items);
-    console.log(restList);
+    console.log(items);
   };
   
   const fetchFavs = async () => {
     const items = await RestService.getAllLogged(user.user.email)
     setRestList(items)
     setFavList(items.filter(rest => rest.favourite==1));//We filter those that are faved.
+    console.log({'fav':items.filter(rest => rest.favourite==1)});
   };
 
   useEffect(() => {
@@ -145,9 +146,9 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
         </div>
     </div>
     
-      <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={restList}/></div>
-      {isLogged? (<div className="listings"><CategoriasHome titulo="Favoritos" listaprops={favList}/></div>) : (<div/>)}
- 
+    <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={restList}/></div>
+    {isLogged? (<div className="listings"><CategoriasHome titulo="Favoritos" listaprops={favList}/></div>) : (<div/>)}
+
     <div className="listings">
       <div className="container3">
         <div className="header">
@@ -181,14 +182,12 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
           </div>
         </div>
         <div className="listings-grid">
-          <div className="listings-col"> {restList.map( (restaurante) =><RestPreviewGeneral Image={restaurante.url} name={restaurante.name}/>)} </div>
+          <div className="listings-col"> {restList.map( (restaurante) =><RestPreviewGeneral rest={restaurante}/>)} </div>
         </div>
       </div>
     </div>
   </body2>
-
-
-    </section>
+</section>
 
     
 

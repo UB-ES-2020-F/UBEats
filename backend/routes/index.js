@@ -41,7 +41,7 @@ router.delete('/restaurants/types/:email/:type_id',Restaurants.deleteType)
 router.delete('/restaurants/:email',Users.deleteUser)
 
 // Favourite
-router.post('/restaurant/:email_restaurant/favourite/:email_user', Restaurants.setFavourite)
+router.post('/restaurants/:email_restaurant/favourite/:email_user', Restaurants.setFavourite)
 
 //Items
 router.get('/items', Items.getAll)

@@ -43,7 +43,7 @@ function CategoriasHome(props){
                 </div>
             </div>
             <div className="listings-grid">
-                <div className="listings-col"> {props.listaprops.slice(0,3).map( (restaurante) =><RestPreviewGeneral Image={restaurante.url} name={restaurante.name} />)} </div>
+                <div className="listings-col"> {props.listaprops.slice(0,3).map( (restaurante) =><RestPreviewGeneral rest={restaurante} />)} </div>
             </div>
         </div>
     );

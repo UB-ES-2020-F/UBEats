@@ -4,7 +4,6 @@ const API_URL_DEV = "http://localhost:3000/api/restaurants";
 const API_URL_BUILD = "https://cors-anywhere.herokuapp.com/http://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurants";
 const API_URL = API_URL_DEV;
 
-
 //Get all restaurants.
 const getAll = () => {
     return axios.get(API_URL, {
@@ -32,14 +31,12 @@ const getRestaurantsByType = (type_id) =>{
   });
 };
 
-const postFav = (rest_id, user_id, payload) => {
+const postFav = (rest_id, user_id) => {
   //mirar si es fa a /restaurant o a /restaurants
   //mirar si hi ha body (payload) o no.
-  return axios.post(API_URL+`/${rest_id}/user/${user_id}`, {
-    payload
-  }).then((response) => {
+  return axios.post(API_URL+`/${rest_id}/favourite/${user_id}`, {
+  }).then(() => {
     console.log('fav post done');
-    return response.data;
   });
 };
 
@@ -58,6 +55,9 @@ const getRestaurantMenu = (rest_id) => {
         return response.data['menu'];
     });
 };
+
+
+
 export default {
     getAll,
     getAllLogged,
