@@ -62,7 +62,7 @@ function ProfileClient() {
     
     if (validateEmail(email)) {
       userInfo.email = email;
-      setShowToastFail(true);
+      setShowToast(true);
     }
 
     else {
@@ -84,7 +84,7 @@ function ProfileClient() {
 
         <Row>
           <Col>
-            <Image className="profilePicture" src={profilepic} roundedCircle />
+            <Image className='profilePicture' src={profilepic} roundedCircle />
           </Col>
 
           <Col >
