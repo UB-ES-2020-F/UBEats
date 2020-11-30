@@ -85,12 +85,11 @@ The body can contain `visible`, being this `0` or `1`. By default is `0`.
 
 ---
 ---
-### ![PUT](https://img.shields.io/static/v1?label=&message=PUT&color=orange) ![endpoint](https://img.shields.io/static/v1?label=&message=/items&color=000000)   
+### ![PUT](https://img.shields.io/static/v1?label=&message=PUT&color=orange) ![endpoint](https://img.shields.io/static/v1?label=&message=/items/:item_id&color=000000)   
   
  #### Body  
 ```
 {
-    item_id: 26,
     title: 'wefvweochi2echrg'
 }
 ``` 
@@ -110,21 +109,12 @@ The body can contain `visible`, being this `0` or `1`. By default is `0`.
 }
 ``` 
 #### Comments  
-Body must contain `item_id` thus this being a valid item.
 
 The values that can be included in the body to be updated are `title,desc,price,visible`.
 
 ---
 ---
-### ![DELETE](https://img.shields.io/static/v1?label=&message=DELETE&color=ff0000) ![endpoint](https://img.shields.io/static/v1?label=&message=/items&color=000000)   
-  
-
- #### Body  
-```
-{
-  "item_id": "12"
-}
-``` 
+### ![DELETE](https://img.shields.io/static/v1?label=&message=DELETE&color=ff0000) ![endpoint](https://img.shields.io/static/v1?label=&message=/items/:item_id&color=000000)   
 
  #### Response
  _Item deleted_
@@ -140,8 +130,6 @@ The values that can be included in the body to be updated are `title,desc,price,
   }
 }
 ``` 
-#### Comments  
-The body must contain `item_id`.
 
 ---  
 

@@ -11,11 +11,11 @@ import './GeneralSidebar.css';
 //This function contains the sidebar element from npm package react-sidebar.
 //isOpen and onOpen are package requirements.
 //isLogged is used to select whether LoggedSidebar is displayed or DefaultSidebar is.
-const GeneralSidebar = ({isOpen, onOpen, isLogged}) => { 
+const GeneralSidebar = ({isOpen, onOpen, isLogged, user}) => { 
     return (
         <Sidebar
             sidebar={
-               <div>{isLogged ?  (<LoggedSidebar openSidebar={onOpen}/>) : (<DefaultSidebar openSidebar={onOpen}/>)}</div>
+               <div>{isLogged ?  (<LoggedSidebar openSidebar={onOpen} user={user}/>) : (<DefaultSidebar openSidebar={onOpen}/>)}</div>
             }
             open={isOpen}
             onSetOpen={onOpen}

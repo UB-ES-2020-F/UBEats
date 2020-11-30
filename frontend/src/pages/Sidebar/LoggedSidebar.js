@@ -21,7 +21,7 @@ import './GeneralSidebar.css';
 // It has {openSidebar} prop in order to close the GeneralSidebar when accessing one of the links in this page.
 // It contains user info and useful links.
 // All the links close the sidebar upon clicked. Only the register and profile links are implemented, promotions, orders... are empty.
-const LoggedSidebar = ({openSidebar}) => { 
+const LoggedSidebar = ({openSidebar, user}) => { 
     const dispatch = useDispatch();
     const logOut = () => {
         dispatch(logout());
@@ -30,7 +30,6 @@ const LoggedSidebar = ({openSidebar}) => {
 
     return (
         <div>
-            {}
             <div className='parentDiv'>
                 <div className='profile'>
                     <div className='column1'>
@@ -44,7 +43,7 @@ const LoggedSidebar = ({openSidebar}) => {
                         </Link>
                     </div>
                     <div className='column2'>
-                        <a><span className='username'>Username</span></a>
+                        <a><span className='username'>{user.user.name}</span></a>
                         <br></br>
                         <a onClick={() => openSidebar(false)}><Link to='/profileclient' className='account'>See account</Link></a>
                     </div>

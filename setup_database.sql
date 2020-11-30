@@ -3,23 +3,24 @@ CREATE DATABASE ubereats;
 \connect ubereats;
 CREATE TYPE tipo_user AS ENUM ('restaurant','deliveryman','customer');
 CREATE TABLE "users" (
-"email" VARCHAR(50) NOT NULL,
-"name" VARCHAR(50) NOT NULL,
+"email" VARCHAR NOT NULL,
+"name" VARCHAR NOT NULL,
 "CIF" VARCHAR(20) NOT NULL,
-"street" VARCHAR(200) NOT NULL,
-"pass" VARCHAR(50) NOT NULL,
+"street" VARCHAR NOT NULL,
+"pass" VARCHAR NOT NULL,
 "phone" VARCHAR(20) NOT NULL,
 "tipo"  tipo_user NOT NULL,
+"url" VARCHAR,
 Constraint "user_pkey" Primary Key ("email")
 );
 CREATE TYPE avaliability_rest AS ENUM ('verde','amarillo','naranja','rojo');
 CREATE TYPE visible_rest AS ENUM ('inactive','invisible','visible');
 CREATE TABLE "restaurants" (
-"email" VARCHAR(50) NOT NULL,
+"email" VARCHAR NOT NULL,
 "avaliability" avaliability_rest NOT NULL,
 "visible" visible_rest NOT NULL,
-"iban" VARCHAR(24) NOT NULL,
-"allergens" VARCHAR(200),
+"iban" CHAR(24) NOT NULL,
+"allergens" VARCHAR,
 Constraint "restaurant_pkey" Primary Key ("email"),
 Constraint "restaurant_fkey_user" Foreign Key ("email") References "users"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
@@ -27,17 +28,17 @@ ON UPDATE CASCADE
 CREATE TYPE avaliability_deliv AS ENUM ('verde','rojo');
 CREATE TYPE visible_deliv AS ENUM ('inactive','invisible','visible');
 CREATE TABLE "deliverymans" (
-"email" VARCHAR(50) NOT NULL,
+"email" VARCHAR NOT NULL,
 "avaliability" avaliability_deliv NOT NULL,
 "visible" visible_deliv NOT NULL,
-"iban" VARCHAR(24) NOT NULL,
+"iban" CHAR(24) NOT NULL,
 Constraint "deliveryman_pkey" Primary Key ("email"),
 Constraint "deliveryman_fkey_user" Foreign Key ("email") References "users"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
 );
 CREATE TABLE "customers" (
-"email" VARCHAR(50) NOT NULL,
-"card" VARCHAR(23) NOT NULL,
+"email" VARCHAR NOT NULL,
+"card" CHAR(23) NOT NULL,
 Constraint "customer_pkey" Primary Key ("email"),
 Constraint "customer_fkey_user" Foreign Key ("email") References "users"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
@@ -45,9 +46,9 @@ ON UPDATE CASCADE
 CREATE TYPE status_orders AS ENUM ('esperando','preparando','preparado','enviado','entregado');
 CREATE TABLE "orders" (
 "order_id" SERIAL NOT NULL UNIQUE,
-"rest_id" VARCHAR(50) NOT NULL,
-"deliv_id" VARCHAR(50) NOT NULL,
-"cust_id" VARCHAR(50) NOT NULL,
+"rest_id" VARCHAR NOT NULL,
+"deliv_id" VARCHAR NOT NULL,
+"cust_id" VARCHAR NOT NULL,
 "status" status_orders NOT NULL,
 "timestamp" TIMESTAMPTZ NOT NULL,
 Constraint "order_pkey" Primary Key ("order_id"),
@@ -58,16 +59,27 @@ ON UPDATE CASCADE,
 Constraint "order_fkey_cust" Foreign Key ("cust_id") References "customers"("email") ON DELETE CASCADE
 ON UPDATE CASCADE
 );
+CREATE TABLE "categories" (
+"cat_id" SERIAL NOT NULL UNIQUE,
+"category" VARCHAR NOT NULL,
+"rest_id" VARCHAR NOT NULL,
+Constraint "categories_pkey" Primary Key ("cat_id"),
+Constraint "cat_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE
+ON UPDATE CASCADE
+);
 CREATE TABLE "items" (
 "item_id" SERIAL NOT NULL UNIQUE,
-"title" VARCHAR(30) NOT NULL,
-"desc" VARCHAR(200) NOT NULL,
+"title" VARCHAR NOT NULL,
+"desc" VARCHAR NOT NULL,
 "price" float NOT NULL,
 "visible" BIT,
-"rest_id" VARCHAR(50) NOT NULL,
+"rest_id" VARCHAR NOT NULL,
+"url" VARCHAR,
+"cat_id" INT NOT NULL,
 Constraint "item_pkey" Primary Key ("item_id"),
 Constraint "item_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE
-ON UPDATE CASCADE
+ON UPDATE CASCADE,
+Constraint "item_fkey_cat" Foreign Key ("cat_id") References "categories"("cat_id") ON DELETE CASCADE
 );
 CREATE TABLE "order_items" (
 "order_id" INT NOT NULL,
@@ -78,10 +90,10 @@ Constraint "orderitems_fkey_order" Foreign Key ("order_id") References "orders"(
 Constraint "orderitems_fkey_item" Foreign Key ("item_id") References "items"("item_id") ON DELETE CASCADE
 );
 CREATE TABLE "feedbacks" (
-"rest_id" VARCHAR(50) NOT NULL,
-"cust_id" VARCHAR(50) NOT NULL,
+"rest_id" VARCHAR NOT NULL,
+"cust_id" VARCHAR NOT NULL,
 "rating" INT,
-"explanation" VARCHAR(200) NOT NULL,
+"explanation" VARCHAR NOT NULL,
 "timestamp" TIMESTAMPTZ NOT NULL,
 Constraint "feedback_pkey" Primary Key ("rest_id", "cust_id"),
 Constraint "feedback_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE
@@ -90,8 +102,8 @@ Constraint "feedback_fkey_cust" Foreign Key ("cust_id") References "customers"("
 ON UPDATE CASCADE
 );
 CREATE TABLE "favourites" (
-"cust_id" VARCHAR(50) NOT NULL,
-"rest_id" VARCHAR(50) NOT NULL,
+"cust_id" VARCHAR NOT NULL,
+"rest_id" VARCHAR NOT NULL,
 Constraint "favourites_pkey" Primary Key ("cust_id","rest_id"),
 Constraint "favourites_fkey_cust" Foreign Key ("cust_id") References "customers"("email") ON DELETE CASCADE
 ON UPDATE CASCADE,
@@ -101,20 +113,20 @@ ON UPDATE CASCADE
 CREATE TABLE "reports" (
 "rep_id" SERIAL NOT NULL UNIQUE,
 "order_id" INT NOT NULL,
-"description" VARCHAR(200) NOT NULL,
+"description" VARCHAR NOT NULL,
 "timestamp" TIMESTAMPTZ NOT NULL,
 Constraint "reports_pkey" Primary Key ("rep_id"),
 Constraint "reports_fkey_order" Foreign Key ("order_id") References "orders"("order_id") ON DELETE CASCADE
 );
 CREATE TABLE "types" (
 "type_id" SERIAL NOT NULL UNIQUE,
-"name" VARCHAR(20),
-"description" VARCHAR(100),
+"name" VARCHAR,
+"description" VARCHAR,
 Constraint "types_pkey" Primary Key ("type_id")
 );
 CREATE TABLE "type_restaurants" (
 "type_id" INT NOT NULL,
-"rest_id" VARCHAR(50) NOT NULL,
+"rest_id" VARCHAR NOT NULL,
 Constraint "typerestaurants_pkey" Primary Key ("type_id","rest_id"),
 Constraint "typerestaurants_fkey_type" Foreign Key ("type_id") References "types"("type_id") ON DELETE CASCADE,
 Constraint "typerestaurants_fkey_rest" Foreign Key ("rest_id") References "restaurants"("email") ON DELETE CASCADE ON UPDATE CASCADE
@@ -128,8 +140,8 @@ Constraint "typeitems_fkey_item" Foreign Key ("item_id") References "items"("ite
 );
 CREATE TABLE "extra_items" (
 "extraitem_id" SERIAL NOT NULL UNIQUE,
-"name" VARCHAR(30) NOT NULL,
-"desc" VARCHAR(200) NOT NULL,
+"name" VARCHAR NOT NULL,
+"desc" VARCHAR NOT NULL,
 "price" float NOT NULL,
 "mandatory" BIT,
 "item_id" INT NOT NULL,
@@ -146,12 +158,12 @@ Constraint "orderextraitems_fkey_extraitem" Foreign Key ("extraitem_id") Referen
 );
 --Mock data to test all the tables. Two mock data in each table. Insert two restaurants, two customers and two deliverymans
 INSERT INTO "users" VALUES
-('rrr@gmail.com','Rrr','33333330E','calle perdida alejada de todo, numero 30, barcelona','12344','609773493','restaurant'),
-('r2@gmail.com','Carlos','33333430E','Gran Via, numero 30, Barcelona','1234','609773495','restaurant'),
-('rub@gmail.com','Rub','33343330E','calle perdida alejada de todo, numero 35, barcelona','1234666','60985996','deliveryman'),
-('r3@gmail.com','David','33343330V','Av Diagonal, num 2, barcelona','12345','61985996','deliveryman'),
-('ran@gmail.com','Ran','44444092R','calle arago, numero 40, Barcelona','123456789gjh','608375886','customer'),
-('r4@gmail.com','Carla','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','customer');
+('rrr@gmail.com','Rrr','33333330E','calle perdida alejada de todo, numero 30, barcelona','12344','609773493','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('r2@gmail.com','Carlos','33333430E','Gran Via, numero 30, Barcelona','1234','609773495','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('rub@gmail.com','Rub','33343330E','calle perdida alejada de todo, numero 35, barcelona','1234666','60985996','deliveryman','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('r3@gmail.com','David','33343330V','Av Diagonal, num 2, barcelona','12345','61985996','deliveryman','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('ran@gmail.com','Ran','44444092R','calle arago, numero 40, Barcelona','123456789gjh','608375886','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('r4@gmail.com','Carla','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
 INSERT INTO restaurants VALUES('rrr@gmail.com','verde','inactive','ES8021000000000000001234',''),
 ('r2@gmail.com','rojo','visible','ES8021000004444000001234','restaurante.com/allergens.pdf');
 INSERT INTO deliverymans VALUES('rub@gmail.com','rojo','visible','ES8021000000000000001235'),
@@ -161,9 +173,12 @@ INSERT INTO customers VALUES('ran@gmail.com','12345678912345670921345'),
 --Insert two mock orders that later we are going to rate and make feedback
 INSERT INTO orders VALUES (DEFAULT,'rrr@gmail.com','r3@gmail.com','r4@gmail.com','esperando',CURRENT_TIMESTAMP(0)),
 (DEFAULT,'r2@gmail.com','r3@gmail.com','r4@gmail.com','preparando',CURRENT_TIMESTAMP(0));
+--Insert the four categories in the two restaurants of the mock data
+INSERT INTO categories VALUES (DEFAULT,'Picked for you','rrr@gmail.com'),(DEFAULT,'Classics','rrr@gmail.com'),(DEFAULT,'Recently ordered','rrr@gmail.com'),(DEFAULT,'New items','rrr@gmail.com');
+INSERT INTO categories VALUES (DEFAULT,'Picked for you','r2@gmail.com'),(DEFAULT,'Classics','r2@gmail.com'),(DEFAULT,'Recently ordered','r2@gmail.com'),(DEFAULT,'New items','r2@gmail.com');
 --Two items, in different restaurants
-INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rrr@gmail.com'),
-(DEFAULT,'pulpo con patatas','pulpo a la brasa acompañado de patatas fritas pochadas',18.99,'1','r2@gmail.com');
+INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.95,'1','rrr@gmail.com','',4),
+(DEFAULT,'pulpo con patatas','pulpo a la brasa acompañado de patatas fritas pochadas',18.99,'1','r2@gmail.com','',8);
 --Here we have the order_id, the item_id, and the amount
 INSERT INTO order_items VALUES (1,1,2),(2,2,4);
 --Two feedbacks about the 2 orders
