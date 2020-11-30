@@ -52,7 +52,7 @@ const Register = (props) => {
   const [successful, setSuccessful] = useState(false);
   const [loading, setLoading] = useState(false);
   
-  const user_type = 'restaurant' // customer, restaurant, deliveryman
+  const type = 'restaurant' //customer, restaurant, deliveryman
   const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
 
@@ -80,7 +80,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      dispatch(register(name, email, password, user_type))
+      dispatch(register(name, email, password, type))
         .then(() => {
           setSuccessful(true);
           setLoading(false);

@@ -1,57 +1,13 @@
 import React, { useState, useEffect} from 'react';
-import { Button, Container, Row, Card, Col, Modal, Nav } from 'react-bootstrap';
-import pollo from "../../images/banner.jpg";
-import pikachu from "../../images/pikachu.jpg";
-import bucket from "../../images/bucket.jpg";
-import wings from "../../images/alitas.jpg";
+import { Button, Container, Row, Card, Modal, Nav } from 'react-bootstrap';
 
 import restaurantService from "../../api/restaurant.service.js";
 
-
-const listaPlatos = [
-  {
-    title: "Pollo frito",
-    price: "3$",
-    Image: pollo,
-    desc: "Delicious fried chicken, 100% deadly."
-  },
-  {
-    title: "Hot wings",
-    price: "6$",
-    Image: wings,
-    desc: "Chicken wings, of course! *wink wink*"
-  },
-  {
-    title: "Fried Pikachu",
-    price: "4$",
-    Image: pikachu,
-    desc: "Simply electric."
-  },
-  {
-    title: "Chicken bucket",
-    price: "11$",
-    Image: bucket,
-    desc: "Will satisfy all your needs."
-  },
-  {
-    title: "Fried Pikachu",
-    price: "4$",
-    Image: pikachu,
-    desc: "Simply electric."
-  },
-  {
-    title: "Fried Pikachu",
-    price: "4$",
-    Image: pikachu,
-    desc: "Simply electric."
-  },
-];
-
-
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ProfileRestaurantF({rest_id}) {
+  const [listaInfo, setListaInfo] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [categories, setCategories] = useState();
   const [menuList, setMenuList] = useState([{
     item_id: 0,
     title: 'Loading',
@@ -75,46 +31,29 @@ function ProfileRestaurantF({rest_id}) {
     "allergens": " ",
   })
 
-  const listaSecciones_dyn = [
-    {
-      Header: "Picked for you",
-      ListaPlatos: menuList
-    },
-    {
-      Header: "Classics",
-      ListaPlatos: menuList
-    },
-    {
-      Header: "Recently ordered",
-      ListaPlatos: menuList
-    },
-    {
-      Header: "New items",
-      ListaPlatos: menuList
-    },
-  ]
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
-  const listaSecciones = [
-  ]
 
   const getCategories = (items) => {
+    const listaSecciones_dyn = [];
+
     for (let cat in items){
-      listaSecciones.push({
+      listaSecciones_dyn.push({
         Header: cat,
         ListaPlatos: items[cat]
       })
     };
-    console.log({'listsec':listaSecciones});
+    console.log({'listsec':listaSecciones_dyn});
+    setListaInfo(listaSecciones_dyn);
   };
-
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
 
   const fetchMenu = async () => {
     const items = await restaurantService.getRestaurantMenu(rest_id);
     setMenuList(items);
     getCategories(items);
   };
+
 
   const fetchRestaurantInfo = async () => {
     const restInfo = await restaurantService.getRestaurant(rest_id);
@@ -126,7 +65,7 @@ function ProfileRestaurantF({rest_id}) {
     fetchRestaurantInfo();
     fetchMenu();
   }, []);
-  
+
     /**
     * Generates a product's card
     * props: Product's name, description, image and price.
@@ -135,11 +74,11 @@ function ProfileRestaurantF({rest_id}) {
   function CardPlato(props) {
     return (
       <Card style={{ width: '14rem' }}>
-        <Card.Img className="card-img-top" variant="top" src={props.url} fluid/>
+        <Card.Img className="card-img-top" variant="top" src={props.Image} fluid/>
         <Card.Body>
-          <Card.Title className="textFont">{props.title}</Card.Title>
+          <Card.Title className="textFont">{props.Name}</Card.Title>
           <Card.Text className="textFont">
-            {props.desc}
+            {props.Description}
           </Card.Text>
           {/** <Button variant="success">Añadir al carrito</Button> */}
         </Card.Body>
@@ -151,18 +90,18 @@ function ProfileRestaurantF({rest_id}) {
     * Generates an array of product's cards
     * props: Array of product's data
     */
-
-
   function FilaPlatos (props) {
     var plato;
     var listaPlatos = []
     for (plato of props.listaPlatos) {
       
       var cardPlato = <CardPlato 
-        title={plato.title}
-        desc={plato.desc}
-        url={plato.url}
-      />
+        Name={plato.title}
+        Description={plato.desc}
+        Price={plato.price}
+        Image={plato.url}
+      >
+      </CardPlato>
 
       listaPlatos.push(cardPlato);
     }
@@ -178,7 +117,7 @@ function ProfileRestaurantF({rest_id}) {
     var seccionesReturn = [];
     
     for (var seccion in props.listaSecciones) {
-      console.log({'seccion':seccion});
+      
       var seccionX = 
         <Row className="restaurantContainer">
           <Container>
@@ -211,7 +150,7 @@ function ProfileRestaurantF({rest_id}) {
   function ListaCategorias(props) {
     var listaCategorias = []
     var columnas = 0;
-
+    console.log({'props':props})
     for (var categoria in props.listaSecciones) {
       var hrefitem = "#" + props.listaSecciones[categoria].Header;
       var categoriaX =
@@ -229,11 +168,14 @@ function ProfileRestaurantF({rest_id}) {
     </Nav.Item>
 
     listaCategorias.push(desplegable);
+
+
     return(listaCategorias);
   }
 
   return (
     <section className="restaurantProfile">
+
       <Container>
         <Row>
           <Container fluid>
@@ -273,7 +215,6 @@ function ProfileRestaurantF({rest_id}) {
          * This next component is the Modal, shown only when
          * More Info is clicked.
          */}
-
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>{restaurantInfo['name']}</Modal.Title>
@@ -285,40 +226,31 @@ function ProfileRestaurantF({rest_id}) {
             </Button>
           </Modal.Footer>
         </Modal>
-
         {/**
          * This next part generates the categories' navbar.
          */}
-
         <Container className="">
           <Nav as="ul" className="categories-navbar">
-            <ListaCategorias listaSecciones={listaSecciones}></ListaCategorias>
+            <ListaCategorias listaSecciones={listaInfo}></ListaCategorias>
           </Nav>
         </Container>
-
-        {/** Platos hardcodeados para poder hacer las pruebas 
-         * pendiente de poner los de la base de datos.
-        */}
-
         {/**
          * And this one generates the product rows.
          */}
-        <SeccionPlatos listaSecciones={listaSecciones}>
-
+        {console.log({'dyn':listaInfo})}
+        <SeccionPlatos listaSecciones={listaInfo}>
         </SeccionPlatos>
-        
       </Container>
-      
     </section>
-
   );
 }
 
 class ProfileRestaurant extends React.Component {
-  render () {
-    return (
-      <ProfileRestaurantF rest_id={this.props.location.rest_id}/>
-    );
+    render () {
+      return (
+        <ProfileRestaurantF rest_id={this.props.location.rest_id}/>
+      );
+    };
   };
-};
 export default ProfileRestaurant;
+

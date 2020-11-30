@@ -14,7 +14,6 @@ router.post('/login',Users.login)
 router.post('/register',Users.register)
 
 //Users
-
 router.put('/user/:email', Users.updateUser)
 
 //Customer
@@ -42,7 +41,7 @@ router.delete('/restaurants/types/:email/:type_id',Restaurants.deleteType)
 router.delete('/restaurants/:email',Users.deleteUser)
 
 // Favourite
-router.post('/restaurant/:email_restaurant/favourite/:email_user', Restaurants.setFavourite)
+router.post('/restaurants/:email_restaurant/favourite/:email_user', Restaurants.setFavourite)
 
 //Items
 router.get('/items', Items.getAll)
@@ -59,7 +58,7 @@ router.put('/items/:item_id/extras/:extra_id', Extras.updateExtraForItem)
 router.delete('/items/:item_id/extras/:extra_id', Extras.deleteExtraForItem)
 
 //Placeholder for restaurant api
-router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
+router.get('/restaurants/:rest_id/items', Items.getAllByRestaurant)
 
 
 
