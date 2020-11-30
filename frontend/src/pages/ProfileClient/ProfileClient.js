@@ -56,7 +56,7 @@ function ProfileClient({user}) {
    * Also handles an incorrect email input.
    */
   function SaveChanges () {
-    if (validateEmail(email)) {
+    if (validateEmail(email) && (address.length > 0)) {
       setShowToast(true);
       console.log(address);
       console.log(user.user.tipo);
