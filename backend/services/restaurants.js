@@ -277,8 +277,16 @@ async function getMenu(email){
                 resSpecificRows[resSpecificRows.length -1].types.push(item.name)
             }
         })
+        let categories = {}
+        for (let it of resSpecificRows){
+                if (categories[it.category]){
+                        categories[it.category].push(it)
+                }else {
+                        categories[it.category]= [it]
+                }
+        }
         //console.log(resSpecificRows)
-        return resSpecificRows
+        return categories
     })
     .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
 }
