@@ -40,7 +40,12 @@ function ProfileClient({user}) {
    */
   function SaveChanges () {
     if (validateEmail(email)) {
+<<<<<<< HEAD
       setShowToastFail(true);
+=======
+      userInfo.email = email;
+      setShowToast(true);
+>>>>>>> 6afd30f5dfdfb3466f2b0efad5b574cbaa266459
     }
     else {
       setShowToastFail(true);
