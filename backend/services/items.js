@@ -117,6 +117,23 @@ function updateItem(id, values)
 }
 
 /**
+ * Function to check for the existance of an item by its id
+ */
+function existsItemID(item_id)
+{
+        return pool.query('SELECT COUNT(*) FROM items WHERE item_id = $1', [item_id])
+                .then((res) => {
+                        if(res.rows[0].count > 0)
+                                return {exists: true}
+                        else
+                                return {exists: false}
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
+}
+
+/**
  * Auxiliary function to check for the parameters of a body
  * This function is called in the context of item creation
  * Certain parameters are necessary for the creation of an item
@@ -220,4 +237,4 @@ function _checkItemUpdateParameters(params)
 
 
 
-module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems, getAllItemsByRestaurantID}
+module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems, getAllItemsByRestaurantID, existsItemID}

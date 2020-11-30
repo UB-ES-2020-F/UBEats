@@ -35,7 +35,7 @@ const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false); //We set a state hook to sidebarOpen to manage the state of the sidebar.
   const dispatch = useDispatch();
 
-  const [restSelected, setRestSelected] = useState('r2@gmail.com');
+  const [restSelected, setRestSelected] = useState('rrr@gmail.com');
   const [restPhoto, setRestPhoto] = useState(defaultImage);
 
   useEffect(() => {
@@ -46,7 +46,6 @@ const App = () => {
   
   return (
     <Router history={history}>
-      {console.log(currentUser)}
       {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} user={currentUser} key='sidebar'/>):(<div/>)}
       <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
 
@@ -56,7 +55,7 @@ const App = () => {
         <Route path='/registerclient' component={RegisterClient} key='register client'/>
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
-        <Route path='/profileclient' component={ProfileClient} key='profile client'/>
+        {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
         <Route path='/viewall' component={ViewAll} key='viewall'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
       </Switch>
