@@ -12,9 +12,12 @@ import RegisterRestaurant from './pages/RegisterRestaurant/RegisterRestaurant.js
 import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman.js';
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurant.js'
+import ViewAll from './pages/ViewAll/ViewAll.js'
+
 import Footer from './commons/components/Footer.js';
 
 import NavCustom from './pages/Navbar/NavCustom.js';
+
 
 
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
@@ -32,7 +35,7 @@ const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false); //We set a state hook to sidebarOpen to manage the state of the sidebar.
   const dispatch = useDispatch();
 
-  const [restSelected, setRestSelected] = useState('r2@gmail.com');
+  const [restSelected, setRestSelected] = useState('rrr@gmail.com');
   const [restPhoto, setRestPhoto] = useState(defaultImage);
 
   useEffect(() => {
@@ -53,6 +56,7 @@ const App = () => {
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
         {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
+        <Route path='/viewall' component={ViewAll} key='viewall'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
       </Switch>
       

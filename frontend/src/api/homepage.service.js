@@ -17,7 +17,7 @@ const getAll = () => {
 const getRestaurant = (rest_id) => {
     return axios.get(API_URL+'/' + rest_id, {
     }).then((response) => {
-      console.log('rest recieved');
+      console.log('Restaurant info received');
       return response.data;
     });
 };
@@ -25,7 +25,7 @@ const getRestaurant = (rest_id) => {
 const getRestaurantMenu = (rest_id) => {
     return axios.get(API_URL +'/menu/'+ rest_id, {
     }).then((response) => {
-        console.log('rest menu recieved');
+        console.log('Restaurant menu received');
         return response.data['menu'];
     });
 };

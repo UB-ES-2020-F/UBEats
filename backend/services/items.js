@@ -103,13 +103,32 @@ function updateItem(id, values)
                 return {error: check.err, errCode: 403}
 
         const query = _createUpdateDynamicQuery(values,'items', 'item_id') // Update table items via its item_id
-        console.log(query);
+
+        //console.log(query);
+
         if(query.error)
                 return {error: query.error, errCode: 403}
 
         return pool.query(query)
                 .then((res) => {
                         return res.rows[0] || null
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
+}
+
+/**
+ * Function to check for the existance of an item by its id
+ */
+function existsItemID(item_id)
+{
+        return pool.query('SELECT COUNT(*) FROM items WHERE item_id = $1', [item_id])
+                .then((res) => {
+                        if(res.rows[0].count > 0)
+                                return {exists: true}
+                        else
+                                return {exists: false}
                 })
                 .catch(err => {
                         return {error: err, errCode: 500}
@@ -220,4 +239,4 @@ function _checkItemUpdateParameters(params)
 
 
 
-module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems, getAllItemsByRestaurantID}
+module.exports = {getItemByID, createItem, updateItem, deleteItem, getAllItems, getAllItemsByRestaurantID, existsItemID}
