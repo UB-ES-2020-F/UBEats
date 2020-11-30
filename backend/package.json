@@ -4,7 +4,7 @@
   "description": "Backend Ubereats Replica Project. ",
   "main": "index.js",
   "scripts": {
-    "test": "mocha  -c --exit",
+    "test": "nyc mocha  -c --exit",
     "start": "node index.js"
   },
   "repository": {
@@ -32,6 +32,7 @@
     "chai-http": "^4.3.0",
     "eslint": "^7.14.0",
     "eslint-plugin-react": "^7.21.5",
-    "mocha": "^8.2.0"
+    "mocha": "^8.2.0",
+    "nyc": "^15.1.0"
   }
 }
