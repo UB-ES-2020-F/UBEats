@@ -12,28 +12,32 @@ const router = express.Router()
 router.post('/login',Users.login)
 router.post('/register',Users.register)
 
+//Users
+
+router.put('/user/:email', Users.updateUser)
+
 //Customer
 router.delete('customer/delete',Users.deleteUser)
 
-//Restaurant
-router.get('/restaurant/read',Restaurants.readR)
-router.get('/restaurant/menu',Restaurants.menu)
-router.get('/restaurant/types',Restaurants.getTypes)
-router.get('/restaurant/feedback',Restaurants.feedback)
-router.post('/restaurant/type',Restaurants.insertType)
-router.post('/restaurant/setAvaliability',Restaurants.setAv)
-router.post('/restaurant/setVisible',Restaurants.setVisible)
-router.post('/restaurant/setIban',Restaurants.setIban)
-router.post('/restaurant/setAllergens',Restaurants.setAllergens)
-router.delete('/restaurant/type',Restaurants.deleteType)
-router.delete('/restaurant',Users.deleteUser)
+//Restaurants
+router.get('/restaurants',Restaurants.getAll)
+router.get('/restaurants/:email',Restaurants.get)
+router.post('/restaurants',Users.register)
+router.delete('/restaurants/:email',Users.deleteUser)
+router.put('/restaurants/:email',Restaurants.update)
+//Falta ruta put para update de los atributos de la tabla user (Update Users)
+router.get('/restaurants/feedback/:email',Restaurants.getFeedback)
+router.get('/restaurants/menu/:email',Restaurants.getMenu)
+router.post('/restaurants/types',Restaurants.insertType)
+router.delete('/restaurants/types/:email/:type_id',Restaurants.deleteType)
+
 
 //Items
 router.get('/items', Items.getAll)
 router.get('/items/:item_id', Items.get)
 router.post('/items', Items.create)
-router.delete('/items', Items.remove)
-router.put('/items', Items.update)
+router.delete('/items/:item_id', Items.remove)
+router.put('/items/:item_id', Items.update)
 
 //Placeholder for restaurant api
 router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
