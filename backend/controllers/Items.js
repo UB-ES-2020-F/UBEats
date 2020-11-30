@@ -23,7 +23,7 @@ async function getAll(req, res)
  */
 async function getAllByRestaurant(req, res)
 {
-    console.log("getAllByRestaurant")
+    //console.log("getAllByRestaurant")
     const {params} = req
     if(!(params.rest_id))
         return res.status(403).send({"message": "Item ID not specified"})
@@ -80,17 +80,17 @@ async function create(req, res)
  */
 async function remove(req, res)
 {
-    const {body} = req
+    const {params} = req
     //check if the request has the item id
-    if(!(body.item_id))
+    if(!(params.item_id))
         return res.status(403).send({"message": "Item ID not specified"})
 
-    const item = await items_db.deleteItem(body.item_id)
+    const item = await items_db.deleteItem(params.item_id)
     //check for error retreiving from DDBB
     if(!item) // pg returns NULL but the query executed successfully
-        return res.status(404).send({"message": `Item ${body.item_id} not found`})
+        return res.status(404).send({"message": `Item ${params.item_id} not found`})
     if(item.error)
-        return res.status(404).send({"message": `Item ${body.item_id} not found`, "error": item.error})
+        return res.status(404).send({"message": `Item ${params.item_id} not found`, "error": item.error})
 
     return res.status(200).send({item})
 }
@@ -101,14 +101,18 @@ async function remove(req, res)
  */
 async function update(req, res)
 {
+    const {params} = req
     const {body} = req
     //check if the request has the item id
-    if(!(body.item_id))
+    if(!(params.item_id))
         return res.status(403).send({"message": "Item ID not specified"})
 
-    const id = body.item_id
+    const id = params.item_id
+    // the services items.js functions works with the assumption
+    // that the body contains the item_id
+    body.item_id = id
 
-    const item = await items_db.updateItem(body.item_id, body)
+    const item = await items_db.updateItem(id, body)
     //console.log(item)
     if(!item) // pg returns NULL but the query executed successfully
         return res.status(404).send({"message": `Item ${id} not found`})

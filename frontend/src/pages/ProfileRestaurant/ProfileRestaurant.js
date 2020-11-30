@@ -5,7 +5,7 @@ import pikachu from "../../images/pikachu.jpg";
 import bucket from "../../images/bucket.jpg";
 import wings from "../../images/alitas.jpg";
 
-import restService from "../../api/restaurant.js";
+import restaurantService from "../../api/homepage.service.js";
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -72,23 +72,49 @@ const listaSecciones = [
 function ProfileRestaurant({rest_id, restaurantPhoto}) {
   const [showModal, setShowModal] = useState(false);
   const [menuList, setMenuList] = useState([{
-    title: "Default menu",
-    price: "11$",
-    Image: bucket,
-    desc: "Loading data."
+    item_id: 0,
+    title: 'Loading',
+    desc: 'Loading',
+    price: 10.95,
+    types: [ 'vegetariano prueba1', 'vegetariano prueba2' ]
   }]);
+
+  const [restaurantInfo, setRestaurantInfo] = useState({
+    "email": " ",
+    "name": " ",
+    "CIF": " ",
+    "street": " ",
+    "pass": " ",
+    "phone": " ",
+    "tipo": " ",
+    "url": " ",
+    "avaliability": " ",
+    "visible": " ",
+    "iban": " ",
+    "allergens": " ",
+  })
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
 
   const fetchMenu = async () => {
-    const items = await restService.getMenu(rest_id);
+    const items = await restaurantService.getRestaurantMenu(rest_id);
     setMenuList(items);
     console.log(menuList);
   };
 
+
+  const fetchRestaurantInfo = async () => {
+    const restInfo = await restaurantService.getRestaurant(rest_id);
+    console.log(restInfo['restaurant']);    
+    setRestaurantInfo(restInfo['restaurant']);
+  };
+
+
+
   useEffect(() => {
+    fetchRestaurantInfo();
     fetchMenu();
   }, []);
 
@@ -230,12 +256,12 @@ function ProfileRestaurant({rest_id, restaurantPhoto}) {
           <Container fluid>
             {/* Banner */}
             <Row className="restaurantBanner"
-            style={{backgroundImage: 'url(' +restaurantPhoto+ ')'}}>
+            style={{backgroundImage: 'url(' +restaurantInfo['url']+ ')'}}>
               <Container >
                 <Row style={{height: '55%'}}>
                 </Row>
                 <Row className="restaurantTitle">
-                  <h1 className="textFont"><strong>KFC</strong></h1>
+                  <h1 className="textFont"><strong>{restaurantInfo['name']}</strong></h1>
                 </Row>
                 <Row className="restaurantTitle">
                   <h8><strong>Delivery: 2$ • 15/20 min • 4.8/5(300+)</strong></h8>
@@ -255,7 +281,7 @@ function ProfileRestaurant({rest_id, restaurantPhoto}) {
               <p>$ • Chicken • American • <a onClick={handleShow} href="#">More info</a></p> 
             </Row>
             <Row>
-              <p>Rambla de Catalunya 58, 08001, Barcelona</p>
+              <p>{restaurantInfo['street']}</p>
             </Row>
           </Container>
         </Row>
@@ -267,7 +293,7 @@ function ProfileRestaurant({rest_id, restaurantPhoto}) {
 
         <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>KFC</Modal.Title>
+            <Modal.Title>{restaurantInfo['name']}</Modal.Title>
           </Modal.Header>
           <Modal.Body>This is a Modal with the restaurant's info.</Modal.Body>
           <Modal.Footer>
@@ -283,15 +309,19 @@ function ProfileRestaurant({rest_id, restaurantPhoto}) {
 
         <Container className="">
           <Nav as="ul" className="categories-navbar">
-            <ListaCategorias listaSecciones={listaSecciones_dyn}></ListaCategorias>
+            <ListaCategorias listaSecciones={listaSecciones}></ListaCategorias>
           </Nav>
         </Container>
+
+        {/** Platos hardcodeados para poder hacer las pruebas 
+         * pendiente de poner los de la base de datos.
+        */}
 
         {/**
          * And this one generates the product rows.
          */}
         {console.log(listaSecciones_dyn)}
-        <SeccionPlatos listaSecciones={listaSecciones_dyn}>
+        <SeccionPlatos listaSecciones={listaSecciones}>
 
         </SeccionPlatos>
         

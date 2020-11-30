@@ -6,12 +6,11 @@ import photo from '../../images/ubeats.png'
 
 /**
  * 
- * Componente que muestra la imagen, el titulo, el tiempo y la descripcion de un restaurante.
+ * Componente que muestra la imagen y el nombre de un restaurante.
  *  
  */
 
 function RestPreviewGeneral(props){
-
     return(
     <div className="listings-grid-element">
         <div className="image">
@@ -21,7 +20,7 @@ function RestPreviewGeneral(props){
             <div className="text-title">
                 <h3>{props.name}</h3>
                 <div className="info">
-                    <span> {props.time} MINS </span>
+                    <span> {props.time} </span>
                 </div>
             </div>
         </div>
@@ -30,9 +29,6 @@ function RestPreviewGeneral(props){
         </div>
     </div>
     );
-
 }
-
-
 
 export default RestPreviewGeneral
