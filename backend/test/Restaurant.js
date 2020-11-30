@@ -91,14 +91,14 @@ describe('Restaurants', () => {
 
     it('Get all existing restaurants by user. Should return 200', (done) => {
       chai.request(app)
-        .get('/api/restaurants/'.concat(emailUser))
+        .get('/api/restaurants/user/'.concat(emailUser))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
           console.log(res.body);
             res.should.have.status(200);
-            res.body.should.have.property('restaurant');
-            //console.log(res.body.rest)
-            //res.body.restaurant.should.be.an('array').to.have.lengthOf.above(0);
+            res.body.should.have.property('rest');
+            console.log(res.body.rest)
+            //res.body.rest.should.be.an('array').to.have.lengthOf.above(0);
             done();
           });
     });
