@@ -170,39 +170,39 @@ INSERT INTO "users" VALUES
 ('josemaria@gmail.com','Jose Maria','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','deliveryman','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
 
 -- Sushi
-('miu@gmail.com','Miu','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('saikosushi@gmail.com','Saiko Sushi','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('sushito@gmail.com','Sushito','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('hachiko@gmail.com','Hachiko Sushi','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('miu@gmail.com','Miu','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','http://www.lonifasiko.com/wp-content/uploads/2015/03/Uramaki-italiano-restaurante-japones-miu-bilbao-001-672x364.jpg'),
+('saikosushi@gmail.com','Saiko Sushi','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://img77.uenicdn.com/image/upload/v1563349362/business/be992d6920ae4745bd343822b281bcc2.jpg'),
+('sushito@gmail.com','Sushito','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fu.tfstatic.com%2Frestaurant_photos%2F021%2F450021%2F169%2F612%2Feveryday-sushi-sugerencia-del-chef-878a2.jpg&f=1&nofb=1'),
+('hachiko@gmail.com','Hachiko Sushi','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fu.tfstatic.com%2Frestaurant_photos%2F081%2F462081%2F169%2F612%2Fhachiko-sushi-plato-91b81.jpg&f=1&nofb=1'),
 
 -- Pizza
-('pizzapazza@gmail.com','Pizza Pazza','44443292D','calle Martí, num 10, Hosp. Llobregat','pizzapazza','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('napoli@gmail.com','Via Napoli Restaurante Pizzeria','44443292D','calle Martí, num 10, Hosp. Llobregat','napoli','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('gusto_rest@gmail.com','Gusto Restaurante','44443292D','calle Martí, num 10, Hosp. Llobregat','gusto','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('pizzamarket@gmail.com','Pizza Market','44443292D','calle Martí, num 10, Hosp. Llobregat','pizzamarket','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('pizzapazza@gmail.com','Pizza Pazza','44443292D','calle Martí, num 10, Hosp. Llobregat','pizzapazza','608374666','restaurant','http://www.foodanddrink-antigua.com/wp-content/uploads/2014/03/Food-Drink-Antigua-Pirates-Pizza-restaurant-02-25218814fddf1767d52333bf8367688c.jpg'),
+('napoli@gmail.com','Via Napoli Restaurante Pizzeria','44443292D','calle Martí, num 10, Hosp. Llobregat','napoli','608374666','restaurant','https://secure.parksandresorts.wdpromedia.com/resize/mwImage/1/630/354/90/wdpromedia.disney.go.com/media/wdpro-assets/things-to-do/dining/epcot/via-napoli/via-napoli-00.jpg?26092012144810'),
+('gusto_rest@gmail.com','Gusto Restaurante','44443292D','calle Martí, num 10, Hosp. Llobregat','gusto','608374666','restaurant','https://u.tfstatic.com/restaurant_photos/103/6103/169/612/gusto-restaurante-vista-terraza-bfa56.jpg'),
+('pizzamarket@gmail.com','Pizza Market','44443292D','calle Martí, num 10, Hosp. Llobregat','pizzamarket','608374666','restaurant','https://www.intrepidtravel.com/adventures/wp-content/uploads/2017/03/Spain_Barcelona_Placa_Reial.jpg'),
 
 --Barbacoa
 -- royal nepal (callejera)
-('ayres@gmail.com','Ayres del Sur','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('caneusebio@gmail.com','Can Eusebio','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('bbqexpress@gmail.com','BBQ Express Nights','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('ayres@gmail.com','Ayres del Sur','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','http://barcelonabbq.com/wp-content/uploads/2016/11/12294832_195644657439867_5813121155159895279_n.jpg'),
+('caneusebio@gmail.com','Can Eusebio','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://cdn.atrapalo.com/common/photo/res/1494/0/ticr_890_370.jpg'),
+('bbqexpress@gmail.com','BBQ Express Nights','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','http://barcelonabbq.com/wp-content/uploads/2016/08/1282_static1.squarespace.com_.jpg'),
 
 -- Rapida
-('canvador@gmail.com','Can Vador','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('chatico@gmail.com','Chatico','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('kfc@gmail.com','KFC','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('mcdonald@gmail.com','McDonalds','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('canvador@gmail.com','Can Vador','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://u.tfstatic.com/restaurant_photos/787/300787/169/612/can-vador-vista-sala-24615.jpg'),
+('chatico@gmail.com','Chatico','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.hola.com/imagenes/viajes/20190314138949/restaurantes-cool-barcelona/0-658-536/restaurante-gatsby-barcelona-a.jpg'),
+('kfc@gmail.com','KFC','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.hola.com/imagenes/viajes/20190314138949/restaurantes-cool-barcelona/0-658-536/restaurante-gatsby-barcelona-a.jpg'),
+('mcdonald@gmail.com','McDonalds','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.metropoliabierta.com/uploads/s1/97/30/82/mc-donalds.png'),
 
 -- China
-('wok@gmail.com','Wok Street','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('boabao@gmail.com','Boa Bao','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('fulin@gmail.com','Fu Lin','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('fandimsum@gmail.com','Fan Dim Sum','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('wok@gmail.com','Wok Street','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://media-cdn.tripadvisor.com/media/photo-s/03/c5/55/39/getlstd-property-photo.jpg'),
+('boabao@gmail.com','Boa Bao','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://ocio.dn.pt/files/2019/07/Boa-Bao-Barcelona1-1200x675_c.jpg'),
+('fulin@gmail.com','Fu Lin','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,d_es:cuisines:china-0.jpg,f_auto,q_auto,w_414,h_400/v1/es/restaurants/22450.jpg'),
+('fandimsum@gmail.com','Fan Dim Sum','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://u.tfstatic.com/restaurant_photos/923/553923/169/612/fan-dim-sum-sugerencia-del-chef-91ff1.jpg'),
 
 
 -- Japonesa
 -- saiko sushi (sushi)
-('ramenya@gmail.com','Ramen-ya Hiro','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('ramenya@gmail.com','Ramen-ya Hiro','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://i1.wp.com/yummybarcelona.com/wp-content/uploads/2014/10/platos-del-restaurante-ramen-ya-hiro-barcelona.jpg?resize=950%2C713&ssl=1'),
 ('kuyi@gmail.com','Kuyi','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
 ('telemaki@gmail.com','Telemaki','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
 
