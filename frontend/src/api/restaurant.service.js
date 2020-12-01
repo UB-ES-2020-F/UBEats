@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const API_URL_DEV = "http://localhost:3000/api/restaurants";
-const API_URL_BUILD = "https://cors-anywhere.herokuapp.com/http://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurants";
-const API_URL_HEROKU = "http://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurants";
-const API_URL = API_URL_DEV;
+const API_URL_BUILD = "https://cors-anywhere.herokuapp.com/https://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurants";
+const API_URL_HEROKU = "https://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurants";
+const API_URL = API_URL_HEROKU;
 
 //Get all restaurants.
 const getAll = () => {

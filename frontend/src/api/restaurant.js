@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const API_URL_DEV = "http://localhost:3000/api/restaurant/";
-const API_URL_BUILD = "https://cors-anywhere.herokuapp.com/http://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurant/";
-const API_URL_HEROKU = "http://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurant/";
-const API_URL = API_URL_DEV;
+const API_URL_BUILD = "https://cors-anywhere.herokuapp.com/https://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurant/";
+const API_URL_HEROKU = "https://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurant/";
+const API_URL = API_URL_HEROKU;
 
 //Send POST to API_URL/register with name, email, password, type.
 const getMenu = (rest_id) => {

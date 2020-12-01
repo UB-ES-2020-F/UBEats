@@ -15,7 +15,12 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
-app.use(cors())
+
+var corsOptions = {
+    origin: 'https://ub-gei-es-ubeats-clone.herokuapp.com/',
+}
+
+app.use(cors(corsOptions))
 
 // First use the api routes because the regular expression
 // for the frontend will match all the api calls
