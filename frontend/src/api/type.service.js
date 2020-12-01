@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL_DEV = "http://localhost:3000/api/types";
 const API_URL_BUILD = "https://cors-anywhere.herokuapp.com/http://ub-gei-es-ubeats-clone.herokuapp.com/api/restaurants";
-const API_URL = API_URL_DEV;
+const API_URL = API_URL_BUILD;
 
 
 //Get all restaurant types {type_id, type_name}
