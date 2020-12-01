@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API_URL_DEV = "http://localhost:3000/api/";
 const API_URL_BUILD = "https://cors-anywhere.herokuapp.com/http://ub-gei-es-ubeats-clone.herokuapp.com/api/";
+const API_URL_HEROKU = "http://ub-gei-es-ubeats-clone.herokuapp.com/api/";
 const API_URL = API_URL_BUILD;
 
 //Send POST to API_URL/register with name, email, password, type.

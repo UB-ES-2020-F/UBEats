@@ -4,12 +4,14 @@ import { Provider} from 'react-redux';
 import App from './App';
 import * as serviceWorker from './utils/serviceWorker';
 import Store from './store'
-
+import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';//commented, we found a bug if using bootstrap.
 
 require('dotenv').config()
 
 const store = Store; //Initialize the store.
+
+axios.defaults.headers.common['Origin'] = 'http://ub-gei-es-ubeats-clone.herokuapp.com/'
 
 ReactDOM.render(
   <Provider store = {store}>
