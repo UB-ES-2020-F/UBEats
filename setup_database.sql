@@ -190,7 +190,7 @@ INSERT INTO "users" VALUES
 -- Rapida
 ('canvador@gmail.com','Can Vador','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://u.tfstatic.com/restaurant_photos/787/300787/169/612/can-vador-vista-sala-24615.jpg'),
 ('chatico@gmail.com','Chatico','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.hola.com/imagenes/viajes/20190314138949/restaurantes-cool-barcelona/0-658-536/restaurante-gatsby-barcelona-a.jpg'),
-('kfc@gmail.com','KFC','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.hola.com/imagenes/viajes/20190314138949/restaurantes-cool-barcelona/0-658-536/restaurante-gatsby-barcelona-a.jpg'),
+('kfc@gmail.com','KFC','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.lavanguardia.com/r/GODO/LV/p7/WebSite/2020/06/02/Recortada/img_jdelriov_20200602-165228_imagenes_lv_terceros_kfc-504-kGVC-U481576515261dqE-992x558@LaVanguardia-Web.jpg'),
 ('mcdonald@gmail.com','McDonalds','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.metropoliabierta.com/uploads/s1/97/30/82/mc-donalds.png'),
 
 -- China
@@ -352,41 +352,41 @@ INSERT INTO categories VALUES (DEFAULT,'Tartas por Raciones','dulzuramia@gmail.c
 INSERT INTO categories VALUES (DEFAULT,'Poke del mes','thefresh@gmail.com'),(DEFAULT,'Poke Bowls','thefresh@gmail.com'),(DEFAULT,'Poke Burritos','thefresh@gmail.com'),(DEFAULT,'Postres','thefresh@gmail.com');
 --Two items, in different restaurants
 INSERT INTO items VALUES 
-(DEFAULT,'Edamame','Judias de soja salteadas con mantequilla y flor de sal',5.40,'1','miu@gmail.com','',1),
-(DEFAULT,'Spicy Edamame','Judías de soja con un toque de sischimi y salteadas con mantequilla',5.50,'1','miu@gmail.com','',1),
-(DEFAULT,'Maguro Tartar','Dados de atún en estilo japonés con yema de codorniz.',12.95,'1','miu@gmail.com','',1),
-(DEFAULT,'Eby Gyoza','De gambas y verduras. 5 piezas. ',8.75,'1','miu@gmail.com','',1),
+(DEFAULT,'Edamame','Judias de soja salteadas con mantequilla y flor de sal',5.40,'1','miu@gmail.com','https://2.bp.blogspot.com/_34gqXLiMUNA/TT8C2JecK6I/AAAAAAAACsg/WocRCUtUfyI/s1600/Seasoned+Edamame.jpg',1),
+(DEFAULT,'Spicy Edamame','Judías de soja con un toque de sischimi y salteadas con mantequilla',5.50,'1','miu@gmail.com','https://explorecookeat.com/wp-content/uploads/2019/10/IMG_7573.jpeg',1),
+(DEFAULT,'Maguro Tartar','Dados de atún en estilo japonés con yema de codorniz.',12.95,'1','miu@gmail.com','https://www.sushibarminato.com/wp-content/uploads/2014/09/Maguro-tartar.jpg',1),
+(DEFAULT,'Eby Gyoza','De gambas y verduras. 5 piezas. ',8.75,'1','miu@gmail.com','https://cdn.shopify.com/s/files/1/2264/3783/products/ShrimpGyoza.jpg?v=1548961949',1),
 
-(DEFAULT,'Foie Micuit Uramaki','Con mango, masago y tataki de atún. 8 piezas. ',12.90,'1','miu@gmail.com','',2),
-(DEFAULT,'California Uramaki de Cangrejo','California Uramaki de Cangrejo',8.10,'1','miu@gmail.com','',2),
-(DEFAULT,'Hot rainbow Futomaki','Rebozado con salmón, dorada, atún y lima crispy. 6 piezas. ',10.70,'1','miu@gmail.com','',2),
-(DEFAULT,'Dragon Uramaki de Anguila','Aguacate, salmón en tempura, mayonesa y pepino. 8 piezas. ',14.95,'1','miu@gmail.com','',2),
+(DEFAULT,'Foie Micuit Uramaki','Con mango, masago y tataki de atún. 8 piezas. ',12.90,'1','miu@gmail.com','https://duckduckgo.com/?q=foie+micuit+uramaki&t=ffab&atb=v229-1&iar=images&iax=images&ia=images&iai=http%3A%2F%2Fwww.clubcuvee.com%2Fwp-content%2Fuploads%2F2017%2F09%2Furamaki.jpg',2),
+(DEFAULT,'California Uramaki de Cangrejo','California Uramaki de Cangrejo',8.10,'1','miu@gmail.com','www.sushiaki.com.br/wp-content/uploads/2018/04/www.sushiaki.com.br-california-uramaki-california.jpg',2),
+(DEFAULT,'Hot rainbow Futomaki','Rebozado con salmón, dorada, atún y lima crispy. 6 piezas. ',10.70,'1','miu@gmail.com','http://www.sushikiku.com/wp-content/uploads/2013/07/IMG_0417.jpg',2),
+(DEFAULT,'Dragon Uramaki de Anguila','Aguacate, salmón en tempura, mayonesa y pepino. 8 piezas. ',14.95,'1','miu@gmail.com','https://www.uitetenmiddelburg.nl/wp-content/uploads/2017/05/Dragon.jpg',2),
 
-(DEFAULT,'Sushi no Moriawase ','6 piezas de nigiri y 8 piezas de maki de salmón',19.50,'1','miu@gmail.com','',3),
-(DEFAULT,'Nigiri no Moriawase','2 nigiris de atún, 2 nigiris de salmón, 2 nigiris de thai y 2 nigiris de ebi. ',19.50,'1','miu@gmail.com','',3),
-(DEFAULT,'Combinado de Sushi y Sashimi','6 piezas de sashimi, 4 piezas de nigiri y 8 piezas de maki de salmón.',19.95,'1','miu@gmail.com','',3),
-(DEFAULT,'Combinado de Salmón','6 piezas de sashimi de salmón y 8 piezas de maki de salmón.',17.95,'1','miu@gmail.com','',3),
+(DEFAULT,'Sushi no Moriawase ','6 piezas de nigiri y 8 piezas de maki de salmón',19.50,'1','miu@gmail.com','https://www.restaurante-japones-midori.com/wp-content/uploads/2018/01/sushi-27-bateau-1170x679.jpg',3),
+(DEFAULT,'Nigiri no Moriawase','2 nigiris de atún, 2 nigiris de salmón, 2 nigiris de thai y 2 nigiris de ebi. ',19.50,'1','miu@gmail.com','https://1.bp.blogspot.com/-F3_jgC71DA4/UJ5MbUMwERI/AAAAAAAAGrs/mFqVe1P2wb4/s1600/DSC_0024.JPG',3),
+(DEFAULT,'Combinado de Sushi y Sashimi','6 piezas de sashimi, 4 piezas de nigiri y 8 piezas de maki de salmón.',19.95,'1','miu@gmail.com','https://i.pinimg.com/originals/db/86/fe/db86fe4852ce9325c4c5691f8dd16de9.jpg',3),
+(DEFAULT,'Combinado de Salmón','6 piezas de sashimi de salmón y 8 piezas de maki de salmón.',17.95,'1','miu@gmail.com','https://skysushi.es/wp-content/uploads/2016/04/CombinadoSalmonAtun.jpg',3),
 
-(DEFAULT,'Menú del Día','Lunes a viernes al medio día. Con edamame (soja verde japonesa con flor de sal).',15.20,'1','miu@gmail.com','',4),
-(DEFAULT,'Menú del Día con Cerverza','Lunes a viernes al medio día. Con edamame (soja verde japonesa con flor de sal). Con cerveza.',15.20,'1','miu@gmail.com','',4),
+(DEFAULT,'Menú del Día','Lunes a viernes al medio día. Con edamame (soja verde japonesa con flor de sal).',15.20,'1','miu@gmail.com','https://restaurantekomori.com/wp-content/uploads/2017/09/edamame.jpg',4),
+(DEFAULT,'Menú del Día con Cerverza','Lunes a viernes al medio día. Con edamame (soja verde japonesa con flor de sal). Con cerveza.',15.20,'1','miu@gmail.com','https://resizer.abc.es/resizer/resizer.php?imagen=https:%2F%2Foferplan.sevilla.abc.es%2F%2Fimages%2Fsized%2Fimages%2Fmenujaponesshangshisevilla-2-497x280.jpg&nuevoancho=497&nuevoalto=280&crop=1',4),
 
-(DEFAULT,'Wakame','Ensalada de algas marinado con sesamo.',4.30,'1','saikosushi@gmail.com','',5),
-(DEFAULT,'Yakisoba de Pollo y Verduras','Tallarines japones de trigo.',5.70,'1','saikosushi@gmail.com','',5),
-(DEFAULT,'Tartar de Salmón con Aguacate','Con wakame edamame y mango. 1 pieza.',12.40,'1','saikosushi@gmail.com','',5),
-(DEFAULT,'Uramaki Rainbow','Con salmón, atún, aguacate, pez mantequilla y anguila. 8 piezas.',9.9,'1','saikosushi@gmail.com','',5),
+(DEFAULT,'Wakame','Ensalada de algas marinado con sesamo.',4.30,'1','saikosushi@gmail.com','https://ep01.epimg.net/elcomidista/imagenes/2018/07/19/receta/1531997897_413701_1531998451_media_normal.jpg',5),
+(DEFAULT,'Yakisoba de Pollo y Verduras','Tallarines japones de trigo.',5.70,'1','saikosushi@gmail.com','https://unareceta.com/wp-content/uploads/2016/08/receta-yakisoba-de-pollo.jpg',5),
+(DEFAULT,'Tartar de Salmón con Aguacate','Con wakame edamame y mango. 1 pieza.',12.40,'1','saikosushi@gmail.com','https://www.deliciosi.com/images/0/96/tartar-de-salmon-y-aguacate.jpg',5),
+(DEFAULT,'Uramaki Rainbow','Con salmón, atún, aguacate, pez mantequilla y anguila. 8 piezas.',9.9,'1','saikosushi@gmail.com','https://www.makesushi.com/wp-content/uploads/2014/10/rainbow-sushi-roll-uramaki-e1424269932219.jpg',5),
 
-(DEFAULT,'Yakisoba de Huevos y Verduras','Tallarines japones de trigo.',5.30,'1','saikosushi@gmail.com','',6),
-(DEFAULT,'Yakisoba de Pollo y Verduras','Tallarines japones de trigo.',5.70,'1','saikosushi@gmail.com','',6),
-(DEFAULT,'Yakisoba de Gambas y Verduras','Tallarines japones de trigo.',6.30,'1','saikosushi@gmail.com','',6),
-(DEFAULT,'Yakisoba de Cerdo Asado y Verduras','Tallarines japones de trigo.',6.60,'1','saikosushi@gmail.com','',6),
+(DEFAULT,'Yakisoba de Huevos y Verduras','Tallarines japones de trigo.',5.30,'1','saikosushi@gmail.com','https://www.solucionesparaladiabetes.com/magazine-diabetes/wp-content/uploads/thai-food-noodle-fried-noodles-meal-46247-696x522.jpeg',6),
+(DEFAULT,'Yakisoba de Pollo y Verduras','Tallarines japones de trigo.',5.70,'1','saikosushi@gmail.com','http://www.wikichef.net/webapp/img/recipes/b6f5f6_zyakisoba-chickent_w1000.jpg',6),
+(DEFAULT,'Yakisoba de Gambas y Verduras','Tallarines japones de trigo.',6.30,'1','saikosushi@gmail.com','https://pixiecocina.files.wordpress.com/2016/02/receta-yakisoba-gambas.jpg?w=1200',6),
+(DEFAULT,'Yakisoba de Cerdo Asado y Verduras','Tallarines japones de trigo.',6.60,'1','saikosushi@gmail.com','https://www.aisushi.es/wp-content/uploads/2020/09/BUTINIKUYAKISOBA.jpg',6),
 
-(DEFAULT,'Tempura de Langostino','5 unidades.',4.80,'1','saikosushi@gmail.com','',7),
-(DEFAULT,'Tempura de Verduras','5 unidades.',4.60,'1','saikosushi@gmail.com','',7),
+(DEFAULT,'Tempura de Langostino','5 unidades.',4.80,'1','saikosushi@gmail.com','https://cocinista-vsf.netdna-ssl.com/download/bancorecursos/recetas/receta-tempura-extra-crujiente.jpg',7),
+(DEFAULT,'Tempura de Verduras','5 unidades.',4.60,'1','saikosushi@gmail.com','https://1.bp.blogspot.com/-i67XRB-xE9k/VNtd-RdWTxI/AAAAAAABBLs/pBeSKPiYssc/s1600/IMG_5547.JPG',7),
 
-(DEFAULT,'Sashimi de Salmón','3 piezas',7.50,'1','saikosushi@gmail.com','',8),
-(DEFAULT,'Sashimi de Atún','3 piezas',8.60,'1','saikosushi@gmail.com','',8),
-(DEFAULT,'Sashimi de Salmón, Atún y Dorada','Sashimi de salmón 2 piezas, atún 2 piezas y dorada 2 piezas.',8.60,'1','saikosushi@gmail.com','',8),
-(DEFAULT,'Sashimi de Salmón y Atún','Sashimi de salmón 3 piezas y atún 3 piezas.',8.20,'1','miu@gmail.com','',8),
+(DEFAULT,'Sashimi de Salmón','3 piezas',7.50,'1','saikosushi@gmail.com','https://cookingandmoredotes.files.wordpress.com/2015/08/img_8505-1.jpg',8),
+(DEFAULT,'Sashimi de Atún','3 piezas',8.60,'1','saikosushi@gmail.com','https://img.leafcdn.tv/640/clsd/getty/6d21985f5c1f48e5bc6fdd49914b2929',8),
+(DEFAULT,'Sashimi de Salmón, Atún y Dorada','Sashimi de salmón 2 piezas, atún 2 piezas y dorada 2 piezas.',8.60,'1','saikosushi@gmail.com','https://i.ytimg.com/vi/0x5I1QvGKvY/hqdefault.jpg',8),
+(DEFAULT,'Sashimi de Salmón y Atún','Sashimi de salmón 3 piezas y atún 3 piezas.',8.20,'1','miu@gmail.com','https://shiaadi.es/wp-content/uploads/sashimi-atun.jpg',8),
 
 (DEFAULT,'GYOZA POLLO (4 Pzas)','Empanadillas tradicionales japonesas de pollo y verduras finalizadas a la plancha acompañada de salsa de soja avinagrada. ',5.70,'1','sushito@gmail.com','',9),
 (DEFAULT,'GYOZA VERDURAS (4 pzas)','Empanadillas tradicionales japonesas de verduras finalizadas a la plancha acompañada de salsa de soja avinagrada. ',5.50,'1','sushito@gmail.com','',9),
