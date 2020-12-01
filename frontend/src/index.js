@@ -11,7 +11,7 @@ require('dotenv').config()
 
 const store = Store; //Initialize the store.
 
-axios.defaults.headers.common['Origin'] = 'http://ub-gei-es-ubeats-clone.herokuapp.com/'
+//axios.defaults.headers.common['Origin'] = 'http://ub-gei-es-ubeats-clone.herokuapp.com/'
 
 ReactDOM.render(
   <Provider store = {store}>
