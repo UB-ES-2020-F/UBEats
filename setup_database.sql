@@ -203,51 +203,51 @@ INSERT INTO "users" VALUES
 -- Japonesa
 -- saiko sushi (sushi)
 ('ramenya@gmail.com','Ramen-ya Hiro','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://i1.wp.com/yummybarcelona.com/wp-content/uploads/2014/10/platos-del-restaurante-ramen-ya-hiro-barcelona.jpg?resize=950%2C713&ssl=1'),
-('kuyi@gmail.com','Kuyi','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('telemaki@gmail.com','Telemaki','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('kuyi@gmail.com','Kuyi','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://u.tfstatic.com/restaurant_photos/899/452899/169/612/kuyi-vista-sala-224ff.jpg'),
+('telemaki@gmail.com','Telemaki','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://barcelonasecreta.com/wp-content/uploads/2016/10/6x4-rolls-monster-sushi-barcelona.jpg'),
 
 -- Hamburgueseria
 -- chatico (rapida)
 -- hideout ( eeuu)
-('burgerniu@gmail.com','Burger Niu ( Ecologica)','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('tgb@gmail.com','TGB','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('burgerniu@gmail.com','Burger Niu ( Ecologica)','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.shbarcelona.com/blog/en/wp-content/uploads/2016/02/BACOA-1.jpg'),
+('tgb@gmail.com','TGB','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://f.roocdn.com/images/menus/122051/header-image.jpg?width=1200&height=630&auto=webp&format=jpg&fit=crop&v=1600443186'),
 
 -- Saludable 
-('mrgreensalad@gmail.com','Mr Green Salad House','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('pokesi@gmail.com','Poke Si','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('greenberry@gmail.com','Green & Berry','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('maoz@gmail.com','Maoz','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('mrgreensalad@gmail.com','Mr Green Salad House','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.gourmandize.com/uploads/media/image-95.jpg?1391963438'),
+('pokesi@gmail.com','Poke Si','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://media.quincemil.com/imagenes/2019/04/16195742/0012_IMG_8960-1024x683.jpg'),
+('greenberry@gmail.com','Green & Berry','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.mantelacuadros.com/wp-content/uploads/2016/09/ensalada-restaurante-greenberry-barcelona.jpg'),
+('maoz@gmail.com','Maoz','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://charlieontravel.com/wp-content/uploads/2015/09/Vegetarian-falafel-salad-pitta-bread-Maus-Barcelona.jpg'),
 
 -- Estadounidense
-('muns@gmail.com','Las Muns','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('goiko@gmail.com','Goiko','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('papajohns@gmail.com','Papa Johns','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('hideoutburger@gmail.com','Hideout burger','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('muns@gmail.com','Las Muns','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://media-cdn.tripadvisor.com/media/photo-p/12/8e/ae/ec/te-esperamos-en-urquinaona.jpg'),
+('goiko@gmail.com','Goiko','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://i1.wp.com/www.lafranquicia.es/wp-content/uploads/2018/05/Goiko-Grill.jpg?ssl=1'),
+('papajohns@gmail.com','Papa Johns','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://farm6.static.flickr.com/5129/5338018626_d3177ed7d4_b.jpg'),
+('hideoutburger@gmail.com','Hideout burger','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://barcelona-home.com/blog/wp-content/upload/2013/12/hamburger-fast-food-french-fries-barcelona2.jpg'),
 
 -- Callejera
 -- wok (china)
 -- muns (eeuu)
-('royalnepal@gmail.com','Royal Nepal','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('boko@gmail.com','Boko','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('royalnepal@gmail.com','Royal Nepal','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.bcnrestaurantes.com/img-trans/productos/23461/fotos/600-5cd5489a3ba58-royal-nepal.png'),
+('boko@gmail.com','Boko','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://rs-menus-api.roocdn.com/images/a243b2cd-3173-4184-9270-30400a5c7d86/image.jpeg?width=1200&height=630&auto=webp&format=jpg&fit=crop&v='),
 
 -- Cafe y te
 -- fandimsum (china)
-('chatime@gmail.com','Chatime','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('bubbolitas@gmail.com','Bubbolitas - Bubble Tea Bar','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('zenzoo@gmail.com','Zenzoo','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('chatime@gmail.com','Chatime','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://everydayisafoodday.files.wordpress.com/2015/05/639.jpg'),
+('bubbolitas@gmail.com','Bubbolitas - Bubble Tea Bar','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://3.bp.blogspot.com/-6nPFwsCyl4Q/U_dRTfEY6eI/AAAAAAAAAZ4/B-wp5taQysU/s1600/TitleBanner.png'),
+('zenzoo@gmail.com','Zenzoo','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.busquetsgalvez.com/web/wp-content/uploads/2017/06/Zenzoo.jpg'),
 
 
 -- Mejicana
-('tacobell@gmail.com','Taco Bell','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('rosanegra@gmail.com','Rosa Negra','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('tacos99@gmail.com','Tacos 99','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('burritowey@gmail.com','Burrito Wey','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('tacobell@gmail.com','Taco Bell','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://f.roocdn.com/images/menus/6184/header-image.jpg?width=1200&height=630&auto=webp&format=jpg&fit=crop&v=1551170443'),
+('rosanegra@gmail.com','Rosa Negra','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://media-cdn.tripadvisor.com/media/photo-s/15/5f/dd/39/flautas.jpg'),
+('tacos99@gmail.com','Tacos 99','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://www.spottedbylocals.com/barcelona/files/tacos-tacos-barcelona-by-ilse-de-ridder--414x276.jpg'),
+('burritowey@gmail.com','Burrito Wey','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://res.cloudinary.com/tf-lab/image/upload/w_600,h_337,c_fill,g_auto:subject,q_auto,f_auto/restaurant/5c1deaf5-7c58-4c6c-a88e-2828755e4606/d1cfadcc-dd32-46cb-95c9-7842993e8824.jpg'),
 
 -- Postres
 -- bubbolitas (cafe y te)
 -- zenzoo (cafe y te)
-('dulzuramia@gmail.com','Dulzura Mia','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('thefresh@gmail.com','The Fresh Poke','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
+('dulzuramia@gmail.com','Dulzura Mia','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://res.cloudinary.com/glovoapp/w_1200,f_auto,q_auto/Stores/roqy9ucwy6gm4nbs0eir'),
+('thefresh@gmail.com','The Fresh Poke','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','restaurant','https://poke-fresh.com/wp-content/uploads/2020/05/bubble-tea-promo-400x250.jpg');
 
 INSERT INTO restaurants VALUES
 ('miu@gmail.com','rojo','visible','ES0000000004444000001234','restaurante.com/allergens.pdf'),
@@ -1161,7 +1161,7 @@ INSERT INTO type_restaurants VALUES
 (9,'muns@gmail.com'),(9,'goiko@gmail.com'),(9,'papajohns@gmail.com'), 
 (10,'wok@gmail.com'),(10,'boko@gmail.com'),(11,'chatime@gmail.com'),(11,'zenzoo@gmail.com'), 
 (12,'tacobell@gmail.com'),(12,'rosanegra@gmail.com'),(12,'tacos99@gmail.com'),(12,'burritowey@gmail.com'), 
-(13,'bubbolitas@gmail.com')(13,'dulzuramia@gmail.com'),(13,'thefresh@gmail.com');
+(13,'bubbolitas@gmail.com'),(13,'dulzuramia@gmail.com'),(13,'thefresh@gmail.com');
 --Labels of the items of the restaurant that the owner of the item has chosen
 INSERT INTO type_items VALUES (1,1),(2,2);
 --Añadimos un refresco y un extra al plato espagueti tartufo, siendo el refresco obligatorio y el queso opcional
