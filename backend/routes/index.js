@@ -4,6 +4,7 @@ const Users = require('../controllers/Users')
 const Restaurants = require('../controllers/Restaurants')
 const Items = require('../controllers/Items')
 const Extras = require('../controllers/Extra_items.js')
+const Search = require('../controllers/Search.js')
 
 const router = express.Router()
 
@@ -26,13 +27,11 @@ router.get('/restaurants/type/:type_id',Restaurants.getAllByType)
 router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
 router.get('/restaurants/:email',Restaurants.get)
 router.get('/restaurants/menu/:email',Restaurants.getMenu)
-
 router.get('/restaurants/feedback/:email',Restaurants.getFeedback)
 router.get('/restaurants/types/:email',Restaurants.getTypes)
 router.get('/types/restaurants',Restaurants.getAllTypes)
 
 router.post('/restaurants',Users.register)
-
 router.post('/restaurants/types',Restaurants.insertType)
 
 router.put('/restaurants/:email',Restaurants.update)
@@ -56,6 +55,9 @@ router.get('/items/:item_id/extras/:extra_id', Extras.getExtraForItem)
 router.post('/items/:item_id/extras', Extras.createExtraForItem)
 router.put('/items/:item_id/extras/:extra_id', Extras.updateExtraForItem)
 router.delete('/items/:item_id/extras/:extra_id', Extras.deleteExtraForItem)
+
+//Search
+router.get('/search/restaurants/:rest_substr', Search.SearchRestaurantByNameSubstring)
 
 //Placeholder for restaurant api
 router.get('/restaurants/:rest_id/items', Items.getAllByRestaurant)

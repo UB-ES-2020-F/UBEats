@@ -104,6 +104,31 @@ function getAllRestaurantsByType(type_id)
                 })
 }
 
+/*
+ * Function to return a list of restaurants that their names
+ * match a certain substring. If no restaurants are found an
+ * empty list is returned
+ */
+function getAllRestaurantsByNameSubstring(rest_substr)
+{
+        //Create the reg exp for the query
+        //this regexp matches anything in front, even nothing, and anything in back, even nothing, and the substring in the middle
+        const rest_substr_regex = '%'.concat(rest_substr, '%')
+        console.log(rest_substr_regex)
+
+        const query = format("SELECT users.email, users.name FROM users WHERE users.tipo = 'restaurant' AND users.name LIKE %L", rest_substr_regex)
+        //console.log(query)
+        return pool.query(query)
+                .then(res => {
+                        //console.log(res.rows)
+                        return res.rows
+                })
+                .catch(err => {
+                        //console.log(res.rows)
+                        return []
+                })
+}
+
 /**
  * Method that gets all the info from a restaurant in the DB
  * 
@@ -373,5 +398,5 @@ async function upsertFavourite(email_restaurant, email_user){
         }
 }
 
-module.exports = {getAllRestaurants, getAllRestaurantsByUser, getAllRestaurantsByType, getRestaurantByID, updateRestaurant, getFeedback, getAllTypes, getTypes, getMenu, deleteType, insertType, upsertFavourite }
+module.exports = {getAllRestaurants, getAllRestaurantsByUser, getAllRestaurantsByType, getAllRestaurantsByNameSubstring, getRestaurantByID, updateRestaurant, getFeedback, getAllTypes, getTypes, getMenu, deleteType, insertType, upsertFavourite }
 
