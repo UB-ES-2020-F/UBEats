@@ -114,7 +114,7 @@ function getAllRestaurantsByNameSubstring(rest_substr)
         //Create the reg exp for the query
         //this regexp matches anything in front, even nothing, and anything in back, even nothing, and the substring in the middle
         const rest_substr_regex = '%'.concat(rest_substr, '%')
-        console.log(rest_substr_regex)
+        //console.log(rest_substr_regex)
 
         const query = format("SELECT users.email, users.name FROM users WHERE users.tipo = 'restaurant' AND users.name LIKE %L", rest_substr_regex)
         //console.log(query)
