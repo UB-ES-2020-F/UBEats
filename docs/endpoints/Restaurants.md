@@ -104,6 +104,41 @@
   ]
 }
 ``` 
+---
+---
+### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/name/:rest_substr&color=000000)   
+#### *Query*
+ `rest_substr` The name of a user that is a restaurant. It can be a substring.
+  
+ #### Response  
+ A list of restaurants that contain the email and the name.
+ ```
+ GET /api/restaurants/name/es
+ {
+    "rests":[
+        {
+            "email":"napoli@gmail.com",
+            "name":"Via Napoli Restaurante Pizzeria"
+        },
+        {
+            "email":"gusto_rest@gmail.com",
+            "name":"Gusto Restaurante"
+        },
+        {
+            "email":"ayres@gmail.com",
+            "name":"Ayres del Sur"
+        },
+        {
+            "email":"bbqexpress@gmail.com",
+            "name":"BBQ Express Nights"
+        },
+        {
+            "email":"thefresh@gmail.com",
+            "name":"The Fresh Poke"
+        }
+    ]
+ }
+ ```
 --- 
 ---
 ### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants&color=000000)  
