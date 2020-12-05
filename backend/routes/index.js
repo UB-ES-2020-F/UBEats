@@ -4,7 +4,6 @@ const Users = require('../controllers/Users')
 const Restaurants = require('../controllers/Restaurants')
 const Items = require('../controllers/Items')
 const Extras = require('../controllers/Extra_items.js')
-const Search = require('../controllers/Search.js')
 
 const router = express.Router()
 
@@ -22,6 +21,7 @@ router.delete('customer/delete',Users.deleteUser)
 
 //Restaurants
 router.get('/restaurants',Restaurants.getAll)
+router.get('/restaurants/name/:rest_substr', Restaurants.getAllRestaurantsByNameSubstring)
 router.get('/restaurants/user/:email',Restaurants.getAllByUser)
 router.get('/restaurants/type/:type_id',Restaurants.getAllByType)
 router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
@@ -55,9 +55,6 @@ router.get('/items/:item_id/extras/:extra_id', Extras.getExtraForItem)
 router.post('/items/:item_id/extras', Extras.createExtraForItem)
 router.put('/items/:item_id/extras/:extra_id', Extras.updateExtraForItem)
 router.delete('/items/:item_id/extras/:extra_id', Extras.deleteExtraForItem)
-
-//Search
-router.get('/search/restaurants/:rest_substr', Search.SearchRestaurantByNameSubstring)
 
 //Placeholder for restaurant api
 router.get('/restaurants/:rest_id/items', Items.getAllByRestaurant)
