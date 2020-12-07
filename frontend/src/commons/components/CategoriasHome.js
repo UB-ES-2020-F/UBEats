@@ -31,13 +31,7 @@ function CategoriasHome(props){
                             View All
                         </Link>
                     </div>
-                    <div className="viewMore">
-                        <span className="arrow circle left"><i data-feather="arrow-left"></i>
-                        </span>
-                        <span className="arrow circle right darker">
-                            <i data-feather="arrow-right"></i>
-                        </span>
-                    </div>
+                    
                 </div>
             </div>
             <div className="listings-grid">
