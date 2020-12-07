@@ -13,6 +13,7 @@ import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurantNEW.js'
 import ViewAll from './pages/ViewAll/ViewAll.js'
+import Error from './pages/Error/Error.js'
 
 import Footer from './commons/components/Footer.js';
 
@@ -55,6 +56,7 @@ const App = () => {
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
         {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
         <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
+        <Route path='/error' component={Error} key='error'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
       </Switch>
       
