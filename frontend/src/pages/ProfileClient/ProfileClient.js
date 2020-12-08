@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
+import { useDispatch } from "react-redux";
+
 import '../../commons/components/App.css';
 
 import { Button, Image, Row, Container, Col, Toast } from 'react-bootstrap';
 import profilepic from "../../images/profilepicture.jpg"
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated'
+
+import { logout } from "../../actions/auth";
 
 import userService from '../../api/user.service.js';
 
@@ -18,6 +20,8 @@ var userDefaultInfo = {
 }
 
 function ProfileClient({user}) {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState(user.user.name);
   const [email, setEmail] = useState(user.user.email);
   const [databaseEmail, setDatabaseEmail] = useState(user.user.email);
@@ -71,6 +75,11 @@ function ProfileClient({user}) {
       setShowToastFail(true);
     }
   }
+
+  //This function dispatches redux action logout, to log out the user.
+  const logOut = () => {
+    dispatch(logout());
+  };
 
   return (
     <section className="profileClient">
@@ -174,7 +183,8 @@ function ProfileClient({user}) {
         <Row>
           <Button 
             variant="outline-danger" 
-            className="profileButton">
+            className="profileButton"
+            onClick={logOut}>
               Log out
           </Button>
         </Row>
@@ -182,5 +192,4 @@ function ProfileClient({user}) {
     </section>
   );
 }
-
 export default ProfileClient;

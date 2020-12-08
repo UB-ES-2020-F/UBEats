@@ -151,7 +151,6 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
             <h2>¿Buscas algo diferente?</h2>
           </div>
         </div>
-
         <div className="listings-grid">
           <div className="listings-col"> {listatipos.map( (tipo) =><Categorias Image={tipo.Image} title={tipo.title} />)} </div>
         </div>
@@ -165,7 +164,6 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
         </div>
       </div>
     </div>
-
     <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={restList.slice(20,35)}/></div>
     <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={restList.slice(35,52)}/></div>
 
