@@ -141,7 +141,7 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
         </div>
     </div>
     
-    <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={restList}/></div>
+    <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={restList.slice(0,20)}/></div>
     {isLogged? (<div className="listings"><CategoriasHome titulo="Favoritos" listaprops={favList}/></div>) : (<div/>)}
 
     <div className="listings">
@@ -166,8 +166,8 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
       </div>
     </div>
 
-    <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={restList}/></div>
-    <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={restList}/></div>
+    <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={restList.slice(20,35)}/></div>
+    <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={restList.slice(35,52)}/></div>
 
     <div className="listings">
       <div className="container3">
@@ -183,9 +183,6 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
     </div>
   </body2>
 </section>
-
-    
-
   );
 }
 

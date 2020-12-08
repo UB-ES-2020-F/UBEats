@@ -13,15 +13,15 @@ import './GeneralSidebar.css';
 //isLogged is used to select whether LoggedSidebar is displayed or DefaultSidebar is.
 const GeneralSidebar = ({isOpen, onOpen, isLogged, user}) => { 
     return (
-        <Sidebar
-            sidebar={
-               <div>{isLogged ?  (<LoggedSidebar openSidebar={onOpen} user={user}/>) : (<DefaultSidebar openSidebar={onOpen}/>)}</div>
-            }
-            open={isOpen}
-            onSetOpen={onOpen}
-            styles={{ sidebar: { background: "white", width:'20%' } }}
-        >
-        </Sidebar>
+            <Sidebar
+                sidebar={
+                <div>{isLogged ?  (<LoggedSidebar openSidebar={onOpen} user={user}/>) : (<DefaultSidebar openSidebar={onOpen}/>)}</div>
+                }
+                open={isOpen}
+                onSetOpen={onOpen}
+                styles={{ sidebar: { background: "white", width:'20%'}}}
+            >
+            </Sidebar>
     );
 }
 

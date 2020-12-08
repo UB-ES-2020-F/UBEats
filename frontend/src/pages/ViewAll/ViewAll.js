@@ -18,7 +18,7 @@ class ViewAll extends React.Component {
           <div className="listings">
             <div className="container3">
               <div className="listings-grid">
-                <div className="listings-col"> {this.props.location.containerdata.map((restaurante) =><RestPreviewMin rest={restaurante}/>)} </div>
+                <div className="listings-col">{this.props.location.containerdata.map((restaurante) =><RestPreviewMin rest={restaurante}/>)}</div>
               </div>
             </div>
           </div>
