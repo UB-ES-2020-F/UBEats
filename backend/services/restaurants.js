@@ -116,15 +116,38 @@ function getAllRestaurantsByNameSubstring(rest_substr)
         const rest_substr_regex = '%'.concat(rest_substr, '%')
         //console.log(rest_substr_regex)
 
-        const query = format("SELECT users.email, users.name FROM users WHERE users.tipo = 'restaurant' AND users.name LIKE %L", rest_substr_regex)
+        //Return all data except the password
+        //const query = format("SELECT users.email, users.name, 'CIF' AS cif, street, phone, tipo, url, avaliability, visible, iban, allergens, types.type_id, types.name AS type_name, description FROM users, restaurants, type_restaurants, types WHERE users.tipo = 'restaurant' AND users.name LIKE %L AND restaurants.email = type_restaurants.rest_id AND type_restaurants.type_id = types.type_id", rest_substr_regex)
+        var query = format(`    SELECT
+                                        restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
+                                        users.name, users."CIF", users.street, users.phone, users.url, 
+                                        type_restaurants.type_id, "types"."name" as type_name, "types".description as type_desc 
+                                FROM restaurants 
+
+                                LEFT JOIN users ON users.email = restaurants.email
+                                LEFT JOIN type_restaurants ON type_restaurants.rest_id = restaurants.email 
+                                LEFT JOIN "types" ON "types".type_id = type_restaurants.type_id
+                                WHERE users.name LIKE %L AND users.tipo = 'restaurant'`, rest_substr_regex)
+
         //console.log(query)
         return pool.query(query)
                 .then(res => {
                         //console.log(res.rows)
+                        for (let r_id in res.rows){
+                                //res.rows[r_id].type = {} 
+                                res.rows[r_id].type = {...res.rows[r_id].type,
+                                        id : res.rows[r_id].type_id,
+                                        name : res.rows[r_id].type_name,
+                                        description : res.rows[r_id].type_desc
+                                }
+                                delete res.rows[r_id].type_id
+                                delete res.rows[r_id].type_name
+                                delete res.rows[r_id].type_desc
+                        }
                         return res.rows
                 })
                 .catch(err => {
-                        //console.log(res.rows)
+                        //console.log(err)
                         return []
                 })
 }
