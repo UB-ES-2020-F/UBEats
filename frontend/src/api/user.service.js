@@ -4,7 +4,7 @@ import authHeader from "./auth-header";
 const API_URL_DEV = "http://localhost:3000/api/user/";
 const API_URL_BUILD = "https://cors-anywhere.herokuapp.com/http://ub-gei-es-ubeats-clone.herokuapp.com/api/users";
 const API_URL_HEROKU = "https://ub-gei-es-ubeats-clone.herokuapp.com/api/users";
-const API_URL = API_URL_HEROKU;
+const API_URL = API_URL_DEV;
 
 const getPublicContent = () => {
   return axios.get(API_URL + "all");
@@ -22,15 +22,16 @@ const getAdminBoard = () => {
   return axios.get(API_URL + "admin", { headers: authHeader() });
 };
 
+{/** Function user in ProfileClient.js to change a user's info */}
 
-const setUserInfo = (databaseEmail, street, tipo, useremail) => {
+const setUserInfo = (phone, street, tipo, useremail) => {
     console.log("Dentro de la funcion");
     console.log(street);
     console.log(tipo);
-    axios.put(API_URL + databaseEmail, { 
+    axios.put(API_URL + useremail, { 
       type : tipo,
       street: street,
-      email: useremail
+      phone: phone
     }).then((response) => {
       console.log("PUT con exito");
       console.log(response.data);

@@ -25,6 +25,8 @@ function ProfileClient({user}) {
   const [phone, setPhone] = useState(user.user.phone);
   const [address, setAddress] = useState(user.user.street);
   const [invitationCode, setInvitationCode] = useState(userDefaultInfo.codigoinvitacion);
+  const [CIF, setCIF] = useState(user.user.CIF);
+
   const [showToast, setShowToast] = useState(false);
   const [showToastFail, setShowToastFail] = useState(false);
 
@@ -38,11 +40,12 @@ function ProfileClient({user}) {
 
   {/**
     Sends the user info to the database. Called by SaveChanges().
+    Info to be changed: name, street, CIF, phone
    */}
 
-  const sendInfoToDataBase = async (databaseEmail, address, tipo, email) => {
+  const sendInfoToDataBase = async (phone, address, tipo, email) => {
     const updatedUserInfo =  await userService.setUserInfo(
-      databaseEmail, 
+      phone, 
       address,
       tipo,
       email
@@ -56,16 +59,14 @@ function ProfileClient({user}) {
    * Also handles an incorrect email input.
    */
   function SaveChanges () {
-    if (validateEmail(email) && (address.length > 0)) {
-      setShowToast(true);
-      console.log(address);
-      console.log(user.user.tipo);
+    if ((CIF.length > 0) && (address.length > 0) && (phone.length > 0)) {
       sendInfoToDataBase(
-        databaseEmail,
+        phone,
         address,
         user.user.tipo,
         email
       );
+      setShowToast(true);
     }
     else {
       setShowToastFail(true);
@@ -85,27 +86,14 @@ function ProfileClient({user}) {
               className="profilePicture" 
               src={photo} 
               roundedCircle 
-              height='100px'
-              width='100px'
             />
           </Col>
           <Col >
-            <p><strong> Name: </strong>{name}</p>
-            <p><strong> Phone: </strong>{phone}</p>
+            <p><strong>{name}</strong></p>
+            <p><strong>{email}</strong></p>
           </Col>
         </Row>
-        {/** 
-         * Display of the invitation code.
-         * It's not editable (and it shouldn't be)
-         */}
-        <Row>
-          <Col>
-            <p><strong>Invitation code</strong></p>
-          </Col>
-          <Col>
-            <p>{invitationCode}</p> 
-          </Col>
-        </Row>
+        
 
         <Row>
           <Col>
@@ -120,23 +108,46 @@ function ProfileClient({user}) {
           </Col>
         </Row>
 
-        {/** 
-         * Input field for email changes.
-         * Default value: current email.
-         */}
         <Row>
           <Col>
-            <p><strong>Email</strong></p>
+            <p><strong>Phone</strong></p>
           </Col>
           <Col>
-            <input 
-              type="email" 
-              defaultValue={email}
-              onChange={event => setEmail(event.target.value)}
+          <input 
+              defaultValue={phone}
+              onChange={event => setPhone(event.target.value)}
               >
             </input>
           </Col>
         </Row>
+
+        <Row>
+          <Col>
+            <p><strong>CIF</strong></p>
+          </Col>
+          <Col>
+            <input 
+              defaultValue={CIF}
+              onChange={event => setCIF(event.target.value)}
+              >
+            </input>
+          </Col>
+        </Row>
+
+        {/** 
+         * Display of the invitation code.
+         * It's not editable (and it shouldn't be)
+         */}
+
+        <Row>
+          <Col>
+            <p><strong>Invitation code</strong></p>
+          </Col>
+          <Col>
+            <p>{invitationCode}</p> 
+          </Col>
+        </Row>
+
         {/** Save changes button
          * Saves the current state into the user's data.
          */}

@@ -311,13 +311,13 @@
   }
 
   .profileClient .profileContainer {
-    padding-right: 20%;
+    margin: auto;
     padding-top: 10px;
     flex-direction: column;
     justify-content: center;
-    width: 55%;
     font-family: "Uber Move Text";
-
+    min-width: fit-content;
+    max-width: 55%;
   }
 
   .profileClient .profilePicture {
@@ -331,6 +331,8 @@
 
   .profileButton {
     font-family: "Uber Move Text";
+    width: fit-content;
+    margin: auto;
   }
 
   .profileSelect {
