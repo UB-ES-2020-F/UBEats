@@ -339,4 +339,16 @@
     font-family: "Uber Move Text";
   }
 
+  .wiki {
+    width: 100%;
+    background: white;
+    display: flex;
+    font-family: "Uber Move Text";
+    padding: 10px;
+  }
+  
+  .wiki .row {
+    padding-left: 2%;
+  }
+
   

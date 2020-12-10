@@ -23,6 +23,7 @@ import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import defaultImage from './images/banner.jpg';
+import Wiki from "./pages/Wiki/Wiki";
 
 //This is the main component of the app. It acts as the router.
 //It gets user and isLogged state here and pass it down to its children components.
@@ -56,6 +57,7 @@ const App = () => {
         {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
         <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
+        <Route path='/wiki' component={Wiki} key='wiki'/>
       </Switch>
       
       <Footer/>
