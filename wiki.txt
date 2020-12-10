@@ -1,0 +1,58 @@
+Our website : UbEats, a Ubereats Clone but Ub Themed 
+- What is our website ( Product description UbEats a new place to order!) --- Marketing description. Selling UbEats
+- Ubereats vs UbEats
+- How did we focus the UbEats style 
+    - What decisions have been made at styling and why  (frontend)
+
+- Features (Customer) 
+    - Navbar
+    - Searchbar ( WIP)
+    - Login and register primarly as Customer but also as restaurant and deliveryman
+    - Homepage with restaurant's information divided by categories
+    - Categories for restaurant ( icon filtering)
+    - Restaurant homepage ( products and categories)
+    - Categories for products in a restaurant ( Mainly 4 categories each one with its corresponding products)
+    - Data extracted from Ubereats
+    - Favourites and how does it work (Customer based)
+    
+- Features (Developer)    
+    - API service providing all information.
+        - Endpoints are documented at github README.txt
+    - Extensive README.txt explaining how to setup and mount website from github
+
+- Technologies used
+    - Frontend --> Node with React & Bootstrap
+    - Backend  --> Node with express.js 
+    - Database --> PostgresSQL ( an SQL ddbb)
+    - GitHub --> Project Kanban 
+        - Evolution of Card Issues 
+        - Definition of DONE 
+    - Trello (Epics, UserStories and more)
+    - Slack: How we communicate with each other from a day-to-day basis 
+        - Channels created
+        - Automatic channels --> Github, trello, travis-ci
+    - Discord : Standup daily meeting (Specified hour 13:00, except Thursday 13:30)
+    - Travis --> CI/ CD and how is implemented
+    - QA 
+        - Static  --> ESLinting (Oriol)
+        - Dynamic --> Profiling (Oriol) 
+        - Backend Testing --> Selenium (?)
+        - Frontend Testing --> Mocha && Chai
+    - Heroku : Free hosting and easy setup
+
+- Chain of Work
+    - An example of developing an issue and the steps to follow
+        - Derivation of task from US at Sprint Planning
+        - Assignation of the task itself (hours planned vs executed)
+        - Github issue created and AC updated by Product Owner 
+        - Starting Issue --> Move Issue to Develop 
+        - Once is done its push to done 
+
+- Late Motiv of Retrospectives 
+    - How we felt about the Sprint, Demo and the work of each member.
+    - Prioritizing honesty and communication between all members to reach a healthy trusted team.
+
+
+- Members and our roles
+    - Describe briefly what have we done in the project ( Main roles)
+        *** 'Juanito de las Pelotas: Worked as Product Owner to help prioritize the task and worked as a Backend member developing new endpoints to satisfy the needs of Frontend information retrieval' ***
