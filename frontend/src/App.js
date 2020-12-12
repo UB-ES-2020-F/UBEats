@@ -18,6 +18,8 @@ import Footer from './commons/components/Footer.js';
 
 import NavCustom from './pages/Navbar/NavCustom.js';
 
+import ShoppingCart from './pages/ShoppingCart/ShoppingCartPage.js';
+
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -55,6 +57,7 @@ const App = () => {
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
         {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
         <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
+        <Route path='/shopping' component={ShoppingCart} key='shopping'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
       </Switch>
       
