@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
 import '../../commons/components/App.css';
 
@@ -19,15 +20,17 @@ var userDefaultInfo = {
   appsautorizadas: [],
 }
 
-function ProfileClient({user}) {
+function ProfileClient() {
+  const {user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
+
   const dispatch = useDispatch();
 
-  const [name, setName] = useState(user.user.name);
-  const [email, setEmail] = useState(user.user.email);
-  const [databaseEmail, setDatabaseEmail] = useState(user.user.email);
-  const [photo, setPhoto] = useState(user.user.url);
-  const [phone, setPhone] = useState(user.user.phone);
-  const [address, setAddress] = useState(user.user.street);
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
+  const [databaseEmail, setDatabaseEmail] = useState(currentUser.email);
+  const [photo, setPhoto] = useState(currentUser.url);
+  const [phone, setPhone] = useState(currentUser.phone);
+  const [address, setAddress] = useState(currentUser.street);
   const [invitationCode, setInvitationCode] = useState(userDefaultInfo.codigoinvitacion);
   const [showToast, setShowToast] = useState(false);
   const [showToastFail, setShowToastFail] = useState(false);
@@ -53,7 +56,6 @@ function ProfileClient({user}) {
       );
   };
 
-  
   /**
    * Function triggered by the "Save Changes" button.
    * Overwrites the user's info with the changed values.
@@ -63,11 +65,11 @@ function ProfileClient({user}) {
     if (validateEmail(email) && (address.length > 0)) {
       setShowToast(true);
       console.log(address);
-      console.log(user.user.tipo);
+      console.log(currentUser.tipo);
       sendInfoToDataBase(
         databaseEmail,
         address,
-        user.user.tipo,
+        currentUser.tipo,
         email
       );
     }

@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import { useSelector } from "react-redux";
+
 import RestPreviewGeneral from'../../commons/components/RestPreviewGeneral.js'
 import CategoriasHome from'../../commons/components/CategoriasHome.js'
 import Categorias from '../../commons/components/Categorias.js'
@@ -64,16 +66,11 @@ const listapubli = [{
 ]
 
 
-function Home({setRestaurantId, setPicture, isLogged, user}) {
+function Home({user, isLogged}) {
+
   const [restList, setRestList] = useState([{name: '', url:''}]);
   const [favList, setFavList] = useState([{name: '', url:''}]);
   const [typeList, setTypeList] = useState([]);
-
-  //Deprecated.
-  const onClickRestaurantPage = (rest_id, photo) => {
-    setRestaurantId(rest_id);
-    setPicture(photo);
-  };
 
   const fetchMenu = async () => {
     const items = await RestService.getAll();
@@ -82,8 +79,9 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
   };
   
   const fetchFavs = async () => {
-    const items = await RestService.getAllLogged(user.user.email)
-    setRestList(items)
+    const items = await RestService.getAllLogged(user.user.email);
+    console.log({'user!"·!"·"' : user.user.email});
+    setRestList(items);
     setFavList(items.filter(rest => rest.favourite==1));//We filter those that are faved.
     console.log({'fav':items.filter(rest => rest.favourite==1)});
   };

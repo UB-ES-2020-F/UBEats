@@ -19,7 +19,6 @@ function CategoriasHome(props){
     const buildCategory = (arr) => {
         let real_previews = Math.min(arr.length, N);
         let empty_previews = N - Math.min(arr.length, N);
-        console.log(arr.slice(0,real_previews).map( (restaurante) =><RestPreviewGeneral rest={restaurante}/>).concat(new Array(empty_previews).fill(<RestPreviewEmpty/>)));
         return arr.slice(0,real_previews).map( (restaurante) =><RestPreviewGeneral rest={restaurante} key={restaurante.email}/>).concat(new Array(empty_previews).fill(<RestPreviewEmpty/>));
     };
     return(
@@ -30,7 +29,6 @@ function CategoriasHome(props){
                 </div>
                 <div className="header-viewOptions">
                     <div className="viewAll">
-                        <Link to="/viewall" className="link"></Link>
                         <Link to={{
                             pathname:'/viewall/'+props.titulo,
                             title: props.titulo,
