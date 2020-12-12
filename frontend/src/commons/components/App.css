@@ -221,7 +221,8 @@
   }
 
   .restaurantProfile .restaurantBanner {
-    height: 15rem;
+    height: 22rem;
+    column-span: all;
   }
 
   .restaurantProfile .restaurantContainer {
@@ -234,6 +235,11 @@
   .restaurantProfile .restaurantBanner .restaurantTitle {
     text-align: bottom;
     padding-left: 5%;   
+  }
+
+  .restaurantProfile .restaurantBanner .restaurantTitleContainer {
+    background-color: white;
+    margin-top: 16%;
   }
 
   .card-img-top {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Button, Container, Row, Card, Modal, Nav } from 'react-bootstrap';
+import { Button, Container, Row, Card, Modal, Nav, Col } from 'react-bootstrap';
 
 import restaurantService from "../../api/restaurant.service.js";
 
@@ -161,15 +161,6 @@ function ProfileRestaurantF({rest_id}) {
       listaCategorias.push(categoriaX)
     }
 
-    /** Desplegable aun no despliega */
-    var desplegable =
-    <Nav.Item as="li" className="ml-auto">
-      <Nav.Link href="#" className="navbar-link">More</Nav.Link>
-    </Nav.Item>
-
-    listaCategorias.push(desplegable);
-
-
     return(listaCategorias);
   }
 
@@ -182,34 +173,35 @@ function ProfileRestaurantF({rest_id}) {
             {/* Banner */}
             <Row className="restaurantBanner"
             style={{backgroundImage: 'url(' +restaurantInfo['url']+ ')'}}>
-              <Container >
+              <Col>
+              <Container className="restaurantTitleContainer">
                 <Row style={{height: '55%'}}>
                 </Row>
                 <Row className="restaurantTitle">
                   <h1 className="textFont"><strong>{restaurantInfo['name']}</strong></h1>
                 </Row>
                 <Row className="restaurantTitle">
-                  <h8><strong>Delivery: 2$ • 15/20 min • 4.8/5(300+)</strong></h8>
+                  <p>Delivery: 2$ • 15/20 min • 4.8/5(300+)</p>
+                </Row>
+                <Row className="restaurantTitle">
+                  <p>$ • Chicken • American • <a onClick={handleShow} href="#">More info</a></p> 
+                </Row>
+                <Row className="restaurantTitle">
+                  <p>{restaurantInfo['street']}</p>
                 </Row>
               </Container>
+              </Col>
+              <Col>
+              </Col>
+
             </Row>
-            </Container>
+          </Container>
         </Row>
           
         <Row style={{height: '1%'}}>
 
         </Row>
         
-        <Row className="restaurantContainer">
-          <Container>
-            <Row>
-              <p>$ • Chicken • American • <a onClick={handleShow} href="#">More info</a></p> 
-            </Row>
-            <Row>
-              <p>{restaurantInfo['street']}</p>
-            </Row>
-          </Container>
-        </Row>
 
         {/**
          * This next component is the Modal, shown only when
