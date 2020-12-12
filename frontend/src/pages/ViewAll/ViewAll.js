@@ -9,7 +9,7 @@ class ViewAll extends React.Component {
   render() {  
     return (
       <body2>
-          {console.log({'ups':this.props.location.containerdata})}
+          {console.log({'ViewALl containerdata':this.props.location.containerdata})}
           <div className='container3'>
             <div className="header-title">
               <h2 className='category_title'>{this.props.location.title.charAt(0).toUpperCase()+this.props.location.title.slice(1)}</h2>

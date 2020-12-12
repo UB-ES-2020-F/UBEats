@@ -40,14 +40,20 @@ const LoggedSidebar = ({openSidebar}) => {
     };
 
     const fetchFavs = async () => {
-        let items = await RestService.getAllLogged(currentUser.email);
-        console.log({'ieorjwoekrj':items});
-        return items.filter(rest => rest.favourite==1);//We filter those that are faved.
+        let items = await RestService.getAllLogged(currentUser.user.email);
+        console.log({'sidebaruser' : currentUser.user.email})
+        console.log({'sidebar items':items});
+        setFavList(items.filter(rest => rest.favourite==1));//We filter those that are faved.
     };
 
     useEffect(() => {
         fetchFavs();
     }, []);
+
+    useEffect (() => {
+        setFetched(true);
+    }, [favList]
+    );
 
     if (toFav && fetched){
         openSidebar(false);
@@ -73,7 +79,7 @@ const LoggedSidebar = ({openSidebar}) => {
                         </Link>
                     </div>
                     <div className='column2'>
-                        <a><span className='username'>{currentUser.name}</span></a>
+                        <a><span className='username'>{currentUser.user.name}</span></a>
                         <br></br>
                         <a onClick={() => openSidebar(false)}><Link to='/profileclient' className='account'>See account</Link></a>
                     </div>
