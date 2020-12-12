@@ -167,35 +167,31 @@ function ProfileRestaurantF({rest_id}) {
   return (
     <section className="restaurantProfile">
 
-      <Container>
-        <Row>
-          <Container fluid>
-            {/* Banner */}
-            <Row className="restaurantBanner"
-            style={{backgroundImage: 'url(' +restaurantInfo['url']+ ')'}}>
-              <Col>
-              <Container className="restaurantTitleContainer">
-                <Row style={{height: '55%'}}>
-                </Row>
-                <Row className="restaurantTitle">
-                  <h1 className="textFont"><strong>{restaurantInfo['name']}</strong></h1>
-                </Row>
-                <Row className="restaurantTitle">
-                  <p>Delivery: 2$ • 15/20 min • 4.8/5(300+)</p>
-                </Row>
-                <Row className="restaurantTitle">
-                  <p>$ • Chicken • American • <a onClick={handleShow} href="#">More info</a></p> 
-                </Row>
-                <Row className="restaurantTitle">
-                  <p>{restaurantInfo['street']}</p>
-                </Row>
-              </Container>
-              </Col>
-              <Col>
-              </Col>
-
+      <Container fluid>
+        {/* Banner */}
+        <Row className="restaurantBanner"
+        style={{backgroundImage: 'url(' +restaurantInfo['url']+ ')'}}>
+          <Col>
+          <Container className="restaurantTitleContainer">
+            <Row style={{height: '55%'}}>
+            </Row>
+            <Row className="restaurantTitle">
+              <h1 className="textFont"><strong>{restaurantInfo['name']}</strong></h1>
+            </Row>
+            <Row className="restaurantTitle">
+              <p>Delivery: 2$ • 15/20 min • 4.8/5(300+)</p>
+            </Row>
+            <Row className="restaurantTitle">
+              <p>$ • Chicken • American • <a onClick={handleShow} href="#">More info</a></p> 
+            </Row>
+            <Row className="restaurantTitle">
+              <p>{restaurantInfo['street']}</p>
             </Row>
           </Container>
+          </Col>
+          <Col>
+          </Col>
+
         </Row>
           
         <Row style={{height: '1%'}}>

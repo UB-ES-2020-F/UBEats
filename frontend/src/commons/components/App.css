@@ -226,7 +226,7 @@
   }
 
   .restaurantProfile .restaurantContainer {
-    padding-left: 5%;
+    padding-left: 1px;
     padding-top: 20px;
     font-size: small;
     font-family: "Uber Move Text";
@@ -297,9 +297,8 @@
   }
 
   .restaurantProfile .categories-navbar {
-    padding-left: 10px;
+    padding-left: 0px;
     padding-top: 3%;
-    padding-right: 10%;
   }
 
 
@@ -355,6 +354,11 @@
   
   .wiki .row {
     padding-left: 2%;
+  }
+
+  .container-fluid{
+    padding-left: 0;
+    padding-right: 0;
   }
 
   
