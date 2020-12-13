@@ -18,7 +18,7 @@ function CategoriasHome(props){
         <div className="container3">
             <div className="header">
                 <div className="header-title">
-                    <h2>{props.titulo}</h2>
+                    <h2><b>{props.titulo}</b></h2>
                 </div>
                 <div className="header-viewOptions">
                     <div className="viewAll">

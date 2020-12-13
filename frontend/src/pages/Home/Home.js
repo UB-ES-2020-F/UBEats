@@ -148,7 +148,7 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
       <div className="container3">
         <div className="header">
           <div className="header-title">
-            <h2>¿Buscas algo diferente?</h2>
+            <h2><b>¿Buscas algo diferente?</b></h2>
           </div>
         </div>
 
@@ -166,7 +166,7 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
       <div className="container3">
         <div className="header">
           <div className="header-title">
-            <h2>Todos los establecimientos</h2>
+            <h2><b>Todos los establecimientos</b></h2>
           </div>
         </div>
         <div className="listings-grid">
