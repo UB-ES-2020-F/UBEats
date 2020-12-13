@@ -179,22 +179,18 @@ function ProfileRestaurantF({rest_id}) {
               <h1 className="textFont"><strong>{restaurantInfo['name']}</strong></h1>
             </Row>
             <Row className="restaurantTitle">
-              <p>Delivery: 2$ • 15/20 min • 4.8/5(300+)</p>
+              <p className="tinyFont">Delivery: 2$ • 15/20 min • 4.8/5(300+)</p>
             </Row>
             <Row className="restaurantTitle">
-              <p>$ • Chicken • American • <a onClick={handleShow} href="#">More info</a></p> 
+              <p className="tinyFont">$ • Chicken • American</p> 
             </Row>
             <Row className="restaurantTitle">
-              <p>{restaurantInfo['street']}</p>
+              <p className="tinyFont">{restaurantInfo['street']} • <a onClick={handleShow} href="#">More info</a></p>
             </Row>
           </Container>
           </Col>
           <Col>
           </Col>
-
-        </Row>
-          
-        <Row style={{height: '1%'}}>
 
         </Row>
         

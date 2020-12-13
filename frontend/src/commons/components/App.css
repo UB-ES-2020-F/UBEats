@@ -239,7 +239,12 @@
 
   .restaurantProfile .restaurantBanner .restaurantTitleContainer {
     background-color: white;
-    margin-top: 16%;
+    margin-top: 17%;
+    padding: 21px;
+  }
+
+  .restaurantProfile .restaurantBanner .tinyFont {
+    font-size: 14px;
   }
 
   .card-img-top {
@@ -273,10 +278,12 @@
   .sectionHeader {
     font-weight: 600;
     font-family: "Uber Move Text";
+    color: black;
   }
 
   .textFont {
     font-family: "Uber Move Text";
+    color: black;
   }
 
   .restaurantProfile .a {
