@@ -97,7 +97,6 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
 
   return (
     <section>
-    <body2>
     <div className="listings">
       <div className="container2">
         <div className="listings-grid">
@@ -180,7 +179,6 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
         </div>
       </div>
     </div>
-  </body2>
 </section>
 
     

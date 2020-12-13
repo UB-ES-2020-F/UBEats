@@ -55,9 +55,8 @@ const App = () => {
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
         {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
         <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
-        <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
+        <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
       </Switch>
-      
       <Footer/>
     </Router>
   );
