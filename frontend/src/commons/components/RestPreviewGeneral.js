@@ -30,7 +30,7 @@ function RestPreviewGeneral(props){
         <Link className='linkto' to={{
                             pathname:'/profilerestaurant',
                             rest_id: props.rest.email
-                    }}>{props.rest.name}<img src={props.rest.url} alt="Restaurant image"></img></Link>
+                    }}><img src={props.rest.url} alt="Restaurant image"></img></Link>
         </div>
         <div className="text">
             <div className="text-title">
