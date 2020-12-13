@@ -8,6 +8,7 @@ class ShoppingCart extends React.Component {
             <div className='container'>
                 <h5>Soy el titulo</h5>
                 <h7>Soy el el precio €</h7><p></p>
+                <h5><b>Cantidad</b></h5>
                 <input className="number" type="number" id="quantity" name="quantity" min="1" max="30"></input>
                 <button className="eliminar">Eliminar</button>
                 
