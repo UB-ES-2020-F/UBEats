@@ -127,7 +127,7 @@ function getAllRestaurantsByNameSubstring(rest_substr)
                                 LEFT JOIN users ON users.email = restaurants.email
                                 LEFT JOIN type_restaurants ON type_restaurants.rest_id = restaurants.email 
                                 LEFT JOIN "types" ON "types".type_id = type_restaurants.type_id
-                                WHERE users.name LIKE %L AND users.tipo = 'restaurant'`, rest_substr_regex)
+                                WHERE users.name ILIKE %L AND users.tipo = 'restaurant'`, rest_substr_regex)
 
         //console.log(query)
         return pool.query(query)
