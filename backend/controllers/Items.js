@@ -1,5 +1,4 @@
 const items_db = require('../services/items.js')
-const {body, validationResult} = require('express-validator');
 
 /**
  *  Function that requests all available items from the database
@@ -25,9 +24,6 @@ async function getAll(req, res)
 async function getAllByRestaurant(req, res)
 {
     //console.log("getAllByRestaurant")
-    const {params} = req
-    if(!(params.rest_id))
-        return res.status(403).send({"message": "Item ID not specified"})
 
     const items = await items_db.getAllItemsByRestaurantID(params.rest_id)
     //check for error retreiving from DDBB
@@ -45,10 +41,6 @@ async function getAllByRestaurant(req, res)
  */
 async function get(req, res)
 {
-    const errors = validationResult(req)
-    if(!errors.isEmpty())
-        return res.status(400).json({errors: errors.array()});
-
     const {params} = req
     //check if the request has the item id
     if(!(params.item_id))
@@ -69,10 +61,6 @@ async function get(req, res)
  */
 async function create(req, res)
 {
-    const errors = validationResult(req)
-    if(!errors.isEmpty())
-        return res.status(400).json({errors: errors.array()});
-
     const {body} = req
 
     const item = await items_db.createItem(body)
@@ -89,10 +77,6 @@ async function create(req, res)
  */
 async function remove(req, res)
 {
-    const errors = validationResult(req)
-    if(!errors.isEmpty())
-        return res.status(400).json({errors: errors.array()});
-
     const {params} = req
     //check if the request has the item id
     if(!(params.item_id))
@@ -114,10 +98,6 @@ async function remove(req, res)
  */
 async function update(req, res)
 {
-    const errors = validationResult(req)
-    if(!errors.isEmpty())
-        return res.status(400).json({errors: errors.array()});
-
     const {params} = req
     const {body} = req
     //check if the request has the item id
