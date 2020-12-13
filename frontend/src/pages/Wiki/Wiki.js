@@ -7,8 +7,12 @@ import { Container, Accordion, Card, Button, Row } from 'react-bootstrap';
 function Wiki() {
   return (
     <section className='wiki'>
-        <Container className='wikiContainer'>
-
+        <Container>
+            <Row>
+                <h1><strong>About UBEats</strong></h1>
+            </Row>
+    
+            <Row>
             <Tabs defaultActiveKey="ourWebsite" id="wikitab" className='custom-tab-bg'>
                 <Tab eventKey="ourWebsite" title="Our Website">
                     <Accordion defaultActiveKey="0">
@@ -59,7 +63,7 @@ function Wiki() {
                     </Accordion>
                 </Tab>
                 <Tab eventKey="customerFeaturesTab" title="Customer Features">
-                    <Accordion defaultActiveKey="customerFeaturesAcc">
+                    <Accordion defaultActiveKey="0">
                         <Row>
                         <Card>
                             <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -67,7 +71,7 @@ function Wiki() {
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey="0">
                             <Card.Body>
-                                <b> Bien bonita.
+                                <b> Bien bonita, de color verde etc.
                                 </b>
                             </Card.Body>
                             </Accordion.Collapse>
@@ -272,6 +276,10 @@ function Wiki() {
                     </Accordion>
                 </Tab>
             </Tabs>
+                
+            </Row>
+
+            
 
         </Container>
 

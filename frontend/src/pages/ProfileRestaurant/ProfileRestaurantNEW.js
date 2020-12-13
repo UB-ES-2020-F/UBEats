@@ -29,7 +29,9 @@ function ProfileRestaurantF({rest_id}) {
     "visible": " ",
     "iban": " ",
     "allergens": " ",
+    "types": [],
   })
+  const [restaurantFoodType, setrestaurantFoodType] = useState("Loading")
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
@@ -44,7 +46,6 @@ function ProfileRestaurantF({rest_id}) {
         ListaPlatos: items[cat]
       })
     };
-    console.log({'listsec':listaSecciones_dyn});
     setListaInfo(listaSecciones_dyn);
   };
 
@@ -57,8 +58,12 @@ function ProfileRestaurantF({rest_id}) {
 
   const fetchRestaurantInfo = async () => {
     const restInfo = await restaurantService.getRestaurant(rest_id);
-    console.log(restInfo['restaurant']);    
+    console.log({'restInfo':restInfo['restaurant']});    
+    console.log({'restTypes':restInfo['restaurant']['types']});
+    console.log({'restTypeName':restInfo['restaurant']['types']['0']['name']});
     setRestaurantInfo(restInfo['restaurant']);
+    setrestaurantFoodType(restInfo['restaurant']['types']['0']['name']);
+    console.log({'types':restaurantInfo['types']}); 
   };
 
   useEffect(() => {
@@ -150,7 +155,6 @@ function ProfileRestaurantF({rest_id}) {
   function ListaCategorias(props) {
     var listaCategorias = []
     var columnas = 0;
-    console.log({'props':props})
     for (var categoria in props.listaSecciones) {
       var hrefitem = "#" + props.listaSecciones[categoria].Header;
       var categoriaX =
@@ -179,10 +183,10 @@ function ProfileRestaurantF({rest_id}) {
               <h1 className="textFont"><strong>{restaurantInfo['name']}</strong></h1>
             </Row>
             <Row className="restaurantTitle">
-              <p className="tinyFont">Delivery: 2$ • 15/20 min • 4.8/5(300+)</p>
+              <p className="tinyFont">$$ • {restaurantFoodType}</p> 
             </Row>
             <Row className="restaurantTitle">
-              <p className="tinyFont">$ • Chicken • American</p> 
+              <p className="tinyFont">Delivery: 2$ • 15/20 min • 4.8/5(300+)</p>
             </Row>
             <Row className="restaurantTitle">
               <p className="tinyFont">{restaurantInfo['street']} • <a onClick={handleShow} href="#">More info</a></p>
@@ -221,7 +225,6 @@ function ProfileRestaurantF({rest_id}) {
         {/**
          * And this one generates the product rows.
          */}
-        {console.log({'dyn':listaInfo})}
         <SeccionPlatos listaSecciones={listaInfo}>
         </SeccionPlatos>
       </Container>
