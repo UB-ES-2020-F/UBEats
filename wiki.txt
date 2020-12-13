@@ -1,10 +1,22 @@
 Our website : UbEats, a Ubereats Clone but Ub Themed 
 - What is our website ( Product description UbEats a new place to order!) --- Marketing description. Selling UbEats
+    Have you ever been stting on your sofa and thinking 'Oh man I'd really like some pizza' but didn't want to go to a restaurant or prepared all by yourself? 
+    That's why we have developed UbEats, a website where you can order from your favourities restaurants in the comfort of your home!
+    It is as simple as going to our website https://ub-gei-es-ubeats-clone.herokuapp.com/, log in if you already have an account and start ordering with only one click!
+
 - Ubereats vs UbEats
+    UbEats is a webstie clone of Ubereats, the purpose of the creation of such website is purely educational on how to recreate a website from Scratch. Therefore the license applied to UbEats project is MIT and 
+    all credits to  @2020 Uber Technologies Inc. on https://ubereats.com. The main differences find between these two are due to lack of time or money ( pe : hosting, domain) but the whole UbEats tries to be as similar to Ubereats 
+    as possible. 
+
 - How did we focus the UbEats style 
     - What decisions have been made at styling and why  (frontend)
 
-- Features (Customer) 
+- Features (Customer):
+    As a customer, a registered user we have several features to be talked about and are worth mentioning.
+    First of all, as a visitor you can choose to surf around the website with almost no restriction at all. But at any moment you can sign in (if you already have an accout) or register.
+    In terms of registration there are 3 possibilities, one for customers (main purpose), one for restaurants and one for users who wants to work as deliveryman. Even though there are 3 registration, 
+    the login is shared through all of them but the website has only the customer view (first one).
     - Navbar
     - Searchbar ( WIP)
     - Login and register primarly as Customer but also as restaurant and deliveryman
@@ -27,7 +39,7 @@ Our website : UbEats, a Ubereats Clone but Ub Themed
     - GitHub --> Project Kanban 
         - Evolution of Card Issues 
         - Definition of DONE 
-    - Trello (Epics, UserStories and more)
+    - Trello (Epics, UserStories and more)es
     - Slack: How we communicate with each other from a day-to-day basis 
         - Channels created
         - Automatic channels --> Github, trello, travis-ci
