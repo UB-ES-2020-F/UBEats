@@ -45,7 +45,7 @@ const App = () => {
   return (
     <Router history={history}>
       {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} user={currentUser} key='sidebar'/>):(<div/>)}
-      <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
+      <NavCustom  openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
 
       <Switch>
         <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto} isLogged={isLogged} user={currentUser}/>)} key='home'/>

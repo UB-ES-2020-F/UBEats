@@ -15,7 +15,7 @@
 	 src: url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff") format("woff"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.svg#Uber Move Text") format("svg");
 }
 
- input {
+input {
 	 border: rgb(41, 41, 41);
 	 border-width: 2px;
 	 border-bottom-style: solid;
@@ -27,6 +27,20 @@
 	 font-family: "Uber Move Text";
 	 text-align: left;
 	 width: 120%;
+}
+
+.searchform {
+	border: rgb(41, 41, 41);
+	border-width: 2px;
+	border-bottom-style: solid;
+	font-size: 16px;
+	padding: 10px;
+	background: rgb(240, 240, 240);
+	color: #000;
+	letter-spacing: 1px;
+	font-family: "Uber Move Text";
+	text-align: left;
+	width: 120%;
 }
 
 .navbarcustomform {

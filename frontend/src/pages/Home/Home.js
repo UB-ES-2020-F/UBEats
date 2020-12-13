@@ -63,7 +63,6 @@ const listapubli = [{
 },
 ]
 
-
 function Home({setRestaurantId, setPicture, isLogged, user}) {
   const [restList, setRestList] = useState([{name: '', url:''}]);
   const [favList, setFavList] = useState([{name: '', url:''}]);
