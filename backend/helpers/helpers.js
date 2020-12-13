@@ -40,4 +40,59 @@ function _createUpdateDynamicQuery(body, table, where)
         return dynamicQuery
 }
 
-module.exports ={ _createUpdateDynamicQuery}
+function _isPositiveOrZeroInteger(n)
+{
+        var x = parseInt(n)
+        return !isNaN(n) && x >= 0;
+}
+
+function _isPositiveOrZeroFloat(n)
+{
+        var x = parseFloat(n)
+        return !isNaN(n) && x >= 0;
+}
+
+function _isValidString(str)
+{
+        if(str.indexOf("<") > 0 || str.indexOf(">") > 0 || str.indexOf("|") > 0 || str.indexOf("\\") > 0)
+                return false;
+
+        return true;
+}
+
+function _isValidEmail(email)
+{
+        if(email.indexOf("@") > 0 || _isValidString(email))
+                return true;
+
+        return false;
+}
+
+function _isValidURL(url)
+{
+        if(_isValidString(url) || url.indexOf(".") > 0)
+                return true;
+
+        return false;
+}
+
+function _isValidTelephoneNumberChar(c)
+{
+        if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '-')
+                return true;
+
+        return false;
+}
+
+function _isValidTelephoneNumber(num)
+{
+        for(var c of num)
+        {
+                if(!_isValidTelephoneNumberChar(c))
+                        return false;
+        }
+
+        return true;
+}
+
+module.exports ={ _createUpdateDynamicQuery, _isPositiveOrZeroInteger, _isPositiveOrZeroFloat, _isValidString, _isValidEmail, _isValidURL, _isValidTelephoneNumberChar, _isValidTelephoneNumber}

@@ -24,6 +24,9 @@ async function getAll(req, res)
 async function getAllByRestaurant(req, res)
 {
     //console.log("getAllByRestaurant")
+    const {params} = req
+    if(!(params.rest_id))
+        return res.status(403).send({"message": "Restaurant ID not specified"})
 
     const items = await items_db.getAllItemsByRestaurantID(params.rest_id)
     //check for error retreiving from DDBB
@@ -51,6 +54,8 @@ async function get(req, res)
     //check for error retreiving from DDBB
     if(!item)
         return res.status(404).send({"message": `Item ${params.item_id} not found`})
+    if(item.error)
+        return res.status(404).send({"message": `Could not retrieve item ${params.item_id}`, "error": item.error})
 
     return res.status(200).send({item})
 }

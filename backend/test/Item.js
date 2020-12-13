@@ -294,7 +294,7 @@ describe('Items', () => {
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not create item")
           res.body.should.have.property('error')
-          res.body.error.should.equal("Item price is a negative number\nNo restaurant provided for item\n")
+          res.body.error.should.equal("Item price is a negative number\nPrice is not valid\nNo restaurant provided for item\n")
           done();
         });
     });
@@ -458,7 +458,7 @@ describe('Items', () => {
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not update item")
           res.body.should.have.property('error')
-          res.body.error.should.equal("Item price is a negative number\n")
+          res.body.error.should.equal("Item price is a negative number\nPrice is not valid\n")
           done();
         });
     });
