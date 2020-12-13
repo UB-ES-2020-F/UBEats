@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 
 var corsOptions = {
- //   origin: 'https://ub-gei-es-ubeats-clone.herokuapp.com/',
+    origin: 'https://ub-gei-es-ubeats-clone.herokuapp.com/',
 }
 
 app.use(cors(corsOptions))
