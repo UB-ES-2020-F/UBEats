@@ -1,4 +1,5 @@
 const items_db = require('../services/items.js')
+const {body, validationResult} = require('express-validator');
 
 /**
  *  Function that requests all available items from the database
@@ -6,7 +7,7 @@ const items_db = require('../services/items.js')
 async function getAll(req, res)
 {
     //console.log("Getting all the items")
-    const {params} = req
+    //const {params} = req
 
     const items = await items_db.getAllItems()
     //console.log(items)
@@ -44,6 +45,10 @@ async function getAllByRestaurant(req, res)
  */
 async function get(req, res)
 {
+    const errors = validationResult(req)
+    if(!errors.isEmpty())
+        return res.status(400).json({errors: errors.array()});
+
     const {params} = req
     //check if the request has the item id
     if(!(params.item_id))
@@ -64,6 +69,10 @@ async function get(req, res)
  */
 async function create(req, res)
 {
+    const errors = validationResult(req)
+    if(!errors.isEmpty())
+        return res.status(400).json({errors: errors.array()});
+
     const {body} = req
 
     const item = await items_db.createItem(body)
@@ -80,6 +89,10 @@ async function create(req, res)
  */
 async function remove(req, res)
 {
+    const errors = validationResult(req)
+    if(!errors.isEmpty())
+        return res.status(400).json({errors: errors.array()});
+
     const {params} = req
     //check if the request has the item id
     if(!(params.item_id))
@@ -101,6 +114,10 @@ async function remove(req, res)
  */
 async function update(req, res)
 {
+    const errors = validationResult(req)
+    if(!errors.isEmpty())
+        return res.status(400).json({errors: errors.array()});
+
     const {params} = req
     const {body} = req
     //check if the request has the item id

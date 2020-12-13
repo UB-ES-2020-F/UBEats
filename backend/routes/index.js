@@ -4,6 +4,7 @@ const Users = require('../controllers/Users')
 const Restaurants = require('../controllers/Restaurants')
 const Items = require('../controllers/Items')
 const Extras = require('../controllers/Extra_items.js')
+//const {body, param, validationResult} = require('express-validator');
 
 const router = express.Router()
 
@@ -45,10 +46,36 @@ router.post('/restaurants/:email_restaurant/favourite/:email_user', Restaurants.
 
 //Items
 router.get('/items', Items.getAll)
-router.get('/items/:item_id', Items.get)
-router.post('/items', Items.create)
-router.put('/items/:item_id', Items.update)
-router.delete('/items/:item_id', Items.remove)
+router.get('/items/:item_id', 
+            [
+                param('item_id').isInt({min: 0})
+            ],
+            Items.get)
+router.post('/items',
+            [
+                body('title').not().isEmpty().withMessage('Title must be not empty'),
+                body('title').escape(),
+                body('price').isFloat({min: 0.0}),
+                body('rest_id').isEmail().normalizeEmail(),
+                body('url').isURL(),
+                body('cat_id').isInt({min: 0})
+            ],
+            Items.create)
+router.put('/items/:item_id',
+            [
+                body('title').optional().not().isEmpty().withMessage('Title must be not empty'),
+                body('title').optional().escape(),
+                body('price').optional().isFloat({min: 0.0}),
+                body('rest_id').optional().isEmail().normalizeEmail(),
+                body('url').optional().isURL(),
+                body('cat_id').optional().isInt({min: 0})
+            ],
+            Items.update)
+router.delete('/items/:item_id', 
+            [
+                param('item_id').isInt({min: 0})
+            ],
+            Items.remove)
 
 //Extras
 router.get('/items/:item_id/extras', Extras.getAllExtrasForItem)

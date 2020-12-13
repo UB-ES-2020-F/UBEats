@@ -207,7 +207,7 @@ describe('Items', () => {
         desc: 'Todavia no nos hemos decidido por un nombre',
         price: 3.141592,
         rest_id: item.rest_id,
-        url: 'www.images.com/ofnforn.jpg',
+        url: 'http://www.images.com/ofnforn.jpg',
         cat_id: item.cat_id,
       }
 
