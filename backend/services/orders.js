@@ -21,8 +21,8 @@ async function getOrder(id)
                                 cust_id : res.rows[0].cust_id,
                                 status : res.rows[0].status,
                                 timestamp : res.rows[0].timestamp,
-                                items : [],
-                                importe : 0.0
+                                importe : 0.0,
+                                items : []
                         }
                         res.rows.forEach(row => {
                                 order.importe = order.importe + row.price*row.cantidad
@@ -99,17 +99,64 @@ async function deleteOrder(id)
 /**
  * Modify the values of an order from the tables orders, order_items, selected by id
  */
-async function updateOrder(id, values)
+async function updateOrder(values)
 {
+        const check = _checkOrderUpdateParameters(values)
+
+        if(check.err)
+                return {error: check.err, errCode: 403}
         
+        const query = _createUpdateDynamicQuery(values,'orders', 'order_id') // Update table orders via order_id.
+        if(query.error){
+                return {error: query.error, errCode: 403}
+        }
+        
+        return pool.query(query)
+                .then((res) => {
+                        //console.log(res.rows[0])
+                        return res.rows[0] || null
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
 }
 
 /**
  * Modify the values of an order_items from the tables orders, order_items, selected by pkey(order_id, item_id)
  */
-async function updateOrderItems(id, values)
+async function updateOrderItems(values)
 {
-        
+        if(!(values.cantidad))
+                return {error: "cantidad does not exist", errCode: 403}
+        //4 possible cases:
+        //--0--the key (order_id,item_id) does not exist and quantity==0 (returns error)
+        //--1--the key (order_id,item_id) does not exist and quantity>0 (then creates the row) 
+        //--2--the key (order_id,item_id) already exists and quantity>0 (then updates the row)
+        //--3--the key (order_id,item_id) already exists and quantity==0 (then deletes the row)
+
+        var query_prev = await pool.query(`SELECT * FROM order_items WHERE order_id=${values.order_id} AND item_id=${values.item_id}`)
+        var order_prev = query_prev.rows[0]
+        var query
+        //console.log(order_prev)
+        //console.log(values.cantidad)
+        if(!(order_prev) && values.cantidad==0)
+                return {error: "cantidad is 0 and the order_item does not exist", errCode: 403}
+        if(!(order_prev) && values.cantidad>0)
+                query = `INSERT INTO order_items VALUES (${values.order_id},${values.item_id},${values.cantidad}) RETURNING *`
+        if(order_prev && values.cantidad>0)
+                query = `UPDATE order_items SET cantidad=${values.cantidad} WHERE order_id=${values.order_id} AND item_id=${values.item_id} RETURNING *`
+        if(order_prev && values.cantidad==0)
+                query = `DELETE FROM order_items WHERE order_id=${values.order_id} AND item_id=${values.item_id} RETURNING *`
+
+
+        return pool.query(query)
+                .then((res) => {
+                        //console.log(res.rows[0])
+                        return res.rows[0] || null
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
 }
 
 /**
@@ -164,7 +211,27 @@ function _checkOrderCreationParameters(params)
  */
 function _checkOrderUpdateParameters(params)
 {
+        var err_str = ''
+
+        if(params.rest_id)
+                err_str = err_str.concat("The rest_id is not upgradeable\n")
         
+        if(params.deliv_id)
+                err_str = err_str.concat("The deliv_id is not upgradeable\n")
+
+        if(params.cust_id)
+                err_str = err_str.concat("The cust_id is not upgradeable\n")
+        if(params.timestamp)
+                err_str = err_str.concat("The timestamp is not upgradeable\n")
+        if(!(params.status))
+                err_str = err_str.concat("Status is empty\n")
+        
+        //if errors happenend, return the error string
+        if(err_str.length > 0)
+                return {err: err_str}
+
+        //if no errors happened, return a boolean indicated all OK
+        return {all_good: true}
 }
 
 
