@@ -286,12 +286,14 @@
     color: black;
   }
 
-  .restaurantProfile .a {
+  .restaurantProfile a {
     text-decoration: none;
+    color: black;
+    font-weight: bold;
   }
   
-  .restaurantProfile .a:link { 
-    color: gray;
+  .restaurantProfile a:link { 
+    color: black;
   }
 
   .restaurantProfile .productRow {

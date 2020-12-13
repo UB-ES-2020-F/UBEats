@@ -186,7 +186,7 @@ function ProfileRestaurantF({rest_id}) {
               <p className="tinyFont">$$ • {restaurantFoodType}</p> 
             </Row>
             <Row className="restaurantTitle">
-              <p className="tinyFont">Delivery: 2$ • 15/20 min • 4.8/5(300+)</p>
+              <p className="tinyFont">Delivery: 2$ • 15-20 min • 4.8/5(300+)</p>
             </Row>
             <Row className="restaurantTitle">
               <p className="tinyFont">{restaurantInfo['street']} • <a onClick={handleShow} href="#">More info</a></p>
