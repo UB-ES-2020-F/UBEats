@@ -10,7 +10,7 @@ const SearchForm = () => {
         const DEFAULT_RECOMMENDED = [{name:''}];
         const [inputValue, setInputValue] = useState('');
         const [recommendedRestList, setRecommendedRestList] = useState(DEFAULT_RECOMMENDED);
-        const [restSelected, setRestSelected] = useState('');
+        const [restSelected, setRestSelected] = useState({});
         const [isRestSelected, setIsRestSelected] = useState(false);
         const [confirmationEnter, setConfirmationEnter] = useState(false);
 
@@ -23,8 +23,8 @@ const SearchForm = () => {
                 }
         }, [inputValue]);
 
+
         const fetchRecommendations = async () => {
-                console.log({'recommended value':inputValue})
                 const items = await RestService.getRecommendedRestaurants(inputValue);
                 if (items.length>0){
                         setRecommendedRestList(items);
@@ -41,9 +41,10 @@ const SearchForm = () => {
                                 setConfirmationEnter(true);
                         }
                         else  if (!isRestSelected){
-                                setInputValue(recommendedRestList[0].name)
+                                setInputValue(recommendedRestList[0].name);
                                 setRestSelected(recommendedRestList[0]);
                                 setIsRestSelected(true);
+
                         }else{
                                 setIsRestSelected(false);
                         }
@@ -54,7 +55,20 @@ const SearchForm = () => {
                 }
         };
 
+        function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+        }
+              
+        const reloadComponent = async () => {
+                await sleep(100);
+                setInputValue('');
+                setIsRestSelected(false);
+                setRecommendedRestList(DEFAULT_RECOMMENDED);
+                setConfirmationEnter(false);
+        };
+
         if (confirmationEnter){
+                reloadComponent();
                 return <Redirect to={{
                         pathname:'/profilerestaurant',
                         rest_id: restSelected.email,

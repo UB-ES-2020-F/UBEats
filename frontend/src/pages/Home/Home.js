@@ -77,14 +77,12 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
   const fetchMenu = async () => {
     const items = await RestService.getAll();
     setRestList(items);
-    console.log(items);
   };
   
   const fetchFavs = async () => {
     const items = await RestService.getAllLogged(user.user.email)
     setRestList(items)
     setFavList(items.filter(rest => rest.favourite==1));//We filter those that are faved.
-    console.log({'fav':items.filter(rest => rest.favourite==1)});
   };
 
   useEffect(() => {

@@ -53,8 +53,6 @@ const getRestaurantMenu = (rest_id) => {
 const getRecommendedRestaurants = (rest_substr) => {
   return axios.get(API_URL +'/name/'+rest_substr, {
   }).then((response) => {
-
-      console.log({'Restaurant recommendations recieved' : response.data['rests'], 'url request': API_URL +'/name/'+ rest_substr});
       return response.data['rests'];
   });
 };
