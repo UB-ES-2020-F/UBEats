@@ -32,7 +32,7 @@ function ProfileClient() {
   const [phone, setPhone] = useState(currentUser.phone);
   const [address, setAddress] = useState(currentUser.street);
   const [invitationCode, setInvitationCode] = useState(userDefaultInfo.codigoinvitacion);
-  const [CIF, setCIF] = useState(user.user.CIF);
+  const [CIF, setCIF] = useState(currentUser.CIF);
 
   const [showToast, setShowToast] = useState(false);
   const [showToastFail, setShowToastFail] = useState(false);
