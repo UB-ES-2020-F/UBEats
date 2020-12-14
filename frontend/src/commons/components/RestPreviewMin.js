@@ -21,7 +21,10 @@ function RestPreviewMin(props){
     return(
         <div className="listings-grid-element">
             <div className="image">
-                <img src={props.rest.url} alt="Restaurant image"></img>
+            <Link className='linkto' to={{
+                            pathname:'/profilerestaurant',
+                            rest_id: props.rest.email
+                    }}><img src={props.rest.url} alt="Restaurant image"></img></Link>
             </div>
             <div className="text">
                 <div className="text-title">
