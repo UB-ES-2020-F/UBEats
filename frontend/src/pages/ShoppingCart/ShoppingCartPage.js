@@ -1,21 +1,40 @@
 import '../../commons/components/ShoppingCart.css';
 import React, {useEffect, useState} from 'react';
+import { Button, Container, Row, Card, Col, Modal, Nav } from 'react-bootstrap';
+import ShoppingCart from'../../commons/components/ShoppingCart.js'
 
-class ShoppingCart extends React.Component {
+const listaprops = [{
+  titulo:"Pollo con Patatas",
+  precio:"5.50"
+},
+{
+  titulo:"Durum mixto solo carne",
+  precio:"3.50"
+},
+{
+  titulo:"Pizza Kebab",
+  precio:"5"
+},
+{
+  titulo:"PPlato mixto con patatas",
+  precio:"5"
+},
+{
+  titulo:"Menú Kebab y patatas",
+  precio:"6"
+},
+]
+
+
+
+class ShoppingCartPage extends React.Component {
     render() {  
       return (
-        <body>
-            <div className='container'>
-                <h5>Soy el titulo</h5>
-                <h7>Soy el el precio €</h7><p></p>
-                <h5><b>Cantidad</b></h5>
-                <input className="number" type="number" id="quantity" name="quantity" min="1" max="30"></input>
-                <button className="eliminar">Eliminar</button>
-                
-            </div>
+        <body>{listaprops.map( (restaurante) =><ShoppingCart titulo={restaurante.titulo} precio={restaurante.precio}/>)}
+        
         </body>
       );
     }
   }
   
-  export default ShoppingCart;
+  export default ShoppingCartPage;

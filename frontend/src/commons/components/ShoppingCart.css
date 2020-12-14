@@ -15,24 +15,24 @@
 	 src: url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.woff") format("woff"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/11469c307f0de6481e3a04cc5d54ae93.svg#Uber Move Text") format("svg");
 }
 
-.container{
-    width:100%;
-    padding:10px;
+.container2{
+	padding:20px;
+	border: 1px solid rgba(218, 218, 218, 0.884);
 }
-
 .number{
     width:5%;
     height: 57px;
 }
 
 .eliminar{
-    width:10%;
-    height: 5%;
-    margin-left: 800px;
+    width:50%;
+
 }
 
 input{
 	padding-left: 80px;
 }
+
+
 
 
