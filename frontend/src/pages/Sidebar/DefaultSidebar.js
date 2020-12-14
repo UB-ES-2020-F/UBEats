@@ -14,6 +14,10 @@ const DefaultSidebar = ({openSidebar}) => {
                 <div className='div-button'>
                 <Link to='/login' onClick={() => openSidebar(false)}><button>Log in</button></Link>
                 </div>
+                <p></p><p></p><p></p><p></p><p></p>
+                <div className='div-button'>
+                <Link to='/shopping' onClick={() => openSidebar(false)}><button>Shopping Cart</button></Link>
+                </div>
                 <div className='linkdiv'>
                     <a className='sidebarlink' onClick={() => openSidebar(false)}>
                         <Link to='/registerrestaurant' className='linkto smallText'>Register as a restaurant</Link>

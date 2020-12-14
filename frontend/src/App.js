@@ -19,6 +19,8 @@ import Footer from './commons/components/Footer.js';
 
 import NavCustom from './pages/Navbar/NavCustom.js';
 
+import ShoppingCartPage from './pages/ShoppingCart/ShoppingCartPage.js';
+
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
@@ -53,6 +55,7 @@ const App = () => {
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
         <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
+        <Route path='/shopping' component={ShoppingCartPage} key='shopping'/>      
         <Route path='/error' component={Error} key='error'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
         {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
