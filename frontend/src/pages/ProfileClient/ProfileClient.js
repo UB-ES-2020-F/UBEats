@@ -165,12 +165,7 @@ function ProfileClient({user}) {
             <Toast.Body>Please enter a valid address and email</Toast.Body>
           </Toast>
         </Row>
-        <Row>
-          <p><strong>Authorised applications</strong></p>
-        </Row>
-        <Row>
-          <p style={{fontSize: 13}}>There are no authorised apps.</p>
-        </Row>
+        
         <Row>
           <Button 
             variant="outline-danger" 

@@ -40,7 +40,7 @@ function RestPreviewGeneral(props){
                     <span> {props.rest.time} </span>
                 </div>
             </div>
-            <div class="rating">
+            <div className="rating">
                 {isLogged && <Heart isClick={isClick} onClick={() => {
                     setClick(!isClick);
                     updateRestaurant();

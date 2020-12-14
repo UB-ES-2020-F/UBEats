@@ -8,7 +8,7 @@ import '../../commons/components/Main.css';
 class ViewAll extends React.Component {
   render() {  
     return (
-      <body2>
+      <div className='body2'>
           <div className='container3'>
             <div className="header-title">
               <h2 className='category_title'>{this.props.location.title}</h2>
@@ -23,7 +23,7 @@ class ViewAll extends React.Component {
             </div>
           </div>
           </section>
-      </body2>
+      </div>
     );
   }
 }

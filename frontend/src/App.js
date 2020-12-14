@@ -21,7 +21,7 @@ import NavCustom from './pages/Navbar/NavCustom.js';
 
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import defaultImage from './images/banner.jpg';
 
@@ -46,7 +46,7 @@ const App = () => {
   return (
     <Router history={history}>
       {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} user={currentUser} key='sidebar'/>):(<div/>)}
-      <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
+      <NavCustom  openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
 
       <Switch>
         <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto} isLogged={isLogged} user={currentUser}/>)} key='home'/>
@@ -54,12 +54,12 @@ const App = () => {
         <Route path='/registerclient' component={RegisterClient} key='register client'/>
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
-        {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
         <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
         <Route path='/error' component={Error} key='error'/>
-        <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
+        <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
+        {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
+        <Redirect from='*' to='/'/>
       </Switch>
-      
       <Footer/>
     </Router>
   );
