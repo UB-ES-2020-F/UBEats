@@ -249,6 +249,7 @@
 	 margin-bottom: 0.5rem;
 	 margin-top: 0;
 	 padding-left: 40px;
+	 padding-top:40px;
 	 font-family: "Uber Move Text";
 }
  .listings .header .header-title span {
@@ -290,7 +291,7 @@
 	 font-family: "Uber Move Text";
 	 color: white;
 	 padding-left: 20px;
-	 padding-top: 10%;
+	 padding-top: 5%;
 }
  .listings .container2 h1 {
 	 font-size: 16px;
