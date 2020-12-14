@@ -151,7 +151,12 @@ const LoggedSidebar = ({openSidebar, user}) => {
                     <Link className='logout' onClick={logOut}>Log out</Link>
                 </div>
             </div>
+            <p></p><p></p><p></p><p></p>
+            <div className='div-button2'>
+                <Link to='/shopping' onClick={() => openSidebar(false)}><button>Shopping Cart</button></Link>
+            </div>
             <hr className='separator'></hr>
+            
             <div className='parentDiv'>
                 
                 <div className='linkdiv'>

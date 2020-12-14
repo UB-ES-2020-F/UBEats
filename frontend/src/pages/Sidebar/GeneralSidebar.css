@@ -178,6 +178,11 @@ img {
 	text-decoration: none;
 }
 
+.div-button2{
+	width: 95%;
+	padding-left: 5%;
+}
+
 .account:visited { text-decoration: none; color: #06c167;}
 .account:hover { text-decoration: none; color: #06c167; }
 .account:focus { text-decoration: none; color: #06c167; }
