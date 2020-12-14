@@ -144,7 +144,7 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
       <div className="container3">
         <div className="header">
           <div className="header-title">
-            <h2>¿Buscas algo diferente?</h2>
+            <h2><b>¿Buscas algo diferente?</b></h2>
           </div>
         </div>
 
@@ -154,14 +154,7 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
       </div>
     </div>
 
-    <div className="listings">
-      <div className="container3">
-        <div className="listings-grid">
-          <div className="listings-col">{listapubli.map( (publi) =><RegisterPubli Image={publi.Image} title={publi.title} desc={publi.desc} />)} </div>
-        </div>
-      </div>
-    </div>
-
+  
     <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={restList}/></div>
     <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={restList}/></div>
 
@@ -169,7 +162,7 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
       <div className="container3">
         <div className="header">
           <div className="header-title">
-            <h2>Todos los establecimientos</h2>
+            <h2><b>Todos los establecimientos</b></h2>
           </div>
         </div>
         <div className="listings-grid">
