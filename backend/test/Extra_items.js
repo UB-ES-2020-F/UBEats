@@ -236,13 +236,13 @@ describe('Extra items', () => {
         });
     })
 
-    it('Post a new extra item. Body is not OK. Should return 403', (done) => {
+    it('Post a new extra item. Body is not OK. Should return 400', (done) => {
       chai.request(app)
         .post(`/api/items/${extra_item.item_id}/extras`)
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(extra_item2)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           done();
         });
@@ -311,13 +311,13 @@ describe('Extra items', () => {
         });
     })
 
-    it('Update a known existing extra item for a known existing item. The body is NOT OK. Should return 403', (done) => {
+    it('Update a known existing extra item for a known existing item. The body is NOT OK. Should return 400', (done) => {
       chai.request(app)
         .put(`/api/items/${extra_item2.item_id}/extras/${extra_item2_id}`)
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(extra_item3)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           done();
         });
@@ -336,13 +336,13 @@ describe('Extra items', () => {
         });
     })
 
-    it('Update a known non existing extra item for a known non existing item. The body is OK. Should return 403', (done) => {
+    it('Update a known non existing extra item for a known non existing item. The body is OK. Should return 400', (done) => {
       chai.request(app)
         .put(`/api/items/${extra_item2.item_id+1}/extras/${extra_item2_id+1}`)
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(extra_item2)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           done();
         });
@@ -394,13 +394,13 @@ describe('Extra items', () => {
         });
     })
 
-    it('Delette a known non existing extra for a known non existing item. Should return 403', (done) => {
+    it('Delette a known non existing extra for a known non existing item. Should return 400', (done) => {
       chai.request(app)
         .put(`/api/items/${extra_item2.item_id+1}/extras/${extra_item2_id+1}`)
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(extra_item2)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           done();
         });

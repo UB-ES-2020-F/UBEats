@@ -25,7 +25,9 @@ async function getUsers() {
         .then(res =>{
             return res.rows.map(user => user.email)
         })
-        .catch(err => err) 
+        .catch(err => {
+            return {error: err, errCode: 500}
+    }) 
 }
 
 /**
@@ -37,7 +39,9 @@ function getUserByEmail(email) {
         .then(res =>{
             return res.rows[0] || null
         })
-        .catch(err => err) 
+        .catch(err => {
+            return {error: err, errCode: 500}
+    })
 }
 
 /**
@@ -56,20 +60,22 @@ async function createUser(values){
         return {error : "All field must be filled in order to create the user", errCode : 400};
     
     return pool.query(query)
-    .then( async(res)  => {
-        let resSpecificrows = await _createSpecficicUser(values)
-        //If an error has occurred during userspecific creating it deletes the user 
-        //and returns the error
-        if (resSpecificrows.error) {
-            var sqlUsers = format("DELETE FROM users WHERE email=%L",res.rows[0].email)
-            var deletedUsers = await pool.query(sqlUsers)
-            return {error: `${resSpecificrows.error}`, errCode : resSpecificrows.errCode}
-        }       
-        res.rows[0].specifics = resSpecificrows
+        .then( async(res)  => {
+            let resSpecificrows = await _createSpecficicUser(values)
+            //If an error has occurred during userspecific creating it deletes the user 
+            //and returns the error
+            if (resSpecificrows.error) {
+                var sqlUsers = format("DELETE FROM users WHERE email=%L",res.rows[0].email)
+                var deletedUsers = await pool.query(sqlUsers)
+                return {error: `${resSpecificrows.error}`, errCode : resSpecificrows.errCode}
+            }       
+            res.rows[0].specifics = resSpecificrows
 
-        return res.rows[0] || null
-    })
-    .catch(err =>  { return {error: `${err}`, errCode : 400}}) 
+            return res.rows[0] || null
+        })
+        .catch(err => {
+            return {error: err, errCode: 500}
+        })
     
 }
 
@@ -88,11 +94,12 @@ function _createSpecficicUser(values){
     }
     var sql = format('INSERT INTO %I VALUES (%L) RETURNING *', user_type[values.type].table, arrayValues)
     return pool.query(sql)
-    .then(res =>{
-        return res.rows[0] || null
-    })
-    .catch(err =>  { return {error: `${err} specific`, errCode : 400}}) 
-    
+        .then(res =>{
+            return res.rows[0] || null
+        })
+        .catch(err => {
+            return {error: err, errCode: 500}
+        }) 
 }
 
 /**
@@ -151,7 +158,7 @@ async function updateUser(email, values){
     delete user.type
     delete values.type
     
-    if (Object.entries(values).length != 0) return {error: `Some fields does not match any column.`, errCode : 403}
+    if (Object.entries(values).length != 0) return {error: `Some fields does not match any column.`, errCode : 400}
     const query = _createUpdateDynamicQuery(user, 'users', 'email')// Table users changed via email
     const resUser = !query.error ? await pool.query(query) : null
     if (resUser && resUser.error) {

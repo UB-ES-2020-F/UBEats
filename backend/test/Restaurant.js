@@ -168,12 +168,12 @@ describe('Restaurants', () => {
         });
     });
 
-    it('Get a restaurant by email. Invalid email. Should return 404', (done) => {
+    it('Get a restaurant by email. Invalid email. Should return 403', (done) => {
       chai.request(app)
         .get('/api/restaurants/'.concat(emailUser).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(403);
           res.body.should.have.property('message');
           done();
         });
@@ -253,7 +253,7 @@ describe('Restaurants', () => {
         });
     });
 
-    it('Update a restaurant. Invalid IBAN. Should return 403', (done) => {
+    it('Update a restaurant. Invalid IBAN. Should return 400', (done) => {
       
       let user = {
         iban: 'ES500022'
@@ -264,7 +264,7 @@ describe('Restaurants', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message');
           done();
         });
@@ -302,13 +302,13 @@ describe('Restaurants', () => {
         });
     });
 
-    it('Feedback of a restaurant. Invalid email. Should return 404', (done) => {
+    it('Feedback of a restaurant. Invalid email. Should return 403', (done) => {
 
       chai.request(app)
         .get('/api/restaurants/feedback'.concat(emailRest).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(403);
           res.body.should.have.property('message');
           done();
         });
@@ -462,7 +462,7 @@ describe('Restaurants', () => {
         });
     });
 
-    it('Insert a type of a restaurant. Invalid email. Should return 404', (done) => {
+    it('Insert a type of a restaurant. Invalid email. Should return 500', (done) => {
 
       let user = {
         email : emailRest.concat('x'),
@@ -474,7 +474,7 @@ describe('Restaurants', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(500);
           res.body.should.have.property('message');
           done();
         });

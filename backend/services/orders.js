@@ -54,7 +54,7 @@ async function createOrder(values)
         //console.log(check)
 
         if(check.err)
-                return {error: check.err, errCode: 403}
+                return {error: check.err, errCode: 400}
 
         //construct the query
         let db_values = [values.rest_id, values.deliv_id, values.cust_id]
@@ -69,7 +69,7 @@ async function createOrder(values)
         query = query.concat(" RETURNING *")
         //console.log(query)
         if(query.error)
-                return {error: query.error, errCode: 403}
+                return {error: query.error, errCode: 400}
         return pool.query(query)
                 .then((res) => {
                         //At least one row
@@ -104,11 +104,11 @@ async function updateOrder(values)
         const check = _checkOrderUpdateParameters(values)
 
         if(check.err)
-                return {error: check.err, errCode: 403}
+                return {error: check.err, errCode: 400}
         
         const query = _createUpdateDynamicQuery(values,'orders', 'order_id') // Update table orders via order_id.
         if(query.error){
-                return {error: query.error, errCode: 403}
+                return {error: query.error, errCode: 400}
         }
         
         return pool.query(query)
@@ -127,7 +127,7 @@ async function updateOrder(values)
 async function updateOrderItems(values)
 {
         if(!(values.cantidad))
-                return {error: "cantidad does not exist", errCode: 403}
+                return {error: "cantidad does not exist", errCode: 400}
         //4 possible cases:
         //--0--the key (order_id,item_id) does not exist and quantity==0 (returns error)
         //--1--the key (order_id,item_id) does not exist and quantity>0 (then creates the row) 

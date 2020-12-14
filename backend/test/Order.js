@@ -161,7 +161,7 @@ describe('Orders', () => {
           });
     });
 
-    it('Post an order. Invalid quantity of item. Should return 403', (done) => {
+    it('Post an order. Invalid quantity of item. Should return 400', (done) => {
       let order = {
         rest_id : 'rest1@gmail.com',
         deliv_id : 'deliv1@gmail.com',
@@ -174,7 +174,7 @@ describe('Orders', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(order)
         .end((err, res) => {
-            res.should.have.status(403);
+            res.should.have.status(400);
             done();
           });
     });
@@ -227,7 +227,7 @@ describe('Orders', () => {
           });
     });
 
-    it('Update an order. Restriction updating rest_id. Should return 403', (done) => {
+    it('Update an order. Restriction updating rest_id. Should return 400', (done) => {
       let orderQ = {
         rest_id : 'rest2@gmail.com'
       }
@@ -237,7 +237,7 @@ describe('Orders', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(orderQ)
         .end((err, res) => {
-            res.should.have.status(403);
+            res.should.have.status(400);
             done();
           });
     });
@@ -346,7 +346,7 @@ describe('Orders', () => {
           });
     });
 
-    it('Update an order_item. Invalid name of attribute cantidad. Should return 403', (done) => {
+    it('Update an order_item. Invalid name of attribute cantidad. Should return 400', (done) => {
       let itemQ = {
         cant : 6
       }
@@ -357,7 +357,7 @@ describe('Orders', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(itemQ)
         .end((err, res) => {
-            res.should.have.status(403);
+            res.should.have.status(400);
             done();
           });
     });

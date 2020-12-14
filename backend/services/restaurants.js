@@ -24,7 +24,7 @@ function getAllRestaurants()
                         return res.rows
                 })
                 .catch(err => {
-                        return {error: err}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -63,7 +63,7 @@ function getAllRestaurantsByUser(userId)
                 })
                 .catch(err => {
                         
-                        return {error: err}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -100,7 +100,7 @@ function getAllRestaurantsByType(type_id)
                 })
                 .catch(err => {
                         
-                        return {error: err}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -144,7 +144,7 @@ async function getRestaurantByID(email){
                 return restaurant
         })
         .catch(err => {
-                return {error: err}
+                return {error: err, errCode: 500}
         })
 }
 
@@ -156,11 +156,11 @@ function updateRestaurant(email, values)
         const check = _checkRestaurantUpdateParameters(values)
 
         if(check.err)
-                return {error: check.err, errCode: 403}
+                return {error: check.err, errCode: 400}
         
         const query = _createUpdateDynamicQuery(values,'restaurants', 'email') // Update table restaurants via email.
         if(query.error){
-                return {error: query.error, errCode: 403}
+                return {error: query.error, errCode: 400}
         }
 
         return pool.query(query)
@@ -217,7 +217,7 @@ async function getFeedback(email){
         //console.log(res.rows)
         return res.rows
     })
-    .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
+    .catch(err => { return {error: `${err} specific`, errCode : 500}}) 
 }
 
 /**
@@ -231,7 +231,7 @@ async function getTypes(email){
     .then(res =>{
         return res.rows
     })
-    .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
+    .catch(err => { return {error: `${err} specific`, errCode : 500}}) 
 }
 
 /**
@@ -289,7 +289,7 @@ async function getMenu(email){
         //console.log(resSpecificRows)
         return categories
     })
-    .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
+    .catch(err => { return {error: `${err} specific`, errCode : 500}}) 
 }
 
 /**
@@ -305,7 +305,7 @@ async function deleteType(values){
             //console.log(res.rows[0])
             return res.rows[0] || null
         })
-        .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
+        .catch(err => { return {error: `${err} specific`, errCode : 500}}) 
 }
 
 /**
@@ -319,7 +319,7 @@ async function insertType(values){
         .then(res =>{
             return res.rows[0] || null
         })
-        .catch(err => { return {error: `${err} specific`, errCode : 400}}) 
+        .catch(err => { return {error: `${err} specific`, errCode : 500}}) 
 }
 
 
