@@ -95,7 +95,7 @@ describe('Restaurants', () => {
         .get('/api/restaurants/user/'.concat(emailUser))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
-          // console.log(res.body);
+            //console.log(res.body);
             res.should.have.status(200);
             res.body.should.have.property('rest');
             // console.log(res.body.rest)
@@ -635,6 +635,4 @@ describe('Restaurants', () => {
           });
     })
   })
-
-
 })
