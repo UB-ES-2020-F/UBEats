@@ -8,8 +8,8 @@ import '../../commons/components/Main.css';
 class ViewAll extends React.Component {
   render() {  
     return (
-      <body2>
-          {console.log({'ViewALl containerdata':this.props.location.containerdata})}
+
+      <div className='body2'>
           <div className='container3'>
             <div className="header-title">
               <h2 className='category_title'>{this.props.location.title.charAt(0).toUpperCase()+this.props.location.title.slice(1)}</h2>
@@ -24,7 +24,7 @@ class ViewAll extends React.Component {
             </div>
           </div>
           </section>
-      </body2>
+      </div>
     );
   }
 }

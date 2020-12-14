@@ -13,6 +13,7 @@ import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurantNEW.js'
 import ViewAll from './pages/ViewAll/ViewAll.js'
+import Error from './pages/Error/Error.js'
 
 import Footer from './commons/components/Footer.js';
 
@@ -20,7 +21,7 @@ import NavCustom from './pages/Navbar/NavCustom.js';
 
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import defaultImage from './images/banner.jpg';
 
@@ -51,11 +52,12 @@ const App = () => {
         <Route path='/registerclient' component={RegisterClient} key='register client'/>
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
-        <Route path='/profileclient' component={isLogged ? (ProfileClient) : (Home)} key='profile client'/>
         <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
-        <Route path='/profilerestaurant' component={ProfileRestaurant} key='profile restaurant'/>
+        <Route path='/error' component={Error} key='error'/>
+        <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
+        {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
+        <Redirect from='*' to='/'/>
       </Switch>
-      
       <Footer/>
     </Router>
   );

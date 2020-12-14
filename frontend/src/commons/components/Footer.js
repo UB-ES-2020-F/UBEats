@@ -11,7 +11,7 @@ const Footer = () => {
                     <Link to='/'><h1>UB<span>Eats</span></h1></Link>
                 </div>
                 <div className="searchBar">
-                    <div cclassNamelass="header-option">
+                    <div className="header-option">
                         <i data-feather="search"/>
                         <Link to='/registerrestaurant' className='linkto'><span>Create an enterprise account</span></Link>
                     </div>

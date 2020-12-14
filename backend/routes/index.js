@@ -21,18 +21,17 @@ router.delete('customer/delete',Users.deleteUser)
 
 //Restaurants
 router.get('/restaurants',Restaurants.getAll)
+router.get('/restaurants/name/:rest_substr', Restaurants.getAllRestaurantsByNameSubstring)
 router.get('/restaurants/user/:email',Restaurants.getAllByUser)
 router.get('/restaurants/type/:type_id',Restaurants.getAllByType)
 router.get('/restaurant/:rest_id/items', Items.getAllByRestaurant)
 router.get('/restaurants/:email',Restaurants.get)
 router.get('/restaurants/menu/:email',Restaurants.getMenu)
-
 router.get('/restaurants/feedback/:email',Restaurants.getFeedback)
 router.get('/restaurants/types/:email',Restaurants.getTypes)
 router.get('/types/restaurants',Restaurants.getAllTypes)
 
 router.post('/restaurants',Users.register)
-
 router.post('/restaurants/types',Restaurants.insertType)
 
 router.put('/restaurants/:email',Restaurants.update)

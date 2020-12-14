@@ -25,7 +25,7 @@ function CategoriasHome(props){
         <div className="container3">
             <div className="header">
                 <div className="header-title">
-                    <h2>{props.titulo}</h2>
+                    <h2><b>{props.titulo}</b></h2>
                 </div>
                 <div className="header-viewOptions">
                     <div className="viewAll">
@@ -37,13 +37,7 @@ function CategoriasHome(props){
                             View All
                         </Link>
                     </div>
-                    <div className="viewMore">
-                        <span className="arrow circle left"><i data-feather="arrow-left"></i>
-                        </span>
-                        <span className="arrow circle right darker">
-                            <i data-feather="arrow-right"></i>
-                        </span>
-                    </div>
+                    
                 </div>
             </div>
             <div className="listings-grid">

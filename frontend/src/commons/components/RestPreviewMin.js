@@ -33,7 +33,7 @@ function RestPreviewMin(props){
                         <span><strong>€</strong></span>
                     </div>
                 </div>
-                <div class="rating">
+                <div className="rating">
                     {isLogged && <Heart isClick={isClick} onClick={() => {
                         setClick(!isClick);
                         updateRestaurant();
