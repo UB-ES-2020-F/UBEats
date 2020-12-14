@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 
 
@@ -20,7 +21,7 @@ class Error extends React.Component {
 
                 </div>
                 <p></p><p></p><p></p>
-                <button>Volver a la página principal</button>
+                <Link to="/"><button>Volver a la página principal</button></Link>
                 <p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>
             </div>  
       </section>
