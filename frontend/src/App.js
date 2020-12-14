@@ -59,7 +59,7 @@ const App = () => {
         <Route path='/error' component={Error} key='error'/>
         <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
         {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
-        <Redirect from='*' to='/'/>
+        <Redirect from='*' to='/error'/>
       </Switch>
       <Footer/>
     </Router>
