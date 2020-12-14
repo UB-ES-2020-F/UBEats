@@ -76,7 +76,7 @@ function getAllRestaurantsByUser(userId)
  */
 function getAllRestaurantsByType(type_id)
 {       
-        if(!helpers.isPositiveOrZeroInteger(type_id))
+        if(!helpers._isPositiveOrZeroInteger(type_id))
                 return {error: "Type restaurant ID is not valid"}
 
         var query = format(`    SELECT
