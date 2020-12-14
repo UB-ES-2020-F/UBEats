@@ -26,7 +26,7 @@ describe('Users', () => {
     beforeEach( async () => {
       var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
       insertedRest = await pool.query(query)
-      console.log(insertedRest.rows[0].email)
+      //console.log(insertedRest.rows[0].email)
     })
   
     afterEach( async () => {

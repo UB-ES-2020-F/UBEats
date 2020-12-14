@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from 'react-router-dom';
+
 import '../../commons/components/App.css';
 
 import { Button, Image, Row, Container, Col, Toast } from 'react-bootstrap';
 import profilepic from "../../images/profilepicture.jpg"
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated'
+
+import { logout } from "../../actions/auth";
 
 import userService from '../../api/user.service.js';
 
@@ -17,13 +20,17 @@ var userDefaultInfo = {
   appsautorizadas: [],
 }
 
-function ProfileClient({user}) {
-  const [name, setName] = useState(user.user.name);
-  const [email, setEmail] = useState(user.user.email);
-  const [databaseEmail, setDatabaseEmail] = useState(user.user.email);
-  const [photo, setPhoto] = useState(user.user.url);
-  const [phone, setPhone] = useState(user.user.phone);
-  const [address, setAddress] = useState(user.user.street);
+function ProfileClient() {
+  const {user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
+
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
+  const [databaseEmail, setDatabaseEmail] = useState(currentUser.email);
+  const [photo, setPhoto] = useState(currentUser.url);
+  const [phone, setPhone] = useState(currentUser.phone);
+  const [address, setAddress] = useState(currentUser.street);
   const [invitationCode, setInvitationCode] = useState(userDefaultInfo.codigoinvitacion);
   const [CIF, setCIF] = useState(user.user.CIF);
 
@@ -52,18 +59,19 @@ function ProfileClient({user}) {
       );
   };
 
-  
   /**
    * Function triggered by the "Save Changes" button.
    * Overwrites the user's info with the changed values.
    * Also handles an incorrect email input.
    */
   function SaveChanges () {
+
     if ((CIF.length > 0) && (address.length > 0) && (phone.length > 0)) {
+
       sendInfoToDataBase(
         phone,
         address,
-        user.user.tipo,
+        currentUser.tipo,
         email
       );
       setShowToast(true);
@@ -72,6 +80,11 @@ function ProfileClient({user}) {
       setShowToastFail(true);
     }
   }
+
+  //This function dispatches redux action logout, to log out the user.
+  const logOut = () => {
+    dispatch(logout());
+  };
 
   return (
     <section className="profileClient">
@@ -176,16 +189,12 @@ function ProfileClient({user}) {
             <Toast.Body>Please enter a valid address and email</Toast.Body>
           </Toast>
         </Row>
-        <Row>
-          <p><strong>Authorised applications</strong></p>
-        </Row>
-        <Row>
-          <p style={{fontSize: 13}}>There are no authorised apps.</p>
-        </Row>
+        
         <Row>
           <Button 
             variant="outline-danger" 
-            className="profileButton">
+            className="profileButton"
+            onClick={logOut}>
               Log out
           </Button>
         </Row>
@@ -193,5 +202,4 @@ function ProfileClient({user}) {
     </section>
   );
 }
-
 export default ProfileClient;
