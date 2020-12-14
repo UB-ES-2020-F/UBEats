@@ -63,7 +63,6 @@ const listapubli = [{
 },
 ]
 
-
 function Home({setRestaurantId, setPicture, isLogged, user}) {
   const [restList, setRestList] = useState([{name: '', url:''}]);
   const [favList, setFavList] = useState([{name: '', url:''}]);
@@ -78,14 +77,12 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
   const fetchMenu = async () => {
     const items = await RestService.getAll();
     setRestList(items);
-    console.log(items);
   };
   
   const fetchFavs = async () => {
     const items = await RestService.getAllLogged(user.user.email)
     setRestList(items)
     setFavList(items.filter(rest => rest.favourite==1));//We filter those that are faved.
-    console.log({'fav':items.filter(rest => rest.favourite==1)});
   };
 
   useEffect(() => {
@@ -98,7 +95,6 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
 
   return (
     <section>
-    <body2>
     <div className="listings">
       <div className="container2">
         <div className="listings-grid">
@@ -181,7 +177,6 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
         </div>
       </div>
     </div>
-  </body2>
 </section>
 
     
