@@ -29,7 +29,6 @@ import defaultImage from './images/banner.jpg';
 //It gets user and isLogged state here and pass it down to its children components.
 //It manages intercomponent communication between navbar and sidebar using useState sidebarOpen and setSidebarOpen.
 const App = () => {
-
   const {user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
   const [sidebarOpen, setSidebarOpen] = useState(false); //We set a state hook to sidebarOpen to manage the state of the sidebar.
   const dispatch = useDispatch();
@@ -45,12 +44,11 @@ const App = () => {
   
   return (
     <Router history={history}>
-      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} user={currentUser} key='sidebar'/>):(<div/>)}
-      <NavCustom  openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
+      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} key='sidebar'/>):(<div/>)}
+      <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
 
       <Switch>
-        <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto} isLogged={isLogged} user={currentUser}/>)} key='home'/>
-        <Route path='/login' component={Login} key='login'/>
+      <Route exact path="/" render={(props) => (<Home {...props} isLogged={isLogged} user={currentUser}/>)} key='home'/>        <Route path='/login' component={Login} key='login'/>
         <Route path='/registerclient' component={RegisterClient} key='register client'/>
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>

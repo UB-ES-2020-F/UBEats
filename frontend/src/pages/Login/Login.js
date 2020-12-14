@@ -77,7 +77,7 @@ const Login = (props) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/profileclient" />;
+    return <Redirect to="/" />;
   }
   
 return (
