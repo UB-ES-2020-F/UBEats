@@ -54,7 +54,17 @@ function _isPositiveOrZeroFloat(n)
 
 function _isValidString(str)
 {
-        if(str.indexOf("<") > 0 || str.indexOf(">") > 0 || str.indexOf("|") > 0 || str.indexOf("\\") > 0)
+        if(str.indexOf("<") > 0 || str.indexOf(">") > 0 || str.indexOf("|") > 0 || str.indexOf("\\") > 0 || str.indexOf(";") > 0)
+                return false;
+
+        var lower = str.toLowerCase()
+
+        if(lower.indexOf("\n") > 0 && lower.indexOf("\t") > 0)
+                return false;
+
+        if(str.indexOf("javascript:") > 0)
+                return false;
+        if(lower.indexOf("javascript:") > 0)
                 return false;
 
         return true;
