@@ -1,7 +1,7 @@
 // Service module to retrieve data from Scheme Users 
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
-const {_createUpdateDynamicQuery} = require('../helpers/helpers')
+const helpers = require('../helpers/helpers')
 
 
 /**
@@ -34,6 +34,9 @@ function getAllRestaurants()
  */
 function getAllRestaurantsByUser(userId)
 {       
+        if(!helpers._isValidEmail(userId))
+                return {error: "Email is not valid"}
+
         var query = format(`    SELECT
                                         restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
                                         users.name, users."CIF", users.street, users.phone, users.url, 
@@ -73,6 +76,9 @@ function getAllRestaurantsByUser(userId)
  */
 function getAllRestaurantsByType(type_id)
 {       
+        if(!helpers.isPositiveOrZeroInteger(type_id))
+                return {error: "Type restaurant ID is not valid"}
+
         var query = format(`    SELECT
                                         restaurants.email, restaurants.avaliability, restaurants.visible, restaurants.iban, restaurants.allergens, 
                                         users.name, users."CIF", users.street, users.phone, users.url, 
@@ -127,7 +133,7 @@ function getAllRestaurantsByNameSubstring(rest_substr)
                                 LEFT JOIN users ON users.email = restaurants.email
                                 LEFT JOIN type_restaurants ON type_restaurants.rest_id = restaurants.email 
                                 LEFT JOIN "types" ON "types".type_id = type_restaurants.type_id
-                                WHERE users.name LIKE %L AND users.tipo = 'restaurant'`, rest_substr_regex)
+                                WHERE users.name ILIKE %L AND users.tipo = 'restaurant'`, rest_substr_regex)
 
         //console.log(query)
         return pool.query(query)
@@ -157,6 +163,9 @@ function getAllRestaurantsByNameSubstring(rest_substr)
  * 
  */
 async function getRestaurantByID(email){
+        if(!helpers._isValidEmail(email))
+                return {error: "Email is not valid"}
+
     return pool.query('SELECT users.email,users.name,"CIF" AS cif,street,pass,phone,tipo,url,avaliability,visible,iban,allergens,types.type_id,types.name AS type_name,description FROM users,restaurants,type_restaurants,types WHERE users.email=$1 AND users.email=restaurants.email AND restaurants.email=type_restaurants.rest_id AND type_restaurants.type_id=types.type_id',[email])
         .then(res => {
                 //Check at least one row
@@ -201,12 +210,15 @@ async function getRestaurantByID(email){
  */
 function updateRestaurant(email, values)
 {
+        if(!helpers._isValidEmail(email))
+                return {error: "Email is not valid"}
+
         const check = _checkRestaurantUpdateParameters(values)
 
         if(check.err)
                 return {error: check.err, errCode: 403}
         
-        const query = _createUpdateDynamicQuery(values,'restaurants', 'email') // Update table restaurants via email.
+        const query = helpers._createUpdateDynamicQuery(values,'restaurants', 'email') // Update table restaurants via email.
         if(query.error){
                 return {error: query.error, errCode: 403}
         }
@@ -237,15 +249,21 @@ function _checkRestaurantUpdateParameters(params)
 
         if(params.avaliability && params.avaliability.length == 0)
                 err_str = err_str.concat("Avaliability is empty\n")
+        if(params.avaliability && !helpers._isValidString(params.avaliability))
+                err_str = err_str.concat("Availability is not valid\n")
 
         if(params.visible && params.visible.length == 0)
                 err_str = err_str.concat("'Visible' is empty\n")
+        if(params.visible && !helpers._isValidString(params.visible))
+                err_str = err_str.concat("Visibility is not valid\n")
 
-        if(params.iban && params.iban.length != 24)
+        if(params.iban && params.iban.length != 24 || !helpers._isValidString(params.iban))
                 err_str = err_str.concat("IBAN is not valid\n")
 
         if(params.allergens && params.allergens.length > 200)
                 err_str = err_str.concat("Allergens link exceed the limit of 200 chars\n")
+        if(params.allergens && !helpers._isValidString(params.allergens))
+                err_str = err_str.concat("Allergens content is invalid\n")
 
 
         if(err_str.length > 0)
@@ -259,6 +277,8 @@ function _checkRestaurantUpdateParameters(params)
  * 
  */
 async function getFeedback(email){
+        if(!helpers._isValidEmail(email))
+                return {error: "Email is not valid", errCode: 400}
 
     return pool.query('SELECT rating,explanation,timestamp,name FROM feedbacks,users WHERE feedbacks.cust_id=users.email AND rest_id=$1',[email])
     .then(res =>{
@@ -274,6 +294,8 @@ async function getFeedback(email){
  * 
  */
 async function getTypes(email){
+        if(!helpers._isValidEmail(email))
+                return {error: "Email is not valid", errCode: 400}
     
     return pool.query('SELECT name,description FROM types,type_restaurants WHERE rest_id = $1 AND types.type_id=type_restaurants.type_id',[email])
     .then(res =>{
@@ -299,6 +321,8 @@ async function getAllTypes(){
  * 
  */
 async function getMenu(email){
+        if(!helpers._isValidEmail(email))
+                return {error: "Email is not valid", errCode: 400}
     
     const query = format('SELECT items.item_id,title,items.desc,price,items.cat_id,items.url,category FROM items,categories WHERE items.rest_id=%L AND categories.cat_id=items.cat_id ORDER BY items.item_id',[email])
     
@@ -346,6 +370,11 @@ async function getMenu(email){
  * @returns 
  */
 async function deleteType(values){
+        if(!values.type_id || !helpers._isPositiveOrZeroInteger(values.type_id))
+                return {error: "Type ID is not valid", errCode: 400}
+        if(!values.email || !helpers._isValidEmail(values.email))
+                return {error: "Email is not valid", errCode: 400}
+
     const query = format(`DELETE FROM type_restaurants WHERE type_id=${values.type_id} AND rest_id=%L RETURNING *`,[values.email])
     //console.log(query)
     return pool.query(query)
@@ -362,6 +391,11 @@ async function deleteType(values){
  * @returns 
  */
 async function insertType(values){
+        if(!values.type_id || !helpers._isPositiveOrZeroInteger(values.type_id))
+                return {error: "Type ID is not valid", errCode: 400}
+        if(!values.email || !helpers._isValidEmail(values.email))
+                return {error: "Email is not valid", errCode: 400}
+
     const query = format('INSERT INTO type_restaurants VALUES (%L,%L) RETURNING *',[values.type_id],[values.email])
     return pool.query(query)
         .then(res =>{
@@ -380,6 +414,10 @@ async function insertType(values){
  * @returns 
  */
 async function upsertFavourite(email_restaurant, email_user){
+        if(!helpers._isValidEmail(email_restaurant))
+                return {error: "Restaurant email is not valid", errCode: 400}
+        if(!helpers._isValidEmail(email_users))
+                return {error: "User email is not valid", errCode: 400}
 
         const rest = await pool.query(format(`SELECT * FROM restaurants WHERE email = %L`,[email_restaurant]))
         const cust = await pool.query(format(`SELECT * FROM customers WHERE email = %L`,[email_user]))

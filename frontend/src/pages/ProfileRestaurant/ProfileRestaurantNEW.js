@@ -150,7 +150,6 @@ function ProfileRestaurantF({rest_id}) {
   function ListaCategorias(props) {
     var listaCategorias = []
     var columnas = 0;
-    console.log({'props':props})
     for (var categoria in props.listaSecciones) {
       var hrefitem = "#" + props.listaSecciones[categoria].Header;
       var categoriaX =
@@ -237,7 +236,6 @@ function ProfileRestaurantF({rest_id}) {
         {/**
          * And this one generates the product rows.
          */}
-        {console.log({'dyn':listaInfo})}
         <SeccionPlatos listaSecciones={listaInfo}>
         </SeccionPlatos>
       </Container>
