@@ -1,10 +1,10 @@
 Our website : UbEats, a Ubereats Clone but Ub Themed 
-- What is our website ( Product description UbEats a new place to order!) --- Marketing description. Selling UbEats
+X- What is our website ( Product description UbEats a new place to order!) --- Marketing description. Selling UbEats
     Have you ever been sitting on your sofa and thinking 'Oh man I'd really like some pizza' but didn't want to go to a restaurant or prepared all by yourself? 
     That's why we have developed UbEats, a website where you can order from your favourities restaurants in the comfort of your home!
     It is as simple as going to our website https://ub-gei-es-ubeats-clone.herokuapp.com/, log in if you already have an account and start ordering with only one click!
 
-- Ubereats vs UbEats
+X- Ubereats vs UbEats
     UbEats is a webstie clone of Ubereats, the purpose of the creation of such website is purely educational on how to recreate a website from scratch. Therefore the license applied to UbEats project is MIT and 
     all credits to  @2020 Uber Technologies Inc. on https://ubereats.com. The main differences find between these two are due to lack of time or money ( pe : hosting, domain) but the whole UbEats tries to be as similar to Ubereats 
     as possible. 
@@ -12,7 +12,7 @@ Our website : UbEats, a Ubereats Clone but Ub Themed
 - How did we focus the UbEats style 
     - What decisions have been made at styling and why  (frontend)
 
-- Features (Customer):
+X - Features (Customer):
     As a customer, a registered user, we have several features to be talked about and are worth mentioning.
     First of all, as a visitor you can choose to surf around the website with almost no restriction at all. But at any moment you can sign in (if you already have an accout) or register.
     In terms of registration there are 3 possibilities, one for customers (main purpose), one for restaurants and one for users who wants to work as deliveryman. Even though there are 3 registration pages, 
@@ -36,7 +36,7 @@ Our website : UbEats, a Ubereats Clone but Ub Themed
     Actually those functionalities are a Favourites shortcut button which will redirect to its favourites restaurant page, and the profile page of its account. This last page contains all the personal information of 
     the customer in a styled way, and allows the customer to make some changes to actual fields.
     
-- Features (Developer) 
+X - Features (Developer) 
     We, as a team, have developed an API on which every restaurant can retrieve its data in JSON format, allowing them to use it wherever they feel like to. For example, they can retrieve its data and displayed it onto 
     its personal website or extending its own database with. 
     In order to provide the corresponding information we have created an extensive README.txt, a document, on which the API endpoints are well documented and structured according to what is needed. This document is 
@@ -48,7 +48,7 @@ Our website : UbEats, a Ubereats Clone but Ub Themed
         - Endpoints are documented at github README.txt
     - Extensive README.txt explaining how to setup and mount website from github
 
-- Technologies used
+X - Technologies used
     Here we would like to talk about which technologies we have chosen to create and develop this project and a brief description of how we use some of these technologies.
 
     First of all, the project itself uses Node.js (Javascript) as its core. 
@@ -82,7 +82,7 @@ Our website : UbEats, a Ubereats Clone but Ub Themed
             rrhh ( for personal problems or attendancy problems) and varios( as a support channel for anything extraofficial)
         3. We created automatic channels to help us be aware of all the changes being made. This channels are connected to external apps : github-log, travis-ci and trello-log
 
-- Chain of Work
+X - Chain of Work
     Here is an example of how we develop an issue and what are the steps we followed each time.
         0. All Trello US with is corresponding Acceptance Criteria are updated as well as the priority of each one.
         1. Create new tasks from most important US during Sprint beginning
@@ -96,11 +96,11 @@ Our website : UbEats, a Ubereats Clone but Ub Themed
         8. The member then goes again into step 4 until all of its issues are 'Done'.
      
 
-- Retrospective's Conclusion 
+- Retrospective's thoughts 
     - How we felt about the Sprint, Demo and the work of each member.
     - Prioritizing honesty and communication between all members to reach a healthy trusted team.
 
 
-- Members and our roles
+X - Members and our roles
     - Describe briefly what have we done in the project ( Main roles)
         *** 'Juanito de las Pelotas: Worked as Product Owner to help prioritize the task and worked as a Backend member developing new endpoints to satisfy the needs of Frontend information retrieval' ***

@@ -273,50 +273,46 @@ function Wiki() {
                                 <Row>
                                 <Card>
                                     <Accordion.Toggle as={Card.Header} eventKey="chainOfWork-1">
-                                    <b>What is our Website</b>
+                                    <b>Chain of work</b>
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="chainOfWork-1">
                                     <Card.Body>
-                                        <b> 
-                                            Have you ever been sitting on your sofa and thinking 'Oh man I'd really like some pizza' but didn't want to go to a restaurant or prepared all by yourself? 
-                                            That's why we have developed UbEats, a website where you can order from your favourities restaurants in the comfort of your home!
-                                            It is as simple as going to our website https://ub-gei-es-ubeats-clone.herokuapp.com/, log in if you already have an account and start ordering with only one click!
-                                        </b>
+                                        <p>
+                                            Here is an example of how we develop an issue and what are the steps we followed each time.
+                                        </p>
+                                        <p>
+                                            0. All Trello US with is corresponding Acceptance Criteria are updated as well as the priority of each one.
+                                        </p>
+                                        <p>
+                                            1. Create new tasks from most important US during Sprint beginning
+                                        </p>
+                                        <p>
+                                            2. Once all the new task have been created each member choose the tasks that will require at least the minimum amount of hours established (8 hours). Each task has 
+                                        </p>
+                                        <p>
+                                            3. Once tasks have been defined and assigned, members create its corresponding GitHub issue on which the product owner will add the Acceptance Criteria.
+                                        </p>
+                                        <p>
+                                            4. Each member, on starting to develop an issue, moves the issue to 'Develop' column.
+                                        </p>
+                                        <p>
+                                            5. Once the issue is done is moved to 'Develop -> Done' column, where the member will push a new pull request adding at least 2 reviewers : the PO and another member of the same category.
+                                        </p>
+                                        <p>
+                                            6. If the pull request is not accepted, the issue is moved to Testing where the assignee will commit the requested changes. Once the changes are pushed the previous reviewers will review it until 
+                                            it is approved. Once the pull request is accepted it is merged into main branch, deploying it into Heroku.
+                                        </p>
+                                        <p>
+                                            7. Automatically, as the pull request has the issue linked, this issue will be close and send to 'Done' column. 
+                                        </p>
+                                        <p>
+                                            8. The member then goes again into step 4 until all of its issues are 'Done'.
+                                        </p>
                                     </Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
                                 </Row>
 
-                                <Row>
-                                <Card>
-                                    <Accordion.Toggle as={Card.Header} eventKey="chainOfWork-2">
-                                    <b>Ubereats vs UBEats</b>
-                                    </Accordion.Toggle>
-                                    <Accordion.Collapse eventKey="chainOfWork-2">
-                                    <Card.Body>
-                                        <b> 
-                                            UbEats is a webstie clone of Ubereats, the purpose of the creation of such website is purely educational on how to recreate a website from scratch. Therefore the license applied to UbEats project is MIT and 
-                                            all credits to  @2020 Uber Technologies Inc. on https://ubereats.com. The main differences find between these two are due to lack of time or money ( pe : hosting, domain) but the whole UbEats tries to be as similar to Ubereats 
-                                            as possible. 
-                                        </b>
-                                    </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card>
-                                </Row>
-
-                                <Row>
-                                <Card>
-                                    <Accordion.Toggle as={Card.Header} eventKey="chainOfWork-3">
-                                    <b>How did we approach the UBEats style</b>
-                                    </Accordion.Toggle>
-                                    <Accordion.Collapse eventKey="chainOfWork-3">
-                                    <Card.Body>
-                                        <b> We copied it from Ubereats. There is no honor among thieves.
-                                        </b>
-                                    </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card>
-                                </Row>
                                 
                             </Accordion>
                         </Tab.Pane>
@@ -325,15 +321,33 @@ function Wiki() {
                                 <Row>
                                 <Card>
                                     <Accordion.Toggle as={Card.Header} eventKey="members-1">
-                                    <b>What is our Website</b>
+                                    <b>Members</b>
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="members-1">
                                     <Card.Body>
-                                        <b> 
-                                            Have you ever been sitting on your sofa and thinking 'Oh man I'd really like some pizza' but didn't want to go to a restaurant or prepared all by yourself? 
-                                            That's why we have developed UbEats, a website where you can order from your favourities restaurants in the comfort of your home!
-                                            It is as simple as going to our website https://ub-gei-es-ubeats-clone.herokuapp.com/, log in if you already have an account and start ordering with only one click!
-                                        </b>
+                                        <div className='ml-3'>
+                                            <ul >
+                                                <li>
+                                                    <strong> <a href='https://github.com/danielruizbasas' target="_blank"> Daniel Ruiz </a> </strong>: Frontend developer.
+                                                </li>
+                                                <li>
+                                                    <strong> <a href='https://github.com/Samuroldan' target="_blank">Samuel Roldan</a> </strong>: Frontend developer (mostly visual aspects).
+                                                </li>
+                                                <li>
+                                                    <strong> <a href='https://github.com/Rbb93' target="_blank">Ruben Blanco</a></strong>: Backend developer ( database schema designer).
+                                                </li>
+                                                <li>
+                                                    <strong> <a href='https://github.com/aldakata' target="_blank">Albert Catala</a></strong>: Frontend developer of the team (functional and visual aspects).
+                                                </li>
+                                                <li>
+                                                    <strong><a href='https://github.com/oriolOrnaque' target="_blank"> Oriol Ornaque</a></strong>: DevOps of the team, Backend developer.
+                                                </li>
+                                                <li>
+                                                    <strong> <a href='https://github.com/hectorAlarcon' target="_blank">Hector Alarcon</a></strong>: Product owner of the team, Backend developer.
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        
                                     </Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
@@ -342,7 +356,7 @@ function Wiki() {
                                 <Row>
                                 <Card>
                                     <Accordion.Toggle as={Card.Header} eventKey="members-2">
-                                    <b>Ubereats vs UBEats</b>
+                                    <b>Retrospective's thoughts </b>
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="members-2">
                                     <Card.Body>
@@ -355,21 +369,6 @@ function Wiki() {
                                     </Accordion.Collapse>
                                 </Card>
                                 </Row>
-
-                                <Row>
-                                <Card>
-                                    <Accordion.Toggle as={Card.Header} eventKey="members-3">
-                                    <b>How did we approach the UBEats style</b>
-                                    </Accordion.Toggle>
-                                    <Accordion.Collapse eventKey="members-3">
-                                    <Card.Body>
-                                        <b> We copied it from Ubereats. There is no honor among thieves.
-                                        </b>
-                                    </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card>
-                                </Row>
-                                
                             </Accordion>
                         </Tab.Pane>
                     </Tab.Content>
