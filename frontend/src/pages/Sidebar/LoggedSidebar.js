@@ -32,6 +32,7 @@ const LoggedSidebar = ({openSidebar, user}) => {
             <div className='parentDiv'>
                 <div className='profile'>
                     <div className='column1'>
+                        {console.log(user, ' test')}
                         <Link to='/profileclient' onClick={() => openSidebar(false)}>
                             <img
                                 src={user.user.url}    
