@@ -65,7 +65,6 @@ router.get('/restaurants/:rest_id/items', Items.getAllByRestaurant)
 router.get('/orders/:order_id', Orders.get)
 router.post('/orders', Orders.create)
 router.put('/orders/:order_id', Orders.update)
-router.put('/orders/:order_id/items/:item_id', Orders.updateItems)
 router.delete('/orders/:order_id', Orders.remove)
 
 

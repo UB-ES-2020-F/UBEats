@@ -183,7 +183,7 @@ describe('Orders', () => {
   // TEST THE PUT ENDPOINT
   describe('/PUT ORDERS', () => {
     var users, restaurant, deliveryman, customer, category, items, order, order_items
-    //var item_id1, item_id2
+    var item_id1, item_id2
 
     beforeEach( async () => {
       //Necesito restaurante, deliveryman, customer, category, dos items
@@ -199,8 +199,8 @@ describe('Orders', () => {
       items = await pool.query(`INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.00,'1','rest1@gmail.com','',${category.rows[0].cat_id}),(DEFAULT,'pulpo con patatas','pulpo a la brasa acompañado de patatas fritas pochadas',20.00,'1','rest1@gmail.com','',${category.rows[0].cat_id}) RETURNING *`)
       order = await pool.query(`INSERT INTO orders VALUES (DEFAULT,'rest1@gmail.com','deliv1@gmail.com','cust1@gmail.com','esperando',CURRENT_TIMESTAMP(0)) RETURNING *`)
       order_items = await pool.query(`INSERT INTO order_items VALUES (${order.rows[0].order_id},${items.rows[0].item_id},2),(${order.rows[0].order_id},${items.rows[1].item_id},1) RETURNING *`)
-      //item_id1 = itemsQ.rows[0].item_id
-      //item_id2 = itemsQ.rows[1].item_id
+      item_id1 = items.rows[0].item_id
+      item_id2 = items.rows[1].item_id
       //console.log(item_id1)
       //console.log(item_id2)
     })
@@ -241,125 +241,88 @@ describe('Orders', () => {
             done();
           });
     });
-  });
 
-  // TEST THE PUT ENDPOINT
-  describe('/PUT ORDER_ITEMS', () => {
-    var users, restaurant, deliveryman, customer, category, items, order, order_items
-    var item_id1, item_id2
-
-    beforeEach( async () => {
-      //Necesito restaurante, deliveryman, customer, category, dos items
-      users = await pool.query(`INSERT INTO "users" VALUES
-      ('rest1@gmail.com','Rrr','33333330E','calle perdida alejada de todo, numero 30, barcelona','12344','609773493','restaurant'),
-      ('deliv1@gmail.com','Rub','33343330E','calle perdida alejada de todo, numero 35, barcelona','1234666','60985996','deliveryman'),
-      ('cust1@gmail.com','Carla','44443292D','calle Martí, num 10, Hosp. Llobregat','wefjh','608374666','customer') RETURNING *`)
-      restaurant = await pool.query(`INSERT INTO restaurants VALUES ('rest1@gmail.com','verde','inactive','ES8021000000000000001234','') RETURNING *`)
-      deliveryman = await pool.query(`INSERT INTO deliverymans VALUES ('deliv1@gmail.com','rojo','visible','ES8021000000000000001235') RETURNING *`)
-      customer = await pool.query(`INSERT INTO customers VALUES ('cust1@gmail.com','12124545898923231023149') RETURNING *`)
-      category = await pool.query(`INSERT INTO categories VALUES (DEFAULT,'New items','rest1@gmail.com') RETURNING *`)
-      //console.log(category.rows[0].cat_id)
-      items = await pool.query(`INSERT INTO items VALUES (DEFAULT,'espaguetis tartufo','Espaguetis con salsa tartufata hecha a base de setas y trufa negra',10.00,'1','rest1@gmail.com','',${category.rows[0].cat_id}),(DEFAULT,'pulpo con patatas','pulpo a la brasa acompañado de patatas fritas pochadas',20.00,'1','rest1@gmail.com','',${category.rows[0].cat_id}) RETURNING *`)
-      order = await pool.query(`INSERT INTO orders VALUES (DEFAULT,'rest1@gmail.com','deliv1@gmail.com','cust1@gmail.com','esperando',CURRENT_TIMESTAMP(0)) RETURNING *`)
-      order_items = await pool.query(`INSERT INTO order_items VALUES (${order.rows[0].order_id},${items.rows[0].item_id},2) RETURNING *`)
-      item_id1 = items.rows[0].item_id
-      item_id2 = items.rows[1].item_id
-      //console.log(item_id1)
-      //console.log(item_id2)
-    })
-
-    afterEach( async () => {
-      await pool.query(`DELETE FROM users WHERE email='rest1@gmail.com' OR email='deliv1@gmail.com' OR email='cust1@gmail.com'`)
-    })
-
-    it('Update an order_item(quantity = 0, order_item does not exist). Should return 403', (done) => {
-      let itemQ = {
-        cantidad : 0
+    it('Update an order_item. Invalid quantity = 0. Should return 403', (done) => {
+      let orderQ = {
+        items : [{item_id : item_id2, cantidad : 0}]
       }
       //console.log(order)
 
       chai.request(app)
-        .put('/api/orders/'.concat(order.rows[0].order_id).concat('/items/').concat(item_id2))
+        .put('/api/orders/'.concat(order.rows[0].order_id))
         .set('content-type', 'application/x-www-form-urlencoded')
-        .send(itemQ)
+        .send(orderQ)
         .end((err, res) => {
-            res.should.have.status(403);
+            res.should.have.status(400);
             done();
           });
     });
 
-    it('Update an order_item(create row). Should return 200', (done) => {
-      let itemQ = {
-        cantidad : 1
+    it('Update an order_item. Should return 200', (done) => {
+      let orderQ = {
+        items : [{item_id : item_id1, cantidad : 2}, {item_id : item_id2, cantidad : 5}]
       }
       //console.log(order)
 
       chai.request(app)
-        .put('/api/orders/'.concat(order.rows[0].order_id).concat('/items/').concat(item_id2))
+        .put('/api/orders/'.concat(order.rows[0].order_id))
         .set('content-type', 'application/x-www-form-urlencoded')
-        .send(itemQ)
+        .send(orderQ)
         .end((err, res) => {
             res.should.have.status(200);
-            res.body.should.have.property('orderItems');
-            //console.log(res.body.orderItems)
-            done();
-          });
-    });
-
-    it('Update an order_item(update row). Should return 200', (done) => {
-      let itemQ = {
-        cantidad : 5
-      }
-      //console.log(order)
-
-      chai.request(app)
-        .put('/api/orders/'.concat(order.rows[0].order_id).concat('/items/').concat(item_id1))
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send(itemQ)
-        .end((err, res) => {
-            res.should.have.status(200);
-            res.body.should.have.property('orderItems');
-            res.body.orderItems.should.have.property('cantidad');
-            res.body.orderItems.cantidad.should.equal(5);
-            //console.log(res.body.orderItems)
-            done();
-          });
-    });
-
-    it('Update an order_item(delete row). Should return 200', (done) => {
-      let itemQ = {
-        cantidad : 0
-      }
-      //console.log(order)
-
-      chai.request(app)
-        .put('/api/orders/'.concat(order.rows[0].order_id).concat('/items/').concat(item_id1))
-        .set('content-type', 'application/x-www-form-urlencoded')
-        .send(itemQ)
-        .end((err, res) => {
-            res.should.have.status(200);
-            res.body.should.have.property('orderItems');
-            res.body.orderItems.should.have.property('cantidad');
-            res.body.orderItems.cantidad.should.equal(2);//Lo devuelve tal y como estaba guardado, sencillamente lo borra
+            res.body.should.have.property('order');
             //console.log(res.body.orderItems)
             done();
           });
     });
 
     it('Update an order_item. Invalid name of attribute cantidad. Should return 400', (done) => {
-      let itemQ = {
-        cant : 6
+      let orderQ = {
+        items : [{item_id : item_id1, cant : 2}]
       }
       //console.log(order)
 
       chai.request(app)
-        .put('/api/orders/'.concat(order.rows[0].order_id).concat('/items/').concat(item_id1))
+        .put('/api/orders/'.concat(order.rows[0].order_id))
         .set('content-type', 'application/x-www-form-urlencoded')
-        .send(itemQ)
+        .send(orderQ)
         .end((err, res) => {
             res.should.have.status(400);
             done();
           });
     });
+
+    it('Update an order_item. item_id does not exist in restaurant. Should return 400', (done) => {
+      let orderQ = {
+        items : [{item_id : item_id2+100, cantidad : 2}]
+      }
+      //console.log(order)
+
+      chai.request(app)
+        .put('/api/orders/'.concat(order.rows[0].order_id))
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(orderQ)
+        .end((err, res) => {
+            res.should.have.status(404);
+            done();
+        });
+      });
+    
+    it('Update an order and order_item. Should return 200', (done) => {
+      let orderQ = {
+        status : 'preparando',
+        items : [{item_id : item_id2, cantidad : 5}]
+      }
+      //console.log(order)
+
+      chai.request(app)
+        .put('/api/orders/'.concat(order.rows[0].order_id))
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .send(orderQ)
+        .end((err, res) => {
+            res.should.have.status(200);
+            done();
+        });
+      });
   });
 })

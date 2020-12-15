@@ -49,16 +49,31 @@ async function getOrder(id)
  */
 async function createOrder(values)
 {
-        //check the values
+        //check the values to verify there is no possible error: the parameters exists(restID, delivID, custID, items) and are in the ddbb, there is no quantity=0, the items are from the restaurant...
         const check = _checkOrderCreationParameters(values)
         //console.log(check)
-
         if(check.err)
                 return {error: check.err, errCode: 400}
 
+        //Check the restaurant, deliveryman and customer exists in DDBB
+        const rest_exists = await existsRestaurant(values.rest_id)
+        if(rest_exists.error || !(rest_exists.exists))
+                return {error: `Restaurant ${values.rest_id} does not exist in DDBB`, errCode: 404}
+        const deliv_exists = await existsDeliveryman(values.deliv_id)
+        if(deliv_exists.error || !(deliv_exists.exists))
+                return {error: `Deliveryman ${values.deliv_id} does not exist in DDBB`, errCode: 404}
+        const cust_exists = await existsCustomer(values.cust_id)
+        if(cust_exists.error || !(cust_exists.exists))
+                return {error: `Customer ${values.cust_id} does not exist in DDBB`, errCode: 404}
+
+        //Check the items belong to restaurant(it also checks implicitly that the items exist because they are in the restaurant)
+        const itemsCheck = await checkRestaurantsItems(values.rest_id, values.items)
+        if(itemsCheck.err)
+                return {error: itemsCheck.err, errCode: 404}
+
         //construct the query
         let db_values = [values.rest_id, values.deliv_id, values.cust_id]
-        
+        //One only query to post the order because we checked previously all possible errors
         var query = format("WITH ins1 AS (INSERT INTO orders VALUES (DEFAULT, %L,'esperando',CURRENT_TIMESTAMP(0)) RETURNING order_id)", db_values)
         query = query.concat("INSERT INTO order_items VALUES ")
         //values.items = [{item_id : item_id1,cantidad : cantidad1},{item_id : item_id2,cantidad : cantidad2}...]
@@ -68,13 +83,11 @@ async function createOrder(values)
         query = query.substring(0,query.length -1)
         query = query.concat(" RETURNING *")
         //console.log(query)
-        if(query.error)
-                return {error: query.error, errCode: 400}
         return pool.query(query)
                 .then((res) => {
                         //At least one row
                         //console.log(res.rows)
-                        return res.rows || null            
+                        return res.rows          
                 })
                 .catch(err => {
                         return {error: err, errCode: 500}
@@ -89,7 +102,7 @@ async function deleteOrder(id)
         return pool.query('DELETE FROM orders WHERE order_id=$1 RETURNING *', [id])
                 .then(res => {
                         //Should be only one row
-                        return res.rows[0] || null
+                        return res.rows[0]
                 })
                 .catch(err => {
                         return {error: err, errCode: 500}
@@ -101,62 +114,94 @@ async function deleteOrder(id)
  */
 async function updateOrder(values)
 {
+        //Body must have order_id, and status or items, check that items or status are valid
         const check = _checkOrderUpdateParameters(values)
-
         if(check.err)
+                //console.log(check.err)
                 return {error: check.err, errCode: 400}
         
-        const query = _createUpdateDynamicQuery(values,'orders', 'order_id') // Update table orders via order_id.
-        if(query.error){
-                return {error: query.error, errCode: 400}
-        }
+        //Cannot use the _CreateUpdateDynamicQuery because body has items from order_items, and order_items' primary key has two keys
         
-        return pool.query(query)
-                .then((res) => {
-                        //console.log(res.rows[0])
-                        return res.rows[0] || null
-                })
-                .catch(err => {
-                        return {error: err, errCode: 500}
-                })
-}
+        //Case 1: If !values.status and !values.items: nothing to update, error
+        if(!values.status && !values.items)
+                return {error: "Nothing to update", errCode: 400}
 
-/**
- * Modify the values of an order_items from the tables orders, order_items, selected by pkey(order_id, item_id)
- */
-async function updateOrderItems(values)
-{
-        if(!(values.cantidad))
-                return {error: "cantidad does not exist", errCode: 400}
-        //4 possible cases:
-        //--0--the key (order_id,item_id) does not exist and quantity==0 (returns error)
-        //--1--the key (order_id,item_id) does not exist and quantity>0 (then creates the row) 
-        //--2--the key (order_id,item_id) already exists and quantity>0 (then updates the row)
-        //--3--the key (order_id,item_id) already exists and quantity==0 (then deletes the row)
+        var query, itemsCheck
+        const order_original = await pool.query(`SELECT * FROM orders WHERE order_id=${values.order_id}`)
+        if(!order_original.rows[0])
+                return {error: "Order not found", errCode: 404}
 
-        var query_prev = await pool.query(`SELECT * FROM order_items WHERE order_id=${values.order_id} AND item_id=${values.item_id}`)
-        var order_prev = query_prev.rows[0]
-        var query
-        //console.log(order_prev)
-        //console.log(values.cantidad)
-        if(!(order_prev) && values.cantidad==0)
-                return {error: "cantidad is 0 and the order_item does not exist", errCode: 403}
-        if(!(order_prev) && values.cantidad>0)
-                query = `INSERT INTO order_items VALUES (${values.order_id},${values.item_id},${values.cantidad}) RETURNING *`
-        if(order_prev && values.cantidad>0)
-                query = `UPDATE order_items SET cantidad=${values.cantidad} WHERE order_id=${values.order_id} AND item_id=${values.item_id} RETURNING *`
-        if(order_prev && values.cantidad==0)
-                query = `DELETE FROM order_items WHERE order_id=${values.order_id} AND item_id=${values.item_id} RETURNING *`
+        //Case 2: only update status
+        if(values.status && !values.items){
+                query = `UPDATE orders SET status='${values.status}' WHERE order_id=${values.order_id} RETURNING *`
+                //console.log(query)
+                return pool.query(query)
+                        .then((res) => {
+                                //Only one row
+                                return res.rows[0]
+                        })
+                        .catch(err => {
+                                //Never going to happen
+                                return {error: err, errCode: 500}
+                        })
+        }
 
+        var itemsPrev
+        //Case 3: only update items
+        if(!values.status && values.items){
+                itemsCheck = await checkRestaurantsItems(order_original.rows[0].rest_id, values.items)
+                if(itemsCheck.err)
+                        return {error: itemsCheck.err, errCode: 404}
 
-        return pool.query(query)
-                .then((res) => {
-                        //console.log(res.rows[0])
-                        return res.rows[0] || null
+                //itemsPrev always must be !=null, at least one row
+                itemsPrev = await pool.query(`DELETE FROM order_items WHERE order_id=${values.order_id} RETURNING *`)
+
+                query = "INSERT INTO order_items VALUES "
+                //values.items = [{item_id : item_id1,cantidad : cantidad1},{item_id : item_id2,cantidad : cantidad2}...]
+                values.items.forEach(item => {
+                        query = query.concat(`(${values.order_id},${item.item_id},${item.cantidad}),`)
                 })
-                .catch(err => {
-                        return {error: err, errCode: 500}
+                query = query.substring(0,query.length -1)
+                query = query.concat(" RETURNING *")
+                //console.log(query)
+                return pool.query(query)
+                        .then((res) => {
+                                //At least one row
+                                return res.rows
+                        })
+                        .catch(err => {
+                                //Never going to happen
+                                return {error: err, errCode: 500}
+                        })
+        }
+
+        //Case 4: update status and items
+        if(values.status && values.items){
+                itemsCheck = await checkRestaurantsItems(order_original.rows[0].rest_id, values.items)
+                if(itemsCheck.err)
+                        return {error: itemsCheck.err, errCode: 404}
+
+                //itemsPrev always must be !=null, at least one row
+                itemsPrev = await pool.query(`DELETE FROM order_items WHERE order_id=${values.order_id} RETURNING *`)
+
+                query = `WITH ins1 AS (UPDATE orders SET status='${values.status}' WHERE order_id=${values.order_id} RETURNING order_id) `
+                query = query.concat("INSERT INTO order_items VALUES ")
+                //values.items = [{item_id : item_id1,cantidad : cantidad1},{item_id : item_id2,cantidad : cantidad2}...]
+                values.items.forEach(item => {
+                        query = query.concat(`((SELECT order_id FROM ins1),${item.item_id},${item.cantidad}),`)
                 })
+                query = query.substring(0,query.length -1)
+                query = query.concat(" RETURNING *")
+                return pool.query(query)
+                        .then((res) => {
+                                //At least one row
+                                return res.rows
+                        })
+                        .catch(err => {
+                                //Never going to happen
+                                return {error: err, errCode: 500}
+                        })
+        }   
 }
 
 /**
@@ -187,9 +232,12 @@ function _checkOrderCreationParameters(params)
                 err_str = err_str.concat("Items list empty\n")
 
         params.items.forEach(item =>{
+                if(!item.item_id || !item.cantidad)
+                        err_str = err_str.concat("Item has not item_id or cantidad\n")
                 if (item.cantidad == 0)
                         err_str = err_str.concat("At least one item quantity is null\n")
         })
+
         
         //if errors happenend, return the error string
         if(err_str.length > 0)
@@ -213,19 +261,34 @@ function _checkOrderUpdateParameters(params)
 {
         var err_str = ''
 
-        if(params.rest_id)
-                err_str = err_str.concat("The rest_id is not upgradeable\n")
-        
-        if(params.deliv_id)
-                err_str = err_str.concat("The deliv_id is not upgradeable\n")
+        //Check there is no more keys
+        for(const key in params){
+                //console.log(key=='status')
+                //console.log(key=='order_id')
+                if(key=='status' || key=='order_id' || key=='items')
+                        continue
+                else
+                        err_str = err_str.concat("Status, order_id, and items are not the only keys\n")
+        }
 
-        if(params.cust_id)
-                err_str = err_str.concat("The cust_id is not upgradeable\n")
-        if(params.timestamp)
-                err_str = err_str.concat("The timestamp is not upgradeable\n")
-        if(!(params.status))
-                err_str = err_str.concat("Status is empty\n")
-        
+        //Check that the param status is valid if it is in body
+        if(params.status && (['esperando','preparando','preparado','enviado','entregado'].indexOf(params.status)==-1))
+                err_str = err_str.concat("Status is not valid\n")
+
+        //Check that if exists the list of items to update, it is not empty, and quantity !=0 for every item
+        if(params.items){
+                if(params.items.length == 0)
+                        err_str = err_str.concat("Items list empty\n")
+                else
+                        params.items.forEach(item =>{
+                                if(!item.item_id || !item.cantidad)
+                                        err_str = err_str.concat("Item has not item_id or cantidad\n")
+                                if (item.cantidad == 0)
+                                        err_str = err_str.concat("At least one item quantity is null\n")
+                        })
+        }
+                
+
         //if errors happenend, return the error string
         if(err_str.length > 0)
                 return {err: err_str}
@@ -234,6 +297,80 @@ function _checkOrderUpdateParameters(params)
         return {all_good: true}
 }
 
+/**
+ * Function to check for the existance of a restaurant by its email
+ */
+async function existsRestaurant(email)
+{
+        return pool.query('SELECT COUNT(*) FROM restaurants WHERE email = $1', [email])
+                .then((res) => {
+                        if(res.rows[0].count > 0)
+                                return {exists: true}
+                        else
+                                return {exists: false}
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
+}
+
+/**
+ * Function to check for the existance of a deliveryman by its email
+ */
+async function existsDeliveryman(email)
+{
+        return pool.query('SELECT COUNT(*) FROM deliverymans WHERE email = $1', [email])
+                .then((res) => {
+                        if(res.rows[0].count > 0)
+                                return {exists: true}
+                        else
+                                return {exists: false}
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
+}
+
+/**
+ * Function to check for the existance of a customer by its email
+ */
+async function existsCustomer(email)
+{
+        return pool.query('SELECT COUNT(*) FROM customers WHERE email = $1', [email])
+                .then((res) => {
+                        if(res.rows[0].count > 0)
+                                return {exists: true}
+                        else
+                                return {exists: false}
+                })
+                .catch(err => {
+                        return {error: err, errCode: 500}
+                })
+}
+
+/**
+ * Function to check for the existance of the items and they belong to the restaurant in the DDBB
+ */
+async function checkRestaurantsItems(rest_id, items){
+        const itemsInRest = await pool.query('SELECT item_id FROM items WHERE rest_id=$1',[rest_id])
+        var listItems = itemsInRest.rows.map(row=>row.item_id)
+        //console.log(listItems)
+        var err_str = ''
+        items.forEach(item=>{
+                //console.log(parseInt(item.item_id,10))
+                //console.log(listItems)
+                if(listItems.indexOf(parseInt(item.item_id,10))==-1)
+                        err_str = err_str.concat('Item not in restaurant\n')
+        })
+
+        //if errors happenend, return the error string
+        if(err_str.length > 0)
+                return {err: 'Almost one item is not in DDBB/restaurant'}
+
+        //if no errors happened, return a boolean indicated all OK
+        return {all_good: true}
+}
 
 
-module.exports = {getOrder, createOrder, updateOrder, updateOrderItems, deleteOrder}
+
+module.exports = {getOrder, createOrder, updateOrder, deleteOrder}
