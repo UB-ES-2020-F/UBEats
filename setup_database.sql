@@ -158,16 +158,16 @@ Constraint "orderextraitems_fkey_extraitem" Foreign Key ("extraitem_id") Referen
 );
 --Mock data to test all the tables. Two mock data in each table. Insert two restaurants, two customers and two deliverymans
 INSERT INTO "users" VALUES
-('raul@gmail.com','Raul','33333330E','77146 Everett Drives Apt. 782 - Concord, MT / 88133','12344','609773493','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('carlos@gmail.com','Carlos','33333430E','266 Hudson Falls Apt. 821 - Port Arthur, MO / 37363','1234','609773495','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('ruben@gmail.com','Ruben','33343330E','41217 Nella Shoal Suite 111 - Anchorage, ND / 31687','1234666','60985996','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('david@gmail.com','David','33343330V','3863 Hortense Orchard Suite 568 - Warwick, ND / 77112','12345','61985996','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('laura@gmail.com','Laura','44444092R','365 Javier Glen Suite 476 - Baltimore, MO / 90471','123456789gjh','608375886','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('carla@gmail.com','Carla','44443292D','6336 Eloy Unions Apt. 873 - Washington, AL / 23599','wefjh','608374666','customer','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('raul@gmail.com','Raul','33333330E','77146 Everett Drives Apt. 782 - Concord, MT / 88133','12344','609773493','customer','https://maxcdn.icons8.com/Share/icon/Users/administrator_male1600.png'),
+('carlos@gmail.com','Carlos','33333430E','266 Hudson Falls Apt. 821 - Port Arthur, MO / 37363','1234','609773495','customer','https://maxcdn.icons8.com/Share/icon/Users/administrator_male1600.png'),
+('ruben@gmail.com','Ruben','33343330E','41217 Nella Shoal Suite 111 - Anchorage, ND / 31687','1234666','60985996','customer','https://maxcdn.icons8.com/Share/icon/Users/administrator_male1600.png'),
+('david@gmail.com','David','33343330V','3863 Hortense Orchard Suite 568 - Warwick, ND / 77112','12345','61985996','customer','https://maxcdn.icons8.com/Share/icon/Users/administrator_male1600.png'),
+('laura@gmail.com','Laura','44444092R','365 Javier Glen Suite 476 - Baltimore, MO / 90471','123456789gjh','608375886','customer','https://cdn1.iconfinder.com/data/icons/avatars-1-5/136/87-512.png'),
+('carla@gmail.com','Carla','44443292D','6336 Eloy Unions Apt. 873 - Washington, AL / 23599','wefjh','608374666','customer','https://cdn1.iconfinder.com/data/icons/avatars-1-5/136/87-512.png'),
 
 --Delivery
-('juancarlos@gmail.com','Juan Carlos','44443292D','98546 Bailey Cliff Apt. 769 - Wilmington, CT / 77470','wefjh','608374666','deliveryman','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-('josemaria@gmail.com','Jose Maria','44443292D','763 Colin Mall Apt. 660 - North Charleston, RI / 71836','wefjh','608374666','deliveryman','https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
+('juancarlos@gmail.com','Juan Carlos','44443292D','98546 Bailey Cliff Apt. 769 - Wilmington, CT / 77470','wefjh','608374666','deliveryman','https://cdn2.iconfinder.com/data/icons/logistics-service/512/pizza_courier-2-256.png'),
+('josemaria@gmail.com','Jose Maria','44443292D','763 Colin Mall Apt. 660 - North Charleston, RI / 71836','wefjh','608374666','deliveryman','https://cdn2.iconfinder.com/data/icons/logistics-service/512/pizza_courier-2-256.png'),
 
 -- Sushi
 ('miu@gmail.com','Miu','44443292D','6610 Danny Ford Suite 080 - Columbia, KY / 74493','wefjh','608374666','restaurant','http://www.lonifasiko.com/wp-content/uploads/2015/03/Uramaki-italiano-restaurante-japones-miu-bilbao-001-672x364.jpg'),
