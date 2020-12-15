@@ -3,7 +3,6 @@ import {useDispatch} from 'react-redux';
 
 import {Link} from 'react-router-dom';
 
-import profile from  '../../images/default_profile.png';
 import favourites from  '../../images/favourites.jpg';
 import orders from  '../../images/orders.jpg';
 import wallet from  '../../images/wallet.jpg';
