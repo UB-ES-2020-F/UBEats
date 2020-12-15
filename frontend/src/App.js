@@ -13,14 +13,17 @@ import RegisterDeliveryman from './pages/RegisterDeliveryman/RegisterDeliveryman
 import ProfileClient from './pages/ProfileClient/ProfileClient.js'
 import ProfileRestaurant from './pages/ProfileRestaurant/ProfileRestaurantNEW.js'
 import ViewAll from './pages/ViewAll/ViewAll.js'
+import Error from './pages/Error/Error.js'
 
 import Footer from './commons/components/Footer.js';
 
 import NavCustom from './pages/Navbar/NavCustom.js';
 
+import ShoppingCartPage from './pages/ShoppingCart/ShoppingCartPage.js';
+
 import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import defaultImage from './images/banner.jpg';
 
@@ -28,7 +31,6 @@ import defaultImage from './images/banner.jpg';
 //It gets user and isLogged state here and pass it down to its children components.
 //It manages intercomponent communication between navbar and sidebar using useState sidebarOpen and setSidebarOpen.
 const App = () => {
-
   const {user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
   const [sidebarOpen, setSidebarOpen] = useState(false); //We set a state hook to sidebarOpen to manage the state of the sidebar.
   const dispatch = useDispatch();
@@ -44,20 +46,21 @@ const App = () => {
   
   return (
     <Router history={history}>
-      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} isLogged={isLogged} user={currentUser} key='sidebar'/>):(<div/>)}
+      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} key='sidebar'/>):(<div/>)}
       <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
 
       <Switch>
-        <Route exact path="/" render={(props) => (<Home {...props} setRestaurantId={setRestSelected} setPicture={setRestPhoto} isLogged={isLogged} user={currentUser}/>)} key='home'/>
-        <Route path='/login' component={Login} key='login'/>
+      <Route exact path="/" render={(props) => (<Home {...props} isLogged={isLogged} user={currentUser}/>)} key='home'/>        <Route path='/login' component={Login} key='login'/>
         <Route path='/registerclient' component={RegisterClient} key='register client'/>
         <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
         <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
-        {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
         <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
-        <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected} restaurantPhoto={restPhoto}/>)} key='profile restaurant'/>
+        <Route path='/shopping' component={ShoppingCartPage} key='shopping'/>      
+        <Route path='/error' component={Error} key='error'/>
+        <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
+        {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
+        <Redirect from='*' to='/error'/>
       </Switch>
-      
       <Footer/>
     </Router>
   );

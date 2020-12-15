@@ -40,4 +40,90 @@ function _createUpdateDynamicQuery(body, table, where)
         return dynamicQuery
 }
 
-module.exports ={ _createUpdateDynamicQuery}
+function _isPositiveOrZeroInteger(n)
+{
+        if(n == undefined)
+                return false;
+        
+        var x = parseInt(n)
+        return !isNaN(n) && x >= 0;
+}
+
+function _isPositiveOrZeroFloat(n)
+{
+        if(n == undefined)
+                return false;
+        
+        var x = parseFloat(n)
+        return !isNaN(n) && x >= 0;
+}
+
+function _isValidString(str)
+{
+        if(str == undefined)
+                return false;
+        
+        if(str.indexOf("<") > 0 || str.indexOf(">") > 0 || str.indexOf("|") > 0 || str.indexOf("\\") > 0 || str.indexOf(";") > 0)
+                return false;
+
+        var lower = str.toLowerCase()
+
+        if(lower.indexOf("\n") > 0 && lower.indexOf("\t") > 0)
+                return false;
+
+        if(str.indexOf("javascript:") > 0)
+                return false;
+        if(lower.indexOf("javascript:") > 0)
+                return false;
+
+        return true;
+}
+
+function _isValidEmail(email)
+{
+        if(email == undefined)
+                return false;
+        
+        if(email.indexOf("@") > 0 || _isValidString(email))
+                return true;
+
+        return false;
+}
+
+function _isValidURL(url)
+{
+        if(url == undefined)
+                return false;
+        
+        if(_isValidString(url) || url.indexOf(".") > 0)
+                return true;
+
+        return false;
+}
+
+function _isValidTelephoneNumberChar(c)
+{
+        if(c == undefined)
+                return false;
+        
+        if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '-')
+                return true;
+
+        return false;
+}
+
+function _isValidTelephoneNumber(num)
+{
+        if(num == undefined)
+                return false;
+        
+        for(var c of num)
+        {
+                if(!_isValidTelephoneNumberChar(c))
+                        return false;
+        }
+
+        return true;
+}
+
+module.exports ={ _createUpdateDynamicQuery, _isPositiveOrZeroInteger, _isPositiveOrZeroFloat, _isValidString, _isValidEmail, _isValidURL, _isValidTelephoneNumberChar, _isValidTelephoneNumber}

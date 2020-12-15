@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import { useSelector } from "react-redux";
+
 import RestPreviewGeneral from'../../commons/components/RestPreviewGeneral.js'
 import CategoriasHome from'../../commons/components/CategoriasHome.js'
 import Categorias from '../../commons/components/Categorias.js'
@@ -64,28 +66,21 @@ const listapubli = [{
 ]
 
 
-function Home({setRestaurantId, setPicture, isLogged, user}) {
+function Home({user, isLogged}) {
+
   const [restList, setRestList] = useState([{name: '', url:''}]);
   const [favList, setFavList] = useState([{name: '', url:''}]);
   const [typeList, setTypeList] = useState([]);
 
-  //Deprecated.
-  const onClickRestaurantPage = (rest_id, photo) => {
-    setRestaurantId(rest_id);
-    setPicture(photo);
-  };
-
   const fetchMenu = async () => {
     const items = await RestService.getAll();
     setRestList(items);
-    console.log(items);
   };
   
   const fetchFavs = async () => {
-    const items = await RestService.getAllLogged(user.user.email)
-    setRestList(items)
+    const items = await RestService.getAllLogged(user.user.email);
+    setRestList(items);
     setFavList(items.filter(rest => rest.favourite==1));//We filter those that are faved.
-    console.log({'fav':items.filter(rest => rest.favourite==1)});
   };
 
   useEffect(() => {
@@ -98,7 +93,6 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
 
   return (
     <section>
-    <body2>
     <div className="listings">
       <div className="container2">
         <div className="listings-grid">
@@ -141,17 +135,16 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
         </div>
     </div>
     
-    <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={restList}/></div>
+    <div className="listings"><CategoriasHome titulo="Populares cerca de ti" listaprops={restList.slice(0,20)}/></div>
     {isLogged? (<div className="listings"><CategoriasHome titulo="Favoritos" listaprops={favList}/></div>) : (<div/>)}
 
     <div className="listings">
       <div className="container3">
         <div className="header">
           <div className="header-title">
-            <h2>¿Buscas algo diferente?</h2>
+            <h2><b>¿Buscas algo diferente?</b></h2>
           </div>
         </div>
-
         <div className="listings-grid">
           <div className="listings-col"> {listatipos.map( (tipo) =><Categorias Image={tipo.Image} title={tipo.title} />)} </div>
         </div>
@@ -165,15 +158,15 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
         </div>
       </div>
     </div>
+    <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={restList.slice(20,35)}/></div>
+    <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={restList.slice(35,52)}/></div>
 
-    <div className="listings"><CategoriasHome titulo="¿Tienes Prisa?" listaprops={restList}/></div>
-    <div className="listings"><CategoriasHome titulo="Ofertas de hoy" listaprops={restList}/></div>
 
     <div className="listings">
       <div className="container3">
         <div className="header">
           <div className="header-title">
-            <h2>Todos los establecimientos</h2>
+            <h2><b>Todos los establecimientos</b></h2>
           </div>
         </div>
         <div className="listings-grid">
@@ -181,11 +174,7 @@ function Home({setRestaurantId, setPicture, isLogged, user}) {
         </div>
       </div>
     </div>
-  </body2>
 </section>
-
-    
-
   );
 }
 

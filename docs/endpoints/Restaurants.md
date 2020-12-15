@@ -104,6 +104,56 @@
   ]
 }
 ``` 
+---
+---
+### ![GET](https://img.shields.io/static/v1?label=&message=GET&color=blue)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants/name/:rest_substr&color=000000)   
+#### *Query*
+ `rest_substr` The name of a user that is a restaurant. It can be a substring.
+  
+ #### Response  
+ A list of restaurants that match the query
+ ```
+ GET /api/restaurants/name/es
+{
+  "rests": [
+    {
+      "email": "napoli@gmail.com",
+      "avaliability": "rojo",
+      "visible": "visible",
+      "iban": "ES8021000004444000001234",
+      "allergens": "restaurante.com/allergens.pdf",
+      "name": "Via Napoli Restaurante Pizzeria",
+      "CIF": "44443292D",
+      "street": "calle Martí, num 10, Hosp. Llobregat",
+      "phone": "608374666",
+      "url": "https://secure.parksandresorts.wdpromedia.com/resize/mwImage/1/630/354/90/wdpromedia.disney.go.com/media/wdpro-assets/things-to-do/dining/epcot/via-napoli/via-napoli-00.jpg?26092012144810",
+      "type": {
+        "id": 2,
+        "name": "pizzas",
+        "description": "comida relacionada directamente con el mundo de las pizzas y sus variedades"
+      }
+    },
+    {
+      "email": "gusto_rest@gmail.com",
+      "avaliability": "rojo",
+      "visible": "visible",
+      "iban": "ES8021000004444000001234",
+      "allergens": "restaurante.com/allergens.pdf",
+      "name": "Gusto Restaurante",
+      "CIF": "44443292D",
+      "street": "calle Martí, num 10, Hosp. Llobregat",
+      "phone": "608374666",
+      "url": "https://u.tfstatic.com/restaurant_photos/103/6103/169/612/gusto-restaurante-vista-terraza-bfa56.jpg",
+      "type": {
+        "id": 2,
+        "name": "pizzas",
+        "description": "comida relacionada directamente con el mundo de las pizzas y sus variedades"
+      }
+    },
+    ...
+  ]
+}
+  ```
 --- 
 ---
 ### ![POST](https://img.shields.io/static/v1?label=&message=POST&color=green)        ![endpoint](https://img.shields.io/static/v1?label=&message=/restaurants&color=000000)  

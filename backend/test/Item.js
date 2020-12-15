@@ -207,7 +207,7 @@ describe('Items', () => {
         desc: 'Todavia no nos hemos decidido por un nombre',
         price: 3.141592,
         rest_id: item.rest_id,
-        url: 'www.images.com/ofnforn.jpg',
+        url: 'http://www.images.com/ofnforn.jpg',
         cat_id: item.cat_id,
       }
 
@@ -294,7 +294,7 @@ describe('Items', () => {
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not create item")
           res.body.should.have.property('error')
-          res.body.error.should.equal("Item price is a negative number\nNo restaurant provided for item\n")
+          res.body.error.should.equal("Item price is a negative number\nPrice is not valid\nNo restaurant provided for item\n")
           done();
         });
     });
@@ -458,7 +458,7 @@ describe('Items', () => {
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not update item")
           res.body.should.have.property('error')
-          res.body.error.should.equal("Item price is a negative number\n")
+          res.body.error.should.equal("Item price is a negative number\nPrice is not valid\n")
           done();
         });
     });
