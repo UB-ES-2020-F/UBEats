@@ -20,17 +20,17 @@ var userDefaultInfo = {
   appsautorizadas: [],
 }
 
-function ProfileClient() {
-  const {user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
+function ProfileClient({user}) {
+  const {isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
 
   const dispatch = useDispatch();
 
-  const [name, setName] = useState(currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
-  const [databaseEmail, setDatabaseEmail] = useState(currentUser.email);
-  const [photo, setPhoto] = useState(currentUser.url);
-  const [phone, setPhone] = useState(currentUser.phone);
-  const [address, setAddress] = useState(currentUser.street);
+  const [name, setName] = useState(user.user.name);
+  const [email, setEmail] = useState(user.user.email);
+  const [databaseEmail, setDatabaseEmail] = useState(user.user.email);
+  const [photo, setPhoto] = useState(user.user.url);
+  const [phone, setPhone] = useState(user.user.phone);
+  const [address, setAddress] = useState(user.user.street);
   const [invitationCode, setInvitationCode] = useState(userDefaultInfo.codigoinvitacion);
   const [showToast, setShowToast] = useState(false);
   const [showToastFail, setShowToastFail] = useState(false);
@@ -65,11 +65,11 @@ function ProfileClient() {
     if (validateEmail(email) && (address.length > 0)) {
       setShowToast(true);
       console.log(address);
-      console.log(currentUser.tipo);
+      console.log(user.user.tipo);
       sendInfoToDataBase(
         databaseEmail,
         address,
-        currentUser.tipo,
+        user.user.tipo,
         email
       );
     }
@@ -86,7 +86,6 @@ function ProfileClient() {
   return (
     <section className="profileClient">
       <Container className="profileContainer">
-
         {/** 
          * Profile picture and user's name and phone
          */}
