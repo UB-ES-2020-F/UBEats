@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { Row } from 'react-bootstrap';
+
 import { clearMessage } from "./actions/message";
 
 import { history } from './utils/history';
@@ -26,6 +28,7 @@ import GeneralSidebar from './pages/Sidebar/GeneralSidebar.js';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import defaultImage from './images/banner.jpg';
+import Wiki from "./pages/Wiki/Wiki";
 
 //This is the main component of the app. It acts as the router.
 //It gets user and isLogged state here and pass it down to its children components.
@@ -46,22 +49,29 @@ const App = () => {
   
   return (
     <Router history={history}>
-      {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} key='sidebar'/>):(<div/>)}
-      <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
+      <div>
 
-      <Switch>
-      <Route exact path="/" render={(props) => (<Home {...props} isLogged={isLogged} user={currentUser}/>)} key='home'/>        <Route path='/login' component={Login} key='login'/>
-        <Route path='/registerclient' component={RegisterClient} key='register client'/>
-        <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
-        <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
-        <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
-        <Route path='/shopping' component={ShoppingCartPage} key='shopping'/>      
-        <Route path='/error' component={Error} key='error'/>
-        <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
-        {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
-        <Redirect from='*' to='/error'/>
-      </Switch>
-      <Footer/>
+        {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} key='sidebar'/>):(<div/>)}
+        <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
+        
+        <Switch>
+          <Route exact path="/" render={(props) => (<Home {...props} isLogged={isLogged} user={currentUser}/>)} key='home'/>        
+          <Route path='/login' component={Login} key='login'/>
+          <Route path='/registerclient' component={RegisterClient} key='register client'/>
+          <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
+          <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
+          <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
+          <Route path='/wiki' component={Wiki} key='wiki'/>
+          <Route path='/shopping' component={ShoppingCartPage} key='shopping'/>      
+          <Route path='/error' component={Error} key='error'/>
+          <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
+          {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
+          <Redirect from='*' to='/error'/>
+        </Switch>
+
+        <Footer/>
+      </div>
+
     </Router>
   );
 }

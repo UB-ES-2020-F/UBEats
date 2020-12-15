@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Button, Container, Row, Card, Modal, Nav } from 'react-bootstrap';
+import { Button, Container, Row, Card, Modal, Nav, Col } from 'react-bootstrap';
 
 import restaurantService from "../../api/restaurant.service.js";
 
@@ -29,7 +29,9 @@ function ProfileRestaurantF({rest_id}) {
     "visible": " ",
     "iban": " ",
     "allergens": " ",
+    "types": [],
   })
+  const [restaurantFoodType, setrestaurantFoodType] = useState("Loading")
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
@@ -44,7 +46,6 @@ function ProfileRestaurantF({rest_id}) {
         ListaPlatos: items[cat]
       })
     };
-    console.log({'listsec':listaSecciones_dyn});
     setListaInfo(listaSecciones_dyn);
   };
 
@@ -57,8 +58,12 @@ function ProfileRestaurantF({rest_id}) {
 
   const fetchRestaurantInfo = async () => {
     const restInfo = await restaurantService.getRestaurant(rest_id);
-    console.log(restInfo['restaurant']);    
+    console.log({'restInfo':restInfo['restaurant']});    
+    console.log({'restTypes':restInfo['restaurant']['types']});
+    console.log({'restTypeName':restInfo['restaurant']['types']['0']['name']});
     setRestaurantInfo(restInfo['restaurant']);
+    setrestaurantFoodType(restInfo['restaurant']['types']['0']['name']);
+    console.log({'types':restaurantInfo['types']}); 
   };
 
   useEffect(() => {
@@ -160,55 +165,39 @@ function ProfileRestaurantF({rest_id}) {
       listaCategorias.push(categoriaX)
     }
 
-    /** Desplegable aun no despliega */
-    var desplegable =
-    <Nav.Item as="li" className="ml-auto">
-      <Nav.Link href="#" className="navbar-link">More</Nav.Link>
-    </Nav.Item>
-
-    listaCategorias.push(desplegable);
-
-
     return(listaCategorias);
   }
 
   return (
     <section className="restaurantProfile">
 
-      <Container>
-        <Row>
-          <Container fluid>
-            {/* Banner */}
-            <Row className="restaurantBanner"
-            style={{backgroundImage: 'url(' +restaurantInfo['url']+ ')'}}>
-              <Container >
-                <Row style={{height: '55%'}}>
-                </Row>
-                <Row className="restaurantTitle">
-                  <h1 className="textFont"><strong>{restaurantInfo['name']}</strong></h1>
-                </Row>
-                <Row className="restaurantTitle">
-                  <h8><strong>Delivery: 2$ • 15/20 min • 4.8/5(300+)</strong></h8>
-                </Row>
-              </Container>
+      <Container fluid>
+        {/* Banner */}
+        <Row className="restaurantBanner"
+        style={{backgroundImage: 'url(' +restaurantInfo['url']+ ')'}}>
+          <Col>
+          <Container className="restaurantTitleContainer">
+            <Row style={{height: '55%'}}>
             </Row>
-            </Container>
-        </Row>
-          
-        <Row style={{height: '1%'}}>
+            <Row className="restaurantTitle">
+              <h1 className="textFont"><strong>{restaurantInfo['name']}</strong></h1>
+            </Row>
+            <Row className="restaurantTitle">
+              <p className="tinyFont">$$ • {restaurantFoodType}</p> 
+            </Row>
+            <Row className="restaurantTitle">
+              <p className="tinyFont">Delivery: 2$ • 15-20 min • 4.8/5(300+)</p>
+            </Row>
+            <Row className="restaurantTitle">
+              <p className="tinyFont">{restaurantInfo['street']} • <a onClick={handleShow} href="#">More info</a></p>
+            </Row>
+          </Container>
+          </Col>
+          <Col>
+          </Col>
 
         </Row>
         
-        <Row className="restaurantContainer">
-          <Container>
-            <Row>
-              <p>$ • Chicken • American • <a onClick={handleShow} href="#">More info</a></p> 
-            </Row>
-            <Row>
-              <p>{restaurantInfo['street']}</p>
-            </Row>
-          </Container>
-        </Row>
 
         {/**
          * This next component is the Modal, shown only when
