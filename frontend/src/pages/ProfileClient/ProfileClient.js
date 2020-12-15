@@ -87,7 +87,7 @@ function ProfileClient({user}) {
   };
 
   return (
-    <section className="profileClient">
+    <section className="profileClient fullHeight">
       <Container className="profileContainer">
         {/** 
          * Profile picture and user's name and phone

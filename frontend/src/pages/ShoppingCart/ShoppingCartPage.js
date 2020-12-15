@@ -30,8 +30,8 @@ const listaprops = [{
 class ShoppingCartPage extends React.Component {
     render() {  
       return (
-        <body>{listaprops.map( (restaurante) =><ShoppingCart titulo={restaurante.titulo} precio={restaurante.precio}/>)}
-        
+        <body className='fullHeight'>
+          {listaprops.map( (restaurante) =><ShoppingCart titulo={restaurante.titulo} precio={restaurante.precio}/>)}
         </body>
       );
     }

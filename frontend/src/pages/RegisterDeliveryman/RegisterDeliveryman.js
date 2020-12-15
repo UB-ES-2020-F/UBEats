@@ -99,7 +99,7 @@ const Register = (props) => {
   }
 
   return (
-    <section className="login">
+    <section className="login fullHeight">
       <div className="loginContainer">
         <Form onSubmit={handleRegister} ref={form}>
           <label>Deliveryman Name</label>

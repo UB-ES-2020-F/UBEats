@@ -9,7 +9,7 @@ class ViewAll extends React.Component {
   render() {  
     return (
 
-      <div className='body2'>
+      <div className='body2 fullHeight'>
           <div className='container3'>
             <div className="header-title">
               <h2 className='category_title'>{this.props.location.title.charAt(0).toUpperCase()+this.props.location.title.slice(1)}</h2>
