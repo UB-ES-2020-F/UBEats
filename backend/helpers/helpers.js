@@ -42,18 +42,27 @@ function _createUpdateDynamicQuery(body, table, where)
 
 function _isPositiveOrZeroInteger(n)
 {
+        if(n == undefined)
+                return false;
+        
         var x = parseInt(n)
         return !isNaN(n) && x >= 0;
 }
 
 function _isPositiveOrZeroFloat(n)
 {
+        if(n == undefined)
+                return false;
+        
         var x = parseFloat(n)
         return !isNaN(n) && x >= 0;
 }
 
 function _isValidString(str)
 {
+        if(str == undefined)
+                return false;
+        
         if(str.indexOf("<") > 0 || str.indexOf(">") > 0 || str.indexOf("|") > 0 || str.indexOf("\\") > 0 || str.indexOf(";") > 0)
                 return false;
 
@@ -72,6 +81,9 @@ function _isValidString(str)
 
 function _isValidEmail(email)
 {
+        if(email == undefined)
+                return false;
+        
         if(email.indexOf("@") > 0 || _isValidString(email))
                 return true;
 
@@ -80,6 +92,9 @@ function _isValidEmail(email)
 
 function _isValidURL(url)
 {
+        if(url == undefined)
+                return false;
+        
         if(_isValidString(url) || url.indexOf(".") > 0)
                 return true;
 
@@ -88,6 +103,9 @@ function _isValidURL(url)
 
 function _isValidTelephoneNumberChar(c)
 {
+        if(c == undefined)
+                return false;
+        
         if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '-')
                 return true;
 
@@ -96,6 +114,9 @@ function _isValidTelephoneNumberChar(c)
 
 function _isValidTelephoneNumber(num)
 {
+        if(num == undefined)
+                return false;
+        
         for(var c of num)
         {
                 if(!_isValidTelephoneNumberChar(c))

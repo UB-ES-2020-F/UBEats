@@ -76,7 +76,7 @@ function getAllRestaurantsByUser(userId)
  */
 function getAllRestaurantsByType(type_id)
 {       
-        if(!helpers.isPositiveOrZeroInteger(type_id))
+        if(!helpers._isPositiveOrZeroInteger(type_id))
                 return {error: "Type restaurant ID is not valid"}
 
         var query = format(`    SELECT
@@ -416,7 +416,7 @@ async function insertType(values){
 async function upsertFavourite(email_restaurant, email_user){
         if(!helpers._isValidEmail(email_restaurant))
                 return {error: "Restaurant email is not valid", errCode: 400}
-        if(!helpers._isValidEmail(email_users))
+        if(!helpers._isValidEmail(email_user))
                 return {error: "User email is not valid", errCode: 400}
 
         const rest = await pool.query(format(`SELECT * FROM restaurants WHERE email = %L`,[email_restaurant]))

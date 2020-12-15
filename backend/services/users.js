@@ -64,9 +64,9 @@ async function createUser(values){
                 return {error: "Email is invalid", errCode: 400}
         if(!helpers._isValidString(values.password))
                 return {error: "Password contains invalid characters", errCode: 400}
-        if(!helpers._isValidString(values.street))
+        if(values.street && !helpers._isValidString(values.street))
                 return {error: "Street is invalid", errCode: 400}
-        if(!helpers._isValidTelephoneNumber(values.phone))
+        if(values.phone && !helpers._isValidTelephoneNumber(values.phone))
                 return {error: "Telephone number is invalid", errCode: 400}
     
     return pool.query(query)
