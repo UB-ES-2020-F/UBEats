@@ -9,7 +9,7 @@ import './Wiki.css';
 function Wiki() {
   return (
     <section className='wiki'>
-        <Container>
+        <Container className='fullHeight'>
             <Row>
                 <h1><strong>About UBEats</strong></h1>
             </Row>

@@ -53,21 +53,22 @@ const App = () => {
 
         {sidebarOpen ? (<GeneralSidebar isOpen={sidebarOpen} onOpen={setSidebarOpen} key='sidebar'/>):(<div/>)}
         <NavCustom  isLogged={isLogged} openSidebar={() => setSidebarOpen(!sidebarOpen)}/>
-        
-        <Switch>
-          <Route exact path="/" render={(props) => (<Home {...props} isLogged={isLogged} user={currentUser}/>)} key='home'/>        
-          <Route path='/login' component={Login} key='login'/>
-          <Route path='/registerclient' component={RegisterClient} key='register client'/>
-          <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
-          <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
-          <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
-          <Route path='/wiki' component={Wiki} key='wiki'/>
-          <Route path='/shopping' component={ShoppingCartPage} key='shopping'/>      
-          <Route path='/error' component={Error} key='error'/>
-          <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
-          {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
-          <Redirect from='*' to='/error'/>
-        </Switch>
+        <div style={{heigth:'100vh'}}>
+          <Switch>
+            <Route exact path="/" render={(props) => (<Home {...props} isLogged={isLogged} user={currentUser}/>)} key='home'/>        
+            <Route path='/login' component={Login} key='login'/>
+            <Route path='/registerclient' component={RegisterClient} key='register client'/>
+            <Route path='/registerrestaurant' component={RegisterRestaurant} key='register restaurant'/>
+            <Route path='/registerdeliveryman' component={RegisterDeliveryman} key='register deliveryman'/>
+            <Route path='/viewall/:category' component={ViewAll} key='viewall'/>
+            <Route path='/wiki' component={Wiki} key='wiki'/>
+            <Route path='/shopping' component={ShoppingCartPage} key='shopping'/>      
+            <Route path='/error' component={Error} key='error'/>
+            <Route path='/profilerestaurant' render={(props) => (<ProfileRestaurant {...props} rest_id={restSelected}/>)} key='profile restaurant'/>
+            {isLogged && <Route path='/profileclient' render={(props) => (<ProfileClient {...props} user={currentUser}/>)} key='profile client'/>}
+            <Redirect from='*' to='/error'/>
+          </Switch>
+        </div>
 
         <Footer/>
       </div>

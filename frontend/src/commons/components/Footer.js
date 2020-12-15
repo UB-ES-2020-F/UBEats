@@ -14,7 +14,10 @@ const Footer = () => {
                     </div>
                     <div className="searchBar">
                         <div className="header-option">
-                            <i data-feather="search"/>
+                        <i data-feather="search"/>
+                            <Link to='/wiki' className='linkto'><span>Landing page</span></Link>
+                        </div>
+                        <div className="header-option">
                             <Link to='/registerrestaurant' className='linkto'><span>Create an enterprise account</span></Link>
                         </div>
                         <div className="header-option">

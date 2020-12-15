@@ -81,7 +81,7 @@ const Login = (props) => {
   }
   
 return (
-    <section className="login">
+    <section className="login fullHeight">
       <link href="//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text" rel="stylesheet" type="text/css"/> 
       <div className="loginContainer">
       <div className="logo">
@@ -139,9 +139,6 @@ return (
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
-      <footer>
-        <h3>© 2020 Universitat de Barcelona.</h3>
-      </footer>
     </section>
   );
 }

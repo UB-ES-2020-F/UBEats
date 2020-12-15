@@ -104,7 +104,7 @@ const Register = () => {
 
 
   return (
-    <section className="login">
+    <section className="login fullHeight">
       <link href="//db.onlinewebfonts.com/c/11469c307f0de6481e3a04cc5d54ae93?family=Uber+Move+Text" rel="stylesheet" type="text/css"/> 
       <div className="loginContainer">
       <div className="logo">

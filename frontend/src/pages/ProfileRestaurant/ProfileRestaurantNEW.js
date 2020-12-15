@@ -169,7 +169,7 @@ function ProfileRestaurantF({rest_id}) {
   }
 
   return (
-    <section className="restaurantProfile">
+    <section className="restaurantProfile fullHeight">
 
       <Container fluid>
         {/* Banner */}
