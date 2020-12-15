@@ -12,7 +12,7 @@ function getAllItems()
                         return res.rows
                 })
                 .catch(err => {
-                        return {error: err}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -32,7 +32,7 @@ function getAllItemsByRestaurantID(rest_id)
                         return res.rows
                 })
                 .catch(err => {
-                        return {error: err}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -51,7 +51,7 @@ function getItemByID(id)
                         return res.rows[0] || null
                 })
                 .catch(err => {
-                        return {error: err}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -66,21 +66,21 @@ function createItem(values)
         //console.log(check)
 
         if(check.err)
-                return {error: check.err, errCode: 403}
+                return {error: check.err, errCode: 400}
 
         //construct the query
         let db_values = [values.title, values.desc, values.price, values.visible || '0', values.rest_id, values.url, values.cat_id]
 
         const query = format('INSERT INTO items VALUES (DEFAULT, %L) RETURNING *', db_values)
         if(query.error)
-                return {error: query.error, errCode: 403}
+                return {error: query.error, errCode: 400}
 
         return pool.query(query)
                 .then((res) => {
                        return res.rows[0] || null
                 })
                 .catch(err => {
-                        return {error: err, errCode: 400}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -112,14 +112,14 @@ function updateItem(id, values)
         const check = _checkItemUpdateParameters(values)
         //console.log(check)
         if(check.err)
-                return {error: check.err, errCode: 403}
+                return {error: check.err, errCode: 400}
 
         const query = helpers._createUpdateDynamicQuery(values,'items', 'item_id') // Update table items via its item_id
 
         //console.log(query);
 
         if(query.error)
-                return {error: query.error, errCode: 403}
+                return {error: query.error, errCode: 400}
 
         return pool.query(query)
                 .then((res) => {

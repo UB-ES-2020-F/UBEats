@@ -17,7 +17,7 @@ async function getAllExtrasForItem(req, res)
     if(!extras)
         return res.status(404).send({"message": `Extra items for ${item_id} not found`})
     if(extras.error)
-        return res.status(403).send({"message": "could not retrieve extra items", "error": extras.error})
+        return res.status(extras.errCode).send({"message": "could not retrieve extra items", "error": extras.error})
 
     return res.status(200).send({extras})
 }
@@ -40,7 +40,7 @@ async function getExtraForItem(req, res)
     if(!extra)
         return res.status(404).send({"message": `Extra items for ${item_id} not found`})
     if(extra.error)
-        return res.status(403).send({"message": "could not retrieve extra items", "error": extra.error})
+        return res.status(extra.errCode).send({"message": "could not retrieve extra items", "error": extra.error})
 
     return res.status(200).send({extra})
 
@@ -63,7 +63,7 @@ async function createExtraForItem(req, res)
     const extra = await extras_db.createExtraForItem(item_id, body)
     //console.log(extra)
     if(extra.error)
-        return res.status(403).send({message: "Could not create extra item", error: extra.error})
+        return res.status(extra.errCode).send({message: "Could not create extra item", error: extra.error})
 
     return res.status(200).send({extra})
 }
@@ -87,7 +87,7 @@ async function updateExtraForItem(req, res)
     if(!extra)
         return res.status(404).send({message: "Could not update extra item because it does not exists"})
     if(extra.error)
-        return res.status(403).send({message: "Could not update extra item", error: extra.error})
+        return res.status(extra.errCode).send({message: "Could not update extra item", error: extra.error})
 
     return res.status(200).send({extra})
 }
@@ -110,7 +110,7 @@ async function deleteExtraForItem(req, res)
     if(!extra)
         return res.status(404).send({message: "Could not update extra item because it does not exists"})
     if(extra.error)
-        return res.status(403).send({message: "Could not update extra item", error: extra.error})
+        return res.status(extra.errCode).send({message: "Could not update extra item", error: extra.error})
 
     return res.status(200).send({extra})
 }

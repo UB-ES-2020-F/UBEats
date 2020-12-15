@@ -229,7 +229,7 @@ describe('Items', () => {
         });
     });
 
-    it('Create a new item. Malformed body. Should return 403', (done) => {
+    it('Create a new item. Malformed body. Should return 400', (done) => {
       let item2 = {
         desc: 'Chuleta de cerdo con especias de noseque',
         price: 3.141592,
@@ -243,7 +243,7 @@ describe('Items', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(item2)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not create item")
           res.body.should.have.property('error')
@@ -252,7 +252,7 @@ describe('Items', () => {
         });
     });
 
-    it('Create a new item. Invalid params. Should return 403', (done) => {
+    it('Create a new item. Invalid params. Should return 400', (done) => {
       let item2 = {
         title: 'tortilla de patatas del mercadona',
         desc: 'Con cebolla o sin cebolla, esa es la cuestion',
@@ -267,7 +267,7 @@ describe('Items', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(item2)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not create item")
           res.body.should.have.property('error')
@@ -276,7 +276,7 @@ describe('Items', () => {
         });
     });
 
-    it('Create a new item. Invalid params. Should return 403', (done) => {
+    it('Create a new item. Invalid params. Should return 400', (done) => {
       let item2 = {
         title: 'Entrecot vegetariano',
         desc: 'Carne pero sin carne',
@@ -290,7 +290,7 @@ describe('Items', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(item2)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not create item")
           res.body.should.have.property('error')
@@ -418,7 +418,7 @@ describe('Items', () => {
         });
     });
 
-    it('Update an item. Invalid parameters. Should return 403', (done) => {
+    it('Update an item. Invalid parameters. Should return 400', (done) => {
       let item = {
         title: 'Lagarto vivo y el resto es relleno que necesito para hacer que la string exceda 30 chars',
         desc: 'Un caiman que me he encontrado por casa',
@@ -433,7 +433,7 @@ describe('Items', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(item)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not update item")
           res.body.should.have.property('error')
@@ -442,7 +442,7 @@ describe('Items', () => {
         });
     });
 
-    it('Update an item. Invalid parameters. Should return 403', (done) => {
+    it('Update an item. Invalid parameters. Should return 400', (done) => {
       let item = {
         title: 'Hamburguesa sorpresa',
         desc: 'Ni nosotros sabemos lo que lleva',
@@ -454,7 +454,7 @@ describe('Items', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(item)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not update item")
           res.body.should.have.property('error')
@@ -482,7 +482,7 @@ describe('Items', () => {
         });
     });
 
-    it('Update an item. Body is empty. Should return 404', (done) => {
+    it('Update an item. Body is empty. Should return 400', (done) => {
       let item = {
         item_id: id
       }
@@ -492,7 +492,7 @@ describe('Items', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(item)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message')
           res.body.message.should.equal("Could not update item")
           res.body.should.have.property('error')

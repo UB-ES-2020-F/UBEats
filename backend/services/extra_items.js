@@ -15,7 +15,7 @@ function getAllExtrasForItem(item_id)
                         return res.rows
                 })
                 .catch(err => {
-                        return {error: err}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -34,7 +34,7 @@ function getExtraForItem(item_id, extra_id)
                         return res.rows[0]
                 })
                 .catch(err => {
-                        return {error: err}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -49,7 +49,7 @@ function createExtraForItem(item_id, body)
         const check = _checkCreateBody(item_id, body)
         //console.log(check)
         if(check.error)
-                return {error: check.error, errCode: 403}
+                return {error: check.error, errCode: 400}
 
         const query = format('INSERT INTO extra_items VALUES(DEFAULT, %L) RETURNING *', Object.values(body))
         return pool.query(query)
@@ -57,7 +57,7 @@ function createExtraForItem(item_id, body)
                         return res.rows[0]
                 })
                 .catch(err => {
-                        return {error: err, errCode: 400}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -75,18 +75,18 @@ function updateExtraForItem(item_id, extra_id, body)
         const check = _checkUpdateBody(item_id, body)
         //console.log(check)
         if(check.error)
-                return {error: check.error, errCode: 403}
+                return {error: check.error, errCode: 400}
 
         const query = _createUpdateDynamicQuery(item_id, extra_id, body)
         if(query.error)
-                return {error: query.error, errCode: 500}
+                return {error: query.error, errCode: 400}
 
         return pool.query(query)
                 .then((res) => {
                         return res.rows[0]
                 })
                 .catch(err => {
-                        return {error: err, errCode: 400}
+                        return {error: err, errCode: 500}
                 })
 }
 
@@ -105,7 +105,7 @@ function deleteExtraForItem(item_id, extra_id)
                         return res.rows[0]
                 })
                 .catch(err => {
-                        return {error: err, errCode: 400}
+                        return {error: err, errCode: 500}
                 })
 }
 

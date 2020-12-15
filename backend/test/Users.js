@@ -368,7 +368,7 @@ describe('Users', () => {
       });
   });
 
-  it('Update a user customer. A restaurant does not have a CARD!. Should return 403', (done) => {
+  it('Update a user customer. A restaurant does not have a CARD!. Should return 400', (done) => {
 
     let user = {
       card: '12312312312312312312312',
@@ -381,7 +381,7 @@ describe('Users', () => {
       .set('content-type', 'application/x-www-form-urlencoded')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(400);
         res.body.should.have.property('message')
         res.body.message.should.be.eql("Some fields does not match any column.")
         done();

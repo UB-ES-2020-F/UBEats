@@ -10,8 +10,10 @@ async function getAll(req, res)
 
     const items = await items_db.getAllItems()
     //console.log(items)
+    if(!items)
+        return res.status(404).send({"message": `Items not found`})
     if(items.error)
-        return res.status(404).send({"message": "could not retrieve items", "error": items.error})
+        return res.status(items.errCode).send({"message": "could not retrieve items", "error": items.error})
 
     //console.log(items)
     //trigger travis build
@@ -27,14 +29,14 @@ async function getAllByRestaurant(req, res)
     //console.log("getAllByRestaurant")
     const {params} = req
     if(!(params.rest_id))
-        return res.status(403).send({"message": "Restaurant ID not specified"})
+        return res.status(400).send({"message": "Restaurant ID not specified"})
 
     const items = await items_db.getAllItemsByRestaurantID(params.rest_id)
     //check for error retreiving from DDBB
     if(!items)
         return res.status(404).send({"message": `Items for restaurant ${params.rest_id} not found`})
     if(items.error)
-        return res.status(404).send({"message": `Could not retrieve items for restaurant ${params.rest_id}`, "error": items.error})
+        return res.status(items.errCode).send({"message": `Could not retrieve items for restaurant ${params.rest_id}`, "error": items.error})
 
     return res.status(200).send({items})
 
@@ -48,7 +50,7 @@ async function get(req, res)
     const {params} = req
     //check if the request has the item id
     if(!(params.item_id))
-        return res.status(403).send({"message": "Item ID not specified"})
+        return res.status(400).send({"message": "Item ID not specified"})
     
     const item = await items_db.getItemByID(params.item_id)
     //console.log(item)
@@ -72,7 +74,7 @@ async function create(req, res)
     const item = await items_db.createItem(body)
     //console.log(item)
     if(item.error)
-        return res.status(403).send({"message": "Could not create item", "error": item.error})
+        return res.status(item.errCode).send({"message": "Could not create item", "error": item.error})
 
     return res.status(200).send({item})
 }
@@ -86,14 +88,14 @@ async function remove(req, res)
     const {params} = req
     //check if the request has the item id
     if(!(params.item_id))
-        return res.status(403).send({"message": "Item ID not specified"})
+        return res.status(400).send({"message": "Item ID not specified"})
 
     const item = await items_db.deleteItem(params.item_id)
     //check for error retreiving from DDBB
     if(!item) // pg returns NULL but the query executed successfully
         return res.status(404).send({"message": `Item ${params.item_id} not found`})
     if(item.error)
-        return res.status(404).send({"message": `Item ${params.item_id} not found`, "error": item.error})
+        return res.status(item.errCode).send({"message": `Item ${params.item_id} not found`, "error": item.error})
 
     return res.status(200).send({item})
 }
@@ -108,7 +110,7 @@ async function update(req, res)
     const {body} = req
     //check if the request has the item id
     if(!(params.item_id))
-        return res.status(403).send({"message": "Item ID not specified"})
+        return res.status(400).send({"message": "Item ID not specified"})
 
     const id = params.item_id
     // the services items.js functions works with the assumption
@@ -120,7 +122,7 @@ async function update(req, res)
     if(!item) // pg returns NULL but the query executed successfully
         return res.status(404).send({"message": `Item ${id} not found`})
     if(item.error)
-        return res.status(403).send({"message": "Could not update item", error: item.error})
+        return res.status(item.errCode).send({"message": "Could not update item", error: item.error})
 
     return res.status(200).send({item})
 }

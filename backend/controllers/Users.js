@@ -53,7 +53,7 @@ async function deleteUser(req, res){
     const {params} = req
     //check if the request has the email
     if(!(params.email))
-        return res.status(403).send({"message": "e-Mail not specified"})
+        return res.status(400).send({"message": "e-Mail not specified"})
     
     const user = await sch_users.deleteUser(params.email)
     //console.log(user)
@@ -76,10 +76,10 @@ async function updateUser(req, res){
     const {body} = req
 
     if (!email)
-        return res.status(403).send({"message": "e-mail not specified"})
+        return res.status(400).send({"message": "e-mail not specified"})
 
     if (!body.type)
-        return res.status(403).send({"message": "type must be specified to update a user. It can be customer, restaurant or deliveryman"})
+        return res.status(400).send({"message": "type must be specified to update a user. It can be customer, restaurant or deliveryman"})
 
     const user = await sch_users.updateUser(email, body)
 
