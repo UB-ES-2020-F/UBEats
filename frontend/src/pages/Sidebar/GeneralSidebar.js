@@ -12,12 +12,12 @@ import './GeneralSidebar.css';
 //isOpen and onOpen are package requirements.
 //isLogged is used to select whether LoggedSidebar is displayed or DefaultSidebar is.
 const GeneralSidebar = ({isOpen, onOpen}) => { 
-    const {isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
+    const {user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
 
     return (
             <Sidebar
                 sidebar={
-                <div>{isLogged ?  (<LoggedSidebar openSidebar={onOpen}/>) : (<DefaultSidebar openSidebar={onOpen}/>)}</div>
+                <div>{isLogged ?  (<LoggedSidebar openSidebar={onOpen} user={currentUser}/>) : (<DefaultSidebar openSidebar={onOpen}/>)}</div>
                 }
                 open={isOpen}
                 onSetOpen={onOpen}

@@ -22,8 +22,9 @@ import './GeneralSidebar.css';
 // It has {openSidebar} prop in order to close the GeneralSidebar when accessing one of the links in this page.
 // It contains user info and useful links.
 // All the links close the sidebar upon clicked. Only the register and profile links are implemented, promotions, orders... are empty.
-const LoggedSidebar = ({openSidebar}) => { 
-    const {user: currentUser, isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
+const LoggedSidebar = ({openSidebar, user}) => { 
+    const {isLoggedIn:  isLogged} = useSelector((state) => state.auth); //We get the user value and isLogged from store state.
+    
 
     const dispatch = useDispatch();
 
@@ -39,8 +40,8 @@ const LoggedSidebar = ({openSidebar}) => {
     };
 
     const fetchFavs = async () => {
-        let items = await RestService.getAllLogged(currentUser.user.email);
-        console.log({'sidebaruser' : currentUser.user.email})
+        let items = await RestService.getAllLogged(user.user.email);
+        console.log({'sidebaruser' : user.user.email})
         console.log({'sidebar items':items});
         setFavList(items.filter(rest => rest.favourite==1));//We filter those that are faved.
     };
@@ -68,7 +69,6 @@ const LoggedSidebar = ({openSidebar}) => {
             <div className='parentDiv'>
                 <div className='profile'>
                     <div className='column1'>
-                        {console.log(user, ' test')}
                         <Link to='/profileclient' onClick={() => openSidebar(false)}>
                             <img
                                 src={user.user.url}    
@@ -79,7 +79,7 @@ const LoggedSidebar = ({openSidebar}) => {
                         </Link>
                     </div>
                     <div className='column2'>
-                        <a><span className='username'>{currentUser.user.name}</span></a>
+                        <a><span className='username'>{user.user.name}</span></a>
                         <br></br>
                         <a onClick={() => openSidebar(false)}><Link to='/profileclient' className='account'>See account</Link></a>
                     </div>
