@@ -185,23 +185,23 @@ function Wiki() {
                                     <Accordion.Collapse eventKey="technologiesUsed-1">
                                     <Card.Body>
                                         <p>
-                                            First of all, the project itself uses Node.js (Javascript) as its core. 
+                                            First of all, the project itself uses <a href='https://nodejs.org/en/' target='_blank'>Node.js </a>  as its core. 
                                         </p>
                                         <p>
-                                            To develop the visual website we used on top of node React.js (link) and Bootstrap libraries (link) to agilize the design process.
+                                            To develop the visual website we used on top of node <a href='https://reactjs.org/' target='_blank'>React.js</a>  and <a href='https://react-bootstrap.github.io/' target='_blank'>Bootstrap libraries</a>  to agilize the design process.
                                         </p>
                                         <p>
-                                            To mount the API server we used Express.js (link) to help create an API backend service. This server will only send data found inside the database, an SQL database, specifically a PostgresSQL database.
+                                            To mount the API server we used <a href='https://expressjs.com/' target='_blank'>Express.js </a> to help create an API backend service. This server will only send data found inside the database, an SQL database, specifically a PostgresSQL database.
                                         </p>
                                         <p>
-                                            To create a profitable continous integration and continous developtment pipelen we have chosen Travis.org (link) as it is free for Students and has incredibily useful functionalities.
+                                            To create a profitable continous integration and continous developtment pipelen we have chosen <a href='https://travis-ci.com/' target='_blank'>Travis.com </a> as it is free for Students and has incredibily useful functionalities.
                                         </p>
                                         <p>
                                             To test and assure our code is good enough we added a dynamic quality assurrance (Profiling) and an static one (ESLinting). Also each test run, either in backend or frontend is checked and if anything fails 
                                             travis catch it and prevents that code to be deployed.
                                         </p>
                                         <p>
-                                            For testing purposed the technology used are : Selenium (frontend) and Mocha && Chai for backend.  
+                                            For testing purposed the technology used are : Mocha && Chai for backend.  
                                             All of this is send to Herouku, our hosting place where we deploy our code and executed in order to be seen as apage everywhere on the web.
                                         </p>
                                     </Card.Body>
