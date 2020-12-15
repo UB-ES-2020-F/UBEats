@@ -352,9 +352,6 @@ function Wiki() {
                                     </Accordion.Collapse>
                                 </Card>
                                 </Row>
-
-                                <Row>
-                                
                             </Accordion>
                         </Tab.Pane>
                     </Tab.Content>
