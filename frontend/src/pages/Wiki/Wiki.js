@@ -354,21 +354,7 @@ function Wiki() {
                                 </Row>
 
                                 <Row>
-                                <Card>
-                                    <Accordion.Toggle as={Card.Header} eventKey="members-2">
-                                    <b>Retrospective's thoughts </b>
-                                    </Accordion.Toggle>
-                                    <Accordion.Collapse eventKey="members-2">
-                                    <Card.Body>
-                                        <b> 
-                                            UbEats is a webstie clone of Ubereats, the purpose of the creation of such website is purely educational on how to recreate a website from scratch. Therefore the license applied to UbEats project is MIT and 
-                                            all credits to  @2020 Uber Technologies Inc. on https://ubereats.com. The main differences find between these two are due to lack of time or money ( pe : hosting, domain) but the whole UbEats tries to be as similar to Ubereats 
-                                            as possible. 
-                                        </b>
-                                    </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card>
-                                </Row>
+                                
                             </Accordion>
                         </Tab.Pane>
                     </Tab.Content>
