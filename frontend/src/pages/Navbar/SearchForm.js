@@ -15,7 +15,7 @@ const SearchForm = () => {
         const [confirmationEnter, setConfirmationEnter] = useState(false);
 
         useEffect(() => {
-                if (inputValue.length > 1){//si es fa >= 1 hi ha moltes mes recomanacions, no pero es menys practic, no se que volem.
+                if (inputValue.length > 0){//si es fa >= 1 hi ha moltes mes recomanacions, no pero es menys practic, no se que volem.
                         fetchRecommendations();
                 }
                 if (inputValue.length <= 1){
@@ -94,7 +94,7 @@ const SearchForm = () => {
                         inputValue={inputValue}
                         onInputChange={(event, newInputValue) => { 
                                 if (newInputValue.length>=0){
-                                        setInputValue(newInputValue)
+                                        setInputValue(newInputValue);
                                 }
                         }}
                 />
