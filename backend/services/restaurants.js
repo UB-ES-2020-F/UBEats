@@ -416,7 +416,7 @@ async function insertType(values){
 async function upsertFavourite(email_restaurant, email_user){
         if(!helpers._isValidEmail(email_restaurant))
                 return {error: "Restaurant email is not valid", errCode: 400}
-        if(!helpers._isValidEmail(email_users))
+        if(!helpers._isValidEmail(email_user))
                 return {error: "User email is not valid", errCode: 400}
 
         const rest = await pool.query(format(`SELECT * FROM restaurants WHERE email = %L`,[email_restaurant]))
