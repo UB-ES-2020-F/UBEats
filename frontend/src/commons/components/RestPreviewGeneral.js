@@ -27,7 +27,10 @@ function RestPreviewGeneral(props){
     return(
     <div className="listings-grid-element">
         <div className="image">
-            <img src={props.rest.url} alt="Restaurant image"></img>
+        <Link className='linkto' to={{
+                            pathname:'/profilerestaurant',
+                            rest_id: props.rest.email
+                    }}><img src={props.rest.url} alt="Restaurant image"></img></Link>
         </div>
         <div className="text">
             <div className="text-title">
@@ -40,7 +43,7 @@ function RestPreviewGeneral(props){
                     <span> {props.rest.time} </span>
                 </div>
             </div>
-            <div class="rating">
+            <div className="rating">
                 {isLogged && <Heart isClick={isClick} onClick={() => {
                     setClick(!isClick);
                     updateRestaurant();

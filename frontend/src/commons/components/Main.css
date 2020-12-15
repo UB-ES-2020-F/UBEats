@@ -20,7 +20,7 @@
 	 font-family: "Uber Move Text";
 }
 
- .body2 {
+.body2 {
 	 margin: 0;
 	 margin-top: 0;
 	 margin-left: 5px;
@@ -223,16 +223,18 @@
 }
  .listings {
 	 width: 100%;
+	 padding-bottom: 30px;
 }
 
 
 .listings .container3{
 	width: 100%;
+	padding-top:10px;
 }
 
 .listings .container4{
     width: 100%;
-    padding-left: 50px;
+	padding-left:15%;
 }
 
 
@@ -247,6 +249,7 @@
 	 margin-bottom: 0.5rem;
 	 margin-top: 0;
 	 padding-left: 40px;
+	 padding-top:40px;
 	 font-family: "Uber Move Text";
 }
  .listings .header .header-title span {
@@ -288,7 +291,7 @@
 	 font-family: "Uber Move Text";
 	 color: white;
 	 padding-left: 20px;
-	 padding-top: 10%;
+	 padding-top: 5%;
 }
  .listings .container2 h1 {
 	 font-size: 16px;
@@ -353,10 +356,10 @@
 }
  .listings .listings-grid .listings-grid-element .text {
 	 display: flex;
-	 align-items: center;
 	 font-family: "Uber Move Text";
 	 border-bottom: 1px solid #ddd;
-	 padding: 0;
+	 padding-bottom: 10px;
+	 padding-top: 10px;
 }
  .listings .listings-grid .listings-grid-element .text h3 {
 	 font-weight: 400;

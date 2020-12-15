@@ -5,6 +5,7 @@ const dotenv = require('dotenv')
 dotenv.config() // Configure dotenv at the beginning of the project
 
 const {pool} = require('../database/index.js')
+const format = require('pg-format')
 
 //Require the dev-dependencies
 let chai = require('chai');
@@ -94,7 +95,7 @@ describe('Restaurants', () => {
         .get('/api/restaurants/user/'.concat(emailUser))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
-          // console.log(res.body);
+            //console.log(res.body);
             res.should.have.status(200);
             res.body.should.have.property('rest');
             // console.log(res.body.rest)
@@ -168,12 +169,12 @@ describe('Restaurants', () => {
         });
     });
 
-    it('Get a restaurant by email. Invalid email. Should return 404', (done) => {
+    it('Get a restaurant by email. Invalid email. Should return 403', (done) => {
       chai.request(app)
         .get('/api/restaurants/'.concat(emailUser).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(403);
           res.body.should.have.property('message');
           done();
         });
@@ -253,7 +254,7 @@ describe('Restaurants', () => {
         });
     });
 
-    it('Update a restaurant. Invalid IBAN. Should return 403', (done) => {
+    it('Update a restaurant. Invalid IBAN. Should return 400', (done) => {
       
       let user = {
         iban: 'ES500022'
@@ -264,7 +265,7 @@ describe('Restaurants', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(403);
+          res.should.have.status(400);
           res.body.should.have.property('message');
           done();
         });
@@ -302,13 +303,13 @@ describe('Restaurants', () => {
         });
     });
 
-    it('Feedback of a restaurant. Invalid email. Should return 404', (done) => {
+    it('Feedback of a restaurant. Invalid email. Should return 403', (done) => {
 
       chai.request(app)
         .get('/api/restaurants/feedback'.concat(emailRest).concat('x'))
         .set('content-type', 'application/x-www-form-urlencoded')
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(403);
           res.body.should.have.property('message');
           done();
         });
@@ -462,7 +463,7 @@ describe('Restaurants', () => {
         });
     });
 
-    it('Insert a type of a restaurant. Invalid email. Should return 404', (done) => {
+    it('Insert a type of a restaurant. Invalid email. Should return 500', (done) => {
 
       let user = {
         email : emailRest.concat('x'),
@@ -474,7 +475,7 @@ describe('Restaurants', () => {
         .set('content-type', 'application/x-www-form-urlencoded')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(404);
+          res.should.have.status(500);
           res.body.should.have.property('message');
           done();
         });
@@ -530,5 +531,108 @@ describe('Restaurants', () => {
           done();
         });
     });
+  })
+
+  let user = {
+    email: 'fulanit2o@imap.server.com',
+    name: 'AquiSeCome',
+    CIF: '554550934R',
+    street: 'C/ de la piruleta, 123',
+    pass: 'supercontrasena',
+    phone: '123456789',
+    type: 'restaurant',
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+  }
+
+  var restaurant = {
+    email: user.email,
+    avaliability: 'amarillo',
+    visible: 'invisible',
+    iban: '111222333444555666777888',
+    allergens: 'gluten',
+  }
+
+  describe('GET /api/restaurants/name/rest_substr', () => {
+
+    beforeEach(async () => {
+      //add user
+      var query = format('INSERT INTO users VALUES(%L) RETURNING *', Object.values(user))
+      var result = await pool.query(query)
+
+      //add restaurant
+      query = format('INSERT INTO restaurants VALUES(%L) RETURNING *', Object.values(restaurant))
+      result = await pool.query(query)
+    })
+
+    afterEach(async () => {
+      //remove restaurant
+      var query = format('DELETE FROM restaurants WHERE email = %L', user.email)
+      var result = await pool.query(query)
+
+      //remove user
+      query = format('DELETE FROM users WHERE email = %L', user.email)
+      result = await pool.query(query)
+    })
+
+    it('Get a known existing restaurant. Should return 200', (done) => {
+      chai.request(app)
+        .get('/api/restaurants/name/SeC')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('rests');
+            res.body.rests.should.be.an('array').to.have.lengthOf.above(0);
+            done();
+          });
+    })
+
+    it('Get a known existing restaurant. Exact match. Should return 200', (done) => {
+      chai.request(app)
+        .get('/api/restaurants/name/AquiSeCome')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('rests');
+            res.body.rests.should.be.an('array').to.have.lengthOf(1);
+            done();
+          });
+    })
+
+    it('Get a known existing restaurant. Match first letters. Should return 200', (done) => {
+      chai.request(app)
+        .get('/api/restaurants/name/AquiS')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('rests');
+            res.body.rests.should.be.an('array').to.have.lengthOf.above(0);
+            done();
+          });
+    })
+
+    it('Get a known existing restaurant. Match last letters. Should return 200', (done) => {
+      chai.request(app)
+        .get('/api/restaurants/name/eCome')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('rests');
+            res.body.rests.should.be.an('array').to.have.lengthOf.above(0);
+            done();
+          });
+    })
+
+
+    it('Get a known non existing restaurant. Should return 200 and an empty list', (done) => {
+      chai.request(app)
+        .get('/api/restaurants/name/XkQPld')
+        .set('content-type', 'application/x-www-form-urlencoded')
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.have.property('rests');
+            res.body.rests.should.be.an('array').to.have.lengthOf(0);
+            done();
+          });
+    })
   })
 })

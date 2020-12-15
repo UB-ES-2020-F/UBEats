@@ -114,6 +114,10 @@
 	font-family: "Uber Move Text";
 	cursor: pointer;
 }
+.actionLabel:visited { text-decoration: none; color:black; }
+.actionLabel:hover { text-decoration: none; color:black; }
+.actionLabel:focus { text-decoration: none; color:black; }
+.actionLabel:hover, a:active { text-decoration: none; color:black }
 
 img {
 	cursor: pointer;
@@ -176,6 +180,11 @@ img {
 	color: #06c167;
 	font-family: "Uber Move Text";
 	text-decoration: none;
+}
+
+.div-button2{
+	width: 95%;
+	padding-left: 5%;
 }
 
 .account:visited { text-decoration: none; color: #06c167;}

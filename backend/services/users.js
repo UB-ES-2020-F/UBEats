@@ -1,7 +1,7 @@
 // Service module to retrieve data from Scheme Users 
 const format = require('pg-format')
 const {pool} = require('../database/index.js')
-const {_createUpdateDynamicQuery} = require('../helpers/helpers')
+const helpers = require('../helpers/helpers')
 
 const user_type = { 
                     user        : { table : 'users',    cols : ['email','name','CIF','street','phone','tipo','url']},  
@@ -25,7 +25,9 @@ async function getUsers() {
         .then(res =>{
             return res.rows.map(user => user.email)
         })
-        .catch(err => err) 
+        .catch(err => {
+            return {error: err, errCode: 500}
+    }) 
 }
 
 /**
@@ -33,11 +35,16 @@ async function getUsers() {
  * @returns an array containing the user found. If no user found then it returns null
  */
 function getUserByEmail(email) {
+        if(!helpers._isValidEmail(email))
+                return {error: "Email is not valid"}
+
     return pool.query('SELECT * FROM users WHERE email = $1',[email])
         .then(res =>{
             return res.rows[0] || null
         })
-        .catch(err => err) 
+        .catch(err => {
+            return {error: err, errCode: 500}
+    })
 }
 
 /**
@@ -50,26 +57,39 @@ async function createUser(values){
     let db_values = [values.email, values.name, values.CIF || '', values.street || '', values.password, values.phone || '', values.type]
 
     const query = format('INSERT INTO users VALUES (%L) RETURNING *', db_values)
-    console.log(values);
+    //console.log(values);
     //Check every key to be present
     if (!values.name || !values.email || !values.password   || !values.type || !Object.keys(user_type).includes(values.type)) 
         return {error : "All field must be filled in order to create the user", errCode : 400};
+
+        if(!helpers._isValidString(values.name))
+                return {error: "Invalid name", errCode: 400}
+        if(!helpers._isValidEmail(values.email))
+                return {error: "Email is invalid", errCode: 400}
+        if(!helpers._isValidString(values.password))
+                return {error: "Password contains invalid characters", errCode: 400}
+        if(values.street && !helpers._isValidString(values.street))
+                return {error: "Street is invalid", errCode: 400}
+        if(values.phone && !helpers._isValidTelephoneNumber(values.phone))
+                return {error: "Telephone number is invalid", errCode: 400}
     
     return pool.query(query)
-    .then( async(res)  => {
-        let resSpecificrows = await _createSpecficicUser(values)
-        //If an error has occurred during userspecific creating it deletes the user 
-        //and returns the error
-        if (resSpecificrows.error) {
-            var sqlUsers = format("DELETE FROM users WHERE email=%L",res.rows[0].email)
-            var deletedUsers = await pool.query(sqlUsers)
-            return {error: `${resSpecificrows.error}`, errCode : resSpecificrows.errCode}
-        }       
-        res.rows[0].specifics = resSpecificrows
+        .then( async(res)  => {
+            let resSpecificrows = await _createSpecficicUser(values)
+            //If an error has occurred during userspecific creating it deletes the user 
+            //and returns the error
+            if (resSpecificrows.error) {
+                var sqlUsers = format("DELETE FROM users WHERE email=%L",res.rows[0].email)
+                var deletedUsers = await pool.query(sqlUsers)
+                return {error: `${resSpecificrows.error}`, errCode : resSpecificrows.errCode}
+            }       
+            res.rows[0].specifics = resSpecificrows
 
-        return res.rows[0] || null
-    })
-    .catch(err =>  { return {error: `${err}`, errCode : 400}}) 
+            return res.rows[0] || null
+        })
+        .catch(err => {
+            return {error: err, errCode: 500}
+        })
     
 }
 
@@ -88,11 +108,12 @@ function _createSpecficicUser(values){
     }
     var sql = format('INSERT INTO %I VALUES (%L) RETURNING *', user_type[values.type].table, arrayValues)
     return pool.query(sql)
-    .then(res =>{
-        return res.rows[0] || null
-    })
-    .catch(err =>  { return {error: `${err} specific`, errCode : 400}}) 
-    
+        .then(res =>{
+            return res.rows[0] || null
+        })
+        .catch(err => {
+            return {error: err, errCode: 500}
+        }) 
 }
 
 /**
@@ -100,6 +121,9 @@ function _createSpecficicUser(values){
  * 
  */
 async function deleteUser(email){
+        if(!helpers._isValidEmail(email))
+                return {error: "Email is not valid", errCode: 400}
+
     return pool.query('DELETE FROM users WHERE email = $1 RETURNING *',[email])
         .then((res) => {
             return res.rows[0] || null
@@ -116,8 +140,8 @@ async function deleteUser(email){
  * @param values corresponds to the new user information. It has the email and type too.
  */
 async function updateUser(email, values){
-    
-
+        if(!helpers._isValidEmail(email))
+                return {error: "Email is invalid", errCode: 400}
 
     const preUser = await getUserByEmail(email)
     if (!preUser)
@@ -151,17 +175,18 @@ async function updateUser(email, values){
     delete user.type
     delete values.type
     
-    if (Object.entries(values).length != 0) return {error: `Some fields does not match any column.`, errCode : 403}
-    const query = _createUpdateDynamicQuery(user, 'users', 'email')// Table users changed via email
+    if (Object.entries(values).length != 0) return {error: `Some fields does not match any column.`, errCode : 400}
+    const query = helpers._createUpdateDynamicQuery(user, 'users', 'email')// Table users changed via email
+
     const resUser = !query.error ? await pool.query(query) : null
     if (resUser && resUser.error) {
         return {error: `${resUser.error}`, errCode : resUser.errCode}
     }
 
-    const querySp = _createUpdateDynamicQuery(spcificUser,`${userType.table}`, 'email')// Table specificUser (restaurant, customer, delivery) changed via email
+    const querySp = helpers._createUpdateDynamicQuery(spcificUser,`${userType.table}`, 'email')// Table specificUser (restaurant, customer, delivery) changed via email
     const resSpecific = !querySp.error ? await pool.query(querySp) : null
     if (resSpecific && resSpecific.error){
-        const qPre = _createUpdateDynamicQuery(preUser, 'users','email')
+        const qPre = helpers._createUpdateDynamicQuery(preUser, 'users','email')
         const resPrevUser = await pool.query(qPre)
         return {error: `${resSpecific.error}`, errCode : resSpecific.errCode}
     }

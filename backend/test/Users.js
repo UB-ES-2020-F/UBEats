@@ -26,7 +26,7 @@ describe('Users', () => {
     beforeEach( async () => {
       var query = "INSERT INTO users VALUES ('rst@gmail.com', 'roberto', '44444444E','calle arago 35. barcelona','1234','696696686','restaurant','images.com/perfil.jpg') RETURNING *"
       insertedRest = await pool.query(query)
-      console.log(insertedRest.rows[0].email)
+      //console.log(insertedRest.rows[0].email)
     })
   
     afterEach( async () => {
@@ -368,7 +368,7 @@ describe('Users', () => {
       });
   });
 
-  it('Update a user customer. A restaurant does not have a CARD!. Should return 403', (done) => {
+  it('Update a user customer. A restaurant does not have a CARD!. Should return 400', (done) => {
 
     let user = {
       card: '12312312312312312312312',
@@ -381,7 +381,7 @@ describe('Users', () => {
       .set('content-type', 'application/x-www-form-urlencoded')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(403);
+        res.should.have.status(400);
         res.body.should.have.property('message')
         res.body.message.should.be.eql("Some fields does not match any column.")
         done();

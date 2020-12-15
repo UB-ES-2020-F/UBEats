@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000
 const app = express()
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))//Change extended to true, to support arrays in bodies. It does not affect the others
 app.use(morgan('dev'))
 
 var corsOptions = {
